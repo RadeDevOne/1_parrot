@@ -1,10 +1,16 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import tm, { css, styled } from "twin.macro";
+import tw, { css, styled } from "twin.macro";
+
+const StyledTwDiv = tw.div`
+
+  border hover:border-b-gray-900
+
+`;
 
 const TestComponent: FC = () => {
   return (
-    <section className="bg-green">
+    <section css={[tw`bg-gray-200`, tw`hover:bg-green-400`]}>
       <div
         css={css`
           border: crimson solid 1px;
@@ -18,6 +24,7 @@ const TestComponent: FC = () => {
       >
         <h1>Test</h1>
         <p>Lorem ipsum</p>
+        <StyledTwDiv>Hello World</StyledTwDiv>
       </div>
     </section>
   );
