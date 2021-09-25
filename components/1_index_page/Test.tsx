@@ -45,6 +45,15 @@ const TestComponent: FC = () => {
       >
         <h1>Lorem Blorem</h1>
       </aside>
+      <section
+        css={css`
+          & h1 {
+            ${tw`text-4xl`}
+          }
+        `}
+      >
+        <h1 className="beauty-h1">Testing Font Family</h1>
+      </section>
       <footer
         css={css`
           font-size: 4rem;
