@@ -19,7 +19,16 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>{/*  */}</Head>
+        <Head>
+          <style
+            // eslint-disable-next-line
+            // @ts-ignore
+            data-emotion-css={this.props.ids.join(" ")}
+            // eslint-disable-next-line
+            // @ts-ignore
+            dangerouslySetInnerHTML={{ __html: this.props.css }}
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
