@@ -10,21 +10,21 @@ const CommonSeo: FC = () => {
       {/* FONTS */}
       <link
         rel="preload"
-        href="/fonts/Inter-roman.var.woff2?v=3.19"
+        href="/fonts/intervar.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
-        href="/fonts/Inter.var.woff2?v=3.19"
+        href="/fonts/intervarroman.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"
       />
       <link
         rel="preload"
-        href="/fonts/Inter-italic.var.woff2?v=3.19"
+        href="/fonts/intervaritalic.woff2"
         as="font"
         type="font/woff2"
         crossOrigin="anonymous"

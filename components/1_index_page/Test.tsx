@@ -16,6 +16,7 @@ const TestComponent: FC = () => {
   return (
     <section css={[tw`bg-gray-200`, tw`hover:text-blue-600`]}>
       <h1 css={[tw`text-5xl border-2`]}>The Inter typeface family</h1>
+      <h1 className="blah">The Inter typeface family</h1>
       <div
         css={css`
           border: crimson solid 1px;
