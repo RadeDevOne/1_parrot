@@ -2,10 +2,10 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import useColorModeSwitcher from "@/hooks/useColorModeSwitcher";
+import useColorMode from "@/hooks/useColorMode";
 
 const Header: FC = () => {
-  const { toggle } = useColorModeSwitcher();
+  const { toggle } = useColorMode();
 
   return (
     <header

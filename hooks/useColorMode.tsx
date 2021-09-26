@@ -1,5 +1,3 @@
-import Cookies from "js-cookie";
-
 import isSSR from "@/util/isSSR";
 
 const useColorModeSwitcher = () => {
