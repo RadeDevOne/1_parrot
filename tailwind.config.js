@@ -12,7 +12,8 @@ module.exports = {
       // OVERRIDING DEFAULT FONT FAMILY
       fontFamily: {
         sans: ['"InterVar"', ...defaultTheme.fontFamily.sans],
-        serif: ['"InterVarExperimental"', ...defaultTheme.fontFamily.serif],
+        serif: ['"Alegreya"', ...defaultTheme.fontFamily.serif],
+        mono: ['"FiraMono"', ...defaultTheme.fontFamily.mono],
       },
     },
   },
