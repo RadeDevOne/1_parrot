@@ -106,6 +106,20 @@ const customStyles = css`
     --webkit-tap-highlight-color: ${theme`colors.purple.500`};
     ${tw`antialiased`}
   }
+
+  /* TRANSITIONS FOR COLOR MODE */
+
+  html.dark * {
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+  }
+
+  html.light * {
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
+  }
 `;
 
 const GlobalStyles = () => (
