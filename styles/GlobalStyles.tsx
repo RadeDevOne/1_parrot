@@ -102,7 +102,7 @@ const customStyles = css`
   /* INJECTING TAILWIND THEME VALUES INTO CSS */
   /* ALSO PARSING OUT TAILWIND CLASSES INTO CSS */
   body {
-    border: green solid 2px;
+    /* border: green solid 2px; */
     --webkit-tap-highlight-color: ${theme`colors.purple.500`};
     ${tw`antialiased`}
   }

@@ -1,8 +1,8 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  important: true,
-  darkMode: "media",
+  // important: true, // NO NEED FOR THIS BECAUSE WE DON'T HAVE OTHER SOURCE OF CSS WE NEED TO OVERRIDE
+  darkMode: "class",
   theme: {
     extend: {
       colors: {

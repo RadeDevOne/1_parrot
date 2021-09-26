@@ -3,7 +3,7 @@ import Head from "next/head";
 // import { GlobalStyles } from "twin.macro";
 // import { injectGlobal } from "@emotion/css";
 
-import GlobalStyles from "../styles/GlobalStyles";
+import GlobalStyles from "@/styles/GlobalStyles";
 
 import Header from "@/components/Header";
 
