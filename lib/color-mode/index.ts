@@ -36,8 +36,9 @@ export const setInitialColorMode = (): colorModeType | undefined => {
   // IF WE DON'T HAVE COLOR MODE, TAKE IT FROM THE html TAG
   if (!mode && !colorModeClass) {
     // AND IF WE DON'T HAVE COLOR MODE ON HTML
-
-    colorModeClass = CME.dark;
+    // I THINK THIS SHOULD BE light, BECAUSE MAYBE THE DEFAULT IS LIGHT
+    // colorModeClass = CME.dark;
+    colorModeClass = CME.light;
     // NOW WE ARE GOING TO SET MODE BACK TO THE COOKIE
     Cook.set(CME.cookie_key, colorModeClass);
     // AND WE SHOULD ADD IT TO THE HTML ELEMENT
