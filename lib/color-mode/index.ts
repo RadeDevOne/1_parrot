@@ -4,7 +4,10 @@ import isSSR from "@/util/isSSR";
 
 // REMINDER: FOR JAVASCRIPT USE COLOR MODE HOOK, USE
 // MUTATION OBSERVER FOR html ELEMENT
-// AND USE MACHINE
+// AND USE MACHINE (MUTATION OBSERVER SHOULD CALL MACHINE)
+// AND MACHINE SHOULD BE INITIALIZED INSIDE
+// useInitializerColorMode (BELLOW OTHER LOGIC (MAYBE))
+// WHEN THAT BOOLEAN CHANGES
 
 /**
  * @description color mode enum
@@ -188,5 +191,17 @@ export const toLightMode = () => {
     document.documentElement.classList.remove(CME.dark);
     document.documentElement.classList.add(CME.light);
     return;
+  }
+};
+
+/**
+ * @description toggle between two modes
+ */
+export const toggleMode = () => {
+  // LET CLASS DETERMINE WHAT MODE SHOULD BE CALLED
+  if (document.documentElement.classList.contains(CME.light)) {
+    toDarkMode();
+  } else {
+    toLightMode();
   }
 };

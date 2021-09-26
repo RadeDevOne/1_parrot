@@ -1,4 +1,5 @@
-import isSSR from "@/util/isSSR";
+import { toDarkMode, toLightMode, toggleMode } from "@/lib/color-mode";
+import type { colorModeType } from "@/lib/color-mode";
 
 const useColorModeSwitcher = () => {
   enum T {
@@ -7,15 +8,15 @@ const useColorModeSwitcher = () => {
   }
 
   const toggleDark = () => {
-    if (isSSR()) return;
+    toDarkMode();
   };
 
   const toggleLight = () => {
-    if (isSSR()) return;
+    toLightMode();
   };
 
   const toggle = () => {
-    if (isSSR()) return;
+    toggleMode();
   };
 
   return { toggle, toggleDark, toggleLight };
