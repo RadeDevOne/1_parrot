@@ -7,7 +7,11 @@ import GlobalStyles from "@/styles/GlobalStyles";
 
 import Header from "@/components/Header";
 
+import useInitializeColorMode from "@/hooks/useInitializeColorMode";
+
 function MyApp({ Component, pageProps }: AppProps) {
+  useInitializeColorMode();
+
   return (
     <>
       <Head>
