@@ -2,9 +2,9 @@ import React from "react";
 import { Global } from "@emotion/react";
 import tw, { css, theme, GlobalStyles as BaseStyles } from "twin.macro";
 
-// DOES NOTHING TRIED IT (I NEED TO FIND OUT WHY)
-
 const customStyles = css`
+  /* ADDING FONT STYLES AS GLOBAL STYLES */
+
   @font-face {
     font-family: "InterVar";
     font-style: normal;
@@ -73,17 +73,15 @@ const customStyles = css`
     src: url("/fonts/intervar.woff2") format("woff2");
   }
 
-  body {
-    padding: 200px;
-  }
-
   .blah {
     border: green solid 4px;
     font-style: oblique;
   }
 
+  /* INJECTING TAILWIND THEME VALUES INTO CSS */
+  /* ALSO PARSING OUT TAILWIND CLASSES INTO CSS */
   body {
-    border: green solid 8px;
+    border: green solid 2px;
     --webkit-tap-highlight-color: ${theme`colors.purple.500`};
     ${tw`antialiased`}
   }

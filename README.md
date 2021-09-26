@@ -2,7 +2,7 @@
 
 ## STYLING
 
-USING TAILWIND TOGETHER WITH EMOTION
+USING TAILWIND TOGETHER WITH EMOTION (**TWIN MACRO BY ben-rogerson**)
 
 twin.macro with emotion (explained)
 
@@ -13,3 +13,6 @@ typescript emotion example (very nice, has more stuff) (maybe is missing somethi
 
 <https://github.com/ben-rogerson/twin.examples/tree/master/next-emotion-typescript>
 
+**THESE ARE THE DOCS FOR TWIN MACRO**
+
+<https://github.com/ben-rogerson/twin.macro/tree/master/docs>

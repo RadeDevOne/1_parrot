@@ -2,22 +2,26 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+// TAILWIND STYLED COMPONENTS
 const StyledTwDiv = tw.div`
 
   border hover:border-b-gray-900
 
 `;
 
+// REGULAR EMOTION STYLED COMPONNTS
 const StyledDiv = styled.div`
   background-color: blanchedalmond;
 `;
 
 const TestComponent: FC = () => {
   return (
+    // PARSING TAILWIND INTO CSS
     <section css={[tw`bg-gray-200`, tw`hover:text-blue-600`]}>
       <h1 css={[tw`text-5xl border-2`]}>The Inter typeface family</h1>
       <h1 className="blah">The Inter typeface family</h1>
       <div
+        // REGULAR EMOTION
         css={css`
           border: crimson solid 1px;
           & h1 {
@@ -41,7 +45,6 @@ const TestComponent: FC = () => {
           }
 
           /*  YOU CAN PARSE TAILWIND CLASSES TO CSS */
-
           ${tw`border-green-500 border-4 `}
         `}
       >
@@ -55,8 +58,6 @@ const TestComponent: FC = () => {
         `}
       >
         <h1 css={[tw`bg-auto`]}>Testing Font Family</h1>
-        {/* <h1 css={[tw`bg-auto font-sans`]}>Testing Font Family</h1> */}
-        {/* <h1 css={[tw`bg-auto font-mono`]}>Testing Font Family</h1> */}
       </section>
       <footer
         css={css`
