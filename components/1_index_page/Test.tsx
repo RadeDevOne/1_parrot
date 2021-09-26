@@ -39,10 +39,7 @@ const TestComponent: FC = () => {
       </div>
       <aside
         css={css`
-          font-size: 2rem;
-          & h1 {
-            text-decoration-line: underline;
-          }
+          font-size: 3rem;
 
           /*  YOU CAN PARSE TAILWIND CLASSES TO CSS */
           ${tw`border-green-500 border-4 `}
