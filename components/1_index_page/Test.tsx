@@ -15,6 +15,7 @@ const StyledDiv = styled.div`
 const TestComponent: FC = () => {
   return (
     <section css={[tw`bg-gray-200`, tw`hover:text-blue-600`]}>
+      <h1 css={[tw`text-5xl border-2`]}>The Inter typeface family</h1>
       <div
         css={css`
           border: crimson solid 1px;
@@ -52,7 +53,8 @@ const TestComponent: FC = () => {
           }
         `}
       >
-        <h1 className="beauty-h1">Testing Font Family</h1>
+        <h1 css={[tw`bg-auto font-sans`]}>Testing Font Family</h1>
+        {/* <h1 css={[tw`bg-auto font-mono`]}>Testing Font Family</h1> */}
       </section>
       <footer
         css={css`
@@ -60,6 +62,8 @@ const TestComponent: FC = () => {
           /* YOU CAN ALSO REFERENCE STYLES FROM YOUR THEME */
 
           background-color: ${theme`colors.electric`};
+
+          color: ${theme`colors.bledoliko`};
         `}
       >
         <h2>Hello World</h2>

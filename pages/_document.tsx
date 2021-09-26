@@ -33,7 +33,8 @@ class MyDocument extends Document {
           {/* COMMONN SEO */}
           <CommonSeo />
         </Head>
-        <body>
+        <body className="font-sans">
+          {/* <body> */}
           <Main />
           <NextScript />
         </body>
