@@ -9,9 +9,10 @@ module.exports = {
         ribbon: "#0047ff",
         bledoliko: "crimson",
       },
-      /* fontFamily: {
+      // OVERRIDING DEFAULT FONT FAMILY
+      fontFamily: {
         sans: ['"InterVar"', ...defaultTheme.fontFamily.sans],
-      }, */
+      },
     },
   },
   plugins: [],
