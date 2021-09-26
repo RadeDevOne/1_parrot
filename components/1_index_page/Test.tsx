@@ -53,7 +53,8 @@ const TestComponent: FC = () => {
           }
         `}
       >
-        <h1 css={[tw`bg-auto font-sans`]}>Testing Font Family</h1>
+        <h1 css={[tw`bg-auto`]}>Testing Font Family</h1>
+        {/* <h1 css={[tw`bg-auto font-sans`]}>Testing Font Family</h1> */}
         {/* <h1 css={[tw`bg-auto font-mono`]}>Testing Font Family</h1> */}
       </section>
       <footer
