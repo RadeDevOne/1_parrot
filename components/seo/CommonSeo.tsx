@@ -5,8 +5,6 @@ import type { FC } from "react";
 const CommonSeo: FC = () => {
   return (
     <>
-      {/* VIEWPORT META */}
-      <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
       {/* FONTS */}
       <link
         rel="preload"
