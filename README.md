@@ -2,7 +2,7 @@
 
 ## STYLING
 
-USING TAI;LWIND TOGETHER WITH EMOTION
+USING TAILWIND TOGETHER WITH EMOTION
 
 twin.macro with emotion (explained)
 
