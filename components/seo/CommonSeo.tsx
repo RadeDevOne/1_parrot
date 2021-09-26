@@ -27,6 +27,20 @@ const CommonSeo: FC = () => {
         type="font/woff2"
         crossOrigin="anonymous"
       />
+      <link
+        rel="preload"
+        href="/fonts/firamono.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preload"
+        href="/fonts/alegreya.woff2"
+        as="font"
+        type="font/woff2"
+        crossOrigin="anonymous"
+      />
       {/* COMMON META TAGS */}
       <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
     </>

@@ -73,6 +73,27 @@ const customStyles = css`
     src: url("/fonts/intervar.woff2") format("woff2");
   }
 
+  /* MONOSPACED */
+  @font-face {
+    font-family: "FiraMono";
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: url("../fonts/firamono.woff2") format("woff2"); /* Super Modern Browsers */
+  }
+  /* SERIF FONT */
+
+  /* alegreya-regular - latin */
+  @font-face {
+    font-family: "Alegreya";
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: url("../fonts/alegreya.woff2") format("woff2"); /* Super Modern Browsers */
+  }
+
+  /*  */
+
   .blah {
     border: green solid 4px;
     font-style: oblique;

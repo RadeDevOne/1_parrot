@@ -48,7 +48,8 @@ const TestComponent: FC = () => {
           ${tw`border-green-500 border-4 `}
         `}
       >
-        <h1>Lorem Blorem</h1>
+        <h1 css={[tw`font-mono`]}>Lorem Blorem</h1>
+        <h1 css={[tw`font-serif`]}>Lorem Blorem</h1>
       </aside>
       <section
         css={css`
