@@ -2,6 +2,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   important: true,
+  darkMode: "media",
   theme: {
     extend: {
       colors: {

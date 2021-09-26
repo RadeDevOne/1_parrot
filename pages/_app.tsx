@@ -5,6 +5,8 @@ import Head from "next/head";
 
 import GlobalStyles from "../styles/GlobalStyles";
 
+import Header from "@/components/Header";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -12,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
       <GlobalStyles />
+      <Header />
       <Component {...pageProps} />
     </>
   );
