@@ -11,6 +11,8 @@ import isSSR from "@/util/isSSR";
 const TryOut: FC = () => {
   const [mobileMenuOpened, setMobileMenuOpened] = useState<boolean>(false);
 
+  const navigationOptions = [{}];
+
   const toggleMobileMenu = () => {
     console.log(isSSR());
 
