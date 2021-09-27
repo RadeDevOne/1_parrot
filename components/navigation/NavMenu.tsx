@@ -11,7 +11,24 @@ import isSSR from "@/util/isSSR";
 const TryOut: FC = () => {
   const [mobileMenuOpened, setMobileMenuOpened] = useState<boolean>(false);
 
-  const navigationOptions = [{}];
+  const paths = [
+    {
+      href: "/",
+      name: "Home",
+    },
+    {
+      href: "/shop",
+      name: "Shop",
+    },
+    {
+      href: "/contact",
+      name: "Contact",
+    },
+    {
+      href: "/about",
+      name: "About",
+    },
+  ];
 
   const toggleMobileMenu = () => {
     console.log(isSSR());
@@ -91,84 +108,44 @@ const TryOut: FC = () => {
           // style={{ display: mobileMenuOpened ? "flex" : "none" }}
         >
           <motion.div
-            css={[tw`flex flex-col md:flex-row md:mx-6 overflow-hidden`]}
+            css={[
+              tw`flex flex-col md:flex-row md:mx-6 overflow-hidden sm:flex md:hidden lg:hidden xl:hidden`,
+            ]}
             animate={{ height: mobileMenuOpened ? "auto" : "0px" }}
             transition={{ duration: 0.2 }}
           >
-            <Link href="/tryout">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                Home
-              </a>
-            </Link>
-            <Link href="/">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                Shop
-              </a>
-            </Link>
-            <Link href="/">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                Contact
-              </a>
-            </Link>
-            <Link href="/">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                About
-              </a>
-            </Link>
+            {paths.map(({ href, name }, i) => {
+              return (
+                <Link href={href} key={`${i}-`}>
+                  <a
+                    css={[
+                      tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
+                    ]}
+                  >
+                    {name}
+                  </a>
+                </Link>
+              );
+            })}
           </motion.div>
-          <div css={[tw`flex flex-row md:mx-6 sm:hidden`]}>
-            <Link href="/tryout">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                Home
-              </a>
-            </Link>
-            <Link href="/">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                Shop
-              </a>
-            </Link>
-            <Link href="/">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                Contact
-              </a>
-            </Link>
-            <Link href="/">
-              <a
-                css={[
-                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                ]}
-              >
-                About
-              </a>
-            </Link>
+          <div
+            css={[
+              tw`flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden`,
+            ]}
+          >
+            {paths.map(({ href, name }, i) => {
+              return (
+                <Link href={href} key={`${i}-`}>
+                  <a
+                    css={[
+                      tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
+                    ]}
+                  >
+                    {name}
+                  </a>
+                </Link>
+              );
+            })}
           </div>
 
           <div css={[tw`flex justify-center md:block`]}>
