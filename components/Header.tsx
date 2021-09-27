@@ -7,6 +7,8 @@ import { useTheme as useColorMode } from "next-themes";
 const Header: FC = () => {
   const { setTheme, theme } = useColorMode();
 
+  console.log({ theme });
+
   return (
     <header
       css={[
