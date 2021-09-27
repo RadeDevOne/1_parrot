@@ -2,10 +2,10 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import useColorMode from "@/hooks/useColorMode";
+import { useTheme as useColorMode } from "next-themes";
 
 const Header: FC = () => {
-  const { toggle } = useColorMode();
+  const { setTheme, theme } = useColorMode();
 
   return (
     <header
@@ -15,7 +15,9 @@ const Header: FC = () => {
     >
       <button
         onClick={() => {
-          toggle();
+          // toggle();
+
+          setTheme(theme === "light" ? "dark" : "light");
         }}
       >
         Mode

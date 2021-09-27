@@ -1,5 +1,5 @@
-import { toDarkMode, toLightMode, toggleMode } from "@/lib/color-mode";
-import type { colorModeType } from "@/lib/color-mode";
+// import { toDarkMode, toLightMode, toggleMode } from "@/lib/color-mode";
+// import type { colorModeType } from "@/lib/color-mode";
 
 const useColorModeSwitcher = () => {
   enum T {
@@ -8,15 +8,15 @@ const useColorModeSwitcher = () => {
   }
 
   const toggleDark = () => {
-    toDarkMode();
+    // toDarkMode();
   };
 
   const toggleLight = () => {
-    toLightMode();
+    // toLightMode();
   };
 
   const toggle = () => {
-    toggleMode();
+    // toggleMode();
   };
 
   return { toggle, toggleDark, toggleLight };

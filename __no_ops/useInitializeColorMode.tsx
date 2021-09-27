@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { setInitialColorMode } from "@/lib/color-mode";
+// import { setInitialColorMode } from "@/lib/color-mode";
 
 /**
  * @description I'LL USE THIS ONLI INSIDE _app
@@ -11,7 +11,7 @@ const useInitializeColorMode = () => {
   // IT SHOULD BE CALLED ONCE, ONLY ON MOUNTING OF OUR APP
   useEffect(() => {
     if (calledIt) return;
-    setInitialColorMode();
+    // setInitialColorMode();
     setCalledIt(true);
   }, [calledIt, setCalledIt]);
 };

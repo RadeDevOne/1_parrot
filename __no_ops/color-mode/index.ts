@@ -32,6 +32,14 @@ export const setInitialColorMode = (): colorModeType | undefined => {
   const mode = Cook.get(CME.COOKIE_KEY);
   const documentElementClasses = document.documentElement.classList;
 
+  if (
+    mode &&
+    (documentElementClasses.contains(CME.dark) ||
+      documentElementClasses.contains(CME.light))
+  ) {
+    return;
+  }
+
   let colorModeClass: colorModeType | undefined;
 
   for (const item in documentElementClasses) {

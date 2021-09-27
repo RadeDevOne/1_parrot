@@ -20,8 +20,8 @@ class MyDocument extends Document {
 
   render() {
     return (
+      // <Html lang="en" className="dark">
       <Html lang="en">
-        {/* <Html lang="en" className="dark"> */}
         <Head>
           <style
             // eslint-disable-next-line

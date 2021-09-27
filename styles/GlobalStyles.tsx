@@ -109,17 +109,17 @@ const customStyles = css`
 
   /* TRANSITIONS FOR COLOR MODE */
 
-  html.dark * {
+  /* html.dark * {
     transition-property: all;
-    transition-duration: 0.2s;
+    transition-duration: 0.4s;
     transition-timing-function: ease-in;
   }
 
   html.light * {
     transition-property: all;
-    transition-duration: 0.2s;
+    transition-duration: 0.4s;
     transition-timing-function: ease-in;
-  }
+  } */
 `;
 
 const GlobalStyles = () => (
