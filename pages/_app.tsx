@@ -8,8 +8,6 @@ import GlobalStyles from "@/styles/GlobalStyles";
 
 import Header from "@/components/Header";
 
-import Switch from "@/components/tryout/Switch";
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -23,7 +21,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         enableSystem={false}
       >
         <Header />
-        <Switch />
         <Component {...pageProps} />
       </DangerousThemeSettingProvider>
     </>

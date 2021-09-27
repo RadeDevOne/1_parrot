@@ -14,7 +14,6 @@
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@fontsource/inter": "^4.5.0",
-    "@headlessui/react": "^1.4.1",
     "@next-auth/prisma-adapter": "^0.5.4",
     "@paypal/react-paypal-js": "^7.3.3",
     "@prisma/client": "^3.1.1",
