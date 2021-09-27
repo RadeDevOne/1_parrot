@@ -3,6 +3,8 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import type { DocumentContext, DocumentInitialProps } from "next/document";
 import { extractCritical } from "@emotion/server";
 
+import tw from "twin.macro";
+
 import CommonSeo from "@/components/seo/CommonSeo";
 
 class MyDocument extends Document {
@@ -35,7 +37,7 @@ class MyDocument extends Document {
           <CommonSeo />
         </Head>
         {/* <body className="font-sans"> */}
-        <body>
+        <body css={[tw`dark:bg-gray-800`]}>
           <Main />
           <NextScript />
         </body>
