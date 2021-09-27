@@ -130,11 +130,7 @@ const TryOut: FC = () => {
               </a>
             </Link>
           </motion.div>
-          <motion.div
-            css={[tw`flex flex-col md:flex-row md:mx-6 overflow-hidden`]}
-            animate={{ height: mobileMenuOpened ? "auto" : "0px" }}
-            transition={{ duration: 0.2 }}
-          >
+          <div css={[tw`flex flex-row md:mx-6 sm:hidden`]}>
             <Link href="/tryout">
               <a
                 css={[
@@ -171,7 +167,7 @@ const TryOut: FC = () => {
                 About
               </a>
             </Link>
-          </motion.div>
+          </div>
 
           <div css={[tw`flex justify-center md:block`]}>
             <button
