@@ -8,7 +8,9 @@ import { motion } from "framer-motion";
 
 import isSSR from "@/util/isSSR";
 
-const TryOut: FC = () => {
+import Switcher from "../color_mode/Switcher";
+
+const Nav: FC = () => {
   const [mobileMenuOpened, setMobileMenuOpened] = useState<boolean>(false);
 
   const paths = [
@@ -178,9 +180,10 @@ const TryOut: FC = () => {
             </button>
           </div>
         </div>
+        <Switcher />
       </div>
     </nav>
   );
 };
 
-export default TryOut;
+export default Nav;
