@@ -130,6 +130,48 @@ const TryOut: FC = () => {
               </a>
             </Link>
           </motion.div>
+          <motion.div
+            css={[tw`flex flex-col md:flex-row md:mx-6 overflow-hidden`]}
+            animate={{ height: mobileMenuOpened ? "auto" : "0px" }}
+            transition={{ duration: 0.2 }}
+          >
+            <Link href="/tryout">
+              <a
+                css={[
+                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
+                ]}
+              >
+                Home
+              </a>
+            </Link>
+            <Link href="/">
+              <a
+                css={[
+                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
+                ]}
+              >
+                Shop
+              </a>
+            </Link>
+            <Link href="/">
+              <a
+                css={[
+                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
+                ]}
+              >
+                Contact
+              </a>
+            </Link>
+            <Link href="/">
+              <a
+                css={[
+                  tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
+                ]}
+              >
+                About
+              </a>
+            </Link>
+          </motion.div>
 
           <div css={[tw`flex justify-center md:block`]}>
             <button
