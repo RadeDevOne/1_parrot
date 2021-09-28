@@ -148,7 +148,7 @@ const Nav: FC = () => {
               tw="relative text-gray-700 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <svg
-                tw="w-5 h-5"
+                tw="w-6 h-6"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
