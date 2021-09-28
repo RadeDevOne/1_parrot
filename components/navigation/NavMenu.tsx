@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
@@ -12,6 +12,8 @@ import Switcher from "../color_mode/Switcher";
 
 const Nav: FC = () => {
   const [mobileMenuOpened, setMobileMenuOpened] = useState<boolean>(false);
+
+  const [contentScaledTo0, setContentScaledTo0] = useState<boolean>(false);
 
   const paths = [
     {
@@ -38,6 +40,18 @@ const Nav: FC = () => {
     if (isSSR()) return;
     setMobileMenuOpened((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (mobileMenuOpened) {
+      setTimeout(() => {
+        setContentScaledTo0(false);
+      }, 100);
+    } else {
+      setTimeout(() => {
+        setContentScaledTo0(true);
+      }, 100);
+    }
+  }, [mobileMenuOpened, setContentScaledTo0]);
 
   console.log({ mobileMenuOpened });
 
@@ -96,7 +110,11 @@ const Nav: FC = () => {
 
         {/* <!-- Mobile Menu open: "block", Menu closed: "hidden" --> */}
         <div tw="items-center md:flex">
-          <div
+          <motion.div
+            animate={{
+              scale: contentScaledTo0 ? 0 : 1,
+            }}
+            transition={{ duration: 0.3 }}
             css={css`
               /* only for transition to work */
               /* we will use max height because percents don't work */
@@ -112,7 +130,7 @@ const Nav: FC = () => {
               & .mobile-theme-switcher {
                 /* border: crimson solid 1px; */
                 width: fit-content;
-                ${tw`ml-auto mr-3.5 mb-1.5`}
+                ${tw`mr-auto mt-4 mb-4 ml-2.5`}
               }
 
               transition-property: max-height;
@@ -122,6 +140,15 @@ const Nav: FC = () => {
             tw="flex-col overflow-hidden sm:flex xl:hidden lg:hidden md:hidden"
             style={{ maxHeight: mobileMenuOpened ? "180px" : "0px" }}
           >
+            <div
+              css={css`
+                display: flex;
+                width: 98vw;
+              `}
+              className="mobile-theme-switcher"
+            >
+              <Switcher />
+            </div>
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>
@@ -131,15 +158,13 @@ const Nav: FC = () => {
                 </Link>
               );
             })}
-            <div className="mobile-theme-switcher">
-              <Switcher />
-            </div>
-          </div>
+          </motion.div>
           <div
             css={css`
               & .theme-switcher {
                 /* border: crimson solid 1px; */
                 margin-right: 10px;
+                padding-right: 20px;
               }
             `}
             tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden"
@@ -177,8 +202,8 @@ const Nav: FC = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-
-              <span tw="absolute top-0 left-0 p-1 text-xs text-white bg-indigo-500 rounded-full"></span>
+              {/* IF THERE I SOMETHING IN THE CART USE THIS */}
+              {/* <span tw="absolute top-0 left-0 p-1 text-xs text-white bg-indigo-500 rounded-full"></span> */}
             </button>
           </div>
         </div>
