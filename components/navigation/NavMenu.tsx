@@ -100,7 +100,22 @@ const Nav: FC = () => {
           // style={{ display: mobileMenuOpened ? "flex" : "none" }}
         >
           <motion.div
-            tw="flex flex-col md:flex-row md:mx-6 overflow-hidden sm:flex md:hidden lg:hidden xl:hidden"
+            css={css`
+              display: flex;
+              flex-direction: column;
+
+              & a {
+                display: block;
+                width: 100%;
+              }
+
+              & .mobile-theme-switcher {
+                /* border: crimson solid 1px; */
+                width: fit-content;
+                ${tw`ml-auto mr-3.5 mb-1.5`}
+              }
+            `}
+            tw="overflow-hidden sm:flex md:hidden lg:hidden xl:hidden"
             animate={{ height: mobileMenuOpened ? "auto" : "0px" }}
             transition={{ duration: 0.2 }}
           >
@@ -113,8 +128,12 @@ const Nav: FC = () => {
                 </Link>
               );
             })}
+            <div className="mobile-theme-switcher">
+              <Switcher />
+            </div>
           </motion.div>
           <div tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden">
+            <Switcher />
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>
@@ -128,7 +147,7 @@ const Nav: FC = () => {
 
           <div tw="flex justify-center md:block">
             <button
-              onClick={() => toggleMobileMenu()}
+              // onClick={() => toggleMobileMenu()}
               tw="relative text-gray-700 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <svg
@@ -148,7 +167,6 @@ const Nav: FC = () => {
 
               <span tw="absolute top-0 left-0 p-1 text-xs text-white bg-indigo-500 rounded-full"></span>
             </button>
-            <Switcher />
           </div>
         </div>
       </div>
