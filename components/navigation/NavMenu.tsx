@@ -95,12 +95,15 @@ const Nav: FC = () => {
         </div>
 
         {/* <!-- Mobile Menu open: "block", Menu closed: "hidden" --> */}
-        <div
-          tw="items-center md:flex"
-          // style={{ display: mobileMenuOpened ? "flex" : "none" }}
-        >
-          <motion.div
+        <div tw="items-center md:flex">
+          <div
             css={css`
+              /* only for transition to work */
+              /* we will use max height because percents don't work */
+              max-height: 180px;
+              /*  */
+              height: auto;
+
               & a {
                 display: block;
                 width: 100%;
@@ -111,10 +114,13 @@ const Nav: FC = () => {
                 width: fit-content;
                 ${tw`ml-auto mr-3.5 mb-1.5`}
               }
+
+              transition-property: max-height;
+              transition-duration: 0.2s;
+              transition-timing-function: ease-out;
             `}
-            tw="flex-col overflow-hidden xl:hidden lg:hidden md:hidden sm:flex"
-            animate={{ height: mobileMenuOpened ? "auto" : "0px" }}
-            transition={{ duration: 0.2 }}
+            tw="flex-col overflow-hidden sm:flex xl:hidden lg:hidden md:hidden"
+            style={{ maxHeight: mobileMenuOpened ? "180px" : "0px" }}
           >
             {paths.map(({ href, name }, i) => {
               return (
@@ -128,7 +134,7 @@ const Nav: FC = () => {
             <div className="mobile-theme-switcher">
               <Switcher />
             </div>
-          </motion.div>
+          </div>
           <div
             css={css`
               & .theme-switcher {
