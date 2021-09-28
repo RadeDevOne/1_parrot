@@ -119,6 +119,7 @@ const Nav: FC = () => {
           <motion.div
             animate={{
               scale: contentScaledTo0 ? 0 : 1,
+              x: contentScaledTo0 ? -200 : 0,
             }}
             transition={{ duration: 0.3 }}
             css={css`
