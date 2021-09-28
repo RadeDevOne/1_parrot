@@ -56,7 +56,7 @@ export type machineFiniteStatesGenericType =
 
 // -----------------  MACHINE --------------------
 
-const mainMachine = createMachine<
+const headerNcartMachine = createMachine<
   MachineContextGenericI,
   machineEventsGenericType,
   machineFiniteStatesGenericType
@@ -85,9 +85,9 @@ const mainMachine = createMachine<
   },
 });
 
-export const mainService = interpret(mainMachine);
+export const headerNCartService = interpret(headerNcartMachine);
 
-mainService.onTransition((state, event) => {
+headerNCartService.onTransition((state, event) => {
   //
   console.log({ isDarkMode: state.context.random });
   console.log("TRANSITION");
