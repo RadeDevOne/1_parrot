@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useEffect, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import { useTheme } from "next-themes";
@@ -8,6 +9,11 @@ import isSSR from "@/util/isSSR";
 
 const Switcher: FC = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, [setMounted]);
 
   const DarkIcon = () => (
     <svg
@@ -86,7 +92,8 @@ const Switcher: FC = () => {
               d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
             />
           </svg> */}
-          {theme === "dark" ? <DarkIcon /> : <LightIcon />}
+          {/* DOING THIS BECAUSE OF SSR */}
+          {mounted && <>{theme === "dark" ? <DarkIcon /> : <LightIcon />}</>}
         </div>
       </button>
     </section>
