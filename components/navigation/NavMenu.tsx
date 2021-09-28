@@ -101,9 +101,6 @@ const Nav: FC = () => {
         >
           <motion.div
             css={css`
-              display: flex;
-              flex-direction: column;
-
               & a {
                 display: block;
                 width: 100%;
@@ -115,7 +112,7 @@ const Nav: FC = () => {
                 ${tw`ml-auto mr-3.5 mb-1.5`}
               }
             `}
-            tw="overflow-hidden sm:flex md:hidden lg:hidden xl:hidden"
+            tw="flex-col overflow-hidden xl:hidden lg:hidden md:hidden sm:flex"
             animate={{ height: mobileMenuOpened ? "auto" : "0px" }}
             transition={{ duration: 0.2 }}
           >
