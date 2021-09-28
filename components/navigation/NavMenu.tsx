@@ -129,8 +129,18 @@ const Nav: FC = () => {
               <Switcher />
             </div>
           </motion.div>
-          <div tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden">
-            <Switcher />
+          <div
+            css={css`
+              & .theme-switcher {
+                /* border: crimson solid 1px; */
+                margin-right: 10px;
+              }
+            `}
+            tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden"
+          >
+            <div className="theme-switcher">
+              <Switcher />
+            </div>
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>
