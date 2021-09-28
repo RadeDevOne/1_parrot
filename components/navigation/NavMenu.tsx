@@ -46,11 +46,11 @@ const Nav: FC = () => {
       setTimeout(() => {
         setContentScaledTo0(false);
       }, 100);
-    } else {
+    } /*  else {
       setTimeout(() => {
         setContentScaledTo0(true);
       }, 100);
-    }
+    } */
   }, [mobileMenuOpened, setContentScaledTo0]);
 
   console.log({ mobileMenuOpened });
@@ -83,7 +83,13 @@ const Nav: FC = () => {
           {/* <!-- Mobile menu button --> */}
           <div tw="flex md:hidden">
             <button
-              onClick={() => toggleMobileMenu()}
+              onClick={() => {
+                setContentScaledTo0(true);
+
+                setTimeout(() => {
+                  toggleMobileMenu();
+                }, 50);
+              }}
               type="button"
               tw="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
               aria-label="toggle menu"
