@@ -16,3 +16,8 @@ typescript emotion example (very nice, has more stuff) (maybe is missing somethi
 **THESE ARE THE DOCS FOR TWIN MACRO**
 
 <https://github.com/ben-rogerson/twin.macro/tree/master/docs>
+
+**MUST READ**: (UNDER RESOURCS)
+
+<https://github.com/ben-rogerson/twin.macro#resources>
+
