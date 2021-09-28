@@ -178,9 +178,9 @@ const Nav: FC = () => {
                 ]}
               ></span>
             </button>
+            <Switcher />
           </div>
         </div>
-        <Switcher />
       </div>
     </nav>
   );

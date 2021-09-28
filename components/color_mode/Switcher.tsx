@@ -69,7 +69,7 @@ const Switcher: FC = () => {
           css={[
             tw`w-6 h-6 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 p-1 text-white`,
             theme === "dark"
-              ? tw`bg-gray-700 -translate-x-full`
+              ? tw`bg-gray-700 translate-x-full`
               : tw`bg-yellow-500 -translate-x-2`,
           ]}
         >

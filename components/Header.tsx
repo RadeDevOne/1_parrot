@@ -17,7 +17,7 @@ const Header: FC = ({ children }) => {
         tw`h-16 bg-bledoliko light:bg-bledoliko dark:bg-gray-800 dark:border-b-green-200`,
       ]} */
     >
-      <button
+      {/* <button
         onClick={() => {
           // toggle();
 
@@ -25,7 +25,7 @@ const Header: FC = ({ children }) => {
         }}
       >
         Mode
-      </button>
+      </button> */}
       <NavMenu />
       {children}
     </header>
