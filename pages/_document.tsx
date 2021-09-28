@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import type { DocumentContext, DocumentInitialProps } from "next/document";
 import { extractCritical } from "@emotion/server";
 
-import tw from "twin.macro";
+import tw, { css } from "twin.macro";
 
 import CommonSeo from "@/components/seo/CommonSeo";
 
@@ -37,7 +37,15 @@ class MyDocument extends Document {
           <CommonSeo />
         </Head>
         {/* <body className="font-sans"> */}
-        <body css={[tw`dark:bg-gray-800`]}>
+        <body
+          css={[
+            tw`dark:bg-gray-800`,
+            css`
+              transition-property: background;
+              transition-duration: 0.4s;
+            `,
+          ]}
+        >
           <Main />
           <NextScript />
         </body>

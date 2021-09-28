@@ -59,6 +59,9 @@ const Nav: FC = () => {
     <nav
       css={[
         css`
+          transition-property: background;
+          transition-duration: 0.4s;
+
           & button {
             cursor: pointer;
           }
