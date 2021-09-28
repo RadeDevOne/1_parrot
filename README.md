@@ -21,3 +21,4 @@ typescript emotion example (very nice, has more stuff) (maybe is missing somethi
 
 <https://github.com/ben-rogerson/twin.macro#resources>
 
+MOST IMPORTAT THING (AT LEAST FOR ME): USE `css={[tw``]}` FOR DYNAMIC STYLES, AND USE `tw=""` OTHERVISE 
