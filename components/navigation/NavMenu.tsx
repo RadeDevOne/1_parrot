@@ -53,6 +53,13 @@ const Nav: FC = () => {
     } */
   }, [mobileMenuOpened, setContentScaledTo0]);
 
+  // I NEED EFFECT BECAUSE OF FRMER MOTION COMPONENT
+  // AND SSR (THEY DON'T GO TOGETER NICE (MOUNTED IT FIRST))
+  const [mounted, setMounted] = useState<boolean>(false);
+  useEffect(() => {
+    setMounted(true);
+  }, [setMounted]);
+
   console.log({ mobileMenuOpened });
 
   return (
@@ -119,56 +126,58 @@ const Nav: FC = () => {
 
         {/* <!-- Mobile Menu open: "block", Menu closed: "hidden" --> */}
         <div tw="items-center md:flex">
-          <motion.div
-            animate={{
-              scale: contentScaledTo0 ? 0 : 1,
-              x: contentScaledTo0 ? -200 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-            css={css`
-              /* only for transition to work */
-              /* we will use max height because percents don't work */
-              max-height: 180px;
-              /*  */
-              height: auto;
-
-              & a {
-                display: block;
-                width: 100%;
-              }
-
-              & .mobile-theme-switcher {
-                /* border: crimson solid 1px; */
-                width: fit-content;
-                ${tw`mr-auto mt-4 mb-4 ml-2.5`}
-              }
-
-              transition-property: max-height;
-              transition-duration: 0.2s;
-              transition-timing-function: ease-out;
-            `}
-            tw="flex-col overflow-hidden sm:flex xl:hidden lg:hidden md:hidden"
-            style={{ maxHeight: mobileMenuOpened ? "180px" : "0px" }}
-          >
-            <div
+          {mounted && (
+            <motion.div
+              animate={{
+                scale: contentScaledTo0 ? 0 : 1,
+                x: contentScaledTo0 ? -200 : 0,
+              }}
+              transition={{ duration: 0.3 }}
               css={css`
-                display: flex;
-                width: 98vw;
+                /* only for transition to work */
+                /* we will use max height because percents don't work */
+                max-height: 180px;
+                /*  */
+                height: auto;
+
+                & a {
+                  display: block;
+                  width: 100%;
+                }
+
+                & .mobile-theme-switcher {
+                  /* border: crimson solid 1px; */
+                  width: fit-content;
+                  ${tw`mr-auto mt-4 mb-4 ml-2.5`}
+                }
+
+                transition-property: max-height;
+                transition-duration: 0.2s;
+                transition-timing-function: ease-out;
               `}
-              className="mobile-theme-switcher"
+              tw="flex-col overflow-hidden sm:flex xl:hidden lg:hidden md:hidden"
+              style={{ maxHeight: mobileMenuOpened ? "180px" : "0px" }}
             >
-              <Switcher />
-            </div>
-            {paths.map(({ href, name }, i) => {
-              return (
-                <Link href={href} key={`${i}-`}>
-                  <a tw="my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
-                    {name}
-                  </a>
-                </Link>
-              );
-            })}
-          </motion.div>
+              <div
+                css={css`
+                  display: flex;
+                  width: 98vw;
+                `}
+                className="mobile-theme-switcher"
+              >
+                <Switcher />
+              </div>
+              {paths.map(({ href, name }, i) => {
+                return (
+                  <Link href={href} key={`${i}-`}>
+                    <a tw="my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
+                      {name}
+                    </a>
+                  </Link>
+                );
+              })}
+            </motion.div>
+          )}
           <div
             css={css`
               & .theme-switcher {
