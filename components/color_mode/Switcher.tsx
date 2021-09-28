@@ -4,10 +4,12 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import { useTheme } from "next-themes";
 
-const Switcher: FC = () => {
-  const { themes, setTheme } = useTheme();
+import isSSR from "@/util/isSSR";
 
-  const darkIcon = () => (
+const Switcher: FC = () => {
+  const { theme, setTheme } = useTheme();
+
+  const DarkIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -23,7 +25,7 @@ const Switcher: FC = () => {
     </svg>
   );
 
-  const lightIcon = () => (
+  const LightIcon = () => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -47,15 +49,31 @@ const Switcher: FC = () => {
         ]}
         onClick={() => {
           // TOGGLE THEME
+
+          if (isSSR()) return;
+
+          setTimeout(() => {
+            if (theme === "dark") {
+              setTheme("light");
+
+              return;
+            } else {
+              setTheme("dark");
+              return;
+            }
+          }, 200);
         }}
       >
         <div
           id="switch-toggle"
           css={[
             tw`w-6 h-6 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 p-1 text-white`,
+            theme === "dark"
+              ? tw`bg-gray-700 -translate-x-full`
+              : tw`bg-yellow-500 -translate-x-2`,
           ]}
         >
-          <svg
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -67,7 +85,8 @@ const Switcher: FC = () => {
               strokeWidth="2"
               d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
             />
-          </svg>
+          </svg> */}
+          {theme === "dark" ? <DarkIcon /> : <LightIcon />}
         </div>
       </button>
     </section>
