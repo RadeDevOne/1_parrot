@@ -56,32 +56,22 @@ const Nav: FC = () => {
         tw`bg-white shadow dark:bg-gray-800`,
       ]}
     >
-      <div
-        css={[
-          tw`container px-6 py-4 mx-auto md:flex md:justify-between md:items-center`,
-        ]}
-      >
-        <div css={[tw`flex items-center justify-between`]}>
+      <div tw="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+        <div tw="flex items-center justify-between">
           <div>
             <Link href="/">
-              <a
-                css={[
-                  tw`text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300`,
-                ]}
-              >
+              <a tw="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
                 Brand
               </a>
             </Link>
           </div>
 
           {/* <!-- Mobile menu button --> */}
-          <div css={[tw`flex md:hidden`]}>
+          <div tw="flex md:hidden">
             <button
               onClick={() => toggleMobileMenu()}
               type="button"
-              css={[
-                tw`text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400`,
-              ]}
+              tw="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
               aria-label="toggle menu"
             >
               <svg
@@ -106,43 +96,29 @@ const Nav: FC = () => {
 
         {/* <!-- Mobile Menu open: "block", Menu closed: "hidden" --> */}
         <div
-          css={[tw`items-center md:flex`]}
+          tw="items-center md:flex"
           // style={{ display: mobileMenuOpened ? "flex" : "none" }}
         >
           <motion.div
-            css={[
-              tw`flex flex-col md:flex-row md:mx-6 overflow-hidden sm:flex md:hidden lg:hidden xl:hidden`,
-            ]}
+            tw="flex flex-col md:flex-row md:mx-6 overflow-hidden sm:flex md:hidden lg:hidden xl:hidden"
             animate={{ height: mobileMenuOpened ? "auto" : "0px" }}
             transition={{ duration: 0.2 }}
           >
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>
-                  <a
-                    css={[
-                      tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                    ]}
-                  >
+                  <a tw="my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
                     {name}
                   </a>
                 </Link>
               );
             })}
           </motion.div>
-          <div
-            css={[
-              tw`flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden`,
-            ]}
-          >
+          <div tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden">
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>
-                  <a
-                    css={[
-                      tw`my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0`,
-                    ]}
-                  >
+                  <a tw="my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
                     {name}
                   </a>
                 </Link>
@@ -150,15 +126,13 @@ const Nav: FC = () => {
             })}
           </div>
 
-          <div css={[tw`flex justify-center md:block`]}>
+          <div tw="flex justify-center md:block">
             <button
               onClick={() => toggleMobileMenu()}
-              css={[
-                tw`relative text-gray-700 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300`,
-              ]}
+              tw="relative text-gray-700 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <svg
-                css={[tw`w-5 h-5`]}
+                tw="w-5 h-5"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -172,11 +146,7 @@ const Nav: FC = () => {
                 />
               </svg>
 
-              <span
-                css={[
-                  tw`absolute top-0 left-0 p-1 text-xs text-white bg-indigo-500 rounded-full`,
-                ]}
-              ></span>
+              <span tw="absolute top-0 left-0 p-1 text-xs text-white bg-indigo-500 rounded-full"></span>
             </button>
             <Switcher />
           </div>
