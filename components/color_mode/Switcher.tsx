@@ -45,7 +45,7 @@ const Switcher: FC = () => {
     <section>
       <button
         css={[
-          tw`w-10 h-5 rounded-full bg-white flex items-center transition duration-300 focus:outline-none shadow`,
+          tw`w-10 h-5 rounded-full bg-white flex items-center transition duration-300 focus:outline-none shadow border-2 border-gray-800`,
         ]}
         onClick={() => {
           // TOGGLE THEME
