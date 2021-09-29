@@ -23,6 +23,12 @@ const CartContent: FC = () => {
             align-self: flex-end;
             width: fit-content;
             ${tw`h-8`}
+
+            &:hover {
+              & path {
+                fill: #8aa8c5;
+              }
+            }
           }
         `,
       ]}
@@ -33,9 +39,9 @@ const CartContent: FC = () => {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          tw="h-8 w-8"
+          tw="h-8 w-8 dark:text-blue-50 light:text-gray-900"
           viewBox="0 0 20 20"
-          fill="crimson"
+          fill="currentColor"
         >
           <path
             fillRule="evenodd"
