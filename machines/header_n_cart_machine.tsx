@@ -31,9 +31,6 @@ export type machineEventsGenericType = /* | {
     }
   | */ {
   type: EE.TOGGLE;
-  payload: {
-    placeholder: number;
-  };
 };
 
 export type machineFiniteStatesGenericType =
@@ -93,6 +90,6 @@ export const headerNCartService = interpret(headerNcartMachine);
 
 headerNCartService.onTransition((state, event) => {
   //
-  console.log({ isDarkMode: state.context.random });
+  console.log({ state: state.value });
   console.log("TRANSITION");
 });

@@ -6,11 +6,18 @@ import Link from "next/link";
 
 import { motion } from "framer-motion";
 
+import { useActor } from "@xstate/react";
+
 import isSSR from "@/util/isSSR";
+
+import { EE, headerNCartService } from "@/machines/header_n_cart_machine";
 
 import Switcher from "../color_mode/Switcher";
 
 const Nav: FC = () => {
+  const [headerNCartState, dispatchToHeaderNcart] =
+    useActor(headerNCartService);
+
   const [mobileMenuOpened, setMobileMenuOpened] = useState<boolean>(false);
 
   const [contentScaledTo0, setContentScaledTo0] = useState<boolean>(false);
@@ -35,7 +42,7 @@ const Nav: FC = () => {
   ];
 
   const toggleMobileMenu = () => {
-    console.log(isSSR());
+    // console.log(isSSR());
 
     if (isSSR()) return;
     setMobileMenuOpened((prev) => !prev);
@@ -60,7 +67,7 @@ const Nav: FC = () => {
     setMounted(true);
   }, [setMounted]);
 
-  console.log({ mobileMenuOpened });
+  // console.log({ mobileMenuOpened });
 
   return (
     <nav
@@ -208,7 +215,11 @@ const Nav: FC = () => {
 
           <div tw="flex justify-center md:block">
             <button
-              // onClick={() => toggleMobileMenu()}
+              onClick={() =>
+                dispatchToHeaderNcart({
+                  type: EE.TOGGLE,
+                })
+              }
               tw="relative text-gray-700 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
             >
               <svg
