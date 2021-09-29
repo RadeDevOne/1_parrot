@@ -5,6 +5,7 @@ import tw, { css, styled, theme } from "twin.macro";
 import { useTheme as useColorMode } from "next-themes";
 
 import NavMenu from "./navigation/NavMenu";
+import ShoppingCart from "./cart/ShoppingCart";
 
 const Header: FC = ({ children }) => {
   const { setTheme, theme } = useColorMode();
@@ -27,6 +28,7 @@ const Header: FC = ({ children }) => {
         Mode
       </button> */}
       <NavMenu />
+      <ShoppingCart />
       {children}
     </header>
   );
