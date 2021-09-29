@@ -18,7 +18,7 @@ const ShoppingCart: FC = () => {
       <motion.section
         animate={{
           translateX: cartUIState.value === fse.cart_visible ? "0%" : "80%",
-          translateY: cartUIState.value === fse.cart_visible ? "0%" : "5%",
+          translateY: cartUIState.value === fse.cart_visible ? "0%" : "-100%",
           scale: cartUIState.value === fse.cart_visible ? 1 : 0,
         }}
         transition={{
@@ -26,7 +26,7 @@ const ShoppingCart: FC = () => {
         }}
         initial={{
           translateX: "80%",
-          translateY: "5%",
+          translateY: "-100%",
           scale: 0,
         }}
         className="cart-wide"
