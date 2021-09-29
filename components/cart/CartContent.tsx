@@ -17,6 +17,8 @@ const CartContent: FC = () => {
           & .close-btn {
             /* border: crimson solid 1px; */
             display: flex;
+            margin-right: 10vw;
+            margin-top: 20px;
 
             align-self: flex-end;
             width: fit-content;
