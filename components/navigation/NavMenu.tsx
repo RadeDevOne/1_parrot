@@ -155,7 +155,7 @@ const Nav: FC = () => {
                 transition-duration: 0.2s;
                 transition-timing-function: ease-out;
               `}
-              tw="flex-col overflow-hidden sm:flex xl:hidden lg:hidden md:hidden"
+              tw="transform-gpu flex-col overflow-hidden sm:flex xl:hidden lg:hidden md:hidden"
               style={{ maxHeight: mobileMenuOpened ? "180px" : "0px" }}
             >
               <div

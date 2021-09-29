@@ -4,7 +4,7 @@ import tw, { css, styled, theme } from "twin.macro";
 
 const ShoppingCart: FC = () => {
   return (
-    <section tw="border">
+    <section tw="border h-14">
       <div></div>
       {/*  */}
     </section>
