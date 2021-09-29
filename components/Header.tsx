@@ -14,7 +14,8 @@ const Header: FC = ({ children }) => {
 
   return (
     <header
-    /* css={[
+      tw="overflow-hidden"
+      /* css={[
         tw`h-16 bg-bledoliko light:bg-bledoliko dark:bg-gray-800 dark:border-b-green-200`,
       ]} */
     >

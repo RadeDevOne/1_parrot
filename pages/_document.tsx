@@ -43,6 +43,7 @@ class MyDocument extends Document {
             css`
               transition-property: background;
               transition-duration: 0.4s;
+              overflow: hidden;
             `,
           ]}
         >

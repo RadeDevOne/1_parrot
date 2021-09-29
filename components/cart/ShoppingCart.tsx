@@ -7,14 +7,14 @@ const ShoppingCart: FC = () => {
     <>
       <section
         className="cart-wide"
-        tw="transform-gpu flex  md:flex sm:hidden"
+        tw="transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
         css={css`
           border: crimson solid 2px;
           position: absolute;
           top: 0;
           height: 60vh;
           width: 100vw;
-          /* transform: translateX(-98%); */
+          transform: translateX(80%) translateY(5%);
         `}
       >
         <div></div>
