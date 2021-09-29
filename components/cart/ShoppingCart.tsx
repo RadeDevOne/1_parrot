@@ -8,7 +8,7 @@ import { useActor } from "@xstate/react";
 
 import { headerNCartService, fse } from "@/machines/header_n_cart_machine";
 
-import CartContent from "./CartContent";
+import CartWrapper from "./CartWrapper";
 
 const ShoppingCart: FC = () => {
   const [cartUIState, cartUIDispatch] = useActor(headerNCartService);
@@ -53,12 +53,12 @@ const ShoppingCart: FC = () => {
           /* transform: translateX(80%) translateY(5%); */
         `}
       >
-        <CartContent />
+        <CartWrapper />
         {/*  */}
       </motion.section>
       <section
         css={[
-          tw`dark:bg-d light:bg-l transform-gpu flex md:hidden lg:hidden xl:hidden`,
+          tw`dark:bg-gray-800 light:bg-l transform-gpu flex md:hidden lg:hidden xl:hidden`,
 
           css`
             /* border: crimson solid 1px; */
@@ -78,7 +78,7 @@ const ShoppingCart: FC = () => {
             : openClosedStylesMobile["closed"],
         ]}
       >
-        <CartContent />
+        <CartWrapper />
       </section>
     </>
   );
