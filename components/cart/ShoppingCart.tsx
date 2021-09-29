@@ -15,6 +15,17 @@ const ShoppingCart: FC = () => {
 
   const cartIsVisible = cartUIState.value === fse.cart_visible;
 
+  const openClosedStylesMobile = {
+    open: css`
+      /* top: auto; */
+      transform: translateX(-120vw);
+    `,
+    closed: css`
+      /* top: 0; */
+      transform: translateX(0vh);
+    `,
+  };
+
   return (
     <>
       <motion.section
@@ -31,10 +42,9 @@ const ShoppingCart: FC = () => {
           translateY: "-100%",
           scale: 0,
         }}
-        className="cart-wide"
         tw="light:bg-l dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
         css={css`
-          border: crimson solid 2px;
+          /* border: crimson solid 2px; */
           position: fixed;
           top: 0;
           /* height: 60vh; */
@@ -46,30 +56,32 @@ const ShoppingCart: FC = () => {
         <CartContent />
         {/*  */}
       </motion.section>
-      <motion.section
-        animate={{
-          top: cartIsVisible ? 0 : "auto",
-          height: cartIsVisible ? "100vh" : "0vh",
-        }}
-        transition={{
-          duration: 0.2,
-        }}
-        initial={{
-          top: "auto",
-          height: "0vh",
-        }}
-        className="cart-mobile"
-        tw="dark:bg-d light:bg-l transform-gpu flex md:hidden"
-        css={css`
-          /* border: crimson solid 2px; */
-          position: fixed;
+      <section
+        css={[
+          tw`dark:bg-d light:bg-l transform-gpu flex md:hidden lg:hidden xl:hidden`,
+          /* css`
+            ${cartIsVisible ? "open" : "closed"}
+          `, */
+          css`
+            /* border: crimson solid 1px; */
+            position: fixed;
 
-          width: 100vw;
-          overflow: hidden;
-        `}
+            top: 0px;
+
+            transition-property: transform;
+            transition-duration: 0.4s;
+
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+          `,
+          cartIsVisible
+            ? openClosedStylesMobile["open"]
+            : openClosedStylesMobile["closed"],
+        ]}
       >
         <CartContent />
-      </motion.section>
+      </section>
     </>
   );
 };
