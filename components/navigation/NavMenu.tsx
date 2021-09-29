@@ -132,6 +132,10 @@ const Nav: FC = () => {
                 scale: contentScaledTo0 ? 0 : 1,
                 x: contentScaledTo0 ? -200 : 0,
               }}
+              initial={{
+                scale: 0,
+                x: -200,
+              }}
               transition={{ duration: 0.3 }}
               css={css`
                 /* only for transition to work */

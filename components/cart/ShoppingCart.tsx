@@ -4,7 +4,14 @@ import tw, { css, styled, theme } from "twin.macro";
 
 const ShoppingCart: FC = () => {
   return (
-    <section tw="border h-14">
+    <section
+      tw="transform-gpu"
+      css={css`
+        border: crimson solid 2px;
+        height: 60vh;
+        transform: translateX(-98%);
+      `}
+    >
       <div></div>
       {/*  */}
     </section>
