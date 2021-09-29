@@ -12,10 +12,10 @@ const CartContent: FC = () => {
     <section
       css={[
         css`
-          ${tw`border flex flex-col w-full h-full`}
+          ${tw`flex flex-col w-full h-full`}
 
           & .close-btn {
-            border: crimson solid 1px;
+            /* border: crimson solid 1px; */
             display: flex;
 
             align-self: flex-end;

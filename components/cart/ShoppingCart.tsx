@@ -30,9 +30,9 @@ const ShoppingCart: FC = () => {
           scale: 0,
         }}
         className="cart-wide"
-        tw="dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
+        tw="light:bg-l dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
         css={css`
-          border: crimson solid 2px;
+          /* border: crimson solid 2px; */
           position: absolute;
           top: 0;
           height: 60vh;
