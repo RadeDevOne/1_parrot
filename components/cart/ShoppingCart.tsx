@@ -8,6 +8,8 @@ import { useActor } from "@xstate/react";
 
 import { headerNCartService, fse } from "@/machines/header_n_cart_machine";
 
+import CartContent from "./CartContent";
+
 const ShoppingCart: FC = () => {
   const [cartUIState, cartUIDispatch] = useActor(headerNCartService);
 
@@ -38,7 +40,7 @@ const ShoppingCart: FC = () => {
           /* transform: translateX(80%) translateY(5%); */
         `}
       >
-        <div></div>
+        <CartContent />
         {/*  */}
       </motion.section>
       <section
