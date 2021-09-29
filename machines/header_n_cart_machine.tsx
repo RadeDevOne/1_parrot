@@ -12,10 +12,9 @@ export enum fse {
  * @description EVENTS ENUM
  */
 export enum EE {
-  PLACEHOLDING_ONE = "PLACEHOLDING_ONE",
-  PLACEHOLDING_TWO = "PLACEHOLDING_TWO",
+  TOGGLE = "TOGGLE",
+
   // events not depending on finite state
-  CHECK_CURRENT_DARK_MODE = "CHECK_CURRENT_DARK_MODE",
 }
 
 // TO BE USED AS GENERIC TYPES INSIDE STATE MACHINE DEFINISTION
@@ -24,25 +23,18 @@ export interface MachineContextGenericI {
   random: number;
 }
 
-export type machineEventsGenericType =
-  | {
+export type machineEventsGenericType = /* | {
       type: EE.CHECK_CURRENT_DARK_MODE;
       payload: {
         isDark: boolean;
       };
     }
-  | {
-      type: EE.PLACEHOLDING_ONE;
-      payload: {
-        placeholder: number;
-      };
-    }
-  | {
-      type: EE.PLACEHOLDING_TWO;
-      payload: {
-        placeholder: string;
-      };
-    };
+  | */ {
+  type: EE.TOGGLE;
+  payload: {
+    placeholder: number;
+  };
+};
 
 export type machineFiniteStatesGenericType =
   | {
@@ -80,8 +72,20 @@ const headerNcartMachine = createMachine<
   },
   // -------------------------------------------------------------------
   states: {
-    [fse.header_visible]: {},
-    [fse.cart_visible]: {},
+    [fse.header_visible]: {
+      on: {
+        [EE.TOGGLE]: {
+          target: fse.cart_visible,
+        },
+      },
+    },
+    [fse.cart_visible]: {
+      on: {
+        [EE.TOGGLE]: {
+          target: fse.header_visible,
+        },
+      },
+    },
   },
 });
 
