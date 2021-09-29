@@ -8,6 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        d: "#171614",
+        l: "#DDDBF1",
+        y: "#E9D758",
+        good: "#297373",
+        bad: "#FE5F55",
         electric: "#db00ff",
         ribbon: "#0047ff",
         bledoliko: "crimson",

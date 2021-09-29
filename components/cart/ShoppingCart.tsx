@@ -22,7 +22,7 @@ const ShoppingCart: FC = () => {
           scale: cartUIState.value === fse.cart_visible ? 1 : 0,
         }}
         transition={{
-          duration: 0.2,
+          duration: 0.4,
         }}
         initial={{
           translateX: "80%",
