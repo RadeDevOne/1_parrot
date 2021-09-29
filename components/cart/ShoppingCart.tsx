@@ -16,11 +16,11 @@ const ShoppingCart: FC = () => {
   const cartIsVisible = cartUIState.value === fse.cart_visible;
 
   const openClosedStylesMobile = {
-    open: css`
+    closed: css`
       /* top: auto; */
       transform: translateX(-120vw);
     `,
-    closed: css`
+    open: css`
       /* top: 0; */
       transform: translateX(0vh);
     `,
