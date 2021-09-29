@@ -24,21 +24,7 @@ const Header: FC = ({ children }) => {
   }, [headerNCartServiceInitiallized, setHeaderAndCartServiceInitialized]);
 
   return (
-    <header
-      tw="overflow-hidden"
-      /* css={[
-        tw`h-16 bg-bledoliko light:bg-bledoliko dark:bg-gray-800 dark:border-b-green-200`,
-      ]} */
-    >
-      {/* <button
-        onClick={() => {
-          // toggle();
-
-          setTheme(theme === "light" ? "dark" : "light");
-        }}
-      >
-        Mode
-      </button> */}
+    <header tw="overflow-hidden dark:bg-gray-800 light:bg-white">
       <NavMenu />
       <ShoppingCart />
       {children}

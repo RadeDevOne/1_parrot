@@ -84,7 +84,7 @@ const Nav: FC = () => {
             cursor: pointer;
           }
         `,
-        tw`bg-white shadow dark:bg-gray-800`,
+        tw`shadow`,
       ]}
     >
       <div tw="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">

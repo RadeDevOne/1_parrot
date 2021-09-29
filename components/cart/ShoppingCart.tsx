@@ -59,9 +59,7 @@ const ShoppingCart: FC = () => {
       <section
         css={[
           tw`dark:bg-d light:bg-l transform-gpu flex md:hidden lg:hidden xl:hidden`,
-          /* css`
-            ${cartIsVisible ? "open" : "closed"}
-          `, */
+
           css`
             /* border: crimson solid 1px; */
             position: fixed;
