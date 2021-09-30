@@ -7,7 +7,7 @@ const LayProducts: FC = () => {
     <section tw="mx-auto md:w-2/3 lg:w-2/3 xl:w-2/3 overflow-y-auto">
       <div tw="dark:bg-gray-800 mx-auto flex flex-col max-w-3xl p-6 space-y-4 sm:p-10  dark:text-gray-100">
         <h2 tw="text-xl font-semibold">Your cart</h2>
-        <ul tw="flex flex-col divide-y divide-gray-700">
+        <ul tw="flex flex-col divide-gray-700">
           <li tw="flex flex-col py-6 sm:flex-row sm:justify-between">
             <div tw="flex w-full space-x-2 sm:space-x-4">
               <img
@@ -204,3 +204,109 @@ const LayProducts: FC = () => {
 };
 
 export default LayProducts;
+
+const a = () => {
+  return (
+    // custom-number-input
+    <div
+      tw="h-10 w-32"
+      css={css`
+        & input:focus,
+        & button:focus {
+          outline: none !important;
+        }
+
+        & input[type="number"]::-webkit-inner-spin-button,
+        & input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      `}
+    >
+      <label
+        htmlFor="custom-input-number"
+        tw="w-full text-gray-700 text-sm font-semibold"
+      >
+        Counter Input
+      </label>
+      <div tw="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+        <button
+          data-action="decrement"
+          tw=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+        >
+          <span tw="m-auto text-2xl font-thin">−</span>
+        </button>
+        <input
+          type="number"
+          tw=" focus:outline-none text-center w-full bg-gray-300 font-semibold text-sm hover:text-black focus:text-black  md:text-base cursor-default flex items-center text-gray-700  outline-none"
+          name="custom-input-number"
+          value="0"
+        ></input>
+        <button
+          data-action="increment"
+          tw="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+        >
+          <span tw="m-auto text-2xl font-thin">+</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+{
+  /* <style>
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .custom-number-input input:focus {
+    outline: none !important;
+  }
+
+  .custom-number-input button:focus {
+    outline: none !important;
+  }
+</style> */
+}
+{
+  /* 
+<script>
+  function decrement(e) {
+    const btn = e.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    value--;
+    target.value = value;
+  }
+
+  function increment(e) {
+    const btn = e.target.parentNode.parentElement.querySelector(
+      'button[data-action="decrement"]'
+    );
+    const target = btn.nextElementSibling;
+    let value = Number(target.value);
+    value++;
+    target.value = value;
+  }
+
+  const decrementButtons = document.querySelectorAll(
+    `button[data-action="decrement"]`
+  );
+
+  const incrementButtons = document.querySelectorAll(
+    `button[data-action="increment"]`
+  );
+
+  decrementButtons.forEach(btn => {
+    btn.addEventListener("click", decrement);
+  });
+
+  incrementButtons.forEach(btn => {
+    btn.addEventListener("click", increment);
+  });
+</script> */
+}
