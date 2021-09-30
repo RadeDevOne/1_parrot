@@ -42,7 +42,7 @@ const ShoppingCart: FC = () => {
           translateY: "-100%",
           scale: 0,
         }}
-        tw="light:bg-l dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
+        tw="light:bg-white dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
         css={css`
           /* border: crimson solid 2px; */
           position: fixed;
@@ -58,7 +58,7 @@ const ShoppingCart: FC = () => {
       </motion.section>
       <section
         css={[
-          tw`dark:bg-gray-800 light:bg-l transform-gpu flex md:hidden lg:hidden xl:hidden`,
+          tw`dark:bg-gray-800 light:bg-white transform-gpu flex md:hidden lg:hidden xl:hidden`,
 
           css`
             /* border: crimson solid 1px; */
