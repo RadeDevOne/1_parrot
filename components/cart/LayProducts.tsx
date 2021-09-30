@@ -4,10 +4,29 @@ import tw, { css, styled, theme } from "twin.macro";
 
 const LayProducts: FC = () => {
   return (
-    <section tw="mx-auto md:w-2/3 lg:w-2/3 xl:w-2/3 overflow-y-auto">
+    <section tw=" overflow-y-auto">
       <div tw="dark:bg-gray-800 mx-auto flex flex-col max-w-3xl p-6 space-y-4 sm:p-10  dark:text-gray-100">
         <h2 tw="text-xl font-semibold">Your cart</h2>
-        <ul tw="flex flex-col divide-gray-700">
+        <ul
+          tw="flex flex-col divide-gray-700"
+          css={css`
+            /* & li::before {
+              content: "";
+              display: flex;
+              position: absolute;
+              width: 100%;
+              height: 4px;
+              margin-bottom: 12px;
+              border-bottom: ${theme`colors.y`} solid 1px;
+              align-self: flex-end;
+              justify-self: flex-start;
+            } */
+
+            & li {
+              border-bottom: crimson solid 2px;
+            }
+          `}
+        >
           <li tw="flex flex-col py-6 sm:flex-row sm:justify-between">
             <div tw="flex w-full space-x-2 sm:space-x-4">
               <img
@@ -59,6 +78,48 @@ const LayProducts: FC = () => {
                     </svg>
                     <span>Add to favorites</span>
                   </button>
+                </div>
+                <div
+                  tw="h-8 w-28"
+                  css={css`
+                    & input:focus,
+                    & button:focus {
+                      outline: none !important;
+                    }
+
+                    & input[type="number"]::-webkit-inner-spin-button,
+                    & input[type="number"]::-webkit-outer-spin-button {
+                      -webkit-appearance: none;
+                      margin: 0;
+                    }
+                  `}
+                >
+                  <label
+                    htmlFor="custom-input-number"
+                    tw="w-full text-gray-700 text-sm font-semibold"
+                  >
+                    Count
+                  </label>
+                  <div tw="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-1">
+                    <button
+                      data-action="decrement"
+                      tw=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                    >
+                      <span tw="m-auto text-2xl font-thin">−</span>
+                    </button>
+                    <input
+                      type="number"
+                      tw=" focus:outline-none text-center w-full bg-gray-300 font-semibold text-sm hover:text-black focus:text-black  md:text-base cursor-default flex items-center text-gray-700  outline-none"
+                      name="custom-input-number"
+                      value="0"
+                    ></input>
+                    <button
+                      data-action="increment"
+                      tw="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                    >
+                      <span tw="m-auto text-2xl font-thin">+</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -114,6 +175,48 @@ const LayProducts: FC = () => {
                     </svg>
                     <span>Add to favorites</span>
                   </button>
+                </div>
+                <div
+                  tw="h-8 w-28"
+                  css={css`
+                    & input:focus,
+                    & button:focus {
+                      outline: none !important;
+                    }
+
+                    & input[type="number"]::-webkit-inner-spin-button,
+                    & input[type="number"]::-webkit-outer-spin-button {
+                      -webkit-appearance: none;
+                      margin: 0;
+                    }
+                  `}
+                >
+                  <label
+                    htmlFor="custom-input-number"
+                    tw="w-full text-gray-700 text-sm font-semibold"
+                  >
+                    Count
+                  </label>
+                  <div tw="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-1">
+                    <button
+                      data-action="decrement"
+                      tw=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                    >
+                      <span tw="m-auto text-2xl font-thin">−</span>
+                    </button>
+                    <input
+                      type="number"
+                      tw=" focus:outline-none text-center w-full bg-gray-300 font-semibold text-sm hover:text-black focus:text-black  md:text-base cursor-default flex items-center text-gray-700  outline-none"
+                      name="custom-input-number"
+                      value="0"
+                    ></input>
+                    <button
+                      data-action="increment"
+                      tw="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
+                    >
+                      <span tw="m-auto text-2xl font-thin">+</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -209,7 +312,7 @@ const a = () => {
   return (
     // custom-number-input
     <div
-      tw="h-10 w-32"
+      tw="h-8 w-28"
       css={css`
         & input:focus,
         & button:focus {
@@ -229,7 +332,7 @@ const a = () => {
       >
         Count
       </label>
-      <div tw="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+      <div tw="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-1">
         <button
           data-action="decrement"
           tw=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
