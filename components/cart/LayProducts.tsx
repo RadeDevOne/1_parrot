@@ -227,7 +227,7 @@ const a = () => {
         htmlFor="custom-input-number"
         tw="w-full text-gray-700 text-sm font-semibold"
       >
-        Counter Input
+        Count
       </label>
       <div tw="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
         <button
