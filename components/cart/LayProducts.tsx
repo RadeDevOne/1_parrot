@@ -23,7 +23,8 @@ const LayProducts: FC = () => {
             } */
 
             & li {
-              border-bottom: crimson solid 2px;
+              /* background-color: ${theme`colors.l`}; */
+              border-bottom: #12151d solid 2px !important;
             }
           `}
         >
@@ -98,7 +99,7 @@ const LayProducts: FC = () => {
                     htmlFor="custom-input-number"
                     tw="w-full text-gray-700 text-sm font-semibold"
                   >
-                    Count
+                    Count:
                   </label>
                   <div tw="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-1">
                     <button
