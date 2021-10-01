@@ -151,7 +151,16 @@ AND THIS IS A VITNES THAT OUR PRISMA SCHEMA DID ACTUALLY APPLIED
 (4 rows)
 ```
 
-<!-- ---- ---- ---- ---- -->
+WE CAN EXIT FROM A SHELL RIGHT NOW
+
+```
+\q
+```
+
+
+
+<!-- 
+
 
 # WORK IN PROGRESS
 
@@ -186,3 +195,4 @@ FRAMER MOTION (SOMETIMES I DON'T LIKE HOW IT WORKS BECAUSE IT TENDS TO RANDOMLY 
 
 xstate @xstate/react
 
+ -->
