@@ -55,6 +55,7 @@ const ShoppingCart: FC = () => {
       >
         <CartWrapper />
         {/*  */}
+        {/*  */}
       </motion.section>
       <section
         css={[
