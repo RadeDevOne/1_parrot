@@ -267,6 +267,33 @@ yarn db:dev:psql
 
 WE DON'T NEED ANY CONDITIOS IN TERMS OF DEVELOPMENT OR PRODUCTION ENVIROMENTS, SINCE BY HAVING `.env.development.local` AND `.env.production.local`, IN WHICH WE HAVE ENV VARIABLE WITH A SAME NAME `DATBASE_URL` WE KNOW THAT PRISMA CLIENT WILL GET THE RIGHT CONNECTION STRING IN A RIGHT ENVIROMENT
 
+```
+mkdir -p lib/prisma && touch lib/prisma/index.ts
+```
+
+```ts
+import { PrismaClient } from "@prisma/client";
+
+let prisma: PrismaClient;
+
+// eslint-disable-next-line
+declare namespace global {
+  let prisma: PrismaClient;
+}
+
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+
+  prisma = global.prisma;
+}
+
+export default prisma;
+```
+
 
 
 <!-- 
