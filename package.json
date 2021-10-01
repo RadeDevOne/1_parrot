@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "db:dev": "sudo docker run --name fancy-parrot -e POSTGRES_PASSWORD=schism -p 5432:5432 -d --rm postgres:13.3",
     "prisma:db:push:prod": "dotenv -e .env.production.local -- npx prisma db push",
     "prisma:studio:prod": "dotenv -e .env.production.local -- npx prisma studio",
     "prisma:generate:client:prod": "dotenv -e .env.production.local -- npx prisma generate",
