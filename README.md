@@ -1,6 +1,6 @@
 # ADDING NEXT-AUTH
 
-`pages/api/auth`
+`pages/api/auth/[...nextauth].ts`
 
 
 
