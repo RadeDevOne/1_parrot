@@ -46,9 +46,9 @@ EVERYTHING WENT WELL (I OPENED DASBORD OF OUR PROJECT ON SUPABASE.IO AND IN DATA
 
 [HOW TO INSTALL DOCKER YOU CAN SEE HERE](https://docs.docker.com/engine/install/ubuntu/) (DON'T FORGET TO RUN [docker login](https://docs.docker.com/engine/reference/commandline/login/))) (TRY USING WITH sudo IF SOMETHING GETS WRONG)
 
-WHEN WE DID THAT LETS RUN CONTAINER WITH POSTGRESS INSTANCE
+WHEN WE DID THAT LETS RUN CONTAINER WITH POSTGRES INSTANCE
 
-**BUT BEFORE THAT LETS FIND OUT WHAT POSTGRES INSTANCE IS USING SUPABASE, BECAUSE WE WANT TO HAVE PRODUCTION AND DEVELOPMENT DATBASES WITH SAME VERSIONS**
+**BUT BEFORE THAT LETS FIND OUT WHAT VERSION OF POSTGRES SUPABASE USES, BECAUSE WE WANT TO HAVE PRODUCTION AND DEVELOPMENT DATBASES WITH SAME VERSIONS**
 
 GO TO THE DASBOARD OF YOUR SUPABASE PROJECT AND **GO TO `SQL EDITOR` CLICK ON `+ New Query` AND RUN THIS QUERY**
 
@@ -69,7 +69,7 @@ IMPORTANT!!
 
 **RUN docker COMMANDS WITH `sudo` IF YOU GET PERMISSION ERROR**
 
-****
+***
 
 ```
 sudo docker run --name fancy-parrot -e POSTGRES_PASSWORD=schism -p 5432:5432 -d --rm postgres:13.3
@@ -91,6 +91,8 @@ CONTAINER ID   IMAGE           COMMAND                  CREATED          STATUS 
 THIS IS A TEMPLATE: `postgresql://${user}:${pass}@localhost:5432/${dbName}`
 
 SO OUR LINK IS: (WE DIDN'T SPECIFY USERNAME SO WE WILL PUT `postgres` AS A USER)
+
+**PURPOSLY I ADDED NEW NAME FOR THE DATBASE (fancy-parrot)** (JUST TO HO W THAT YOU CAN)
 
 `postgresql://postgres:schism@localhost:5432/fancy-parrot`
 
@@ -185,6 +187,80 @@ LETS TRY IT
 
 ```
 yarn db:dev
+```
+
+IT STARTED BUT LETS ALSO MAKE A SCRIPT FOR ACCESSINGPOSTGRES SHELL (WHEN I SAY POSTGRES SHELL I ACTUALLY MEAN OF `psql`)
+
+```
+code package.json
+```
+
+```json
+// ADDED THIS "script"
+"db:dev:psql": "sudo docker exec -it -u postgres fancy-parrot psql",
+```
+
+LETS TRY IT
+
+```
+yarn db:dev:psql
+```
+
+WE ARI NSIDE, BUT OUR DATABASE
+
+```sh
+# 
+\l
+# 
+\c fancy-parrot
+
+FATAL:  database "fancy-parrot" does not exist
+Previous connection kept
+
+#
+\q
+```
+
+I'LL REXPLAIN WHY
+
+# SINCE EVERY TIME WE KILL THE CONTAINER, OUR POSTGRES INSTANCE IS DESTROYED 
+
+REMBER WE ADDED DATBASE NAME TO A CONNECTIO NSTRING, AND `PRISMA IS RESPONSIBLE FOR CREATING DATABASE, AND CREATING TABLES ACORDING TO SCHEMA/`
+
+AND THAT IS HAPPENING WHEN WE RUN COMMAND I ALREADY MENTIOND, WHICH WE ARE GOING TO RUN JUST NOW
+
+```
+yarn prisma:db:push:dev
+```
+
+THIS IS GOING TO CREATE DATBASE WITH A NAME WE SPECIFIED IN CONNECTION STRING (WHICH IS INSIDE `.env.development.local` FILE)
+
+ANT IT IS GOING TO CREATE TABLES WE SPECIFIED INSIDE `prisma/schema.prisma`
+
+OK LETS CONNECT WITH psql AND CHECK IF EVERYTHING IS CREATED
+
+```
+yarn db:dev:psql
+```
+
+```zsh
+\l
+# NOW OUR DATBASE IS LISTED
+# AND WE CAN CONNECT AND CHECK RELTIONS (TABLES)
+\c fancy-parrot
+# 
+\d
+
+# WE GOT THIS
+
+                List of relations
+ Schema |        Name         | Type  |  Owner   
+--------+---------------------+-------+----------
+ public | Account             | table | postgres
+ public | Session             | table | postgres
+ public | User                | table | postgres
+ public | VerificationRequest | table | postgres
+(4 rows)
 ```
 
 # NOW WE CAN WRITE CONNECTION LOGIC, OR HOW TO CONNECT TO OUR DATBASES FROM NODEJS, OR NEXTJS WORLD; WE ARE GOING TO USE PRISMA CLIENT
