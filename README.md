@@ -6,6 +6,9 @@ AGAIN, IDEA IS TO HAVE REDIS ON SOME CLOUD PROVIDER (MAYBE [UPSTASH](https://doc
 
 OK, HELPFUL RESOURCES FOR THIS TIME ARE: [OFFICIAL DOCS OF UPSTASH](https://docs.upstash.com/)
 
+ALSO LEE ROBINSON USES REDIS WITH UPSTASH SO WE CAN CONSULT [HIS BLOG POST](https://leerob.io/blog/serverless-redis-nextjs) AND [HIS VIDEO ALSO](https://www.youtube.com/watch?v=FytxaSVQROc)
+
+
 
 
 <!-- ## STYLING
