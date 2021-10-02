@@ -9,7 +9,6 @@ import prismaClient from "../../../lib/prisma";
 const handler = (req: NextApiRequest, res: NextApiResponse) =>
   NextAuth(req, res, {
     providers: [
-      // THIS IS TODO (WE NEED TO PROVIDE ALL ENV VARIABLES)
       Providers.Email({
         server: {
           host: process.env.EMAIL_SERVER_HOST,
