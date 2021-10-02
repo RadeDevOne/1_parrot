@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
+// import type { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
