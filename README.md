@@ -1,6 +1,4 @@
-# ADDING NEXT-AUTH
-
-`pages/api/auth/[...nextauth].ts`
+# HOOKING UP SENDGRID
 
 
 
