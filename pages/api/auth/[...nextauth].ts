@@ -47,7 +47,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
 
     pages: {
       signIn: "/signin",
-      verifyRequest: "/veryify-email-info",
+      verifyRequest: "/verify-email-info",
     },
 
     // WHEN User RECORD IS CREATED BY NEXT-AUTH
