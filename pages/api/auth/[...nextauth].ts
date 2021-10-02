@@ -20,6 +20,11 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
           },
         },
         from: process.env.FROM_EMAIL,
+        // LIKE THIS WE CAN CUSTOMIZE EMAIL WE ARE SENDING
+        /* sendVerificationRequest({
+          // SEE HERE HOW TO DO IT
+          //    https://next-auth.js.org/providers/email#customizing-emails
+        }) */
       }),
     ],
 
