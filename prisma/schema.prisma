@@ -69,6 +69,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  profiles      Profile[]
 }
 
 model VerificationRequest {
@@ -83,6 +84,35 @@ model VerificationRequest {
 }
 
 // --------------------------------------------------
+// IDEA BEHIND Profile RECORD IS TO BE LIKE "EXTENSION"
+// OF Profile RECORD (BECAUSE I DON'T WANT TO TOUCH
+// User RECORD AND BY DOING THIS I TO DO HAVE MORE THINGS
+// IN TERMS OF EDUCATING MYSELF ABOUT SOME OTHER
+// FEATURES OF PACKAGES WE USE
+// (FOR EXAMPLE I NEED TO USE SOME FEATURES OF next-auth
+// BECAUSE I WANT TO INSERT EXTRA DATA ON SESSION OBJECT
+// AND I WANT TO CREATE Profile RECORD WHEN NEXT AUTH
+// CREATES "THEIR" User RECORD )
 // --------------------------------------------------
+
+model Profile {
+  id            String   @id @default(cuid())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  role          Role     @default(USER)
+  // FOR SHIPPING PURPOSES
+  addrss        String?
+  city          String?
+  postalCode    String?
+  country       String?
+  paymentMethod String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+  // --------------
+  // ordersHistory Order[]
+  // productCreationHistory Product[]
+  // reviewsHistory         Review[]
+}
+
 // --------------------------------------------------
 // --------------------------------------------------

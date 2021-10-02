@@ -8,6 +8,7 @@ import prismaClient from "../../../lib/prisma";
 const handler = (req: NextApiRequest, res: NextApiResponse) =>
   NextAuth(req, res, {
     providers: [
+      // THIS IS TODO (WE NEED TO PROVIDE ALL ENV VARIABLES)
       Providers.Email({
         server: {
           host: process.env.EMAIL_SERVER_HOST,
@@ -25,6 +26,8 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
     secret: process.env.SECRET,
     adapter: PrismaAdapter(prismaClient),
 
+    // I NEED TO LOOK INTO THIS
+    // I DON'T WANT TO CUSTOMIZE TOKEN STUFF FOR NOW
     /* session: {
       jwt: true,
       maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -69,7 +72,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
       },
     },
 
-    // WE WANT TO INSERT PROFILE ON ssession OBJECT
+    // WE WANT TO INSERT PROFILE ON session OBJECT
     callbacks: {
       session: async (session, user) => {
         if (session.userId && session.profile) {
@@ -100,3 +103,5 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
       },
     },
   });
+
+export default handler;
