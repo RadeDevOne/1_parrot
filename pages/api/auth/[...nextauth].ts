@@ -44,8 +44,8 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
       verifyRequest: "/veryify-email-info",
     },
 
-    // WHEN User RECORD IS CREATED BY NEXT AUTH
-    // WE WANT TO CREATE A Profile RECORD TOO
+    // WHEN User RECORD IS CREATED BY NEXT-AUTH
+    // WE ALSO WANT TO CREATE A Profile RECORD TOO
     events: {
       createUser: async (user) => {
         if (!user.email) return;
