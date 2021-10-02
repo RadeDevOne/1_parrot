@@ -1,8 +1,8 @@
 /* eslint react/react-in-jsx-scope: 0 */
+
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx, css } from "@emotion/react";
+import tw, { css, styled, theme } from "twin.macro";
+
 import type { NextPage as NP } from "next";
 import { useState, useCallback, useEffect } from "react";
 
@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 import type { ChangeEventHandler, FormEvent } from "react";
 
-import { useActor } from "@xstate/react";
+// import { useActor } from "@xstate/react";
 
 // WE ARE GOING TO USE SIGNING IN WITH EMAIL LOGIC LIKE THIS
 // AND WE NEED TO CHECK SESSION
@@ -73,7 +73,6 @@ const SignInPage: NP = () => {
     <main>
       <h1>Sign In</h1>
       <section
-        className="form-holder"
         css={css`
           padding-top: 10vh;
           width: 100%;

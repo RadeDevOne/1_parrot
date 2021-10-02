@@ -1,8 +1,6 @@
 /* eslint react/react-in-jsx-scope: 0 */
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx, css } from "@emotion/react";
+import tw, { css, styled, theme } from "twin.macro";
 import type { NextPage as NP } from "next";
 
 import { useRouter } from "next/router";
