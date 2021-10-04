@@ -206,7 +206,9 @@ model Order {
   // WHEN WE FIND OUT STATUS FROM paymentResult
   // OR MAYBE WE WILL REMOVE THIS IN THE FUTURE
   status          OrderStatus    @default(PENDING)
-  isDelivered     Boolean        @default(false)
+  // WE DON'T NEED THIS BECAUSE WE ALREADY HAVE    deliveredAt    ROW
+  // isDelivered     Boolean        @default(false)
+  // THIS IS GOING TO BE IN PERCENTS
   taxPrice        Float?         @default(0.0)
   totalPrice      Float?
   paymentMethod   String?
