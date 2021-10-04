@@ -69,6 +69,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  // WE EXTEN THIS WITH Profile RECORD
   profiles      Profile[]
 }
 
@@ -85,8 +86,10 @@ model VerificationRequest {
 
 // --------------------------------------------------
 // IDEA BEHIND Profile RECORD IS TO BE LIKE "EXTENSION"
-// OF Profile RECORD (BECAUSE I DON'T WANT TO TOUCH
-// User RECORD AND BY DOING THIS I TO DO HAVE MORE THINGS
+// OF User RECORD (BECAUSE I DON'T WANT TO TOUCH
+// User RECORD (WHY? I DON'T KNOW, IT IS USED PRIMARLY BY
+// next-auth AND I DON'T WANT TO TOUCH IT)
+// AND BY DOING THIS I TO DO HAVE MORE THINGS
 // IN TERMS OF EDUCATING MYSELF ABOUT SOME OTHER
 // FEATURES OF PACKAGES WE USE
 // (FOR EXAMPLE I NEED TO USE SOME FEATURES OF next-auth
@@ -110,8 +113,9 @@ model Profile {
   updatedAt     DateTime @default(now()) @updatedAt
   // --------------
   // ordersHistory Order[]
-  // productCreationHistory Product[]
   // reviewsHistory         Review[]
+  // FOR ADMIN USER
+  // productCreationHistory Product[]
 }
 
 // --------------------------------------------------
