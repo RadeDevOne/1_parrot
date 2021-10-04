@@ -48,13 +48,25 @@ xstate @xstate/react
 
 next-auth
 
-# DATABASE
+# DATABASES
 
 PRODUCTION: `PostgreSQL 13.3` ON `Supabase`
 
 DEVELOPMENT: `PostgreSQL 13.3` SPINNED UP WITH DOCKER
 
 ORM: Prisma
+
+Redis 5.0.8:
+
+PRODUCTION: `Upstash`
+
+DEVELOPMENT: `Another Docker Container`
+
+# EXPIRATION SERVICE, MAYBE ALSO, "SPECIAL CART SERVICE"
+
+USING `BullMQ`
+
+
  -->
 
  <!-- 
