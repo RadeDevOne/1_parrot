@@ -21,10 +21,10 @@ enum Role {
 
 // THIS ONE IS FOR THE STATUS OF ORDER
 enum OrderStatus {
-  PENDING   // THIS IS GOING TO BE DEFAULT WHEN USERS CREATS ORDER
-  REJECTED  // MEANS SOMETHING WENT WRONG
+  PENDING // THIS IS GOING TO BE DEFAULT WHEN USERS CREATS ORDER
+  REJECTED // MEANS SOMETHING WENT WRONG
   FULFILLED // MENAS PAYED
-  DELIVERED 
+  DELIVERED
 }
 
 // WE WILL USE JUST PayPal (WHICH ALSO HAS CREDIT CARD PAYMENT ALSO)
@@ -107,23 +107,23 @@ model VerificationRequest {
 // --------------------------------------------------
 
 model Profile {
-  id            String   @id @default(cuid())
-  user          User     @relation(fields: [userId], references: [id])
-  userId        String
-  role          Role     @default(USER)
+  id                     String    @id @default(cuid())
+  user                   User      @relation(fields: [userId], references: [id])
+  userId                 String
+  role                   Role      @default(USER)
   // FOR SHIPPING PURPOSES
-  addrss        String?
-  city          String?
-  postalCode    String?
-  country       String?
-  paymentMethod String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @default(now()) @updatedAt
+  addrss                 String?
+  city                   String?
+  postalCode             String?
+  country                String?
+  paymentMethod          String?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @default(now()) @updatedAt
   // --------------
-  // ordersHistory Order[]
-  // reviewsHistory         Review[]
+  ordersHistory          Order[]
+  reviewsHistory         Review[]
   // FOR ADMIN USER
-  // productCreationHistory Product[]
+  productCreationHistory Product[]
 }
 
 // -------------------------------------------------------------
@@ -132,30 +132,29 @@ model Profile {
 // -------- PRODUCT---------------------------------------------
 
 model Product {
-  productId    String   @id @default(cuid())
-  admin        Profile  @relation(fields: [adminId], references: [id])
-  adminId      String
-  name         String
-  image        String
-  description  String
-  brand        String
-  category     String?
-  price        Float
-  countInStock Int
+  productId     String         @id @default(cuid())
+  admin         Profile        @relation(fields: [adminId], references: [id])
+  adminId       String
+  name          String
+  image         String
+  description   String
+  brand         String
+  category      String?
+  price         Float
+  countInStock  Int
   // AVERAGE OF ALL OF THE REVIEW RATING (JUST YOU KNOW)
-  rating       Float    @default(0.0)
-  numReviews   Int      @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  rating        Float          @default(0.0)
+  numReviews    Int            @default(0)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
   //  Reviews
-  reviews Review[]
+  reviews       Review[]
   // OrderElements
   orderElements OrderElement[]
 }
 
 // -------------------------------------------------------------
 // -------------------------------------------------------------
-
 
 // -------- REVIEW--------------------------------------------
 
@@ -174,12 +173,12 @@ model Review {
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 
-// -------- ORDER ELEMENT (LINKS SINGLE PRODUCT RECORD WITH THE ORDER; 
-// --------                     PRODUCTS QUANTITY (NUMBER OF SINGLE PRODUCT
-// --------                            IS DEFINED HERE))
+// -------- ORDER ELEMENT
+// (LINKS SINGLE PRODUCT RECORD WITH THE ORDER;
+// -------- PRODUCTS QUANTITY (NUMBER OF SINGLE PRODUCT
+// -------- IS DEFINED HERE))
 // SO ONE ORDER CAN HAVE MAND ORDER ELEMENTS THAT DESCRIBE
 // PRODUCTS IN ONE ORDER
-
 
 model OrderElement {
   id        String  @id @default(cuid())
@@ -187,10 +186,9 @@ model OrderElement {
   product   Product @relation(fields: [productId], references: [productId])
   productId String
   // ----------------------
-  order   Order  @relation(fields: [orderId], references: [id])
-  orderId String
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
 }
-
 
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
@@ -198,30 +196,29 @@ model OrderElement {
 // ------------   ORDER ----------------------
 
 model Order {
-  id          String         @id @default(cuid())
-  buyer       Profile        @relation(fields: [buyerId], references: [id])
-  buyerId     String
-  items       OrderElement[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  id              String         @id @default(cuid())
+  buyer           Profile        @relation(fields: [buyerId], references: [id])
+  buyerId         String
+  items           OrderElement[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
   // WE WILL UPDATE THIS
   // WHEN WE FIND OUT STATUS FROM paymentResult
   // OR MAYBE WE WILL REMOVE THIS IN THE FUTURE
-  status      OrderStatus    @default(PENDING)
-  isDelivered Boolean        @default(false)
-  taxPrice Float? @default(0.0)
-  totalPrice Float?
-  paymentMethod String?
+  status          OrderStatus    @default(PENDING)
+  isDelivered     Boolean        @default(false)
+  taxPrice        Float?         @default(0.0)
+  totalPrice      Float?
+  paymentMethod   String?
   // PAYPAL RELATED (MYBE ALSO STRIPE OR SOME OTHER PROVIDER (FOR NOW IT IS ONLY PAYPAL
   // SINCE WE ARE NOT PLANING ON USING STRIPE))
   paymentResult   PaymentResult? @relation(fields: [paymentResultId], references: [id])
   //
   paymentResultId String?
-  shippingPrice Float? @default(0.0)
-  payedAt DateTime?
-  deliveredAt DateTime?
+  shippingPrice   Float?         @default(0.0)
+  payedAt         DateTime?
+  deliveredAt     DateTime?
 }
-
 
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
@@ -235,17 +232,17 @@ model Order {
 
 model PaymentResult {
   // THIS IS THE ID THAT WILL BE GENERATED
-  id          String  @id @default(cuid())
+  id              String          @id @default(cuid())
   // THIS IS THE ID FROM PAYPAL (OR ANY OTHER PROVIDER)
-  paymentId   String
+  paymentId       String
   // THIS IS A PROVIDER
   paymentProvider PaymentProvider
   // MAYBE WE WILL CHANGE THIS status FIELD IN THE FUTURE
   // MAYBE THERE ARE SOME STANDARDIZED STATUS VALUES
-  status      String?
-  update_time String?
-  email       String?
-  orders Order[]
+  status          String?
+  update_time     String?
+  email           String?
+  orders          Order[]
 }
 
 // ------------------------------------------------------------------------
