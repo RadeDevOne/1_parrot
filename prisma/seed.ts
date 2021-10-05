@@ -11,12 +11,13 @@ async function main() {
   // WE CAN CREATE BUNCH OF PRODUCTS
   // AND CREATE COUPLE OF REVIEWS FOR EACH PRODUCT (WE CAN RANDOMIZE NUMBER OF REVIEWS)
 
-  /* await prisma.paymentResult.create({
+  await prisma.paymentResult.create({
     data: {
       paymentId: "666",
       paymentProvider: "PayPal",
+      bank: "mybanh",
     },
-  }); */
+  });
 
   console.log("SEEDING IN HERE");
 }
