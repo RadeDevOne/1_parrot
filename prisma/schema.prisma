@@ -276,6 +276,7 @@ model PaymentResult {
   paymentProvider PaymentProvider
   // MAYBE WE WILL CHANGE THIS status FIELD IN THE FUTURE
   // MAYBE THERE ARE SOME STANDARDIZED STATUS VALUES
+  totalPrice      String
   status          String?
   update_time     String?
   email           String?
