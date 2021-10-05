@@ -2,6 +2,8 @@
 
 import { PrismaClient } from "@prisma/client";
 import type { Profile, Product, Review } from "@prisma/client";
+import cuid from "cuid";
+
 //
 import faker from "faker";
 
@@ -26,26 +28,7 @@ async function main() {
   // Products AND WE WANT Reviews
   // BECAUSE WE WANT TO SEE BUNCH OF PRODUCTS WHERE BUNCH OF PROFILES LEFT A REVIEW
 
-  const generateProfilesData = () => {
-    const numberOfProfiles = 20;
-
-    const profilesData: Profile[] = [];
-
-    for (let i = 0; i < numberOfProfiles; i++) {
-      profilesData.push({
-        city: "",
-        country: "",
-        nick: "",
-        postalCode: "",
-        streetAddress: "",
-        role: "USER",
-        userId: null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        id: "",
-      });
-    }
-  };
+  
 
   await prisma.profile.createMany({
     data: [{}],

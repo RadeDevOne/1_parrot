@@ -145,7 +145,7 @@ model Profile {
 // -------- PRODUCT---------------------------------------------
 
 model Product {
-  productId     String         @id @default(cuid())
+  id            String         @id @default(cuid())
   // ADMIN (Profile) CREATES PRODUCT
   // THIS IS OPTIONAL BECAUSE IT IS EASIER FOR DATBASE SEEDING
   // AND OBVIUSLY WHEN YOU ARE MAKING SHOP YOU DON'T WANT
@@ -158,12 +158,17 @@ model Product {
   description   String
   brand         String
   category      String?
-  price         Float
+  // THIS SHOULD BE STRING; ALSO WE ARE GOING TO PARSE THIS
+  // price         Float
+  price         String
   countInStock  Int
   // AVERAGE OF ALL OF THE REVIEWS RATINGS (JUST YOU KNOW)
-  rating        Float          @default(0.0)
-  // REVIEW COUNT
-  numReviews    Int            @default(0)
+  // THIS IS ALSO BAD TO BE HERE (YOU SHOULD CALCULATE THIS)
+  // REMOVING THIS BECAUSE IT IS A PLACE TO MAKE MISTAKES
+  // WE WILL CALCULATE REATING FROM REVIEWS
+  // rating        Float          @default(0.0)
+  // REVIEW COUNT (DON'T NEED THIS IN HERE (A GOOD PLACE TO MAKE MISTAKES))
+  // numReviews    Int            @default(0)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   //  Reviews
@@ -179,7 +184,7 @@ model Product {
 
 model Review {
   id        String   @id @default(cuid())
-  product   Product  @relation(fields: [productId], references: [productId])
+  product   Product  @relation(fields: [productId], references: [id])
   productId String
   // HERE WE WANT ONLY NUMBERS FROM 1 TO 5
   rating    Int
@@ -204,7 +209,7 @@ model Review {
 model OrderElement {
   id        String  @id @default(cuid())
   quantity  Int
-  product   Product @relation(fields: [productId], references: [productId])
+  product   Product @relation(fields: [productId], references: [id])
   productId String
   // ----------------------
   order     Order   @relation(fields: [orderId], references: [id])
