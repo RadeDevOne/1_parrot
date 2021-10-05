@@ -263,7 +263,6 @@ model PaymentResult {
   update_time     String?
   email           String?
   orders          Order[]
-  bank            String
 }
 
 // ------------------------------------------------------------------------
