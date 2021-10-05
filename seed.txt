@@ -1,3 +1,10 @@
+IGNORE THIS, I GOT SOME ERROR WHEN MIGRATING TWO DATBASES
+
+***
+***
+***
+***
+
 DATBASE MIGRATION WILL RUNN SEEDING ALSO
 
 **I THINK WHEN YOU WANT TO USE PRODUCTION YOU SHOULD REMOVE THAT SEEDING OPTION INSIDE package.json**
@@ -8,8 +15,8 @@ COMMENT OUT (TEMPORRARY REMOVE) THIS LINE
 
 ```
 "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
+  "seed": "ts-node prisma/seed.ts"
+},
 ```
 
 FROM package.json
