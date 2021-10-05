@@ -36,6 +36,8 @@ WE WILL ADD THIS SCRIPT TO `package.json`
 "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
 ```
 
+WE DID THIS SO WE CAN USE ESM IMPORTS IN A FILE WE ARE GOING TO EED FROM
+
 AND WE WILL WE WILL ADD THIS IN SAME FILE (`package.json`)
 
 WE ARE NOT ADDING THIS AS A SCRIPT, I'M JUST PUTTING IN TOP LEVEL IN `package.json` FILE
