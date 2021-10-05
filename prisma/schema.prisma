@@ -116,8 +116,11 @@ model VerificationRequest {
 
 model Profile {
   id                     String    @id @default(cuid())
-  user                   User      @relation(fields: [userId], references: [id])
-  userId                 String
+  // PROFILE SHOULDN'T NECESSARY HAS THE RELATED USER
+  // SUPERADMIN PROFILE SHOULDN'T HAVE ANY USER RECORD
+  // RELATED TO HIM, THAT'S WHY user IS OPTIONAL HERE
+  user                   User?     @relation(fields: [userId], references: [id])
+  userId                 String?
   role                   Role      @default(USER)
   // FOR SHIPPING PURPOSES
   addrss                 String?

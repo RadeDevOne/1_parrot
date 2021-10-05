@@ -5,6 +5,7 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
+  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
