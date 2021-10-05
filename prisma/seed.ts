@@ -1,11 +1,12 @@
 // # THIS FILE IS ALSO GOING TO BE RUN IF YOU DO MIGRATES
-
+// I USE IT TO SEED MY DEVELOPMENT DATBASE
 import { PrismaClient } from "@prisma/client";
-import type { Profile, Product, Review } from "@prisma/client";
-import cuid from "cuid";
 
-//
-import faker from "faker";
+import {
+  generateProductData,
+  generateProfilesData,
+  generateReviewsData,
+} from "@/lib/prisma/seed";
 
 const prisma = new PrismaClient();
 
@@ -23,19 +24,36 @@ async function main() {
       role: "SUPERADMIN",
     },
   });
-  // LETS NOT CREATE User RECORDS, WE ONLY NEED Profile
+  // LETS NOT CREATE User RECORDS, WE ONLY NEED Profile RECORDS
   // SINCE WE ONLY WANT BUNCH OF Profiles AND ALSO BUNCH OF
   // Products AND WE WANT Reviews
   // BECAUSE WE WANT TO SEE BUNCH OF PRODUCTS WHERE BUNCH OF PROFILES LEFT A REVIEW
 
-  
+  const profileData = generateProfilesData(30);
+  const productData = generateProductData(60);
+  const reviewsData = generateReviewsData(
+    productData.productIds,
+    profileData.profileIds
+  );
 
+  // SEEDING PROFILES
   await prisma.profile.createMany({
-    data: [{}],
+    data: profileData.profilesData,
   });
 
-  // FIRST WE WILL CREATE PROFILES
-  // 30 SHOULD BE ENOUGH
+  // SEEDING PRODUCTS
+  await prisma.product.createMany({
+    data: productData.productsData,
+  });
+
+  // SEEDING REVIEWS
+  await prisma.review.createMany({
+    data: reviewsData,
+  });
+
+  //
+
+  console.log("SEEDED SOME DATA");
 }
 
 main()
