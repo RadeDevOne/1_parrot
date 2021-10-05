@@ -123,11 +123,11 @@ model Profile {
   userId                 String?
   role                   Role      @default(USER)
   // FOR SHIPPING PURPOSES
-  address                String?
+  streetAddress          String?
   city                   String?
   postalCode             String?
   country                String?
-  paymentMethod          String?
+  // paymentMethod          String?
   createdAt              DateTime  @default(now())
   updatedAt              DateTime  @default(now()) @updatedAt
   // --------------
