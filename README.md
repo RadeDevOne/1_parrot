@@ -2,10 +2,149 @@
 
 DON'T FORGET TO USE UNSPLASH URL FOR PICTURES FOR PRODUCTS
 
-MOCAROO WILL BE USED
+CHANGE OF PLAN, WE ARE NOT GOING TO USE MOCKAROO FOR MOCK DATA
 
-WE WANT THREE DIFFERENT JSON FILES, FOR Products, Reviews, Users
+WE WILL GENERATE DATA (WE DON'T WANT TO LOAD JSON FILES AND LOOP THROUGH THEM), **WE WILL USE [faker](https://www.npmjs.com/package/faker)**
 
+```
+yarn add faker
+```
+
+```
+yarn add @types/faker
+```
+
+WE WILL BE USING THIS TUTORIAL:
+
+<https://www.youtube.com/watch?v=7RrgSh4k3nM>
+
+WHICH IS GREAT BECAUSE IT USING FAKER; BUT MAYBE IT IS A BIT OUTDATED
+
+SO WE ARE GOING TO FOLLOW [OFFICIAL SEEDING DOCUMENTATION](https://www.prisma.io/docs/guides/database/seed-database)(BUT THIS DOESN'T SHOW THE EXAMPLE)
+
+I ALSO FOUND THIS EXAMPLE:
+
+IT IS 25 DAYS OLD: (SHOULD WORK)
+
+<https://github.com/prisma/prisma-examples/blob/latest/typescript/graphql-nextjs/prisma/seed.ts>
+
+# FIRST WE NEED TO OVERRIDE `ts-node` BY ADDING ONE SCRIPT TO `package.json`; AND WE OLSO NEED TO ADD ANOTHER THING TO `package.json`
+
+WE WILL ADD THIS SCRIPT TO `package.json`
+
+```json
+"ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
+```
+
+AND WE WILL WE WILL ADD THIS IN SAME FILE (`package.json`)
+
+WE ARE NOT ADDING THIS AS A SCRIPT, I'M JUST PUTTING IN TOP LEVEL IN `package.json` FILE
+
+YOU CAN ADD THIS JUST BEFORE SCRIPTS
+
+```json
+"prisma": {
+  "seed": "ts-node prisma/seed.ts"
+}
+```
+
+# FIRST LET'S SKAFFOLD SEEDING FILE
+
+```
+touch prisma/seed.ts
+```
+
+```ts
+import { PrismaClient } from "@prisma/client";
+import faker from "faker";
+
+const prisma = new PrismaClient();
+
+async function main() {
+  //
+  // WE ARE GOING TO PRINT SOMETHING OUT FOR NOW
+  // TO SEE IF THIS IS GOING TO RUN AT ALL
+
+  console.log("SEEDING IN HERE");
+  //
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+```
+
+# WE MUST START DEVELOPMENT INSTANNCE OF POSTGRES
+
+```
+yarn postgres:dev
+```
+
+WE NEED TO APPLY SCHEMA ON OUR VIRGIN DATABASE
+
+```
+yarn prisma:db:push:dev
+```
+
+APARENTLY IT WORKED BECAUSE WE HAVE SEEN TEXT PRINTED OUT
+
+# LETS ACTUALLY TEST SEEDING BY CREATING ONE RECORD
+
+`PaymentResult` IS SMALLEST AND DOESN'T HAVRE SOME REQUIRED FOREIGN KEYS (TRY FIRST WITH HIM)
+
+```
+code prisma/seed.ts
+```
+
+```ts
+import { PrismaClient } from "@prisma/client";
+import faker from "faker";
+
+const prisma = new PrismaClient();
+
+async function main() {
+  // I ADDED THIS
+  await prisma.paymentResult.create({
+    data: {
+      paymentId: "666",
+      paymentProvider: "PayPal",
+    },
+  });
+
+  console.log("SEEDING IN HERE");
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+
+```
+
+OK, RUN AGAIN SEEDING SCRIPT
+
+```
+yarn prisma:seed:dev
+```
+
+TEXT WAS PRINTED IN TERMINAL
+
+LETS OPEN A PRISMA STUDIO
+
+```
+yarn prisma:studio:dev
+```
+
+I OPENED STUDIO AND I CAN SEE THAT WE ACTUALLY CREATED ONE `PaymentResult` RECORD
 
 <!-- ## STYLING
 
