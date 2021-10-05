@@ -12,6 +12,7 @@
     "db:dev": "yarn postgres:dev && yarn redis:dev",
     "prisma:migrate:both": "yarn prisma:migrate:dev && yarn prisma:migrate:prod",
     "prisma:push:both": "yarn prisma:db:push:dev && yarn prisma:db:push:prod",
+    "prisma:generate:client:both": "yarn prisma:generate:client:dev && yarn prisma:generate:client:prod",
     "db:dev:kill": "yarn postgres:dev:kill && yarn redis:dev:kill",
     "redis:dev": "sudo docker run -dit --rm --name=fancy-jackal -v $PWD/redis-dev.conf:/usr/local/etc/redis/redis.conf -p 6379:6379 redis:5.0.8",
     "redis:dev:kill": "sudo docker kill fancy-jackal",
