@@ -181,7 +181,8 @@ model Review {
   id        String   @id @default(cuid())
   product   Product  @relation(fields: [productId], references: [productId])
   productId String
-  rating    Float
+  // HERE WE WANT ONLY NUMBERS FROM 1 TO 5
+  rating    Int
   //
   profile   Profile  @relation(fields: [profileId], references: [id])
   profileId String

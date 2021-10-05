@@ -15,8 +15,15 @@ async function main() {
   //
   // CREATING ONE SUPERADMIN
   await prisma.profile.create({
-    data: {},
+    data: {
+      nick: "pneuma",
+    },
   });
+
+  // LETS NOT CREATE User RECORDS, WE ONLY NEED Profile
+  // SINCE WE ONLY WANT BUNCH OF Profiles AND ALSO BUNCH OF
+  // Products AND WE WANT Reviews
+  // BECAUSE WE WANT TO SEE BUNCH OF PRODUCTS WHERE BUNCH OF PROFILES LEFT A REVIEW
 }
 
 main()
