@@ -40,6 +40,8 @@ async function main() {
     profileData.profileIds
   );
 
+  console.log({ reviewsData });
+
   // SEEDING PROFILES
   await prisma.profile.createMany({
     data: profileData.profilesData,
@@ -50,10 +52,27 @@ async function main() {
     data: productData.productsData,
   });
 
+  // WE NEED TO DO THIS ONE LIKE THIS
   // SEEDING REVIEWS
-  await prisma.review.createMany({
-    data: reviewsData,
-  });
+
+  for (const review of reviewsData) {
+    await prisma.review.create({
+      data: {
+        comment: review.comment,
+        rating: review.rating,
+        profile: {
+          connect: {
+            id: review.profileId,
+          },
+        },
+        product: {
+          connect: {
+            id: review.productId,
+          },
+        },
+      },
+    });
+  }
 
   //
 

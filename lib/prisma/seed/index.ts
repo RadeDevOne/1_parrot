@@ -50,8 +50,12 @@ export const generateProductData = (numberOfProducts: number) => {
 
     const productName = faker.commerce.productName();
 
+    const id = cuid();
+
+    productIds.push(id);
+
     productsData.push({
-      id: cuid(),
+      id,
       name: productName,
       image: unsplashTemplate(productName),
       countInStock,
