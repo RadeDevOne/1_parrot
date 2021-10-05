@@ -106,7 +106,8 @@ export const generateReviewsData = (
 
       if (profileNo === profileIds.length) {
         back = true;
-      } else if (profileNo < 0) {
+      }
+      if (profileNo < 0) {
         back = false;
       }
     }

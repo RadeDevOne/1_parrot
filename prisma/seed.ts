@@ -2,11 +2,15 @@
 // I USE IT TO SEED MY DEVELOPMENT DATBASE
 import { PrismaClient } from "@prisma/client";
 
+// WE WILL USE THESE FUNCTIONS
 import {
   generateProductData,
   generateProfilesData,
   generateReviewsData,
-} from "@/lib/prisma/seed";
+  // THIS KIND A SHORT HAND IMPORT WONT WORK
+  // } from "@/lib/prisma/seed";
+  // WE WILL USE THIS
+} from "../lib/prisma/seed";
 
 const prisma = new PrismaClient();
 
