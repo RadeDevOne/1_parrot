@@ -17,6 +17,7 @@ async function main() {
   await prisma.profile.create({
     data: {
       nick: "pneuma",
+      role: "SUPERADMIN",
     },
   });
 
