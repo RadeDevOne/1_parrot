@@ -28,8 +28,8 @@ export const generateProfilesData = (numberOfProfiles: number) => {
       )}`,
       role: "USER",
       userId: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: faker.date.past(),
+      updatedAt: faker.date.future(),
       id: cuid(),
     });
   }
@@ -60,8 +60,8 @@ export const generateProductData = (numberOfProducts: number) => {
       brand: faker.company.companyName(),
       price: faker.commerce.price(),
       adminId: null,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: faker.date.past(),
+      updatedAt: faker.date.future(),
     });
   }
 
@@ -93,8 +93,8 @@ export const generateReviewsData = (
         productId: prdoductIds[i],
         profileId,
         comment: faker.lorem.sentences(),
-        createdAt: faker.date.past(),
         rating: Math.round(Math.random() * 5.1) || 1,
+        createdAt: faker.date.past(),
         updatedAt: faker.date.future(),
       });
 
