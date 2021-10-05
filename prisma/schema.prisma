@@ -123,7 +123,7 @@ model Profile {
   userId                 String?
   role                   Role      @default(USER)
   // FOR SHIPPING PURPOSES
-  addrss                 String?
+  address                String?
   city                   String?
   postalCode             String?
   country                String?
@@ -135,6 +135,8 @@ model Profile {
   reviewsHistory         Review[]
   // FOR ADMIN USER
   productCreationHistory Product[]
+  // THIS IS HELPFUL FOR SUPERADMIN
+  nick                   String?
 }
 
 // -------------------------------------------------------------
@@ -263,7 +265,6 @@ model PaymentResult {
   update_time     String?
   email           String?
   orders          Order[]
-  some            String
 }
 
 // ------------------------------------------------------------------------
