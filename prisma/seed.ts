@@ -1,3 +1,5 @@
+// # THIS FILE IS ALSO GOING TO BE RUN IF YOU DO MIGRATES
+
 import { PrismaClient } from "@prisma/client";
 //
 import faker from "faker";
@@ -12,6 +14,9 @@ async function main() {
   // AND CREATE COUPLE OF REVIEWS FOR EACH PRODUCT (WE CAN RANDOMIZE NUMBER OF REVIEWS)
   //
   // CREATING ONE SUPERADMIN
+  await prisma.profile.create({
+    data: {},
+  });
 }
 
 main()
