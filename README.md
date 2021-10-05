@@ -150,7 +150,7 @@ I OPENED STUDIO AND I CAN SEE THAT WE ACTUALLY CREATED ONE `PaymentResult` RECOR
 
 # WE CAN NOW USE FAKER TO SEED MORE DATA,   BUT BEFORE THAT LETS USE FAKER AND USE THEM IN METHODS THAT WILL BE INTENDED FOR CREATING SEEDING DATA
 
-I DID CREATED SOME HELPER METHODS; THERE ARE MORE FUNCTIONS WE GENERATE DATA THAT IS ACCORDING TO TYPES OF OUR RECORDS ("TYPESCRIPTY FRIENDLY TO TYPES OF OUR GENERATED PRISMA CLIENT")
+I DID CREATED SOME HELPER METHODS; THERE ARE MORE FUNCTIONS THN HELPERS, WE GENERATE DATA WITH THEM THAT IS ACCORDING TO TYPES OF OUR RECORDS ("TYPESCRIPTY FRIENDLY" TO TYPES OF OUR GENERATED PRISMA CLIENT)
 
 ```
 mkdir lib/prisma/seed && lib/prisma/seed/index.ts
@@ -158,7 +158,10 @@ mkdir lib/prisma/seed && lib/prisma/seed/index.ts
 
 ```ts
 import type { Profile, Product, Review } from "@prisma/client";
+// WE ONLY USE THIS TO CREATE THINGS QUICKLY (TELLING YOU BECAUSE
+// NORMALLY FOR MOST RECORDS IDS ARE AUTO-GENERATED)
 import cuid from "cuid";
+//
 import faker from "faker";
 
 const unsplashTemplate = (name: string) => {
@@ -178,6 +181,7 @@ export const generateProfilesData = (numberOfProfiles: number) => {
     profileIds.push(id);
 
     profilesData.push({
+      id,
       city: faker.address.city(),
       country: faker.address.country(),
       nick: null,
@@ -189,7 +193,6 @@ export const generateProfilesData = (numberOfProfiles: number) => {
       userId: null,
       createdAt: faker.date.past(),
       updatedAt: faker.date.future(),
-      id: cuid(),
     });
   }
 
@@ -287,7 +290,7 @@ code prisma/seed.ts
 ```
 
 ```ts
-// # THIS FILE IS ALSO GOING TO BE RUN IF YOU DO MIGRATES
+/// # THIS FILE IS ALSO GOING TO BE RUN IF YOU DO MIGRATES
 // I USE IT TO SEED MY DEVELOPMENT DATBASE
 import { PrismaClient } from "@prisma/client";
 
@@ -296,16 +299,19 @@ import {
   generateProductData,
   generateProfilesData,
   generateReviewsData,
-} from "@/lib/prisma/seed";
+  // THIS KIND A SHORT HAND IMPORT WONT WORK
+  // } from "@/lib/prisma/seed";
+  // WE WILL USE THIS
+} from "../lib/prisma/seed";
 
 const prisma = new PrismaClient();
 
 async function main() {
   // WE CAN CREATE BUNCH OF USERS AND BUNCH OF PROFILES
-  // WE CAN CREATE ON SUPERADMIN PROFILE
-  // CREATE COUPLE OF ADMIN USERS (I DON'T THINK WE WOULD NEED THEM BUT LETS TRY DOING THAT)
+  // WE CAN CREATE ONE SUPERADMIN PROFILE
+  // CREATE COUPLE OF ADMIN USERS (WE DON'T NEED THIS NOW (WE ARE GOING TO DO THIS LATER))
   // WE CAN CREATE BUNCH OF PRODUCTS
-  // AND CREATE COUPLE OF REVIEWS FOR EACH PRODUCT (WE CAN RANDOMIZE NUMBER OF REVIEWS)
+  // AND WE CAN CREATE COUPLE OF REVIEWS FOR EACH PRODUCT
   //
   // CREATING ONE SUPERADMIN
   await prisma.profile.create({
@@ -314,6 +320,7 @@ async function main() {
       role: "SUPERADMIN",
     },
   });
+
   // LETS NOT CREATE User RECORDS, WE ONLY NEED Profile RECORDS
   // SINCE WE ONLY WANT BUNCH OF Profiles AND ALSO BUNCH OF
   // Products AND WE WANT Reviews
@@ -325,6 +332,8 @@ async function main() {
     productData.productIds,
     profileData.profileIds
   );
+
+  // console.log({ reviewsData });
 
   // SEEDING PROFILES
   await prisma.profile.createMany({
@@ -384,8 +393,9 @@ LETS OPEN STUDIO TO SEE IF RECORDS ARE CREATED
 yarn prisma:studio:dev
 ```
 
+YES WE HAVE ALL DATA, AND FOREIGN KEYS ARE THERE, SO OUR RELATIONS ARE GOOD (Review HAS ONE FOR Profile AND ONE FOR Product)
 
-
+**SO THAT IS IT FOR SEEDING**
 
 <!-- ## STYLING
 

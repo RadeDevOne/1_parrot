@@ -16,10 +16,10 @@ const prisma = new PrismaClient();
 
 async function main() {
   // WE CAN CREATE BUNCH OF USERS AND BUNCH OF PROFILES
-  // WE CAN CREATE ON SUPERADMIN PROFILE
-  // CREATE COUPLE OF ADMIN USERS (I DON'T THINK WE WOULD NEED THEM BUT LETS TRY DOING THAT)
+  // WE CAN CREATE ONE SUPERADMIN PROFILE
+  // CREATE COUPLE OF ADMIN USERS (WE DON'T NEED THIS NOW (WE ARE GOING TO DO THIS LATER))
   // WE CAN CREATE BUNCH OF PRODUCTS
-  // AND CREATE COUPLE OF REVIEWS FOR EACH PRODUCT (WE CAN RANDOMIZE NUMBER OF REVIEWS)
+  // AND WE CAN CREATE COUPLE OF REVIEWS FOR EACH PRODUCT
   //
   // CREATING ONE SUPERADMIN
   await prisma.profile.create({
@@ -28,6 +28,7 @@ async function main() {
       role: "SUPERADMIN",
     },
   });
+
   // LETS NOT CREATE User RECORDS, WE ONLY NEED Profile RECORDS
   // SINCE WE ONLY WANT BUNCH OF Profiles AND ALSO BUNCH OF
   // Products AND WE WANT Reviews
@@ -40,7 +41,7 @@ async function main() {
     profileData.profileIds
   );
 
-  console.log({ reviewsData });
+  // console.log({ reviewsData });
 
   // SEEDING PROFILES
   await prisma.profile.createMany({
@@ -52,27 +53,10 @@ async function main() {
     data: productData.productsData,
   });
 
-  // WE NEED TO DO THIS ONE LIKE THIS
   // SEEDING REVIEWS
-
-  for (const review of reviewsData) {
-    await prisma.review.create({
-      data: {
-        comment: review.comment,
-        rating: review.rating,
-        profile: {
-          connect: {
-            id: review.profileId,
-          },
-        },
-        product: {
-          connect: {
-            id: review.productId,
-          },
-        },
-      },
-    });
-  }
+  await prisma.review.createMany({
+    data: reviewsData,
+  });
 
   //
 

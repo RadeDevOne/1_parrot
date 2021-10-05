@@ -1,5 +1,8 @@
 import type { Profile, Product, Review } from "@prisma/client";
+// WE ONLY USE THIS TO CREATE THINGS QUICKLY (TELLING YOU BECAUSE
+// NORMALLY FOR MOST RECORDS IDS ARE AUTO-GENERATED)
 import cuid from "cuid";
+//
 import faker from "faker";
 
 const unsplashTemplate = (name: string) => {
@@ -19,6 +22,7 @@ export const generateProfilesData = (numberOfProfiles: number) => {
     profileIds.push(id);
 
     profilesData.push({
+      id,
       city: faker.address.city(),
       country: faker.address.country(),
       nick: null,
@@ -30,7 +34,6 @@ export const generateProfilesData = (numberOfProfiles: number) => {
       userId: null,
       createdAt: faker.date.past(),
       updatedAt: faker.date.future(),
-      id: cuid(),
     });
   }
 
