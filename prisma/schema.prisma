@@ -234,16 +234,25 @@ model Order {
   status          OrderStatus    @default(PENDING)
   // WE DON'T NEED THIS BECAUSE WE ALREADY HAVE    deliveredAt    ROW
   // isDelivered     Boolean        @default(false)
-  // THIS IS GOING TO BE IN PERCENTS
-  taxPrice        Float?         @default(0.0)
-  totalPrice      Float?
+  // THIS IS GOING TO BE IN PERCENTS (I GUESS GOOD DEFAULT IS 14.6%)
+  taxPrice        Float?         @default(14.6)
+  // I THINK THIS IS ANTI PATTERN ALSO
+  // TOTAL PRICE SHOULD BE CALCULATED FROM items FIELD
+  // BECAUSE THERE YOU HAVE ALL THE ITEMS AND THEIR COUNTS
+  // AND THEIR PRICES
+  // THIS SHOLUD BE ON PAYMENT RESULT
+  // DON'T WORRY WE ARE NOT GOING TO CALCULATE FRONT END (WE WILL DO THIS ON SERVER SIDE)
+  // totalPrice      Float?
+  // WE CAN PUT DEFAULT HERE ALSO
+  // THIS IS NOT IN PERCENTS (THESE ARE DOLLARS AND I'LL USE STRING
+  // FOR THIS VALUE)
+  shippingPrice   String         @default("5.6")
   paymentMethod   String?
   // PAYPAL RELATED (MYBE ALSO STRIPE OR SOME OTHER PROVIDER (FOR NOW IT IS ONLY PAYPAL
   // SINCE WE ARE NOT PLANING ON USING STRIPE))
   paymentResult   PaymentResult? @relation(fields: [paymentResultId], references: [id])
   //
   paymentResultId String?
-  shippingPrice   Float?         @default(0.0)
   payedAt         DateTime?
   deliveredAt     DateTime?
 }
