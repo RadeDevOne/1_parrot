@@ -2,6 +2,19 @@
 
 **THIS IS GOING TO BE CRUCIAL FOR WRITING TESTS**
 
+WE INSTALLED DOCKER COMPOSE ([link](https://docs.docker.com/compose/install/))
+
+LETS NOW CREATE DOCKER COMPOSE YAML FILE
+
+```
+touch docker-compose.test.yml
+```
+
+```yml
+
+```
+
+
 
 
 <!-- ## STYLING
