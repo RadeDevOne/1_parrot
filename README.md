@@ -8,7 +8,7 @@ yarn add --dev @types/jest jest
 
 WE ALREDY INSTALLED `ts-node` BEFORE, JUST KNO IT IS NEEDED TOO
 
-# GENERETING JEST CONFIG
+## GENERETING JEST CONFIG
 
 ```
 yarn jest --init
@@ -18,7 +18,7 @@ PICK TO CLEAR MOCKS BETWEEN TEST, PICK NODE, PICK BABEL WHEN PROMPTED
 
 MEYBE WE ARE GOING TO CHANE SOME SSTUFF IN THIS FILE
 
-# MAKE A TEST SCRIPT AND YOU CAN DEFINE EXECUTION OF THAT SCRIPT ALSO INSIDE BUILD SCRIPT
+## MAKE A TEST SCRIPT AND YOU CAN DEFINE EXECUTION OF THAT SCRIPT ALSO INSIDE BUILD SCRIPT
 
 ```
 code package.json
@@ -29,7 +29,7 @@ code package.json
 "test": "jest --watchAll --no-cache",
 ```
 
-# LETS TRY EXECUTING THIS SCRIPT DESPITE WE DON THAVE ANY TESTS
+## LETS TRY EXECUTING THIS SCRIPT DESPITE WE DON THAVE ANY TESTS
 
 ```
 yarn test
@@ -37,7 +37,7 @@ yarn test
 
 IT CHECKED 72 FILES DIDN;T FIND ANY TEST AND IT EXITET WITH ERROR CODE 1
 
-# LETS CREATE SOME TEST; YOU CAN CALL IT 'MOCK TEST' BECAUSE WE JUST WANT TO SEE IF TEST IS GOING TO BE PROCESSED
+## LETS CREATE SOME TEST; YOU CAN CALL IT 'MOCK TEST' BECAUSE WE JUST WANT TO SEE IF TEST IS GOING TO BE PROCESSED
 
 ```
 mkdir tests 
@@ -64,17 +64,117 @@ yarn test
 
 IT WORKS
 
+# OK, BUT HOW TO TEST OUR API ROUTES
 
+WE CAN'T USE supertest BUT WE CAN USE SOMETHING CALLLED [`node-mocks-http`](https://www.npmjs.com/package/node-mocks-http?activeTab=readme)
+
+**YES, WE CAN MOCK req AN res OBJECTS BUT LETS NOT DO THAT THING**
+
+HOPEFULLY MENTIONED PACKAGE CAN WORK WELL, I AM CONCERNED BECAUSE I'M USING next-connect BUT MAYEBE THAT DOESN'T MATTER (**IT DOESN'T WORK next-connect**)
+
+```
+yarn add --dev node-mocks-http
+```
+
+# LETS NOW CREATE SOME API ROUTE
+
+**I FOUND OUT EARLIER THAT next-connect DOESN'T WORK**
+
+```
+touch pages/api/EXAMPLE/[someId].ts
+```
+
+```ts
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import nc from "next-connect";
+
+const handler = nc<NextApiRequest, NextApiResponse>();
+
+
+// THIS WON-T WORK
+
+handler.get(async (req, res) => {
+  const { someId } = req.query;
+
+  res.statusCode = 200;
+
+  res.setHeader("Content-Type", "application/json");
+
+  res.end(JSON.stringify({ message: `Hello ${someId}` }));
+});
+
+// export default handler;
+
+// THIS WILL WORK
+
+export default function handleAnimal(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const {
+    query: { someId },
+  } = req;
+
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify({ message: `Hello ${someId}` }));
+}
+
+```
+
+## LETS WRITE TEST FOR UPPER ROUTE; AND PAY ATTENTION THAT YOU CAN'T PUT YOUR TEST FILES INSIDE `pages` BECAUSE YOU WILL CREATE MESS, YOU KNOW WHY; ALSO WE CANT USE `[]` IN TEST FILE NAMINGS
+
+**SO BESICALLY WE WILL CREATE __tests__ FOLDER**
+
+```
+mkdir -p __tests__/api/EXAMPLE && touch __tests__/api/EXAMPLE/someId.test.ts
+```
+
+```ts
+import { createMocks } from "node-mocks-http";
+
+// WE NEED TO IMPORT HANDLER
+import someHandler from "../../../pages/api/EXAMPLE/[someId]";
+
+describe("/api/[someId] should establish World Piece", () => {
+  it("returns object with a message field", async () => {
+    // CREATING MOCK REQUEST AND RESPONSE
+    const a = createMocks({
+      method: "GET",
+      query: {
+        someId: "here-she-comes",
+      },
+    });
+
+    // WE CALL OUR HANDLER WITH req AND res
+
+    await someHandler(a.req, a.res);
+
+    console.log(JSON.stringify({ a }, null, 2));
+
+    // OUR EXPECTTION
+    // CHECK DOCK FOR THE METHODS YOU CAN USE ON req AND res
+    // https://github.com/howardabrams/node-mocks-http
+
+    expect(a.res._getStatusCode()).toBe(200);
+    expect(a.res._getJSONData()).toBeDefined();
+    expect(a.res._getJSONData()).toHaveProperty("message");
+    expect(a.res._getJSONData()).toEqual({ message: "Hello here-she-comes" });
+  });
+});
+```
+
+```
+yarn test
+```
+
+IT WORKED
 
 ***
 ***
 ***
 ***
-
-
-
-
-
 
 UNLIKE HOW ITS DONE WITH MONGODB, YOU CAN'T HAVE IN MEMORY POSTGRES INSTANCE
 

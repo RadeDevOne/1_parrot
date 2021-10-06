@@ -8,7 +8,7 @@ module.exports = {
           importSource: "@emotion/react",
         },
       },
-      // ---- I ADDED THESE TWO ----
+      // ---- I ADDED THESE TWO (THIS IS BAD (REMOVE THIS))----
       /* [
         "@babel/preset-env",
         {
