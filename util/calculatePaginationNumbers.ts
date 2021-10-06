@@ -16,9 +16,11 @@ const calculatePaginationNumbers = (
   const prev = currentPageNumber - 1 < 0 ? null : currentPageNumber - 1;
 
   // THIS IS THE IDEA FOR PAGINATION IN TERMS OF UI
-  // [<<,Previous,currentNum(can use number here),Next>>]
 
+  /**
+   * @description [<< ,Previous,currentNumPageNumber,Next, >>]
+   */
   return [first, prev, currentPageNumber, next, last];
 };
 
-export {};
+export default calculatePaginationNumbers;

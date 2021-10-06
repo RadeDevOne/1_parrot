@@ -1,4 +1,4 @@
-# WORk IN PROGRESS
+# WORK IN PROGRESS
 
 <!-- ## STYLING
 
