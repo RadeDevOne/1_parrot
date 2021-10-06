@@ -1,25 +1,83 @@
 # TESTING SETUP
 
-WE WOULD LIKE TO TET MANY THINGS BUT WE ARE GOING TO START A LITTLE BIT SIMPLER THAN AFTER THT WE WILL GO INTO MORE ADVANCED THINGS
+WE WOULD LIKE TO TEST MANY THINGS BUT WE ARE GOING TO START A LITTLE BIT SIMPLER THAN AFTER THT WE WILL GO INTO MORE ADVANCED THINGS
 
 ```
-yarn add --dev @types/jest jest node-fetch ts-jest
+yarn add --dev @types/jest jest
 ```
 
+```
+yarn add babel-jest @babel/core @babel/preset-env @babel/preset-typescript
+```
 
+WE ALREDY INSTALLED `ts-node` BEFORE, JUST KNO IT IS NEEDED TOO
 
+# GENERETING JEST CONFIG
 
+```
+yarn jest --init
+```
 
+PICK TO CLEAR MOCKS BETWEEN TEST, PICK NODE, PICK BABEL WHEN PROMPTED
 
+MEYBE WE ARE GOING TO CHANE SOME SSTUFF IN THIS FILE
 
+# UPDATE BABER FILE
 
+```
+code .babelrc.js
+```
 
+```js
+module.exports = {
+  presets: [
+    [
+      "next/babel",
+      {
+        "preset-react": {
+          runtime: "automatic",
+          importSource: "@emotion/react",
+        },
+      },
+      // I ADDED THESE TWO
+      [
+        "@babel/preset-env",
+        {
+          targets: {
+            node: "current",
+          },
+        },
+      ],
+      "@babel/preset-typescript",
+      // -------------------------
+    ],
+  ],
+  plugins: ["@emotion/babel-plugin", "babel-plugin-macros", "superjson-next"],
+};
+```
 
+# MAKE A TEST SCRIPT AND YOU CAN DEFINE EXECUTION OF THAT SCRIPT ALSO INSIDE BUILD SCRIPT
 
+```
+code package.json
+```
 
+```json
+"build": "next build && yarn test",
+"test": "jest --verbose",
+```
 
+# LETS TRY EXECUTING THIS SCRIPT DESPITE WE DON THAVE ANY TESTS
 
+```
+yarn test
+```
 
+# LETS CREATE SOME TESTS
+
+```
+mkdir tests && 
+```
 
 
 
