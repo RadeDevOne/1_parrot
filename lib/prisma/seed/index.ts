@@ -61,6 +61,7 @@ export const generateProductData = (numberOfProducts: number) => {
       id,
       name: productName,
       image: unsplashTemplate(productName),
+      // image: faker.image.fashion(),
       averageRating: Math.round(Math.random() * 5.1) || 1,
       countInStock,
       description: faker.commerce.productDescription(),
