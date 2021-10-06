@@ -15,3 +15,6 @@ yarn add @next-auth/prisma-adapter @paypal/react-paypal-js @prisma/client @sendg
 yarn add bullmq ioredis
 
 yarn add --dev @types/ioredis
+
+
+yarn add --dev @prisma/cli @types/jest jest node-fetch ts-jest

@@ -1,8 +1,35 @@
-# RUNNING POSTGRES WITH DOCKER COMPOSE
+# TESTING SETUP FOR PRISMA AND POSTGRES
 
-**THIS IS GOING TO BE CRUCIAL FOR WRITING TESTS**
+UNLIKE HOW ITS DONE WITH MONGODB, YOU CAN'T HAVE IN MEMORY POSTGRES INSTANCE
+
+THE THING WE ARE GOING TO USE IS THROWAWAY POSTGRES INSTNCE
+
+**WE RE GOING TO CREATE AND RUN TESTS IN DOCKER CONTAINER**
 
 WE INSTALLED DOCKER COMPOSE ([link](https://docs.docker.com/compose/install/))
+
+# LETS INSTALL PACKAGES WE NEED
+
+```
+yarn add --dev @types/jest jest node-fetch ts-jest
+```
+
+WE ALREADY INSTALLED: (typescript, ts-node AND THE REST OF THE STUFF) FROM BEFORE
+
+# HERE IS SOME "WORKFLOW FOR THE TESTING"
+
+WE ARE GOING TO DO [SIMILAR WORKFLOW](https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i)
+
+>> Create and run tests in Docker containers.
+>> Set up and reset the database before and after tests.
+>> For unit tests, create a Prisma client and disconnect after each test.
+>> For functional tests, start a server and close it after each test.
+
+# SO WE FIRST NEED TO CREATE CONTAINER THAT IS GOING TO BE A NODE 
+
+
+
+WE WILL FOLLOW THIS TUTORIAL 
 
 LETS NOW CREATE DOCKER COMPOSE YAML FILE
 
