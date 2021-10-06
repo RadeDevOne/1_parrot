@@ -1,4 +1,4 @@
-import fooba from "../../__no_ops/fooba";
+import fooba from "../../../__no_ops/fooba";
 
 test("calculate something", () => {
   const foo = 8;
