@@ -1,4 +1,43 @@
-# TESTING SETUP FOR PRISMA AND POSTGRES
+# TESTING SETUP
+
+WE WOULD LIKE TO TET MANY THINGS BUT WE ARE GOING TO START A LITTLE BIT SIMPLER THAN AFTER THT WE WILL GO INTO MORE ADVANCED THINGS
+
+```
+yarn add --dev @types/jest jest node-fetch ts-jest
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+***
+***
+***
+***
+
+
+
+
+
 
 UNLIKE HOW ITS DONE WITH MONGODB, YOU CAN'T HAVE IN MEMORY POSTGRES INSTANCE
 
@@ -26,6 +65,21 @@ WE ARE GOING TO DO [SIMILAR WORKFLOW](https://dev.to/eddeee888/how-to-write-test
 >> For functional tests, start a server and close it after each test.
 
 # SO WE FIRST NEED TO CREATE CONTAINER THAT IS GOING TO BE A NODE 
+
+- `touch Dockerfile`
+
+```dockerfile
+FROM node:14.18.0-alpine3.11 AS base
+WORKDIR /usr/src/app
+RUN apk update \
+  && apk ass bash \
+  && rm -rf /var/cache/apk/*
+COPY . .
+RUN yarn install --frozen-lockfile
+RUN yarn prisma generate
+```
+
+
 
 
 
