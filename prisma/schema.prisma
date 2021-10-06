@@ -165,7 +165,7 @@ model Product {
   // AVERAGE OF ALL OF THE REVIEWS RATINGS
   // !!!! IMPORTANT THIS MEANS EVERY TIME YOU MAKE A REVIEW
   // YOU NEED TO UPDATE PRODUCT
-  averageRating        Float          @default(0.0)
+  averageRating Float          @default(0.0)
   // REVIEW COUNT (DON'T NEED THIS IN HERE (A GOOD PLACE TO MAKE MISTAKES))
   // numReviews    Int            @default(0)
   createdAt     DateTime       @default(now())
@@ -205,7 +205,7 @@ model Product {
 
 // !!!! IMPORTANT EVERY TIME YOU MAKE A REVIEW YOU NEED TO
 // UPDATE AVERAGErATING ON PRODUCT
-// TODO: BUILD A HELPER 
+// TODO: BUILD A HELPER
 
 model Review {
   id        String   @id @default(cuid())
