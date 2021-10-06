@@ -10,7 +10,7 @@ type paramsType = {
   pageNum: string;
 };
 
-// UZMI BROJ STRANICA, IMACES PAGINATION SA VISE DUGMADI
+// todo: number of pages and calculation
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
