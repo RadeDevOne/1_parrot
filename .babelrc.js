@@ -9,7 +9,7 @@ module.exports = {
         },
       },
       // ---- I ADDED THESE TWO ----
-      [
+      /* [
         "@babel/preset-env",
         {
           targets: {
@@ -17,8 +17,9 @@ module.exports = {
           },
         },
       ],
-      "@babel/preset-typescript",
+      "@babel/preset-typescript" */
       // ---------------------------
+      ,
     ],
   ],
   plugins: ["@emotion/babel-plugin", "babel-plugin-macros", "superjson-next"],

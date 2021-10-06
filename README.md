@@ -6,10 +6,6 @@ WE WOULD LIKE TO TEST MANY THINGS BUT WE ARE GOING TO START A LITTLE BIT SIMPLER
 yarn add --dev @types/jest jest
 ```
 
-```
-yarn add babel-jest @babel/core @babel/preset-env @babel/preset-typescript
-```
-
 WE ALREDY INSTALLED `ts-node` BEFORE, JUST KNO IT IS NEEDED TOO
 
 # GENERETING JEST CONFIG
@@ -22,40 +18,6 @@ PICK TO CLEAR MOCKS BETWEEN TEST, PICK NODE, PICK BABEL WHEN PROMPTED
 
 MEYBE WE ARE GOING TO CHANE SOME SSTUFF IN THIS FILE
 
-# UPDATE BABER FILE
-
-```
-code .babelrc.js
-```
-
-```js
-module.exports = {
-  presets: [
-    [
-      "next/babel",
-      {
-        "preset-react": {
-          runtime: "automatic",
-          importSource: "@emotion/react",
-        },
-      },
-      // I ADDED THESE TWO
-      [
-        "@babel/preset-env",
-        {
-          targets: {
-            node: "current",
-          },
-        },
-      ],
-      "@babel/preset-typescript",
-      // -------------------------
-    ],
-  ],
-  plugins: ["@emotion/babel-plugin", "babel-plugin-macros", "superjson-next"],
-};
-```
-
 # MAKE A TEST SCRIPT AND YOU CAN DEFINE EXECUTION OF THAT SCRIPT ALSO INSIDE BUILD SCRIPT
 
 ```
@@ -64,7 +26,7 @@ code package.json
 
 ```json
 "build": "next build && yarn test",
-"test": "jest --verbose",
+"test": "jest --watchAll --no-cache",
 ```
 
 # LETS TRY EXECUTING THIS SCRIPT DESPITE WE DON THAVE ANY TESTS
@@ -73,17 +35,34 @@ code package.json
 yarn test
 ```
 
-# LETS CREATE SOME TESTS
+IT CHECKED 72 FILES DIDN;T FIND ANY TEST AND IT EXITET WITH ERROR CODE 1
+
+# LETS CREATE SOME TEST; YOU CAN CALL IT 'MOCK TEST' BECAUSE WE JUST WANT TO SEE IF TEST IS GOING TO BE PROCESSED
 
 ```
-mkdir tests && 
+mkdir tests 
 ```
 
+```
+mkdir tests/api && touch tests/api/banana.test.ts
+```
 
+```ts
+test("calculate something", () => {
+  const foo = 8;
+  const bar = 6;
 
+  expect(foo + bar).toEqual(14);
+});
+```
 
+**WE CAN START TEST SUITE**
 
+```
+yarn test
+```
 
+IT WORKS
 
 
 
