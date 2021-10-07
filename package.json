@@ -9,7 +9,7 @@
     "dev": "next dev",
     "d": "yarn postgres:dev && yarn p:push:dev && yarn p:seed:dev && yarn dev",
     "build": "next build && yarn test",
-    "test": "jest --watchAll --no-cache",
+    "test": "jest --watchAll --no-cache --verbose",
     "start": "next start",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
     "p:generate": "npx prisma generate",

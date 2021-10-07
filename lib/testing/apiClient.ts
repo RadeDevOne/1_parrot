@@ -9,17 +9,35 @@ import supertest from "supertest";
 
 type HandlerType = (req: NextApiRequest, res: NextApiResponse) => any | void;
 
-const testClient = (handler: HandlerType) => {
+/**
+ *
+ * @param handler Your handler you created with next-connect
+ * @param queryParameter string (optional (you don't need it for non-dynamic routes))
+ * @returns client you can use to test result of your request
+ * @description !!!! IMPORTANT !!!! For dynamic routes you must
+ * do like this
+ * `
+ *  await tetstClient(handler, queryParameter)
+ *      this is important
+ *                         .get(`/api/some/${queryParameter}`)
+ *
+ *        SO YOU NEED TO PASS PARAMETER ON TWO DIFFERENT PLACES
+ *
+ * `
+ */
+const testClient = (handler: HandlerType, queryParameter?: string) => {
   const serverRequestListener = async (
     req: IncomingMessage,
     res: ServerResponse
   ) => {
+    // console.log({ REQUEST: req });
+
     // eslint-disable-next-line
     // @ts-ignore
     return apiResolver(
       req,
       res,
-      undefined,
+      queryParameter,
       handler,
       // eslint-disable-next-line
       // @ts-ignore
