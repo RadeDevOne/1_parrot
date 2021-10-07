@@ -12,4 +12,18 @@ module.exports = {
     ],
   ],
   plugins: ["@emotion/babel-plugin", "babel-plugin-macros", "superjson-next"],
+  env: {
+    test: {
+      presets: [
+        [
+          "next/babel",
+          {
+            "preset-env": {
+              modules: "commonjs",
+            },
+          },
+        ],
+      ],
+    },
+  },
 };

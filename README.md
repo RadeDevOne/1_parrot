@@ -1,4 +1,73 @@
-# WORK IN PROGRESS
+# TESTING: USING `supertest`
+
+I FOUND THIS [HELPFUL SOLUTION](https://github.com/KennFatt/nextjs-api-routes-testing) (ALL THE CREDITS GOES TO THAT PERSON)
+
+WE ARE GOING TO USE supertest
+
+```
+yarn add supertest @types/supertest --dev
+```
+
+WE ARE ALREADY USING `next-connect` SO WE DON'T NEED TO INSTALL THIS; SAME GOES FOR `jest` AND `@types/jest`, WE ALREDY HAVE THEM TOO 
+
+# WE NEED TO ALTER OUR BABEL CONFIGURATION A LITTLE BIT, AND THIS IS JUST FOR TEST ENVIRONMENT
+
+```
+code .babelrc.js
+```
+
+```js
+module.exports = {
+  presets: [
+    [
+      "next/babel",
+      {
+        "preset-react": {
+          runtime: "automatic",
+          importSource: "@emotion/react",
+        },
+      },
+      ,
+    ],
+  ],
+  plugins: ["@emotion/babel-plugin", "babel-plugin-macros", "superjson-next"],
+  // I ADDED THIS----------------
+  env: {
+    test: {
+      presets: [
+        [
+          "next/babel",
+          {
+            "preset-env": {
+              modules: "commonjs",
+            },
+          },
+        ],
+      ],
+    },
+  },
+};
+
+```
+
+# NOW WE WILL CREATE OUR TESTING UTILITY, THAT USES `supertest` AND SOME OTHER THINGS 
+
+```
+mkdir lib/testing && touch lib/testing/client.ts
+```
+
+
+WE WILL TRY MOCKING req AND res
+
+```
+mkdir -p test/mocks/ && touch test/mocks/req-res.ts
+```
+
+```ts
+
+```
+
+
 
 <!-- ## STYLING
 
