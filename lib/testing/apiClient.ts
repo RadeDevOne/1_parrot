@@ -19,7 +19,8 @@ const testClient = (handler: NextApiHandler) => {
       // eslint-disable-next-line
       // @ts-ignore
       {},
-      /* {previewModeEncryptionKey: "", previewModeId: "", previewModeSigningKey: ""} */ undefined
+      /* {previewModeEncryptionKey: "", previewModeId: "", previewModeSigningKey: ""} */
+      undefined
     );
   };
 
