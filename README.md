@@ -146,14 +146,14 @@ yarn test
 
 TEST DID PASS
 
+# I WANT TO TRY TEST WITH DYNAMIC ROUTE
 
-```
-mkdir -p test/mocks/ && touch test/mocks/req-res.ts
-```
+FOR EXAMBLE WE CAN TEST `[bar].ts`
 
-```ts
 
-```
+
+
+
 
 
 
