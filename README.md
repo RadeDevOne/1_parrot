@@ -124,9 +124,27 @@ mkdir -p __test__/api && touch __test__/api/foo.test.ts
 ```
 
 ```ts
+import apiClient from "../../lib/testing/apiClient";
+import handler from "../../pages/api/foo";
 
+describe("Testing GET for /api/foo", () => {
+  it("returns 200 if everything is right", async () => {
+    const result = await apiClient(handler).get("/api/foo");
+
+    expect(result.status).toEqual(200);
+
+    expect(result.text).toEqual("hello 666");
+  });
+});
 ```
 
+## WE CAN RUN TEST
+
+```
+yarn test
+```
+
+TEST DID PASS
 
 
 ```

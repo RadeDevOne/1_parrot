@@ -7,6 +7,6 @@ describe("Testing GET for /api/foo", () => {
 
     expect(result.status).toEqual(200);
 
-    expect(result.body).toEqual("hello 666");
+    expect(result.text).toEqual("hello 666");
   });
 });
