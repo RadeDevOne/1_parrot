@@ -12,7 +12,8 @@
       "@/hooks/*": ["hooks/*"],
       "@/util/*": ["util/*"],
       "@/svgs/*": ["svgs/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/db/*": ["db/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

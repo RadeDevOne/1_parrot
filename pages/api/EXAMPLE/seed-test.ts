@@ -6,7 +6,7 @@ import {
   generateProductData,
   generateProfilesData,
   generateReviewsData,
-} from "@/lib/prisma/seed";
+} from "@/lib/prisma/seed-helpers";
 
 // CREATE NEXT CONNECT APP
 const handler = nc<NextApiRequest, NextApiResponse>();

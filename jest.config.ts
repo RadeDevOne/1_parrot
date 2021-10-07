@@ -16,6 +16,7 @@ export default {
     "@/util/(.*)$": "<rootDir>/util/$1",
     "@/svgs/(.*)$": "<rootDir>/svgs/$1",
     "@/styles/(.*)$": "<rootDir>/styles/$1",
+    "@/db/(.*)$": "<rootDir>/db/$1",
   },
 
   // All imported modules in your tests should be mocked automatically

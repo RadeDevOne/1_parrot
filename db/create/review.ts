@@ -1,4 +1,9 @@
-import prisma from "@/lib/prisma";
+// PRISMA HERE IS NOT IMPORTED LIKE THIS
+// import prisma from "@/lib/prisma";
+// BECAUSE THIS METHOD IS USED WHILE SEEDING
+// DO NOT REFACTOR THIS
+import prisma from "../../lib/prisma";
+//
 import type { Review, Product } from "@prisma/client";
 
 interface ReviewDataI {
