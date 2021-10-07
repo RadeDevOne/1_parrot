@@ -12,10 +12,7 @@
     "test": "jest --watchAll --no-cache",
     "start": "next start",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "lint": "next lint",
     "p:generate": "npx prisma generate",
-    "p:push:both": "yarn prisma:db:push:dev && yarn prisma:db:push:prod",
-    "p:migrate:both": "yarn prisma:migrate:dev && yarn prisma:migrate:prod",
     "p:seed:prod": "dotenv -e .env.production.local -- npm run ts-node prisma/seed.ts --preview-feature",
     "p:seed:dev": "dotenv -e .env.development.local -- npm run ts-node prisma/seed.ts --preview-feature",
     "db:dev": "yarn postgres:dev && yarn redis:dev",
@@ -34,7 +31,8 @@
     "p:migrate:dev": "dotenv -e .env.development.local -- npx prisma migrate dev",
     "p:migrate:init:dev": "dotenv -e .env.development.local -- npx prisma migrate dev --name init",
     "p:migrate:init:prod": "dotenv -e .env.production.local -- npx prisma migrate dev --name init",
-    "p:introspect": "dotenv -e .env.production.local -- npx prisma introspect"
+    "p:introspect": "dotenv -e .env.production.local -- npx prisma introspect",
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",
