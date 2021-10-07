@@ -1,6 +1,6 @@
 # TESTING: USING `supertest`
 
-I FOUND THIS [HELPFUL SOLUTION](https://github.com/KennFatt/nextjs-api-routes-testing) (ALL THE CREDITS GOES TO THAT PERSON)
+I FOUND THIS [HELPFUL SOLUTION](https://github.com/KennFatt/nextjs-api-routes-testing) (ALL THE CREDITS GOES TO THAT PERSON; I ONLY BUILT UPON THAT)
 
 WE ARE GOING TO USE supertest
 
@@ -70,17 +70,43 @@ import supertest from "supertest";
 
 type HandlerType = (req: NextApiRequest, res: NextApiResponse) => any | void;
 
-const testClient = (handler: HandlerType) => {
+/**
+ *
+ * @param handler Your handler you created with next-connect
+ * @param queryParameterName dynamic part of the route (optional (omit this for static paths))
+ * @param queryParameterNameValue value dynamic part of the route (optional (omit this for static paths))
+ * @returns client you can use to test result of your request
+ * @description !!!! IMPORTANT !!!! For dynamic routes you must
+ * do like this
+ * `
+ *  await tetstClient(handler, queryParameterName, queryParameterValue)
+ *      this is important
+ *                         .get(`/api/some/${queryPatrameterValue}`)
+ *
+ *        SO YOU NEED TO PASS PARAMETER ON TWO DIFFERENT PLACES
+ *        WHEN WE CREATE CLIENT AND WE USE get post put delete
+ *        AND SIMILAR
+ * `
+ */
+const testClient = (
+  handler: HandlerType,
+  queryParamName?: string,
+  queryParamNameValue?: string
+) => {
   const serverRequestListener = async (
     req: IncomingMessage,
     res: ServerResponse
   ) => {
+    // console.log({ REQUEST: req });
+
     // eslint-disable-next-line
     // @ts-ignore
     return apiResolver(
       req,
       res,
-      undefined,
+      queryParamName && queryParamNameValue
+        ? { [queryParamName]: queryParamNameValue }
+        : undefined,
       handler,
       // eslint-disable-next-line
       // @ts-ignore
@@ -98,7 +124,9 @@ const testClient = (handler: HandlerType) => {
 export default testClient;
 ```
 
-# LETS BUILD API ROUTE WE WANT TO TEST
+THIS DOESN'T LOOK SO NICE, BUT LETS TRY IT OUT
+
+# LETS BUILD STATIC API ROUTE WE WANT TO TEST
 
 ```
 touch pages/api/foo.ts
@@ -146,19 +174,70 @@ yarn test
 
 TEST DID PASS
 
-# I WANT TO TRY TEST WITH DYNAMIC ROUTE
+OK WE CAN NOW TRY TESTING DYNAMIC ROUTE
+
+# I WANT TO TRY TEST WITH DYNAMIC ROUTE, WHICH WILL BE A BIT TEDIOUS BECAUSE YOU NEED TO PASS QUERY PARAMETER WHEN YOU CREATE apiClient (A LITTLE BIT HARD TO REMEBER) AND WHEN YOU PASS ROUTE STRING INSIDE `.get()` OR `post()` OR SOMETHING ELSE
 
 FOR EXAMBLE WE CAN TEST `api/EXAMPLE/[barId].ts`
 
-SEE FOR YOURSELF HOW I WROTE THIS TEST:
+`pages/api/EXAMPLE/[bar].ts`
+
+```ts
+import nc from "next-connect";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+const handler = nc<NextApiRequest, NextApiResponse>();
+
+handler.get(async (req, res) => {
+  // SE WE HAVE HERE A     req.query
+  const { bar } = req.query;
+
+  return res.status(200).json({ baz: `hello 666 ${bar}` });
+});
+
+export default handler;
+
+```
+
+HERE IS THE TEST
 
 `__test__/api/EXAMPLE/bar.test.ts`
 
-FOR THIS ROUTE:
+```ts
+import apiClient from "../../../lib/testing/apiClient";
+import handler from "../../../pages/api/EXAMPLE/[bar]";
 
-`pages/api/EXAMPLE/[bar].ts`
+describe("We are testing dynamic route /api/EXAMPLE/[bar]", () => {
+  it("returns 200 if everything is ok", async () => {
+    // THIS IS A BIT PROBLEMATIC TO MEMORIZE
+    // WE USE THIS VARIABLE HERE
+    const queryParameterValue = "bologna";
 
-IT IS PRETTY OBVIOUS, JUST LOOK INTO FILES
+    // SO WE CAN PASS IT HERE
+    const result = await apiClient(handler, "bar", queryParameterValue).get(
+      // AND ALSO SO WE CAN PASS IT HERE
+      `/api/EXAMPLE/${queryParameterValue}`
+    );
+
+    // console.log(result);
+
+    expect(result.status).toEqual(200);
+
+    expect(result.body).toBeDefined();
+    expect(result.body).toHaveProperty("baz");
+
+    expect(result.body.baz).toEqual("hello 666 bologna");
+  });
+});
+```
+
+TEST PASS HERE, BUT I DON'T LIKE HOW WE USE THIS, IT SHOULD LOOK SIMPLER, WE SHOULD ONLY PASS THINGS ONCE
+
+SO LETS BUILD HELPERS
+
+# SO IT IS BETTER TO BUILD HELPERS AND REFACTOR TESTS TO USE HELPERS
+
+**YOU NEED TO KEEP IN MIND THAT SOMETIMES FOLDERS CAN BE DYNAMIC PART OF THE ROUTE IN NEXTJS**
 
 
 

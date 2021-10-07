@@ -12,20 +12,26 @@ type HandlerType = (req: NextApiRequest, res: NextApiResponse) => any | void;
 /**
  *
  * @param handler Your handler you created with next-connect
- * @param queryParameter string (optional (you don't need it for non-dynamic routes))
+ * @param queryParameterName dynamic part of the route (optional (omit this for static paths))
+ * @param queryParameterNameValue value dynamic part of the route (optional (omit this for static paths))
  * @returns client you can use to test result of your request
  * @description !!!! IMPORTANT !!!! For dynamic routes you must
  * do like this
  * `
- *  await tetstClient(handler, queryParameter)
+ *  await tetstClient(handler, queryParameterName, queryParameterValue)
  *      this is important
- *                         .get(`/api/some/${queryParameter}`)
+ *                         .get(`/api/some/${queryPatrameterValue}`)
  *
  *        SO YOU NEED TO PASS PARAMETER ON TWO DIFFERENT PLACES
- *
+ *        WHEN WE CREATE CLIENT AND WE USE get post put delete
+ *        AND SIMILAR
  * `
  */
-const testClient = (handler: HandlerType, queryParameter?: string) => {
+const testClient = (
+  handler: HandlerType,
+  queryParamName?: string,
+  queryParamNameValue?: string
+) => {
   const serverRequestListener = async (
     req: IncomingMessage,
     res: ServerResponse
@@ -37,7 +43,9 @@ const testClient = (handler: HandlerType, queryParameter?: string) => {
     return apiResolver(
       req,
       res,
-      queryParameter,
+      queryParamName && queryParamNameValue
+        ? { [queryParamName]: queryParamNameValue }
+        : undefined,
       handler,
       // eslint-disable-next-line
       // @ts-ignore
