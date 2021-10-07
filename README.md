@@ -62,10 +62,15 @@ WE WILL TRY MOCKING req AND res
 import { createServer } from "http";
 import type { IncomingMessage, ServerResponse } from "http";
 import { apiResolver } from "next/dist/server/api-utils";
-import type { NextApiHandler } from "next";
+import type {
+  /* NextApiHandler, */ NextApiRequest,
+  NextApiResponse,
+} from "next";
 import supertest from "supertest";
 
-const testClient = (handler: NextApiHandler) => {
+type HandlerType = (req: NextApiRequest, res: NextApiResponse) => any | void;
+
+const testClient = (handler: HandlerType) => {
   const serverRequestListener = async (
     req: IncomingMessage,
     res: ServerResponse
@@ -96,7 +101,26 @@ export default testClient;
 # LETS BUILD API ROUTE WE WANT TO TEST
 
 ```
-mkdir -p __test__/api && touch __test__/api/foo.ts
+touch pages/api/foo.ts
+```
+
+```ts
+import nc from "next-connect";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+const handler = nc<NextApiRequest, NextApiResponse>();
+
+handler.get(async (req, res) => {
+  return res.status(200).send("hello 666");
+});
+
+export default handler;
+```
+
+# LETS WRITE TEST FOR API ROUTE WE MADE
+
+```
+mkdir -p __test__/api && touch __test__/api/foo.test.ts
 ```
 
 ```ts

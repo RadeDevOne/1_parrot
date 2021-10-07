@@ -1,10 +1,15 @@
 import { createServer } from "http";
 import type { IncomingMessage, ServerResponse } from "http";
 import { apiResolver } from "next/dist/server/api-utils";
-import type { NextApiHandler } from "next";
+import type {
+  /* NextApiHandler, */ NextApiRequest,
+  NextApiResponse,
+} from "next";
 import supertest from "supertest";
 
-const testClient = (handler: NextApiHandler) => {
+type HandlerType = (req: NextApiRequest, res: NextApiResponse) => any | void;
+
+const testClient = (handler: HandlerType) => {
   const serverRequestListener = async (
     req: IncomingMessage,
     res: ServerResponse
