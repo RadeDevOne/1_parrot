@@ -49,8 +49,10 @@ RUN apk update \
   && rm -rf /var/cache/apk/*
 COPY . . 
 RUN yarn install --frozen-lockfile
-RUN yarn prisma generate
+RUN yarn p:generate
 ```
+
+AS YOU SEE WE GENERATE SCHEMA WITH LAST COMMAND
 
 # WE NEED DOCKER COMPOSE SINCE WE ARE GOING TO HAVE TWO CONTAINER
 
@@ -59,6 +61,64 @@ WE NEED TO WRITE SERVICES CONFIGS FOR UPPER CONTAINER (base CONTAINER), AND SERV
 ```
 touch docker-compose.test.yml
 ```
+
+```yml
+# ./docker-compose.test.yml
+version: "3.7"
+
+services:
+  # THIS FIRST SERVICE, WE NEED DATBASE CONNECTION STRING HERE
+  # OF A DATBASE WE WANT TO CONNECT
+  # THIS IS A SERVICE OF A CONTAINER WHERE WE TEST OUR APP
+  server:
+    build:
+      context: "."
+      target: base
+    environment:
+      DATABASE_NAME: fancy-parrot
+      # PRISMA LOADS THIS ENV VARIABLE ((IT IS SPECIFIED IN SCHEMA))
+      DATABASE_URL: postgresql://themata:schism@localhost:5432/fancy-parrot
+    ports:
+      - 9999:80
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+    networks:
+      - test_vm
+    depends_on:
+      - database
+
+  # AS YOU CAN SEE THIS IS THE DATABASE SERVICE
+  # SO THI REPRESENT OUR DATBASE THAT WE ARE GOING TO USE TO CONNECT
+  # DURING TESTS
+  database:
+    image: postgres:13.3
+    restart: always
+    environment:
+      - POSTGRES_USER=themata
+      - POSTGRES_PASSWORD=schism
+      - POSTGRES_DB=fancy-parrot
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - "54320:5432"
+    networks:
+      - test_vm
+volumes:
+  database:
+networks:
+  test_vm:
+```
+
+## LETS NOW USE DOCKER COMPOSE COMMAND TO DOWNLOAD AND BUILD UPPER IMAGES
+
+```
+docker-compose -f docker-compose.test.yml build --no-cache
+```
+
+YOU WILL SEE ALL FROM DOWNLOADING IMAGES TO BUILDING CONTAINERS, INSTALLING NODE MODULES, ALL THAT STUFF THAT HAPPENS; EVERYTHING SIMILAR THAT HAPPENS WHEN WE RUNNED KUBERNETES WITH kubectl IF YOU REMEBER
 
 
 <!-- ## STYLING

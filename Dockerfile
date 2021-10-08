@@ -5,4 +5,4 @@ RUN apk update \
   && rm -rf /var/cache/apk/*
 COPY . . 
 RUN yarn install --frozen-lockfile
-RUN yarn prisma generate
+RUN yarn p:generate
