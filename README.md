@@ -1,105 +1,64 @@
 # SETTING UP TEST ENVIRONMENT FOR PRISMA
 
-***
-***
-
-IMPORTANT!
-
-THESE ARE SOME HELPFUL REPOS TO BE AVARE OF
-
-**BUT NOW I AM NOT GOING TO USE THEM BECAUSE THEY ARE USING REAL DATBASE WHILE TESTING (THEY ARE ALL SETTING REAL INSTANCE OF DATBASE INSIDE DOCKER CONTAINER)**
-
 <https://github.com/ctrlplusb/prisma-pg-jest>
+
+FOLLOWING THIS
+
+<https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i>
 
 <https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i>
 
 ALSO PRISMA HAS [GOOD GUIDE ON INTEGRATION TESTING](https://www.prisma.io/docs/guides/testing/integration-testing)
 
-I AM NOT GOING TO USE UPPER EXAMPLE BECAUSE I AM IN A HURRY
+SUMMARY
 
-AND MOCKING Prisam CLIENT SHOULD BE ENOUGH FOR ME
+>> Create and run tests in Docker containers.
+>> Set up and reset the database before and after tests.
+>> For unit tests, create a Prisma client and disconnect after each test.
+>> For functional tests, start a server and close it after each test.
 
-**MAYBE IN THE FUTURE YOU CAN SET REAL DATABASE FOR TESTING**
+# WE NEED TO HAVE `docker` AND `docker-compose` INSTALLED
 
-IF YOU REMEBER, FOR MONGO THIS IS EASIER BECAUSE UNLIKE WITH POSTGRES, WITH MONGO YOU CAN RUN IN MEMORY MONGODB INSTANCE
+DO THAT
 
-***
-***
+# FROM DEPENDANIES WE NEED
 
+`prisma` (dev dep) `@prisma/client` (dependancy), WHICH WE ALREADY HAVE
 
-PUTTING THIS ON HOLD I DON'T HAVE TIME NOW
+AND WE ALREADY HAVE `typescript` AND `ts-node`
 
+LETS INSTALL THIS PACKAGES
 
-***
-***
-***
-***
-***
-***
-***
-***
+`yarn add --dev @types/jest jest node-fetch ts-jest`
 
-# OK LETS MOCK PRISMA CLIENT
+# DOCKER CONTAINER FOR MIGRATIONS AND TESTS
 
-WE ARE USING OFFICIAL DOCKS FROM PRISMA
+I GUESS THIS CONTAINER IS FOR OUR CODEBASE
 
-<https://www.prisma.io/docs/guides/testing/unit-testing#mocking-the-prisma-client>
-
-FIRST LETS INSTALL THIS:
+AND WE AR GOING TO RUN TESTS AND MIGRATIONS IN THIS CONTAINER
 
 ```
-yarn add jest-mock-extended --dev
+touch Dockerfile
 ```
 
-# NOW LETS CREATE A FILE FOR OUR PRISMA CLIENT THAT IS GOING TO BE USED WHILE TESTING
-
-```
-touch prisma_client_for_test.ts
-```
-
-```ts
-// PRISM CLIENT TO BE USED IN TESTING
-// LODED BY SINGLETON
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-export default prisma;
-
+```dockerfile
+FROM node:14.18.0-alpine3.11 AS base
+WORKDIR /usr/src/app
+RUN apk update \ 
+  && apk add bash \
+  && rm -rf /var/cache/apk/*
+COPY . . 
+RUN yarn install --frozen-lockfile
+RUN yarn prisma generate
 ```
 
-# LETS CREATE SINGLETON
+# WE NEED DOCKER COMPOSE SINCE WE ARE GOING TO HAVE TWO CONTAINER
+
+WE NEED TO WRITE SERVICES CONFIGS FOR UPPER CONTAINER (base CONTAINER), AND SERVICE FOR CONTEINER WHERE WE ARE GOING TO RUN OUR POSTGRES INSTANCE FOR TESTING
 
 ```
-touch singleton.ts
+touch docker-compose.test.yml
 ```
-
-```ts
-import { PrismaClient } from "@prisma/client";
-import { mockDeep, mockReset } from "jest-mock-extended";
-import { DeepMockProxy } from "jest-mock-extended/lib/cjs/Mock";
-
-import prisma from "./prisma_client_for_test";
-
-// HEE WE NEED PATH TO OUR PRISMA CLIENT
-// BECAUSE WE ARE MOCKING IT
-jest.mock("./lib/prisma/index.ts", () => ({
-  __esModule: true,
-  default: mockDeep<PrismaClient>(),
-}));
-
-beforeEach(() => {
-  mockReset(prismaMock);
-});
-
-export const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
-
-```
-
-
-
-
-
-
 
 
 <!-- ## STYLING
