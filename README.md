@@ -299,7 +299,7 @@ describe("We are testing dynamic route /api/EXAMPLE/[foo]/baz", () => {
     const queryParameterValue = "bologna";
 
     const client = buildDynamicClient("/api/EXAMPLE/[foo]/bar", handler);
-    // YOU MUST PASS A Record AS A BODY
+    // YOU MUST PASS A Record AS A BODY (STRINGS ARE "ACTING OUT")
     const result = await client(queryParameterValue, "post", { a: "data" });
 
     expect(result.status).toEqual(200);
