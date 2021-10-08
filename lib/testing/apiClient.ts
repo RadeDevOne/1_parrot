@@ -27,7 +27,7 @@ type HandlerType = (req: NextApiRequest, res: NextApiResponse) => any | void;
  *        AND SIMILAR
  * `
  */
-const testClient = (
+export const testClient = (
   handler: HandlerType,
   queryParamName?: string,
   queryParamNameValue?: string
@@ -59,5 +59,3 @@ const testClient = (
 
   return supertest(server);
 };
-
-export default testClient;

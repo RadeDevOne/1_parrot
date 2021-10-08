@@ -1,19 +1,25 @@
-import apiClient from "../../../lib/testing/apiClient";
+// INSREAD OF THIS WE USED EARLIER
+// import { testClient } from "../../../lib/testing/apiClient";
+// WE USE THIS
+import { buildDynamicClient } from "../../../lib/testing/buildDynamicApiClient";
+
 import handler from "../../../pages/api/EXAMPLE/[bar]";
 
 describe("We are testing dynamic route /api/EXAMPLE/[bar]", () => {
   it("returns 200 if everything is ok", async () => {
-    // THIS IS A BIT PROBLEMATIC TO MEMORIZE
-    // WE USE THIS VARIABLE HERE
     const queryParameterValue = "bologna";
 
-    // SO WE CAN PASS IT HERE
-    const result = await apiClient(handler, "bar", queryParameterValue).get(
-      // AND ALSO SO WE CAN PASS IT HERE
+    // INSTEAD OF THIS
+    /* const result = await testClient(handler, "bar", queryParameterValue).get(
       `/api/EXAMPLE/${queryParameterValue}`
-    );
+    ); */
 
-    // console.log(result);
+    // WE BUILT A CLIENT WITH ROUTE ORIGINAL NAME (WITH [])
+    // AND WITH handler
+    const client = buildDynamicClient("/api/EXAMPLE/[bar]", handler);
+
+    // WE MAKE THE REQUEST, AND YOU PASS A METHONG TOO
+    const result = await client(queryParameterValue, "get");
 
     expect(result.status).toEqual(200);
 

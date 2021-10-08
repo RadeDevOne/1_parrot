@@ -239,8 +239,118 @@ SO LETS BUILD HELPERS
 
 **YOU NEED TO KEEP IN MIND THAT SOMETIMES FOLDERS CAN BE DYNAMIC PART OF THE ROUTE IN NEXTJS**
 
+SO I BUILT SOME UTILITY FUNCTIONS FOR THAT PURPOSE
 
+BUT AT THE END I UILD CLIENT FOR DYNAMIC ROUTES OF NEXTJS API
 
+AT THE END I MANGED THAT CLIENT FOR DYNAMIC ROUTES IS USED LIKE THIS
+
+JUST LOOK AT THE TEST
+
+```
+code __test__/api/EXAMPLE/bar.test.ts
+```
+
+```ts
+// INSREAD OF THIS WE USED EARLIER
+// import { testClient } from "../../../lib/testing/apiClient";
+// WE USE THIS
+import { buildDynamicClient } from "../../../lib/testing/buildDynamicApiClient";
+
+import handler from "../../../pages/api/EXAMPLE/[bar]";
+
+describe("We are testing dynamic route /api/EXAMPLE/[bar]", () => {
+  it("returns 200 if everything is ok", async () => {
+    const queryParameterValue = "bologna";
+
+    // INSTEAD OF THIS
+    /* const result = await testClient(handler, "bar", queryParameterValue).get(
+      `/api/EXAMPLE/${queryParameterValue}`
+    ); */
+
+    // WE BUILT A CLIENT WITH ROUTE ORIGINAL NAME (WITH [])
+    // AND WITH handler
+    const client = buildDynamicClient("/api/EXAMPLE/[bar]", handler);
+
+    // WE MAKE THE REQUEST, AND YOU PASS A METHONG TOO
+    const result = await client(queryParameterValue, "get");
+
+    expect(result.status).toEqual(200);
+
+    expect(result.body).toBeDefined();
+    expect(result.body).toHaveProperty("baz");
+
+    expect(result.body.baz).toEqual("hello 666 bologna");
+  });
+});
+```
+
+TEST HAVE PASSED, SO THIS IS OK APPROACH I THINK
+
+HERE IS HOW TO TEST WHILE SENDING BODY, IN CASE OF POST REQUEST
+
+```ts
+import { buildDynamicClient } from "../../../../lib/testing/buildDynamicApiClient";
+
+import handler from "../../../../pages/api/EXAMPLE/[foo]/baz";
+
+describe("We are testing dynamic route /api/EXAMPLE/[foo]/baz", () => {
+  it("returns 200 if everything is ok", async () => {
+    const queryParameterValue = "bologna";
+
+    const client = buildDynamicClient("/api/EXAMPLE/[foo]/bar", handler);
+    // YOU MUST PASS A Record AS A BODY
+    const result = await client(queryParameterValue, "post", { a: "data" });
+
+    expect(result.status).toEqual(200);
+
+    expect(result.body).toBeDefined();
+    expect(result.body).toHaveProperty("baz");
+
+    expect(result.body.baz).toEqual("hello 666 bologna");
+  });
+});
+```
+
+THIS IS HOW I SET UP COOKIES, WHILE TESTING
+
+```ts
+import { buildDynamicClient } from "../../../../lib/testing/buildDynamicApiClient";
+
+import handler from "../../../../pages/api/EXAMPLE/[foo]/baz";
+
+describe("We are testing dynamic route /api/EXAMPLE/[foo]/baz", () => {
+  it("returns 200 if everything is ok", async () => {
+    const queryParameterValue = "bologna";
+
+    const client = buildDynamicClient("/api/EXAMPLE/[foo]/bar", handler);
+    // YOU MUST PASS A Record AS A BODY
+    const result = await client(
+      queryParameterValue,
+      "post",
+      { a: "data" },
+      { "content-type": "application/json", cookie: "cookie stuff" }
+    );
+
+    expect(result.status).toEqual(200);
+
+    expect(result.body).toBeDefined();
+    expect(result.body).toHaveProperty("baz");
+
+    expect(result.body.baz).toEqual("hello 666 bologna");
+  });
+});
+```
+
+# MAYBE MY SOLUTION ISN'T THAT GOOD BECAUSE OF SMALL NUMBER OF OPTIONS YOU CAN SET
+
+I DON'T SEE CAS WHERE I WPOULD USE ANY OTHER OPTIONS (**I MEAN SETTING SOMETHING ELSE BESIDES BODY OR A COOKIE**)
+
+***
+
+YOU CAN ALWAYS USE ONLY `lib/testing/apiClient.ts` IF YOU WANT TO SET MORE OPTIONS
+
+***
 
 <!-- ## STYLING
 
