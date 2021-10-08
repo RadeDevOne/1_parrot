@@ -13,7 +13,7 @@ describe("building dynamic route for case of nextjs [] template", () => {
     });
 
     expect(result2).toEqual({
-      parsedRoute: "/api/something/barbaz",
+      parsedRoute: "/api/barbaz/bam",
       bracketedName: "foo",
       val: "barbaz",
     });

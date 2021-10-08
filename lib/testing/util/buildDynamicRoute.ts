@@ -26,10 +26,10 @@ const buildDynamicRoute = (
     if (item.startsWith("[")) {
       indexOfBracketed = i;
       const itemNamePart = item.slice(1, item.length);
-      const itemNamePartArr = Array.from(itemNamePart);
+      const itemNamePartArr = itemNamePart.split("");
       itemNamePartArr.pop();
 
-      bracketedName = itemNamePartArr.join();
+      bracketedName = itemNamePartArr.join("");
       if (!item.endsWith("]")) {
         err = true;
       }
