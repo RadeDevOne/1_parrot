@@ -1,9 +1,9 @@
 /**
  *
- * @param routeWithBracket "/foo/[bar]/foo" or "/foo/[bar]""
+ * @param routeWithBracket "/foo/[bar]/foo" or "/foo/[bar]"
  * @param valueToBePassedToBracket string to be passed as [bar]
  */
-const parseDynamicRoute = (
+const buildDynamicRoute = (
   routeWithBracket: string,
   valueToBePassedToBracket: string
 ) => {
@@ -20,9 +20,16 @@ const parseDynamicRoute = (
 
   let err = false;
 
+  let bracketedName = "";
+
   routeArr.forEach((item, i) => {
     if (item.startsWith("[")) {
       indexOfBracketed = i;
+      const itemNamePart = item.slice(1, item.length);
+      const itemNamePartArr = Array.from(itemNamePart);
+      itemNamePartArr.pop();
+
+      bracketedName = itemNamePartArr.join();
       if (!item.endsWith("]")) {
         err = true;
       }
@@ -45,7 +52,11 @@ const parseDynamicRoute = (
 
   // console.log({ builtRoute, routeWithBracket });
 
-  return builtRoute;
+  return {
+    parsedRoute: builtRoute,
+    bracketedName,
+    val: valueToBePassedToBracket,
+  };
 };
 
-export default parseDynamicRoute;
+export default buildDynamicRoute;

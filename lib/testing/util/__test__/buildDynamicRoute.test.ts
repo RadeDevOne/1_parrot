@@ -6,9 +6,17 @@ describe("building dynamic route for case of nextjs [] template", () => {
 
     const result2 = buildDynamicRoute("/api/[foo]/bam", "barbaz");
 
-    expect(result).toEqual("/api/something/barbaz");
+    expect(result).toEqual({
+      parsedRoute: "/api/something/barbaz",
+      bracketedName: "foo",
+      val: "barbaz",
+    });
 
-    expect(result2).toEqual("/api/barbaz/bam");
+    expect(result2).toEqual({
+      parsedRoute: "/api/something/barbaz",
+      bracketedName: "foo",
+      val: "barbaz",
+    });
 
     // console.log({ result, result2 });
 
