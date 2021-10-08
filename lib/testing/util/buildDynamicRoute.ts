@@ -16,13 +16,26 @@ const parseDynamicRoute = (
 
   const routeArr = routeWithBracket.split("/");
 
-  let indexOfBracketed = 0;
+  let indexOfBracketed: number | null = null;
+
+  let err = false;
 
   routeArr.forEach((item, i) => {
     if (item.startsWith("[")) {
       indexOfBracketed = i;
+      if (!item.endsWith("]")) {
+        err = true;
+      }
     }
   });
+
+  if (indexOfBracketed === null) {
+    throw new Error("invalid template");
+  }
+
+  if (err) {
+    throw new Error("invalid path template");
+  }
 
   const newArr = routeArr.concat([]);
 

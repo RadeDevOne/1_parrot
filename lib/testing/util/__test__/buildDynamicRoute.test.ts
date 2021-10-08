@@ -9,5 +9,27 @@ describe("building dynamic route for case of nextjs [] template", () => {
     expect(result).toEqual("/api/something/barbaz");
 
     expect(result2).toEqual("/api/barbaz/bam");
+
+    // console.log({ result, result2 });
+
+    expect(() => {
+      buildDynamicRoute("/api/something/[foo", "barbaz");
+    }).toThrowError();
+
+    expect(() => {
+      buildDynamicRoute("/api/[foo/bam", "barbaz");
+    }).toThrowError();
+
+    expect(() => {
+      buildDynamicRoute("/api/something]/[foo", "barbaz");
+    }).toThrowError();
+
+    expect(() => {
+      buildDynamicRoute("/api/foo]/bam", "barbaz");
+    }).toThrowError();
+
+    expect(() => {
+      buildDynamicRoute("/api/foo/bam", "barbaz");
+    }).toThrowError();
   });
 });
