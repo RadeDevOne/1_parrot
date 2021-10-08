@@ -55,7 +55,7 @@ const createReview = async (
     suma += reviews[i].rating;
   }
 
-  const averageRating = suma / numOfReviews;
+  const averageRating = Math.round(suma / numOfReviews);
 
   // UPDATE PRODUCTS AVERAGE RATING
 
