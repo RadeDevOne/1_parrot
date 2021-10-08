@@ -1,357 +1,93 @@
-# TESTING: USING `supertest`
-
-I FOUND THIS [HELPFUL SOLUTION](https://github.com/KennFatt/nextjs-api-routes-testing) (ALL THE CREDITS GOES TO THAT PERSON; I ONLY BUILT UPON THAT)
-
-WE ARE GOING TO USE supertest
-
-```
-yarn add supertest @types/supertest --dev
-```
-
-WE ARE ALREADY USING `next-connect` SO WE DON'T NEED TO INSTALL THIS; SAME GOES FOR `jest` AND `@types/jest`, WE ALREDY HAVE THEM TOO 
-
-# WE NEED TO ALTER OUR BABEL CONFIGURATION A LITTLE BIT, AND THIS IS JUST FOR TEST ENVIRONMENT
-
-```
-code .babelrc.js
-```
-
-```js
-module.exports = {
-  presets: [
-    [
-      "next/babel",
-      {
-        "preset-react": {
-          runtime: "automatic",
-          importSource: "@emotion/react",
-        },
-      },
-      ,
-    ],
-  ],
-  plugins: ["@emotion/babel-plugin", "babel-plugin-macros", "superjson-next"],
-  // I ADDED THIS----------------
-  env: {
-    test: {
-      presets: [
-        [
-          "next/babel",
-          {
-            "preset-env": {
-              modules: "commonjs",
-            },
-          },
-        ],
-      ],
-    },
-  },
-};
-
-```
-
-# NOW WE WILL CREATE OUR TESTING UTILITY, THAT USES `supertest` AND SOME OTHER THINGS 
-
-```
-mkdir lib/testing && touch lib/testing/apiClient.ts
-```
-
-WE WILL TRY MOCKING req AND res
-
-```ts
-import { createServer } from "http";
-import type { IncomingMessage, ServerResponse } from "http";
-import { apiResolver } from "next/dist/server/api-utils";
-import type {
-  /* NextApiHandler, */ NextApiRequest,
-  NextApiResponse,
-} from "next";
-import supertest from "supertest";
-
-type HandlerType = (req: NextApiRequest, res: NextApiResponse) => any | void;
-
-/**
- *
- * @param handler Your handler you created with next-connect
- * @param queryParameterName dynamic part of the route (optional (omit this for static paths))
- * @param queryParameterNameValue value dynamic part of the route (optional (omit this for static paths))
- * @returns client you can use to test result of your request
- * @description !!!! IMPORTANT !!!! For dynamic routes you must
- * do like this
- * `
- *  await tetstClient(handler, queryParameterName, queryParameterValue)
- *      this is important
- *                         .get(`/api/some/${queryPatrameterValue}`)
- *
- *        SO YOU NEED TO PASS PARAMETER ON TWO DIFFERENT PLACES
- *        WHEN WE CREATE CLIENT AND WE USE get post put delete
- *        AND SIMILAR
- * `
- */
-const testClient = (
-  handler: HandlerType,
-  queryParamName?: string,
-  queryParamNameValue?: string
-) => {
-  const serverRequestListener = async (
-    req: IncomingMessage,
-    res: ServerResponse
-  ) => {
-    // console.log({ REQUEST: req });
-
-    // eslint-disable-next-line
-    // @ts-ignore
-    return apiResolver(
-      req,
-      res,
-      queryParamName && queryParamNameValue
-        ? { [queryParamName]: queryParamNameValue }
-        : undefined,
-      handler,
-      // eslint-disable-next-line
-      // @ts-ignore
-      {},
-      /* {previewModeEncryptionKey: "", previewModeId: "", previewModeSigningKey: ""} */
-      undefined
-    );
-  };
-
-  const server = createServer(serverRequestListener);
-
-  return supertest(server);
-};
-
-export default testClient;
-```
-
-THIS DOESN'T LOOK SO NICE, BUT LETS TRY IT OUT
-
-# LETS BUILD STATIC API ROUTE WE WANT TO TEST
-
-```
-touch pages/api/foo.ts
-```
-
-```ts
-import nc from "next-connect";
-import type { NextApiRequest, NextApiResponse } from "next";
-
-const handler = nc<NextApiRequest, NextApiResponse>();
-
-handler.get(async (req, res) => {
-  return res.status(200).send("hello 666");
-});
-
-export default handler;
-```
-
-# LETS WRITE TEST FOR API ROUTE WE MADE
-
-```
-mkdir -p __test__/api && touch __test__/api/foo.test.ts
-```
-
-```ts
-import apiClient from "../../lib/testing/apiClient";
-import handler from "../../pages/api/foo";
-
-describe("Testing GET for /api/foo", () => {
-  it("returns 200 if everything is right", async () => {
-    const result = await apiClient(handler).get("/api/foo");
-
-    expect(result.status).toEqual(200);
-
-    expect(result.text).toEqual("hello 666");
-  });
-});
-```
-
-## WE CAN RUN TEST
-
-```
-yarn test
-```
-
-TEST DID PASS
-
-OK WE CAN NOW TRY TESTING DYNAMIC ROUTE
-
-# I WANT TO TRY TEST WITH DYNAMIC ROUTE, WHICH WILL BE A BIT TEDIOUS BECAUSE YOU NEED TO PASS QUERY PARAMETER WHEN YOU CREATE apiClient (A LITTLE BIT HARD TO REMEBER) AND WHEN YOU PASS ROUTE STRING INSIDE `.get()` OR `post()` OR SOMETHING ELSE
-
-FOR EXAMBLE WE CAN TEST `api/EXAMPLE/[barId].ts`
-
-`pages/api/EXAMPLE/[bar].ts`
-
-```ts
-import nc from "next-connect";
-import type { NextApiRequest, NextApiResponse } from "next";
-
-const handler = nc<NextApiRequest, NextApiResponse>();
-
-handler.get(async (req, res) => {
-  // SE WE HAVE HERE A     req.query
-  const { bar } = req.query;
-
-  return res.status(200).json({ baz: `hello 666 ${bar}` });
-});
-
-export default handler;
-
-```
-
-HERE IS THE TEST
-
-`__test__/api/EXAMPLE/bar.test.ts`
-
-```ts
-import apiClient from "../../../lib/testing/apiClient";
-import handler from "../../../pages/api/EXAMPLE/[bar]";
-
-describe("We are testing dynamic route /api/EXAMPLE/[bar]", () => {
-  it("returns 200 if everything is ok", async () => {
-    // THIS IS A BIT PROBLEMATIC TO MEMORIZE
-    // WE USE THIS VARIABLE HERE
-    const queryParameterValue = "bologna";
-
-    // SO WE CAN PASS IT HERE
-    const result = await apiClient(handler, "bar", queryParameterValue).get(
-      // AND ALSO SO WE CAN PASS IT HERE
-      `/api/EXAMPLE/${queryParameterValue}`
-    );
-
-    // console.log(result);
-
-    expect(result.status).toEqual(200);
-
-    expect(result.body).toBeDefined();
-    expect(result.body).toHaveProperty("baz");
-
-    expect(result.body.baz).toEqual("hello 666 bologna");
-  });
-});
-```
-
-TEST PASS HERE, BUT I DON'T LIKE HOW WE USE THIS, IT SHOULD LOOK SIMPLER, WE SHOULD ONLY PASS THINGS ONCE
-
-SO LETS BUILD HELPERS
-
-# SO IT IS BETTER TO BUILD HELPERS AND REFACTOR TESTS TO USE HELPERS
-
-**YOU NEED TO KEEP IN MIND THAT SOMETIMES FOLDERS CAN BE DYNAMIC PART OF THE ROUTE IN NEXTJS**
-
-SO I BUILT SOME UTILITY FUNCTIONS FOR THAT PURPOSE
-
-BUT AT THE END I UILD CLIENT FOR DYNAMIC ROUTES OF NEXTJS API
-
-AT THE END I MANGED THAT CLIENT FOR DYNAMIC ROUTES IS USED LIKE THIS
-
-JUST LOOK AT THE TEST
-
-```
-code __test__/api/EXAMPLE/bar.test.ts
-```
-
-```ts
-// INSREAD OF THIS WE USED EARLIER
-// import { testClient } from "../../../lib/testing/apiClient";
-// WE USE THIS
-import { buildDynamicClient } from "../../../lib/testing/buildDynamicApiClient";
-
-import handler from "../../../pages/api/EXAMPLE/[bar]";
-
-describe("We are testing dynamic route /api/EXAMPLE/[bar]", () => {
-  it("returns 200 if everything is ok", async () => {
-    const queryParameterValue = "bologna";
-
-    // INSTEAD OF THIS
-    /* const result = await testClient(handler, "bar", queryParameterValue).get(
-      `/api/EXAMPLE/${queryParameterValue}`
-    ); */
-
-    // WE BUILT A CLIENT WITH ROUTE ORIGINAL NAME (WITH [])
-    // AND WITH handler
-    const client = buildDynamicClient("/api/EXAMPLE/[bar]", handler);
-
-    // WE MAKE THE REQUEST, AND YOU PASS A METHONG TOO
-    const result = await client(queryParameterValue, "get");
-
-    expect(result.status).toEqual(200);
-
-    expect(result.body).toBeDefined();
-    expect(result.body).toHaveProperty("baz");
-
-    expect(result.body.baz).toEqual("hello 666 bologna");
-  });
-});
-```
-
-TEST HAVE PASSED, SO THIS IS OK APPROACH I THINK
-
-HERE IS HOW TO TEST WHILE SENDING BODY, IN CASE OF POST REQUEST
-
-```ts
-import { buildDynamicClient } from "../../../../lib/testing/buildDynamicApiClient";
-
-import handler from "../../../../pages/api/EXAMPLE/[foo]/baz";
-
-describe("We are testing dynamic route /api/EXAMPLE/[foo]/baz", () => {
-  it("returns 200 if everything is ok", async () => {
-    const queryParameterValue = "bologna";
-
-    const client = buildDynamicClient("/api/EXAMPLE/[foo]/bar", handler);
-    // YOU MUST PASS A Record AS A BODY (STRINGS ARE "ACTING OUT")
-    const result = await client(queryParameterValue, "post", { a: "data" });
-
-    expect(result.status).toEqual(200);
-
-    expect(result.body).toBeDefined();
-    expect(result.body).toHaveProperty("baz");
-
-    expect(result.body.baz).toEqual("hello 666 bologna");
-  });
-});
-```
-
-THIS IS HOW I SET UP COOKIES, WHILE TESTING
-
-```ts
-import { buildDynamicClient } from "../../../../lib/testing/buildDynamicApiClient";
-
-import handler from "../../../../pages/api/EXAMPLE/[foo]/baz";
-
-describe("We are testing dynamic route /api/EXAMPLE/[foo]/baz", () => {
-  it("returns 200 if everything is ok", async () => {
-    const queryParameterValue = "bologna";
-
-    const client = buildDynamicClient("/api/EXAMPLE/[foo]/bar", handler);
-
-    const result = await client(
-      queryParameterValue,
-      "post",
-      { a: "data" },
-      // HEADERS ARE THIRD ARGUMENT
-      { "content-type": "application/json", cookie: "cookie stuff" }
-    );
-
-    expect(result.status).toEqual(200);
-
-    expect(result.body).toBeDefined();
-    expect(result.body).toHaveProperty("baz");
-
-    expect(result.body.baz).toEqual("hello 666 bologna");
-  });
-});
-```
-
-# MAYBE MY SOLUTION ISN'T THAT GOOD BECAUSE OF SMALL NUMBER OF OPTIONS YOU CAN SET
-
-I DON'T SEE CAS WHERE I WPOULD USE ANY OTHER OPTIONS (**I MEAN SETTING SOMETHING ELSE BESIDES BODY OR A COOKIE**)
+# SETTING UP TEST ENVIRONMENT FOR PRISMA
 
 ***
+***
 
-YOU CAN ALWAYS USE ONLY `lib/testing/apiClient.ts` IF YOU WANT TO SET MORE OPTIONS
+IMPORTANT!
+
+THESE ARE SOME HELPFUL REPOS TO BE AVARE OF
+
+**BUT NOW I AM NOT GOING TO USE THEM BECAUSE THEY ARE USING REAL DATBASE WHILE TESTING (THEY ARE ALL SETTING REAL INSTANCE OF DATBASE INSIDE DOCKER CONTAINER)**
+
+<https://github.com/ctrlplusb/prisma-pg-jest>
+
+<https://dev.to/eddeee888/how-to-write-tests-for-prisma-with-docker-and-jest-593i>
+
+ALSO PRISMA HAS [GOOD GUIDE ON INTEGRATION TESTING](https://www.prisma.io/docs/guides/testing/integration-testing)
+
+I AM NOT GOING TO USE UPPER EXAMPLE BECAUSE I AM IN A HURRY
+
+AND MOCKING Prisam CLIENT SHOULD BE ENOUGH FOR ME
+
+**MAYBE IN THE FUTURE YOU CAN SET REAL DATABASE FOR TESTING**
+
+IF YOU REMEBER, FOR MONGO THIS IS EASIER BECAUSE UNLIKE WITH POSTGRES, WITH MONGO YOU CAN RUN IN MEMORY MONGODB INSTANCE
 
 ***
+***
+
+# OK LETS MOCK PRISMA CLIENT
+
+WE ARE USING OFFICIAL DOCKS FROM PRISMA
+
+<https://www.prisma.io/docs/guides/testing/unit-testing#mocking-the-prisma-client>
+
+FIRST LETS INSTALL THIS:
+
+```
+yarn add jest-mock-extended --dev
+```
+
+# NOW LETS CREATE A FILE FOR OUR PRISMA CLIENT THAT IS GOING TO BE USED WHILE TESTING
+
+```
+touch prisma_client_for_test.ts
+```
+
+```ts
+// PRISM CLIENT TO BE USED IN TESTING
+// LODED BY SINGLETON
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+export default prisma;
+
+```
+
+# LETS CREATE SINGLETON
+
+```
+touch singleton.ts
+```
+
+```ts
+import { PrismaClient } from "@prisma/client";
+import { mockDeep, mockReset } from "jest-mock-extended";
+import { DeepMockProxy } from "jest-mock-extended/lib/cjs/Mock";
+
+import prisma from "./prisma_client_for_test";
+
+// HEE WE NEED PATH TO OUR PRISMA CLIENT
+// BECAUSE WE ARE MOCKING IT
+jest.mock("./lib/prisma/index.ts", () => ({
+  __esModule: true,
+  default: mockDeep<PrismaClient>(),
+}));
+
+beforeEach(() => {
+  mockReset(prismaMock);
+});
+
+export const prismaMock = prisma as unknown as DeepMockProxy<PrismaClient>;
+
+```
+
+
+
+
+
+
+
 
 <!-- ## STYLING
 
