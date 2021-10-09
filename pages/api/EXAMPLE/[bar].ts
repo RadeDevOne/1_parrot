@@ -1,35 +1,36 @@
 import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-// import prisma from "@/lib/prisma/";
-import prisma from "../../../lib/prisma";
+import prisma from "@/lib/prisma/";
+// import prisma from "../../../lib/prisma";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 handler.get(async (req, res) => {
-  // WE CAN NOW TAKE QUERYSTRING FROM     req.query
   const { bar } = req.query;
 
-  console.log("-------------------------------------");
-  console.log("-------------------------------------");
-  console.log("-------------------------------------");
-  console.log(process.env.DATABASE_URL);
-  console.log(process.env.NODE_ENV);
-  console.log("-------------------------------------");
-  console.log("-------------------------------------");
-  console.log("-------------------------------------");
+  // OK LETS USE PRISMA CLIENT TO MAKE A Profile RECORD
+  // LETS MAKE TWO PROFILE RECORDS
 
-  await prisma.profile
-    .create({
-      data: {
-        nick: "hello",
-      },
-    })
-    .catch((err) => console.log(err));
+  await prisma.profile.create({
+    data: {
+      nick: bar as string,
+    },
+  });
 
-  // console.log({ KVERI: req.query });
+  await prisma.profile.create({
+    data: {
+      nick: bar as string,
+    },
+  });
 
-  return res.status(200).json({ baz: `hello 666 ${bar}` });
+  // LETS TAKE ALL PROFILES (I WANT TO SEE IF seeding HAPPEND)
+
+  const allProfiles = await prisma.profile.findMany();
+
+  console.log(JSON.stringify(allProfiles, null, 2));
+
+  return res.status(200).json(allProfiles);
 });
 
 export default handler;

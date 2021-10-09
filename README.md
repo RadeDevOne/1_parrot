@@ -121,22 +121,136 @@ YOU CAN CLEARLY SEE WHAT THEY REPRESENT
 
 AND WE BUILD OUR SCRIPTS LIKE THAT SO WE CAN RUN TESTS WHEN WE HAVE AN INSTANCE OF POSTGRES, AND WE HAVE ONE IN OUR CONTAINER AND WE ARE GOING TO CONNECT TO THAT INSTANCE, WHILE WE RUN TESTS
 
+**WE ARE ALSO USING `prisma migrte` TO PUSH (BUILD) TABLES, RUN SEEDING AND TO THE NEW DATABESE**
+
+**THIS WILL OFCOURSE GENERATE NEW MIGRATION FILES IN `prisma/migrations` IN OUR CODEBASE WHICH IS NOT IDEAL**
+
+**SO I AM GOING TO CHANGE THAT, LETS NOT RUN MIGRATIONS AT ALL LETS RUN PUSHING TO THE DATBASE AND LETS RUN SEEDING**
+
+```
+code package.json
+```
+
+```json
+"migrate:init:test": "dotenv -e .env.test -- npx prisma migrate dev --name init",
+// ADDED THESE TWO
+    "p:push:test": "dotenv -e .env.test -- npx prisma db push",
+    "p:seed:test" : "dotenv -e .env.test -- npm run ts-node prisma/seed.ts --preview-feature",
+    // 
+    "docker:up:test": "docker-compose up -d",
+    "docker:down:test": "docker-compose down",
+    // INSTEAD OF MIGRATIONS USING THIS TWO HERE
+    "pg:test": "yarn docker:up:test && yarn p:push:test && yarn p:seed:test && dotenv -e .env.test -- jest -i --no-cache && yarn docker:down:test",
+```
+
+**MOST OF THE TIME YOU DON'T NEED SEEDING IN TESTS, BETTER BUILD HELPERS TO SEED DURING TESTS** (I THINK IT IS MORE QUICKER)
+
+LETS BUILD ANOTHER SCRIPT WITHOUT SEEDING
+
+ADDED THIS ONE
+
+```json
+"pg:test:no-seed": "yarn docker:up:test && yarn p:push:test && dotenv -e .env.test -- jest -i --no-cache && yarn docker:down:test",
+```
+
 # I ALSO ADDED SOME THINGS TO JEST CONFIG
 
-SEE BY YOURSELF `jest.config.ts`
+SEE IT BY YOURSELF `jest.config.ts`
 
-## LETYS USE PRISMA IN SOME OF OUR TESTS
+IT IS NOT SOMETHING SPECIAL
+
+**BASICALLY ADDED FIX SO JEST CAN PARSE `@/` SYNTAX IN MODULE SYNTAX**
+
+AND ADDED `ts-node` PRESET
+
+## WE NEED API ROUTE WHERE WE WILL USE PRISMA CLIENT
+
+```
+code pages/api/EXAMPLE/[bar].ts
+```
+
+```ts
+import nc from "next-connect";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import prisma from "@/lib/prisma/";
+// import prisma from "../../../lib/prisma";
+
+const handler = nc<NextApiRequest, NextApiResponse>();
+
+handler.get(async (req, res) => {
+  const { bar } = req.query;
+
+  // OK LETS USE PRISMA CLIENT TO MAKE A Profile RECORD
+  // LETS MAKE TWO PROFILE RECORDS
+
+  await prisma.profile.create({
+    data: {
+      nick: bar as string,
+    },
+  });
+
+  await prisma.profile.create({
+    data: {
+      nick: bar as string,
+    },
+  });
+
+  // LETS TAKE ALL PROFILES (I WANT TO SEE IF seeding HAPPEND)
+
+  const allProfiles = await prisma.profile.findMany();
+
+  console.log(JSON.stringify(allProfiles, null, 2));
+
+  return res.status(200).json(allProfiles);
+});
+
+export default handler;
 
 ```
 
+# LETS WRITE TEST FOR UPPER ROUTE
+
+- `code __test__/api/EXAMPLE/bar.test.ts`
+
+```ts
+import { buildDynamicClient } from "../../../lib/testing/buildDynamicApiClient";
+
+import handler from "../../../pages/api/EXAMPLE/[bar]";
+
+describe("We are testing dynamic route /api/EXAMPLE/[bar]", () => {
+  it("returns 200 if everything is ok", async () => {
+    const queryParameterValue = "bologna";
+
+    const client = buildDynamicClient("/api/EXAMPLE/[bar]", handler);
+
+    const result = await client(queryParameterValue, "get");
+
+    expect(result.status).toEqual(200);
+
+    expect(result.body).toBeDefined();
+
+    expect(result.body).toBeInstanceOf(Array);
+
+    expect(result.body).toHaveLength(2);
+  });
+});
+
 ```
 
+# LETS TEST THIS
 
+```
+yarn pg:test:no-seed
+```
 
+TEST PASSED
 
+BUT I SOMETIMES HAVE A PROBLEM WHERE docker-compose down DOESN'T KILL THE CONTAINER
 
+YOU THEN NEED TO RUN AGAIN `docker-compose down`
 
-
+DON'T USE docker kill IN THIS CASE BECAUSE IT HAPPEN NOT TO WORK
 
 
 

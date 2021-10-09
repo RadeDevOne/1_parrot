@@ -5,12 +5,15 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
+  
   "scripts": {
     "migrate:init:test": "dotenv -e .env.test -- npx prisma migrate dev --name init",
+    "p:push:test": "dotenv -e .env.test -- npx prisma db push",
+    "p:seed:test" : "dotenv -e .env.test -- npm run ts-node prisma/seed.ts --preview-feature",
     "docker:up:test": "docker-compose up -d",
     "docker:down:test": "docker-compose down",
-    "pg:test": "yarn docker:up:test && yarn migrate:init:test && dotenv -e .env.test -- jest -i && yarn docker:down:test",
-
+    "pg:test": "yarn docker:up:test && yarn p:push:test && yarn p:seed:test && dotenv -e .env.test -- jest -i --no-cache && yarn docker:down:test",
+    "pg:test:no-seed": "yarn docker:up:test && yarn p:push:test && dotenv -e .env.test -- jest --no-cache && yarn docker:down:test",
     "dev": "next dev",
     "d": "yarn postgres:dev && yarn p:push:dev && yarn p:seed:dev && yarn dev",
     "build": "next build && yarn test",
@@ -47,7 +50,7 @@
     "@fontsource/inter": "^4.5.0",
     "@next-auth/prisma-adapter": "^0.5.4",
     "@paypal/react-paypal-js": "^7.3.3",
-    "@prisma/client": "^3.2.0",
+    "@prisma/client": "^3.2.1",
     "@radedev/common": "^1.0.8",
     "@sendgrid/mail": "^7.4.7",
     "@supabase/supabase-js": "^1.23.0",
@@ -104,7 +107,7 @@
     "node-fetch": "^3.0.0",
     "node-mocks-http": "^1.11.0",
     "prettier": "^2.4.1",
-    "prisma": "^3.2.0",
+    "prisma": "^3.2.1",
     "tailwindcss": "^2.2.15",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.2.1",

@@ -23,11 +23,25 @@ export default {
     "@/db/(.*)$": "<rootDir>/db/$1",
   },
    */
+  moduleNameMapper: {
+    "^@/components(.*)$": "<rootDir>/components$1",
+    "@/work(.*)$": "<rootDir>/work/src$1",
+    "@/types(.*)$": "<rootDir>/types$1",
+    "@/lib(.*)$": "<rootDir>/lib$1",
+    "@/theme(.*)$": "<rootDir>/theme$1",
+    "@/machines(.*)$": "<rootDir>/machines$1",
+    "@/constants(.*)$": "<rootDir>/constants$1",
+    "@/hooks(.*)$": "<rootDir>/hooks$1",
+    "@/util(.*)$": "<rootDir>/util$1",
+    "@/svgs(.*)$": "<rootDir>/svgs$1",
+    "@/styles(.*)$": "<rootDir>/styles$1",
+    "@/db(.*)$": "<rootDir>/db$1",
+  },
 
   // MAYBE THIS WILL WORK INSTEAD
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+  /* moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>/src/",
-  }),
+  }), */
 
   preset: "ts-jest",
 
