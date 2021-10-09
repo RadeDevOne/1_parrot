@@ -16,7 +16,7 @@ const Products: FC<ProductsPropsI> = ({ products }) => {
         <span tw="mt-3 text-sm text-gray-500">200+ Products</span>
 
         <div tw="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-          {products.map(({ id, image, name }, i) => {
+          {products.map(({ id, image, name, price }, i) => {
             return (
               <div
                 key={`${i}-${id}`}
@@ -45,7 +45,7 @@ const Products: FC<ProductsPropsI> = ({ products }) => {
                 </div>
                 <div tw="px-5 py-3">
                   <h3 tw="text-gray-700 uppercase">{name}</h3>
-                  <span tw="text-gray-500 mt-2">$123</span>
+                  <span tw="text-gray-500 mt-2">${price}</span>
                 </div>
               </div>
             );
