@@ -67,7 +67,9 @@
           ["@/hooks", "./hooks"],
           ["@/util", "./util"],
           ["@/svgs", "./svgs"],
-          ["@/styles", "./styles"]
+          ["@/styles", "./styles"],
+          ["@/db", "./db"],
+          ["@/pages", "./pages"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".tsx", ".json"]
       }

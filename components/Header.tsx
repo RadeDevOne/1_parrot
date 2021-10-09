@@ -7,6 +7,7 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import { headerNCartService } from "@/machines/header_n_cart_machine";
 
+import PageLoadingIndiccator from "./loaders/PageLoadingIndicator";
 import NavMenu from "./navigation/NavMenu";
 import ShoppingCart from "./cart/ShoppingCart";
 
@@ -24,7 +25,8 @@ const Header: FC = ({ children }) => {
   }, [headerNCartServiceInitiallized, setHeaderAndCartServiceInitialized]);
 
   return (
-    <header tw="overflow-hidden dark:bg-gray-800 light:bg-l">
+    <header tw="overflow-hidden sticky top-0 dark:bg-gray-800 light:bg-l">
+      <PageLoadingIndiccator />
       <NavMenu />
       <ShoppingCart />
       {children}

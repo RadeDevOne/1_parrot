@@ -36,6 +36,7 @@ export default {
     "@/svgs(.*)$": "<rootDir>/svgs$1",
     "@/styles(.*)$": "<rootDir>/styles$1",
     "@/db(.*)$": "<rootDir>/db$1",
+    "@/pages(.*)$": "<rootDir>/pages$1",
   },
 
   // MAYBE THIS WILL WORK INSTEAD

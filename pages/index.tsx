@@ -4,6 +4,8 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 
 import prisma from "@/lib/prisma";
 
+import Layout from "@/components/1_index_page/Layout";
+
 export interface PropsI {
   products: {
     id: string;
@@ -61,14 +63,15 @@ const Page: NP<PropsI> = (props) => {
   //
 
   return (
-    <div>
-      PRODUCTS:
-      <div>{JSON.stringify(props.products, null, 2)}</div>
-      TOP RATED PRODUCTS:
-      <div>{JSON.stringify(props.topRatedProducts, null, 2)}</div>
-      TOTAL PRODUCTS:
-      <div>{props.totalProducts}</div>
-    </div>
+    <Layout {...props} />
+    // <div>
+    //   PRODUCTS:
+    //   <div>{JSON.stringify(props.products, null, 2)}</div>
+    //   TOP RATED PRODUCTS:
+    //   <div>{JSON.stringify(props.topRatedProducts, null, 2)}</div>
+    //   TOTAL PRODUCTS:
+    //   <div>{props.totalProducts}</div>
+    // </div>
   );
 };
 
