@@ -1,6 +1,6 @@
-import { buildDynamicClient } from "../../../../lib/testing/buildDynamicApiClient";
+import { buildDynamicClient } from "../../../../../lib/testing/buildDynamicApiClient";
 
-import handler from "../../../../pages/api/EXAMPLE/[foo]/baz";
+import handler from "../../../../_________/[foo]/baz";
 
 describe("We are testing dynamic route /api/EXAMPLE/[foo]/baz", () => {
   it("returns 200 if everything is ok", async () => {
