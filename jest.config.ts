@@ -1,10 +1,13 @@
+import { compilerOptions } from "./tsconfig.json";
+import { pathsToModuleNameMapper } from "ts-jest/utils";
+
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
 //eslint-disable-next-line
 export default {
-  moduleNameMapper: {
+  /* moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/components/$1",
     "@/work/(.*)$": "<rootDir>/work/src/$1",
     "@/types/(.*)$": "<rootDir>/types/$1",
@@ -18,6 +21,15 @@ export default {
     "@/styles/(.*)$": "<rootDir>/styles/$1",
     "@/db/(.*)$": "<rootDir>/db/$1",
   },
+   */
+  preset: "ts-jest",
+
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: "<rootDir>/src/",
+  }),
+
+  // Automatically clear mock calls and instances between every test
+  clearMocks: true,
 
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -27,9 +39,6 @@ export default {
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "/tmp/jest_rs",
-
-  // Automatically clear mock calls and instances between every test
-  clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
   // collectCoverage: false,
@@ -108,7 +117,7 @@ export default {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  // preset: "ts-jest",
 
   // Run tests from one or more projects
   // projects: undefined,

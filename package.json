@@ -6,6 +6,11 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
+    "migrate:init:test": "dotenv -e .env.test -- npx prisma migrate dev --name init",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "test:pg": "yarn docker:up && yarn migrate:init:test && dotenv -e .env.test -- jest -i && yarn docker:down",
+
     "dev": "next dev",
     "d": "yarn postgres:dev && yarn p:push:dev && yarn p:seed:dev && yarn dev",
     "build": "next build && yarn test",

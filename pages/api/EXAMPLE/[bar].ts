@@ -10,13 +10,22 @@ handler.get(async (req, res) => {
   // WE CAN NOW TAKE QUERYSTRING FROM     req.query
   const { bar } = req.query;
 
-  /* await prisma.profile
+  console.log("-------------------------------------");
+  console.log("-------------------------------------");
+  console.log("-------------------------------------");
+  console.log(process.env.DATABASE_URL);
+  console.log(process.env.NODE_ENV);
+  console.log("-------------------------------------");
+  console.log("-------------------------------------");
+  console.log("-------------------------------------");
+
+  await prisma.profile
     .create({
       data: {
         nick: "hello",
       },
     })
-    .catch((err) => console.log(err)); */
+    .catch((err) => console.log(err));
 
   // console.log({ KVERI: req.query });
 
