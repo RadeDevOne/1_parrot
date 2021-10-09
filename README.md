@@ -31,6 +31,124 @@ LETS INSTALL THIS PACKAGES
 
 `yarn add --dev @types/jest jest node-fetch ts-jest`
 
+# I WILL BUILD DOCKER COMPOSE FILE
+
+```
+touch docker-compose.yaml
+```
+
+```yaml
+# ./docker-compose.test.yml
+version: "3.9"
+
+
+services:
+  # THIS FIRST SERVICE, WE NEED DATBASE CONNECTION STRING HERE
+  # OF A DATBASE WE WANT TO CONNECT
+  # THIS IS A SERVICE OF A CONTAINER WHERE WE TEST OUR APP
+  # FOT FOR NOW WE ARE NOT GOING TO DO THAT
+  # WE ARE GOING TO HAVE JUST A CONTAINER WITH A DATBASE
+  # server:
+  #   container_name: fancy-parrot-test-server
+  #   build:
+  #     context: "."
+  #     target: base
+  #   environment:
+  #     DATABASE_URL: postgresql://themata:schism@localhost:5432/fancy-parrot-test
+  #   ports:
+  #     - 9999:80
+  #   volumes:
+  #     - ./src:/usr/src/app
+  #     - ./package.json:/usr/src/app/package.json
+  #   networks:
+  #     - test_vm
+  #   depends_on:
+  #     - database
+
+  # AS YOU CAN SEE THIS IS THE DATABASE SERVICE
+  # FOR THE DATBASE CONTAINER
+  # SO THIA REPRESENT OUR DATBASE THAT WE ARE GOING TO USE TO CONNECT
+  # DURING TESTS
+  db:
+    image: postgres:13.3
+    restart: always
+    container_name: fancy-parrot-test-db
+    environment:
+      - POSTGRES_USER=themata
+      - POSTGRES_PASSWORD=schism
+      - POSTGRES_DB=fancy-parrot-test
+    # volumes:
+    # - ./postgres/data:/var/lib/postgresql/data
+    # expose:
+    # - 5432
+    ports:
+      - "5432:5432"
+    # networks:
+    # - test_vm
+# volumes:
+#   database:
+# networks:
+#   test_vm:
+
+```
+
+# LETS ADD ENV VARIABLE FROM WHAT WE ARE GOING TO RUN OUR TESTS
+
+```
+touch .env.test
+```
+
+```
+DATABASE_URL=postgresql://themata:schism@localhost:5432/fancy-parrot-test
+```
+
+# LETS ADD SOME SCRIPTS WITH DOCKER COMPOSE COMMANDS
+
+```
+code package.json
+```
+
+```json
+"migrate:init:test": "dotenv -e .env.test -- npx prisma migrate dev --name init",
+"docker:up:test": "docker-compose up -d",
+"docker:down:test": "docker-compose down",
+"pg:test": "yarn docker:up:test && yarn migrate:init:test && dotenv -e .env.test -- jest -i && yarn docker:down:test",
+```
+
+YOU CAN CLEARLY SEE WHAT THEY REPRESENT
+
+`docker-compose up -d` WILL START A CONTAINER WITH POSTGRS INSTANCE, `docker-compose down` WILL KILL A CONTAINER
+
+AND WE BUILD OUR SCRIPTS LIKE THAT SO WE CAN RUN TESTS WHEN WE HAVE AN INSTANCE OF POSTGRES, AND WE HAVE ONE IN OUR CONTAINER AND WE ARE GOING TO CONNECT TO THAT INSTANCE, WHILE WE RUN TESTS
+
+# I ALSO ADDED SOME THINGS TO JEST CONFIG
+
+SEE BY YOURSELF `jest.config.ts`
+
+## LETYS USE PRISMA IN SOME OF OUR TESTS
+
+```
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # DOCKER CONTAINER FOR MIGRATIONS AND TESTS
 
 I GUESS THIS CONTAINER IS FOR OUR CODEBASE

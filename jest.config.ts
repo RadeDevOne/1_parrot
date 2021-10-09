@@ -7,6 +7,7 @@ import { pathsToModuleNameMapper } from "ts-jest/utils";
  */
 //eslint-disable-next-line
 export default {
+  // THIS DIDN'T WORK
   /* moduleNameMapper: {
     "^@/components/(.*)$": "<rootDir>/components/$1",
     "@/work/(.*)$": "<rootDir>/work/src/$1",
@@ -22,11 +23,13 @@ export default {
     "@/db/(.*)$": "<rootDir>/db/$1",
   },
    */
-  preset: "ts-jest",
 
+  // MAYBE THIS WILL WORK INSTEAD
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>/src/",
   }),
+
+  preset: "ts-jest",
 
   // Automatically clear mock calls and instances between every test
   clearMocks: true,
