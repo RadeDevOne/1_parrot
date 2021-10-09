@@ -10,16 +10,21 @@ FOLLOWING THIS
 
 ALSO PRISMA HAS [GOOD GUIDE ON INTEGRATION TESTING](https://www.prisma.io/docs/guides/testing/integration-testing)
 
-SUMMARY
+IDEA IS THIS
 
->> Create and run tests in Docker containers.
+>> Create and run tests in Docker containers. 
+
+THIS WOULD BE OVERKILL I THINK, AT LEAST FOR MY CASE IT WOULD BE
+
 >> Set up and reset the database before and after tests.
+
+I CAN DO THAT BUT I'LL STOP DATBASE CONTAINER SO I DON'T NEED ANY SPECIAL RESET
+
 >> For unit tests, create a Prisma client and disconnect after each test.
->> For functional tests, start a server and close it after each test.
 
 # WE NEED TO HAVE `docker` AND `docker-compose` INSTALLED
 
-DO THAT
+I THINK ALSO THAT DOCKER COMPOSE IS OVERKILL IN THIS CASE
 
 # FROM DEPENDANIES WE NEED
 
@@ -29,7 +34,7 @@ AND WE ALREADY HAVE `typescript` AND `ts-node`
 
 LETS INSTALL THIS PACKAGES
 
-`yarn add --dev @types/jest jest node-fetch ts-jest`
+`yarn add --dev @types/jest jest ts-jest`
 
 # I WILL BUILD DOCKER COMPOSE FILE
 
@@ -41,12 +46,10 @@ touch docker-compose.yaml
 # ./docker-compose.test.yml
 version: "3.9"
 
-
 services:
-  # THIS FIRST SERVICE, WE NEED DATBASE CONNECTION STRING HERE
-  # OF A DATBASE WE WANT TO CONNECT
+  # THIS WAS INTENDED FOR FIRST SERVICE
   # THIS IS A SERVICE OF A CONTAINER WHERE WE TEST OUR APP
-  # FOT FOR NOW WE ARE NOT GOING TO DO THAT
+  # WE ARE NOT GOING TO DO THAT
   # WE ARE GOING TO HAVE JUST A CONTAINER WITH A DATBASE
   # server:
   #   container_name: fancy-parrot-test-server
@@ -89,7 +92,6 @@ services:
 #   database:
 # networks:
 #   test_vm:
-
 ```
 
 # LETS ADD ENV VARIABLE FROM WHAT WE ARE GOING TO RUN OUR TESTS
@@ -252,9 +254,13 @@ YOU THEN NEED TO RUN AGAIN `docker-compose down`
 
 DON'T USE docker kill IN THIS CASE BECAUSE IT HAPPEN NOT TO WORK
 
+# SO FOR ME IT WOULD BE EASIER THAT I DIDN'T USE DOCKER COMPOSE AT ALL
 
+SO I'M GOING TO REWRITE EVERYTHING NOT TO USE DOCKER COMPOSE AT ALL
 
+AND MAKE A REVISION OF ALL SCRIPTS
 
+YOU NED TO REFACTOR THEM
 
 
 
