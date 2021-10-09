@@ -1,6 +1,6 @@
-import { compilerOptions } from "./tsconfig.json";
+/* import { compilerOptions } from "./tsconfig.json";
 import { pathsToModuleNameMapper } from "ts-jest/utils";
-
+ */
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
