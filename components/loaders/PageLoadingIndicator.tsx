@@ -14,29 +14,31 @@ const PageLoadingIndiccator: FC = () => {
   return (
     <section
       // mt="10px"
-      tw="mb-1 p-0 self-start w-full"
+      tw="mb-0 p-0 self-start w-full dark:bg-gray-800 light:bg-l"
     >
       <motion.div
+        tw="dark:bg-l light:bg-good"
         transition={{
           duration: 0.08,
         }}
         animate={{
           width: `${context.progressValue}%`,
         }}
-        css={css`
-          /* background-image: linear-gradient(
+        css={[
+          css`
+            /* background-image: linear-gradient(
             to right,
             rgba(221, 101, 151, 0.577) 22%,
             rgba(201, 46, 79, 0.577) 45%,
             rgba(168, 11, 51, 0.904) 86%,
             rgba(224, 91, 124, 0.918) 100%
           ); */
-          height: 2px;
-          /* width: 20px; */
-          background-color: crimson;
-          margin: 0;
-          padding: 0;
-        `}
+            height: 3px;
+            /* width: 20px; */
+            margin: 0;
+            padding: 0;
+          `,
+        ]}
       ></motion.div>
     </section>
   );
