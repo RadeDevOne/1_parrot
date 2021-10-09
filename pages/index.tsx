@@ -10,6 +10,12 @@ export interface PropsI {
     name: string;
     image: string;
   }[];
+  topRatedProducts: {
+    name: string;
+    image: string;
+    price: string;
+    averageRating: number;
+  }[];
 }
 
 export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
@@ -32,13 +38,17 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
       name: true,
       price: true,
       image: true,
+      averageRating: true,
     },
-    orderBy: {},
+    orderBy: {
+      averageRating: "desc",
+    },
   });
 
   return {
     props: {
       products,
+      topRatedProducts,
     },
   };
 };
@@ -46,7 +56,14 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 const Page: NP<PropsI> = (props) => {
   //
 
-  return <div>{JSON.stringify(props.products, null, 2)}</div>;
+  return (
+    <div>
+      PRODUCTS:
+      <div>{JSON.stringify(props.products, null, 2)}</div>
+      TOP RATED PRODUCTS:
+      <div>{JSON.stringify(props.topRatedProducts, null, 2)}</div>
+    </div>
+  );
 };
 
 export default Page;
