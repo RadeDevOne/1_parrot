@@ -16,6 +16,7 @@ export interface PropsI {
     price: string;
     averageRating: number;
   }[];
+  totalProducts: number;
 }
 
 export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
@@ -45,10 +46,13 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
     },
   });
 
+  const totalProducts = await prisma.product.count();
+
   return {
     props: {
       products,
       topRatedProducts,
+      totalProducts,
     },
   };
 };
@@ -62,6 +66,8 @@ const Page: NP<PropsI> = (props) => {
       <div>{JSON.stringify(props.products, null, 2)}</div>
       TOP RATED PRODUCTS:
       <div>{JSON.stringify(props.topRatedProducts, null, 2)}</div>
+      TOTAL PRODUCTS:
+      <div>{props.totalProducts}</div>
     </div>
   );
 };
