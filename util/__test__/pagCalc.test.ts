@@ -2,7 +2,7 @@ import pagCalc from "../pagCalc";
 
 describe("pagCalc", () => {
   it("should do the thing", () => {
-    const result = pagCalc(0, 60);
+    /* const result = pagCalc(0, 60);
     const result2 = pagCalc(1, 60);
 
     const result1 = pagCalc(59, 60);
@@ -25,7 +25,7 @@ describe("pagCalc", () => {
     console.log(result6);
     console.log(result7);
     console.log(result8);
-    console.log(result9);
+    console.log(result9); */
     //
   });
 });

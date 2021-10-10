@@ -6,6 +6,8 @@ import prisma from "@/lib/prisma";
 
 import Layout from "@/components/1_index_page/Layout";
 
+import { PRODUCTS_PER_PAGE } from "@/constants/index";
+
 export interface PropsI {
   products: {
     id: string;
@@ -14,6 +16,7 @@ export interface PropsI {
     price: string;
   }[];
   topRatedProducts: {
+    id: string;
     name: string;
     image: string;
     price: string;
@@ -25,7 +28,7 @@ export interface PropsI {
 export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   // INITIAL PRODUCTS
   const products = await prisma.product.findMany({
-    take: 16,
+    take: PRODUCTS_PER_PAGE,
     select: {
       id: true,
       name: true,
@@ -40,6 +43,7 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   const topRatedProducts = await prisma.product.findMany({
     take: 5,
     select: {
+      id: true,
       name: true,
       price: true,
       image: true,

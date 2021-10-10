@@ -116,7 +116,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({
         </Link>
         {contenders.map((item, i) => {
           return (
-            <Link href={`${basePath}${pgData.prev}`} key={`${i}-${item}`}>
+            <Link href={`${basePath}${item}`} key={`${i}-${item}`}>
               <a
                 className={`contenders ${
                   item === current ? "current" : "around"

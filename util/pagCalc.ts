@@ -6,6 +6,7 @@
  */
 const pagCalc = (
   current: number,
+  perPage: number,
   total: number
 ): [
   number,
@@ -19,7 +20,9 @@ const pagCalc = (
 ] => {
   const span = 4;
 
-  if (span > total) {
+  const tot = parseInt((total / perPage).toFixed(0));
+
+  if (span > tot) {
     throw new Error("4 is minimum");
   }
 
@@ -27,10 +30,10 @@ const pagCalc = (
     throw new Error("`total` can't be equal to `current`");
   }
 
-  const next = current === total - 1 ? null : current + 1;
+  const next = current === tot - 1 ? null : current + 1;
   const prev = current === 0 ? null : current - 1;
 
-  const last = current === total - 1 ? null : total - 1;
+  const last = current === tot - 1 ? null : tot - 1;
   const first = current === 0 ? null : 0;
 
   const highlighted = current;
@@ -46,7 +49,7 @@ const pagCalc = (
     return [highlighted, { first, prev, contenders, next, last }];
   }
 
-  if (highlighted === total - 1) {
+  if (highlighted === tot - 1) {
     contenders[contenders.length - 1] = highlighted;
 
     let n = span - 1;
@@ -61,7 +64,7 @@ const pagCalc = (
   // if (highlighted === 1) {
   // }
 
-  if (highlighted === total - 2) {
+  if (highlighted === tot - 2) {
     contenders[0] = (prev as number) - 1;
     contenders[1] = prev as number;
     contenders[2] = highlighted;
