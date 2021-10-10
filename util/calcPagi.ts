@@ -33,9 +33,11 @@ const calcPag = (
   }
 
   // WHERE DOES CURRENT PAGE NUMBER BELONGS
-  const arrayOfSpans: number[][] = [];
+  const arrayOfSpans: (number | null)[][] = [];
 
   let itemHistory = 0;
+
+  let lastPageNumber = 0;
 
   const positionOfCurrent: [number, number] = [0, 0];
 
@@ -56,8 +58,11 @@ const calcPag = (
     }
   }
 
+  lastPageNumber = itemHistory - 1;
+
   console.log({ arrayOfSpans });
   console.log({ positionOfCurrent });
+  console.log({ lastPageNumber });
 
   console.log({ totalPages, totalPagesRough, totalSpans, totalSpansRough });
 };
