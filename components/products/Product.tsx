@@ -33,8 +33,12 @@ const Product: FC<ProductPropsI> = ({ product }) => {
         </button>
       </div>
       <div tw="px-5 py-3">
-        <h3 tw="text-gray-700 uppercase">{product.name}</h3>
-        <span tw="text-gray-500 mt-2">${product.price}</span>
+        <h3 tw="light:text-gray-700 dark:text-gray-200 uppercase">
+          {product.name}
+        </h3>
+        <span tw="light:text-gray-500 dark:text-gray-400 mt-2">
+          ${product.price}
+        </span>
       </div>
     </div>
   );
