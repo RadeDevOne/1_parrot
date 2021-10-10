@@ -8,7 +8,7 @@ import Products from "../products/Products";
 const Layout: FC<PropsI> = ({ products, topRatedProducts, totalProducts }) => {
   return (
     <main>
-      <Products products={products} />
+      <Products products={products} totalProducts={totalProducts} />
     </main>
   );
 };

@@ -52,6 +52,8 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 
   const totalProducts = await prisma.product.count();
 
+  console.log({ totalProducts });
+
   return {
     props: {
       products,

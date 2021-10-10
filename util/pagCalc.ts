@@ -7,16 +7,16 @@
 const pagCalc = (
   current: number,
   total: number
-): (
-  | number
-  | {
-      first: number | null;
-      prev: number | null;
-      contenders: number[];
-      next: number | null;
-      last: number | null;
-    }
-)[] => {
+): [
+  number,
+  {
+    first: number | null;
+    prev: number | null;
+    contenders: number[];
+    next: number | null;
+    last: number | null;
+  }
+] => {
   const span = 4;
 
   if (span > total) {
