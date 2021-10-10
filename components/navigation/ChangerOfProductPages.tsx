@@ -18,6 +18,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({
 
   const paginationData = pagCalc(currentPageNumber, totalItems);
 
+  const pgData = paginationData[1];
   const contenders = paginationData[1].contenders;
   const current = paginationData[0];
 
@@ -33,6 +34,10 @@ const ChangerOfProductsPages: FC<PropsI> = ({
             display: flex;
             border-radius: ${tw`rounded-md`};
             margin-top: 2rem;
+
+            & .contenders {
+              user-select: none;
+            }
 
             & .around {
               @media screen and (max-width: 500px) {
@@ -99,42 +104,40 @@ const ChangerOfProductsPages: FC<PropsI> = ({
           `,
         ]}
       >
-        <a
-          href="#"
-          tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"
-        >
-          <span className="first">{/* Previous */}</span>
-        </a>
-        <a
-          href="#"
-          tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white"
-        >
-          <span className="previous">{/* Previous */}</span>
-        </a>
+        <Link href={`${basePath}${pgData.first}`}>
+          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white">
+            <span className="first">{/* First */}</span>
+          </a>
+        </Link>
+        <Link href={`${basePath}${pgData.prev}`}>
+          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white">
+            <span className="previous">{/* Previous */}</span>
+          </a>
+        </Link>
         {contenders.map((item, i) => {
           return (
-            <a
-              key={`${i}-${item}`}
-              className={`${item === current ? "current" : "around"}`.trim()}
-              href="#"
-              tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"
-            >
-              <span>{item}</span>
-            </a>
+            <Link href={`${basePath}${pgData.prev}`} key={`${i}-${item}`}>
+              <a
+                className={`contenders ${
+                  item === current ? "current" : "around"
+                }`.trim()}
+                tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"
+              >
+                <span>{item}</span>
+              </a>
+            </Link>
           );
         })}
-        <a
-          href="#"
-          tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white"
-        >
-          <span className="next">{/* Next */}</span>
-        </a>
-        <a
-          href="#"
-          tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white"
-        >
-          <span className="last">{/* Next */}</span>
-        </a>
+        <Link href={`${basePath}${pgData.next}`}>
+          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white">
+            <span className="next">{/* Next */}</span>
+          </a>
+        </Link>
+        <Link href={`${basePath}${pgData.last}`}>
+          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white">
+            <span className="last">{/* Last */}</span>
+          </a>
+        </Link>
       </div>
     </div>
   );
