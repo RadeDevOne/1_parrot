@@ -27,73 +27,77 @@ const ChangerOfProductsPages: FC<PropsI> = ({
     <div tw="flex justify-center">
       <div
         // tw="flex rounded-md mt-8"
-        css={css`
-          display: flex;
-          border-radius: ${tw`rounded-md`};
-          margin-top: 2rem;
+        css={[
+          tw`dark:bg-white rounded-md`,
+          css`
+            display: flex;
+            border-radius: ${tw`rounded-md`};
+            margin-top: 2rem;
 
-          & .around {
-            @media screen and (max-width: 500px) {
-              display: none;
-            }
-          }
-
-          & .current {
-            border: crimson solid 2px;
-          }
-
-          & .previous {
-            &::after {
-              display: inline;
-              content: "Previous";
-              /* content: "◀️"; */
-            }
-
-            @media screen and (max-width: 500px) {
-              &::after {
-                display: inline;
-                /* content: "Previous"; */
-                content: "◀️";
+            & .around {
+              @media screen and (max-width: 500px) {
+                display: none;
               }
             }
-          }
 
-          & .next {
-            &::after {
-              display: inline;
-              content: "Next";
-              /* content: "▶️"; */
+            & .current {
+              border: #5fbbbe solid 2px;
+              pointer-events: none;
             }
 
-            @media screen and (max-width: 500px) {
+            & .previous {
               &::after {
                 display: inline;
-                /* content: "Next"; */
-                content: "▶️";
+                content: "Previous";
+                /* content: "◀️"; */
+              }
+
+              @media screen and (max-width: 500px) {
+                &::after {
+                  display: inline;
+                  /* content: "Previous"; */
+                  content: "◀️";
+                }
               }
             }
-          }
 
-          & .first {
-            /* @media screen and (max-width: 500px) { */
-            &::after {
-              display: inline;
-              font-size: 0.6rem;
-              content: "◀️◀️";
-            }
-            /* } */
-          }
+            & .next {
+              &::after {
+                display: inline;
+                content: "Next";
+                /* content: "▶️"; */
+              }
 
-          & .last {
-            /* @media screen and (max-width: 500px) { */
-            &::after {
-              display: inline;
-              font-size: 0.6rem;
-              content: "▶️▶️";
+              @media screen and (max-width: 500px) {
+                &::after {
+                  display: inline;
+                  /* content: "Next"; */
+                  content: "▶️";
+                }
+              }
             }
-            /* } */
-          }
-        `}
+
+            & .first {
+              /* @media screen and (max-width: 500px) { */
+              &::after {
+                display: inline;
+                font-size: 0.6rem;
+                content: "◀️◀️";
+              }
+              /* } */
+            }
+
+            & .last {
+              /* @media screen and (max-width: 500px) { */
+              &::after {
+                display: inline;
+                font-size: 0.6rem;
+                content: "▶️▶️";
+              }
+              /* } */
+            }
+          `,
+        ]}
       >
         <a
           href="#"
