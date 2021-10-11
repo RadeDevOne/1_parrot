@@ -49,6 +49,10 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
             border-radius: ${tw`rounded-md`};
             margin-top: 2rem;
 
+            & a {
+              ${tw`light:border-indigo-400`}
+            }
+
             & a.disabled-anch {
               pointer-events: none;
             }
@@ -64,7 +68,9 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
             }
 
             & .current {
-              border: #5fbbbe solid 2px;
+              border: #595f75 solid 2px;
+              color: #2a2c3b;
+              font-weight: 500;
               pointer-events: none;
             }
 
@@ -104,8 +110,9 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               /* @media screen and (max-width: 500px) { */
               &::after {
                 display: inline;
-                font-size: 0.6rem;
-                content: "◀️◀️";
+                font-size: 0.8rem;
+                font-weight: 600;
+                content: "<<";
               }
               /* } */
             }
@@ -114,32 +121,51 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               /* @media screen and (max-width: 500px) { */
               &::after {
                 display: inline;
-                font-size: 0.6rem;
-                content: "▶️▶️";
+                font-size: 0.8rem;
+                font-weight: 600;
+                content: ">>";
               }
               /* } */
             }
           `,
         ]}
       >
-        <Link href={buildUrl(first, highlightedPageNum)}>
+        <Link href={buildUrl(first !== null ? 1 : first, highlightedPageNum)}>
           <a
             css={[
               first !== null ? css`` : tw`pointer-events-none`,
-              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white`,
             ]}
           >
-            <span className="first">{/* First */}</span>
+            <span
+              className="first"
+              css={[
+                tw`flex align-middle my-auto`,
+                first !== null ? css`` : tw`text-gray-400 light:text-gray-500`,
+              ]}
+            >
+              {/* First */}
+            </span>
           </a>
         </Link>
         <Link href={buildUrl(previousSpanPage, highlightedPageNum)}>
           <a
             css={[
               previousSpanPage !== null ? css`` : tw`pointer-events-none`,
-              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0  hover:bg-blue-500 hover:text-white`,
             ]}
           >
-            <span className="previous">{/* Previous */}</span>
+            <span
+              className="previous"
+              css={[
+                tw`flex align-middle my-auto`,
+                previousSpanPage !== null
+                  ? css``
+                  : tw`text-gray-400 light:text-gray-500`,
+              ]}
+            >
+              {/* Previous */}
+            </span>
           </a>
         </Link>
         {currentButtonSpan.map((item, i) => {
@@ -154,7 +180,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
                 } ${item === null ? "disabled-anch" : ""}`.trim()}
                 tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"
               >
-                <span>{item}</span>
+                <span>{item === 0 ? "🏠" : item}</span>
               </a>
             </Link>
           );
@@ -163,20 +189,38 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
           <a
             css={[
               nextSpanPage !== null ? css`` : tw`pointer-events-none`,
-              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 hover:bg-blue-500 hover:text-white`,
             ]}
           >
-            <span className="next">{/* Next */}</span>
+            <span
+              className="next"
+              css={[
+                tw`flex align-middle my-auto`,
+                nextSpanPage !== null
+                  ? css``
+                  : tw`text-gray-400 light:text-gray-500`,
+              ]}
+            >
+              {/* Next */}
+            </span>
           </a>
         </Link>
         <Link href={`${basePath}${last}`}>
           <a
             css={[
               last !== null ? css`` : tw`pointer-events-none`,
-              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
             ]}
           >
-            <span className="last">{/* Last */}</span>
+            <span
+              className="last"
+              css={[
+                tw`flex align-middle my-auto`,
+                last !== null ? css`` : tw`text-gray-400 light:text-gray-500`,
+              ]}
+            >
+              {/* Last */}
+            </span>
           </a>
         </Link>
       </div>

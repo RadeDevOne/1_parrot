@@ -29,6 +29,8 @@ const Products: FC<ProductsPropsI> = ({
   const splitted = asPath.split("/");
   const currentPageNumber = parseInt(splitted[splitted.length - 1]) || 0;
 
+  // console.log({ currentPageNumber });
+
   return (
     <Fragment>
       {pagAbove && (
@@ -40,12 +42,16 @@ const Products: FC<ProductsPropsI> = ({
       )}
       <section>
         <div tw="container mx-auto px-6">
-          <h3 tw="light:text-gray-700 dark:text-gray-200 text-2xl font-medium">
-            We have everything
-          </h3>
-          <span tw="mt-3 text-sm light:text-gray-500 dark:text-gray-600">
-            200+ Products
-          </span>
+          {currentPageNumber === 0 && (
+            <Fragment>
+              <h3 tw="light:text-gray-700 dark:text-gray-200 text-2xl font-medium">
+                We have everything
+              </h3>
+              <span tw="mt-3 text-sm light:text-gray-500 dark:text-gray-600">
+                200+ Products
+              </span>
+            </Fragment>
+          )}
 
           <div tw="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
             {products.map((product, i) => {
