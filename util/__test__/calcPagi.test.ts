@@ -97,22 +97,27 @@ describe("calculating pagination details", () => {
     console.log("------------------------");
     console.log("------------------------");
     console.log("-------------4----------------");
+    // EDGE CASE (HAD TO DO CORRECTIONS)
     console.log(calcPagi(4, 16, 4, 80));
     console.log("------------------------");
     console.log("------------------------");
     console.log("------------------------");
     console.log("------------------------");
     console.log("------------------------");
+    // error edge case cross the limit CASE (EXPECT ERROR) (TRUE I GOT ONE)
     console.log("-------------5----------------");
-    console.log(calcPagi(5, 16, 4, 80));
+    // console.log(calcPagi(5, 16, 4, 80));
     console.log("------------------------");
     console.log("------------------------");
     console.log("------------------------");
     console.log("------------------------");
+    // ERROR
     console.log("------------------------");
-    console.log("-------------6----------------");
-    console.log(calcPagi(6, 16, 4, 80));
+    // console.log("-------------6----------------");
+    // console.log(calcPagi(6, 16, 4, 80));
+    // EDGE CASE
+    console.log(calcPagi(6, 16, 4, 240));
   });
 
-  // edge case you can test --> 80 , 240
+  // edge numbers you can test --> 80 , 240
 });
