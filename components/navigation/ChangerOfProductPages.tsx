@@ -36,7 +36,8 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
     highlightedPageNum,
   } = pagination;
 
-  const { first, previousSpanPage, nextSpanPage, last } = buttonsAround;
+  const { first, previousSpanPage, nextSpanPage, last, next, previous } =
+    buttonsAround;
 
   return (
     <div tw="flex justify-center">
@@ -90,6 +91,10 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               }
             }
 
+            & .previous-one {
+              /*  */
+            }
+
             & .next {
               &::after {
                 display: inline;
@@ -104,6 +109,10 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
                   content: "▶️";
                 }
               }
+            }
+
+            & .next-one {
+              /*  */
             }
 
             & .first {
@@ -168,6 +177,26 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
             </span>
           </a>
         </Link>
+        <Link href={buildUrl(previous, highlightedPageNum)}>
+          <a
+            css={[
+              previous !== null ? css`` : tw`pointer-events-none`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0  hover:bg-blue-500 hover:text-white`,
+            ]}
+          >
+            <span
+              className="previous-one"
+              css={[
+                tw`flex align-middle my-auto`,
+                previous !== null
+                  ? css``
+                  : tw`text-gray-400 light:text-gray-500`,
+              ]}
+            >
+              {/* Previous-ONE */}
+            </span>
+          </a>
+        </Link>
         {currentButtonSpan.map((item, i) => {
           return (
             <Link
@@ -185,6 +214,24 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
             </Link>
           );
         })}
+        <Link href={`${basePath}${next}`}>
+          <a
+            css={[
+              next !== null ? css`` : tw`pointer-events-none`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 hover:bg-blue-500 hover:text-white`,
+            ]}
+          >
+            <span
+              className="next-one"
+              css={[
+                tw`flex align-middle my-auto`,
+                next !== null ? css`` : tw`text-gray-400 light:text-gray-500`,
+              ]}
+            >
+              {/* Next-ONE */}
+            </span>
+          </a>
+        </Link>
         <Link href={`${basePath}${nextSpanPage}`}>
           <a
             css={[
