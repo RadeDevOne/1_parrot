@@ -3,7 +3,7 @@ import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
 
-import type { ProductsPropsI } from "../products/Products";
+// import type { ProductsPropsI } from "../products/Products";
 import type { PropsI as IndexPagePropsI } from "@/pages/index";
 
 export interface PropsI {
@@ -111,12 +111,22 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         ]}
       >
         <Link href={`${basePath}${first}`}>
-          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white">
+          <a
+            css={[
+              !first ? css`` : tw`pointer-events-none`,
+              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white`,
+            ]}
+          >
             <span className="first">{/* First */}</span>
           </a>
         </Link>
         <Link href={`${basePath}${previousSpanPage}`}>
-          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white">
+          <a
+            css={[
+              !previousSpanPage ? css`` : tw`pointer-events-none`,
+              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white`,
+            ]}
+          >
             <span className="previous">{/* Previous */}</span>
           </a>
         </Link>
@@ -135,12 +145,22 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
           );
         })}
         <Link href={`${basePath}${nextSpanPage}`}>
-          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white">
+          <a
+            css={[
+              !nextSpanPage ? css`` : tw`pointer-events-none`,
+              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
+            ]}
+          >
             <span className="next">{/* Next */}</span>
           </a>
         </Link>
         <Link href={`${basePath}${last}`}>
-          <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white">
+          <a
+            css={[
+              !last ? css`` : tw`pointer-events-none`,
+              tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
+            ]}
+          >
             <span className="last">{/* Last */}</span>
           </a>
         </Link>
