@@ -60,7 +60,7 @@ const calcPag = (
 
   const positionOfCurrent: [number, number] = [0, 0];
 
-  for (let i = 0; i <= totalSpans; i++) {
+  for (let i = 0; i < totalSpans; i++) {
     arrayOfSpans.push([]);
     for (let j = 0; j < buttonSpan; j++) {
       if (totalPages < itemHistory) {
@@ -85,15 +85,14 @@ const calcPag = (
   }
 
   lastPageNumber = itemHistory - 1;
-  // SUROUNDING BUTTONS
 
-  // -----------------------------------------------
-  // -----------------------------------------------
-  // -----------------------------------------------
-  // previous and next are wrong
-  // they should be spans not items
-  // forth should go to the first of next span
-  // back should go to the last of the previous span
+  if (
+    arrayOfSpans[positionOfCurrent[0]][positionOfCurrent[1]] !== currentPageNum
+  ) {
+    throw new Error(
+      "disproportion, too much of products per page , or pick another page"
+    );
+  }
 
   const first = currentPageNum - 1 < 0 ? null : 0;
   const last = currentPageNum + 1 > lastPageNumber ? null : lastPageNumber;

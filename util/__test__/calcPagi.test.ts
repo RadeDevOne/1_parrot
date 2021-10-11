@@ -10,6 +10,12 @@ describe("calculating pagination details", () => {
     expect(() => calcPagi(6, 16, 4, 70)).toThrow(
       "ordinl number of current page can not be higher than total numbe of pages"
     );
+
+    // PICA A TOO HIGH PAGE NUMBER FOR THE
+    // SO NUMBER OF PRODUCTS OR NUMNER OF PRODUCTS PER PAGE
+    // CAN'T ACCEPT THAT
+    expect(() => calcPagi(4, 16, 4, 60)).toThrowError();
+
     // THESE I'LL INSPECT VISUALLY
     // IT WOULD BE TOO TIME CONSUMING TO DO OTHERVISE
     // const result0 = calcPagi(0, 16, 4, 70);
@@ -43,13 +49,18 @@ describe("calculating pagination details", () => {
     // console.log(JSON.stringify(result5, null, 2));
     // console.log("------------------------");
 
-    // console.log(calcPagi(12, 16, 5, 600));
-    // console.log(calcPagi(12, 16, 6, 600));
-    // console.log(calcPagi(12, 16, 4, 600));
-    // console.log(calcPagi(4, 16, 4, 60));
-    // console.log(calcPagi(3, 16, 4, 60));
-    // console.log(calcPagi(2, 16, 4, 60));
-    // console.log(calcPagi(1, 16, 4, 60));
-    // console.log(calcPagi(0, 16, 4, 60));
+    console.log(calcPagi(12, 16, 5, 600));
+    console.log(calcPagi(12, 16, 6, 600));
+    console.log(calcPagi(12, 16, 4, 600));
+
+    console.log(calcPagi(3, 16, 4, 70));
+    console.log(calcPagi(2, 16, 4, 70));
+    console.log(calcPagi(1, 16, 4, 70));
+    console.log(calcPagi(0, 16, 4, 70));
+
+    console.log(calcPagi(3, 16, 4, 60));
+    console.log(calcPagi(2, 16, 4, 60));
+    console.log(calcPagi(1, 16, 4, 60));
+    console.log(calcPagi(0, 16, 4, 60));
   });
 });
