@@ -42,41 +42,48 @@ type paramsType = {
 
 // todo: number of pages and calculation
 
-export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
-  async (ctx) => {
-    const { params } = ctx;
+export const getServerSideProps: GetServerSideProps<
+  PropsI | { nothing: true },
+  paramsType
+> = async (ctx) => {
+  const { params } = ctx;
 
-    console.log({ PAGENUM: params?.pageNum });
+  console.log({ PAGENUM: params?.pageNum });
 
-    // PAGE NUMBER
-    const pageNum = parseInt(params?.pageNum || "0");
+  // PAGE NUMBER
+  const pageNum = parseInt(params?.pageNum || "0");
 
-    const totalProducts = await prisma.product.count();
+  if (pageNum === 0) {
+    ctx.res.writeHead(302, { Location: "/" });
+    return { props: { nothing: true } };
+  }
 
-    const pagination = calcPagi(pageNum, 16, 4, totalProducts);
+  const totalProducts = await prisma.product.count();
 
-    const products = await prisma.product.findMany({
-      take: PRODUCTS_PER_PAGE,
-      skip: pagination.skip,
-      select: {
-        id: true,
-        name: true,
-        image: true,
-        price: true,
-      },
-      orderBy: {
-        updatedAt: "desc",
-      },
-    });
+  const pagination = calcPagi(pageNum, 16, 4, totalProducts);
 
-    return {
-      props: {
-        products,
-        totalProducts,
-        pagination,
-      },
-    };
+  const products = await prisma.product.findMany({
+    take: PRODUCTS_PER_PAGE,
+    skip: pagination.skip,
+    select: {
+      id: true,
+      name: true,
+      image: true,
+      price: true,
+    },
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
+
+  return {
+    props: {
+      products,
+      totalProducts,
+      pagination,
+    },
   };
+};
 
 const Page: NP<PropsI> = (props) => {
   return <Layout {...props} />;

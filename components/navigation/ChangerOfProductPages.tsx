@@ -10,9 +10,21 @@ export interface PropsI {
   pagination: IndexPagePropsI["paginationData"];
 }
 
-const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
-  const basePath = "/products/";
+const basePath = "/products/";
 
+const buildUrl = (pageNum: number | null, currentNum: number) => {
+  if (pageNum === null) {
+    return `${basePath}${currentNum}`;
+  }
+
+  if (pageNum === 0) {
+    return "/";
+  }
+
+  return `${basePath}${pageNum}`;
+};
+
+const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
   // const paginationData = pagCalc(currentPageNumber, totalItems);
 
   const {
@@ -110,7 +122,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
           `,
         ]}
       >
-        <Link href={`${basePath}${first}`}>
+        <Link href={buildUrl(first, highlightedPageNum)}>
           <a
             css={[
               first !== null ? css`` : tw`pointer-events-none`,
@@ -120,7 +132,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
             <span className="first">{/* First */}</span>
           </a>
         </Link>
-        <Link href={`${basePath}${previousSpanPage}`}>
+        <Link href={buildUrl(previousSpanPage, highlightedPageNum)}>
           <a
             css={[
               previousSpanPage !== null ? css`` : tw`pointer-events-none`,
@@ -136,7 +148,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               <a
                 className={`contenders ${
                   item === highlightedPageNum ? "current" : "around"
-                }`.trim()}
+                } ${item === null ? "disabled-anch" : ""}`.trim()}
                 tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"
               >
                 <span>{item}</span>
