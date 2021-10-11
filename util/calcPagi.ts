@@ -1,29 +1,43 @@
+/**
+ *
+ * @param currentPageNum number, you can find this with router (/products/<> )
+ * @param productsPerPage number, use 16 (you can do more or less but 16 is alright)
+ * @param buttonSpan number, use 4 (you can do more or less but 4 is alright)
+ * @param totalProducts number, pass here your total amount of products that you have in your db
+ * @returns hover to see what
+ */
 const calcPag = (
   currentPageNum: number,
   productsPerPage: number,
   buttonSpan: number,
   totalProducts: number
-) => {
+): {
+  a__current_page_position: [number, number];
+  b__array_of_buttons: (number | null)[][];
+  surounding_buttons_logic: {
+    first: null | number;
+    previous: null | number;
+    next: null | number;
+    last: null | number;
+  };
+  currentPageNumber: number;
+} => {
+  //
   if (currentPageNum < 0) {
     throw new Error("current page number can't be a negative number");
   }
-
-  //
-  //
-  //
-  //
 
   const totalPagesRough = totalProducts / productsPerPage;
   const totalSpansRough = totalPagesRough / buttonSpan;
 
   const totalPages =
     totalPagesRough % Math.round(totalPagesRough) !== 0
-      ? Math.round(totalPagesRough) + 1
+      ? Math.floor(totalPagesRough) + 1
       : totalPagesRough;
 
   const totalSpans =
     totalSpansRough % Math.round(totalSpansRough) !== 0
-      ? Math.round(totalSpansRough) + 1
+      ? Math.floor(totalSpansRough) + 1
       : totalSpansRough;
 
   if (currentPageNum > totalPages) {
@@ -45,7 +59,9 @@ const calcPag = (
     arrayOfSpans.push([]);
     for (let j = 0; j < buttonSpan; j++) {
       if (totalPages < itemHistory) {
-        break;
+        arrayOfSpans[i].push(null);
+
+        continue;
       }
 
       arrayOfSpans[i].push(itemHistory);
@@ -59,12 +75,32 @@ const calcPag = (
   }
 
   lastPageNumber = itemHistory - 1;
+  // SUROUNDING BUTTONS
+  const first = currentPageNum - 1 < 0 ? null : 0;
+  const last = currentPageNum + 1 > lastPageNumber ? null : lastPageNumber;
 
-  console.log({ arrayOfSpans });
-  console.log({ positionOfCurrent });
-  console.log({ lastPageNumber });
+  const previous = currentPageNum - 1 < 0 ? null : currentPageNum - 1;
+  const next = currentPageNum + 1 > lastPageNumber ? null : currentPageNum + 1;
 
-  console.log({ totalPages, totalPagesRough, totalSpans, totalSpansRough });
+  return {
+    // THESE ARE TWO INDEXES
+    a__current_page_position: positionOfCurrent,
+    // FOR THIS ARRAY
+    // ARRAY WITH TWO SUBARRAYS (EACH SUBARRAY REPRESENTS
+    // ONE SPAN OF ORDINAL BUTTON NUMBERS, FOR BUTTONS WE WILL USE TO
+    // NAVIGATE BETWEEN PAGES)
+    b__array_of_buttons: arrayOfSpans,
+    // THESE ARE NOT JUST NUMBERS
+    // THEY ARE VALIDATIONS TWO (SOMETIMES YOU CAN NAVIGATE BACK
+    // WHEN YOU ARE AT BEGGINING, AND YOU CAN NAVIGATE FORTH, WHEN YOU ARE AT THE ENDING)
+    surounding_buttons_logic: {
+      first,
+      previous,
+      next,
+      last,
+    },
+    currentPageNumber: currentPageNum,
+  };
 };
 
 export default calcPag;
