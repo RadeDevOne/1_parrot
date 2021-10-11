@@ -144,7 +144,10 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         </Link>
         {currentButtonSpan.map((item, i) => {
           return (
-            <Link href={`${basePath}${item}`} key={`${i}-${item}`}>
+            <Link
+              href={item !== 0 ? `${basePath}${item}` : "/"}
+              key={`${i}-${item}`}
+            >
               <a
                 className={`contenders ${
                   item === highlightedPageNum ? "current" : "around"
