@@ -5,10 +5,19 @@ import tw, { css, styled, theme } from "twin.macro";
 import type { PropsI } from "@/pages/index";
 import Products from "../products/Products";
 
-const Layout: FC<PropsI> = ({ products, topRatedProducts, totalProducts }) => {
+const Layout: FC<PropsI> = ({
+  products,
+  topRatedProducts,
+  totalProducts,
+  paginationData,
+}) => {
   return (
     <main>
-      <Products products={products} totalProducts={totalProducts} />
+      <Products
+        products={products}
+        totalProducts={totalProducts}
+        pagination={paginationData}
+      />
     </main>
   );
 };

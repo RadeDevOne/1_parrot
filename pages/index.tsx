@@ -8,6 +8,8 @@ import Layout from "@/components/1_index_page/Layout";
 
 import { PRODUCTS_PER_PAGE } from "@/constants/index";
 
+import calcPagi from "@/util/calcPagi";
+
 export interface PropsI {
   products: {
     id: string;
@@ -23,6 +25,22 @@ export interface PropsI {
     averageRating: number;
   }[];
   totalProducts: number;
+  paginationData: {
+    a__current_page_position: [number, number];
+    b__array_of_buttons: (number | null)[][];
+    surounding_buttons_logic: {
+      first: number | null;
+      previousSpanPage: number | null;
+      previous: number | null;
+      next: number | null;
+      nextSpanPage: number | null;
+      last: number | null;
+    };
+    currentPageNumber: number;
+    skip: number;
+    currentButtonSpan: (number | null)[];
+    highlightedPageNum: number;
+  };
 }
 
 export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
@@ -56,13 +74,16 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 
   const totalProducts = await prisma.product.count();
 
-  console.log({ totalProducts });
+  const paginationData = calcPagi(0, 16, 4, totalProducts);
+
+  // console.log({ totalProducts });
 
   return {
     props: {
       products,
       topRatedProducts,
       totalProducts,
+      paginationData,
     },
   };
 };

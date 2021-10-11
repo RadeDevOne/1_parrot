@@ -4,19 +4,16 @@ import { Fragment } from "react";
 import tw /* , { css, styled, theme } */ from "twin.macro";
 
 import { useRouter } from "next/router";
-
 import Product from "./Product";
-
 import ChangerOfProductsPages from "../navigation/ChangerOfProductPages";
-
 import type { PropsI } from "@/pages/index";
-import type { PropsI as ProductsPagePropsI } from "@/pages/products/[pageNum]";
+// import type { PropsI as ProductsPagePropsI } from "@/pages/products/[pageNum]";
 
 export interface ProductsPropsI {
   products: PropsI["products"];
   totalProducts: PropsI["totalProducts"];
   pagAbove?: boolean;
-  pagination?: ProductsPagePropsI["pagination"];
+  pagination: PropsI["paginationData"];
 }
 
 const Products: FC<ProductsPropsI> = ({
@@ -38,11 +35,7 @@ const Products: FC<ProductsPropsI> = ({
         <div
         // tw="mb-10"
         >
-          <ChangerOfProductsPages
-            pagination={currentPageNumber !== 0 ? pagination : undefined}
-            currentPageNumber={currentPageNumber}
-            totalItems={totalProducts}
-          />
+          <ChangerOfProductsPages pagination={pagination} />
         </div>
       )}
       <section>
@@ -62,11 +55,7 @@ const Products: FC<ProductsPropsI> = ({
         </div>
       </section>
       <div tw="mb-10">
-        <ChangerOfProductsPages
-          pagination={currentPageNumber !== 0 ? pagination : undefined}
-          currentPageNumber={currentPageNumber}
-          totalItems={totalProducts}
-        />
+        <ChangerOfProductsPages pagination={pagination} />
       </div>
     </Fragment>
   );

@@ -3,30 +3,28 @@ import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
 
-import calcPagi from "@/util/calcPagi";
-
 import type { ProductsPropsI } from "../products/Products";
+import type { PropsI as IndexPagePropsI } from "@/pages/index";
 
 export interface PropsI {
-  currentPageNumber: number;
-  totalItems: number;
-  pagination?: ProductsPropsI["pagination"];
+  pagination: IndexPagePropsI["paginationData"];
 }
 
-const ChangerOfProductsPages: FC<PropsI> = ({
-  currentPageNumber,
-  totalItems,
-  pagination,
-}) => {
+const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
   const basePath = "/products/";
 
   // const paginationData = pagCalc(currentPageNumber, totalItems);
 
-  const pgData = paginationData[1];
-  const contenders = paginationData[1].contenders;
-  const current = paginationData[0];
+  const {
+    // a__current_page_position: currPagePos,
+    // b__array_of_buttons: arrOfPageSpans,
+    // currentPageNumber,
+    surounding_buttons_logic: buttonsAround,
+    currentButtonSpan,
+    highlightedPageNum,
+  } = pagination;
 
-  console.log(paginationData, totalItems);
+  const { first, previousSpanPage, nextSpanPage, last } = buttonsAround;
 
   return (
     <div tw="flex justify-center">
@@ -38,6 +36,10 @@ const ChangerOfProductsPages: FC<PropsI> = ({
             display: flex;
             border-radius: ${tw`rounded-md`};
             margin-top: 2rem;
+
+            & a.disabled-anch {
+              pointer-events: none;
+            }
 
             & .contenders {
               user-select: none;
@@ -108,22 +110,22 @@ const ChangerOfProductsPages: FC<PropsI> = ({
           `,
         ]}
       >
-        <Link href={`${basePath}${pgData.first}`}>
+        <Link href={`${basePath}${first}`}>
           <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white">
             <span className="first">{/* First */}</span>
           </a>
         </Link>
-        <Link href={`${basePath}${pgData.prev}`}>
+        <Link href={`${basePath}${previousSpanPage}`}>
           <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white">
             <span className="previous">{/* Previous */}</span>
           </a>
         </Link>
-        {contenders.map((item, i) => {
+        {currentButtonSpan.map((item, i) => {
           return (
             <Link href={`${basePath}${item}`} key={`${i}-${item}`}>
               <a
                 className={`contenders ${
-                  item === current ? "current" : "around"
+                  item === highlightedPageNum ? "current" : "around"
                 }`.trim()}
                 tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"
               >
@@ -132,12 +134,12 @@ const ChangerOfProductsPages: FC<PropsI> = ({
             </Link>
           );
         })}
-        <Link href={`${basePath}${pgData.next}`}>
+        <Link href={`${basePath}${nextSpanPage}`}>
           <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white">
             <span className="next">{/* Next */}</span>
           </a>
         </Link>
-        <Link href={`${basePath}${pgData.last}`}>
+        <Link href={`${basePath}${last}`}>
           <a tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white">
             <span className="last">{/* Last */}</span>
           </a>

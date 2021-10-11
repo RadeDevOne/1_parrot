@@ -24,6 +24,8 @@ const calcPag = (
   };
   currentPageNumber: number;
   skip: number;
+  currentButtonSpan: (number | null)[];
+  highlightedPageNum: number;
 } => {
   //
   if (currentPageNum < 0) {
@@ -141,6 +143,8 @@ const calcPag = (
     },
     currentPageNumber: currentPageNum,
     skip: skip > 0 ? skip : 0,
+    currentButtonSpan: arrayOfSpans[positionOfCurrent[0]],
+    highlightedPageNum: currentPageNum,
   };
 };
 
