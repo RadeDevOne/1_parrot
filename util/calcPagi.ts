@@ -77,6 +77,15 @@ const calcPag = (
 
   lastPageNumber = itemHistory - 1;
   // SUROUNDING BUTTONS
+
+  // -----------------------------------------------
+  // -----------------------------------------------
+  // -----------------------------------------------
+  // previous and next are wrong
+  // they should be spans not items
+  // forth should go to the first of next span
+  // back should go to the las of the previous span
+
   const first = currentPageNum - 1 < 0 ? null : 0;
   const last = currentPageNum + 1 > lastPageNumber ? null : lastPageNumber;
 
