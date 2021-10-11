@@ -11,7 +11,8 @@ describe("calculating pagination details", () => {
       "ordinl number of current page can not be higher than total numbe of pages"
     );
 
-    // PICA A TOO HIGH PAGE NUMBER FOR THE
+    // PICA
+    // PICKED A TOO HIGH PAGE NUMBER FOR THE
     // SO NUMBER OF PRODUCTS OR NUMNER OF PRODUCTS PER PAGE
     // CAN'T ACCEPT THAT
     expect(() => calcPagi(4, 16, 4, 60)).toThrowError();
@@ -58,9 +59,60 @@ describe("calculating pagination details", () => {
     // console.log(calcPagi(1, 16, 4, 70));
     // console.log(calcPagi(0, 16, 4, 70));
     //
+    // console.log(calcPagi(1, 16, 4, 60));
     // console.log(calcPagi(3, 16, 4, 60));
     // console.log(calcPagi(2, 16, 4, 60));
-    // console.log(calcPagi(1, 16, 4, 60));
     // console.log(calcPagi(0, 16, 4, 60));
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("-------------0----------------");
+    console.log(calcPagi(0, 16, 4, 80));
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("-------------1----------------");
+    console.log(calcPagi(1, 16, 4, 80));
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("-------------2----------------");
+    console.log(calcPagi(2, 16, 4, 80));
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("-------------3----------------");
+    console.log(calcPagi(3, 16, 4, 80));
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("-------------4----------------");
+    console.log(calcPagi(4, 16, 4, 80));
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("-------------5----------------");
+    console.log(calcPagi(5, 16, 4, 80));
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("------------------------");
+    console.log("-------------6----------------");
+    console.log(calcPagi(6, 16, 4, 80));
   });
+
+  // edge case you can test --> 80 , 240
 });

@@ -95,7 +95,7 @@ const calcPag = (
   }
 
   const first = currentPageNum - 1 < 0 ? null : 0;
-  const last = currentPageNum + 1 > lastPageNumber ? null : lastPageNumber;
+  let last = currentPageNum + 1 > lastPageNumber ? null : lastPageNumber;
 
   const previous = currentPageNum - 1 < 0 ? null : currentPageNum - 1;
   const next = currentPageNum + 1 > lastPageNumber ? null : currentPageNum + 1;
@@ -120,6 +120,37 @@ const calcPag = (
     currentPageNum * productsPerPage;
 
   const skip = totalAmountOfProductsBeforeAndOnCurrentPage;
+
+  if (typeof last === "number") {
+    if (productsPerPage * last === totalProducts) {
+      const indexOfLast = arrayOfSpans[arrayOfSpans.length - 1].indexOf(last);
+      arrayOfSpans[arrayOfSpans.length - 1][indexOfLast] = null;
+      last = arrayOfSpans[arrayOfSpans.length - 1][indexOfLast - 1];
+
+      if (last === currentPageNum) {
+        last = null;
+      }
+
+      if (arrayOfSpans[arrayOfSpans.length - 1][0] === null) {
+        arrayOfSpans.pop();
+
+        if (arrayOfSpans[positionOfCurrent[0] + 1]) {
+          nextSpanPage = arrayOfSpans[positionOfCurrent[0] + 1][0];
+        }
+      }
+      /* if (typeof last === "number") {
+        if (last < currentPageNum) {
+          throw new Error("exceeded posible number of pages");
+        }
+      } */
+    }
+  }
+
+  if (last === null && next === null) {
+    if (productsPerPage * currentPageNum === totalProducts) {
+      throw new Error("--edge case ---- exceeded the number of pages ------");
+    }
+  }
 
   return {
     // THESE ARE TWO INDEXES
