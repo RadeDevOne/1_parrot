@@ -90,7 +90,7 @@ describe("calculating pagination details", () => {
     // console.log("------------------------");
     // console.log("------------------------");
     // console.log("-------------3----------------");
-    // console.log(calcPagi(3, 16, 4, 80));
+    console.log(calcPagi(3, 16, 4, 80));
     // console.log("------------------------");
     // console.log("------------------------");
     // console.log("------------------------");
