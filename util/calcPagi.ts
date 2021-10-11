@@ -16,8 +16,10 @@ const calcPag = (
   b__array_of_buttons: (number | null)[][];
   surounding_buttons_logic: {
     first: null | number;
+    previousSpanPage: null | number;
     previous: null | number;
     next: null | number;
+    nextSpanPage: null | number;
     last: null | number;
   };
   currentPageNumber: number;
@@ -84,13 +86,27 @@ const calcPag = (
   // previous and next are wrong
   // they should be spans not items
   // forth should go to the first of next span
-  // back should go to the las of the previous span
+  // back should go to the last of the previous span
 
   const first = currentPageNum - 1 < 0 ? null : 0;
   const last = currentPageNum + 1 > lastPageNumber ? null : lastPageNumber;
 
   const previous = currentPageNum - 1 < 0 ? null : currentPageNum - 1;
   const next = currentPageNum + 1 > lastPageNumber ? null : currentPageNum + 1;
+
+  // THIS IS HOW WE CAN SET CHANGING OF SPAN
+  const currentSpanBlock = arrayOfSpans[positionOfCurrent[0]];
+
+  let previousSpanPage = null;
+  let nextSpanPage = null;
+
+  if (arrayOfSpans[positionOfCurrent[0] - 1]) {
+    previousSpanPage = arrayOfSpans[positionOfCurrent[0] - 1][buttonSpan - 1];
+  }
+
+  if (arrayOfSpans[positionOfCurrent[0] + 1]) {
+    nextSpanPage = arrayOfSpans[positionOfCurrent[0] + 1][0];
+  }
 
   // CALCULATE skipper (WE NEEDS THIS AS A QUERY, FROM WHICH NUMBER
   // OF PRODUCTS WE QUERY)
@@ -112,8 +128,10 @@ const calcPag = (
     // WHEN YOU ARE AT BEGGINING, AND YOU CAN NAVIGATE FORTH, WHEN YOU ARE AT THE ENDING)
     surounding_buttons_logic: {
       first,
+      previousSpanPage,
       previous,
       next,
+      nextSpanPage,
       last,
     },
     currentPageNumber: currentPageNum,
