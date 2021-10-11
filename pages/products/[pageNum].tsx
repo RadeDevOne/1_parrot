@@ -19,15 +19,20 @@ export interface PropsI {
   }[];
   totalProducts: number;
   pagination: {
-    currentPagePosition: [number, number];
-    arraysOfProductSubpathNumbers: (number | null)[][];
-    suroundingButtonLogic: {
+    a__current_page_position: [number, number];
+    b__array_of_buttons: (number | null)[][];
+    surounding_buttons_logic: {
       first: number | null;
+      previousSpanPage: number | null;
       previous: number | null;
       next: number | null;
+      nextSpanPage: number | null;
       last: number | null;
     };
     currentPageNumber: number;
+    skip: number;
+    currentButtonSpan: (number | null)[];
+    highlightedPageNum: number;
   };
 }
 
@@ -48,18 +53,11 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 
     const totalProducts = await prisma.product.count();
 
-    const paginationData = calcPagi(pageNum, 16, 4, totalProducts);
-
-    const pagination = {
-      currentPagePosition: paginationData.a__current_page_position,
-      arraysOfProductSubpathNumbers: paginationData.b__array_of_buttons,
-      suroundingButtonLogic: paginationData.surounding_buttons_logic,
-      currentPageNumber: paginationData.currentPageNumber,
-    };
+    const pagination = calcPagi(pageNum, 16, 4, totalProducts);
 
     const products = await prisma.product.findMany({
       take: PRODUCTS_PER_PAGE,
-      skip: paginationData.skipper,
+      skip: pagination.skip,
       select: {
         id: true,
         name: true,
