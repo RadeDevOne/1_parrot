@@ -113,7 +113,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         <Link href={`${basePath}${first}`}>
           <a
             css={[
-              !first ? css`` : tw`pointer-events-none`,
+              first !== null ? css`` : tw`pointer-events-none`,
               tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white`,
             ]}
           >
@@ -123,7 +123,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         <Link href={`${basePath}${previousSpanPage}`}>
           <a
             css={[
-              !previousSpanPage ? css`` : tw`pointer-events-none`,
+              previousSpanPage !== null ? css`` : tw`pointer-events-none`,
               tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0 rounded-l hover:bg-blue-500 hover:text-white`,
             ]}
           >
@@ -147,7 +147,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         <Link href={`${basePath}${nextSpanPage}`}>
           <a
             css={[
-              !nextSpanPage ? css`` : tw`pointer-events-none`,
+              nextSpanPage !== null ? css`` : tw`pointer-events-none`,
               tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
             ]}
           >
@@ -157,7 +157,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         <Link href={`${basePath}${last}`}>
           <a
             css={[
-              !last ? css`` : tw`pointer-events-none`,
+              last !== null ? css`` : tw`pointer-events-none`,
               tw`py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
             ]}
           >
