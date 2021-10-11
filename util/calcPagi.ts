@@ -23,7 +23,7 @@ const calcPag = (
     last: null | number;
   };
   currentPageNumber: number;
-  skipper: number;
+  skip: number;
 } => {
   //
   if (currentPageNum < 0) {
@@ -58,10 +58,15 @@ const calcPag = (
 
   const positionOfCurrent: [number, number] = [0, 0];
 
-  for (let i = 0; i < totalSpans; i++) {
+  for (let i = 0; i <= totalSpans; i++) {
     arrayOfSpans.push([]);
     for (let j = 0; j < buttonSpan; j++) {
       if (totalPages < itemHistory) {
+        if (j === 0) {
+          arrayOfSpans.pop();
+          break;
+        }
+
         arrayOfSpans[i].push(null);
 
         continue;
@@ -95,7 +100,7 @@ const calcPag = (
   const next = currentPageNum + 1 > lastPageNumber ? null : currentPageNum + 1;
 
   // THIS IS HOW WE CAN SET CHANGING OF SPAN
-  const currentSpanBlock = arrayOfSpans[positionOfCurrent[0]];
+  // const currentSpanBlock = arrayOfSpans[positionOfCurrent[0]];
 
   let previousSpanPage = null;
   let nextSpanPage = null;
@@ -108,16 +113,16 @@ const calcPag = (
     nextSpanPage = arrayOfSpans[positionOfCurrent[0] + 1][0];
   }
 
-  // CALCULATE skipper (WE NEEDS THIS AS A QUERY, FROM WHICH NUMBER
+  // CALCULATE skip (WE NEEDS THIS AS A QUERY, FROM WHICH NUMBER
   // OF PRODUCTS WE QUERY)
   const totalAmountOfProductsBeforeAndOnCurrentPage =
     currentPageNum * productsPerPage;
 
-  const skipper = totalAmountOfProductsBeforeAndOnCurrentPage - 16 - 1;
+  const skip = totalAmountOfProductsBeforeAndOnCurrentPage;
 
   return {
     // THESE ARE TWO INDEXES
-    a__current_page_position: positionOfCurrent,
+    a__current_page_position: positionOfCurrent, // (first number is for the index for display span view, second number is for the index of the page number)
     // FOR THIS ARRAY
     // ARRAY WITH TWO SUBARRAYS (EACH SUBARRAY REPRESENTS
     // ONE SPAN OF ORDINAL BUTTON NUMBERS, FOR BUTTONS WE WILL USE TO
@@ -135,7 +140,7 @@ const calcPag = (
       last,
     },
     currentPageNumber: currentPageNum,
-    skipper,
+    skip: skip > 0 ? skip : 0,
   };
 };
 
