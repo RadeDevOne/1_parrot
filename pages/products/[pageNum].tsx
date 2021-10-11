@@ -6,6 +6,8 @@ import prisma from "@/lib/prisma";
 
 import { PRODUCTS_PER_PAGE } from "@/constants/index";
 
+import calcPagi from "@/util/calcPagi";
+
 import Layout from "@/components/2_products_pag_page/Layout";
 
 export interface PropsI {
@@ -16,6 +18,17 @@ export interface PropsI {
     price: string;
   }[];
   totalProducts: number;
+  pagination: {
+    currentPagePosition: [number, number];
+    arraysOfProductSubpathNumbers: (number | null)[][];
+    suroundingButtonLogic: {
+      first: number | null;
+      previous: number | null;
+      next: number | null;
+      last: number | null;
+    };
+    currentPageNumber: number;
+  };
 }
 
 type paramsType = {
@@ -33,12 +46,20 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
     // PAGE NUMBER
     const pageNum = parseInt(params?.pageNum || "0");
 
-    // AND PRODUCTS PER PAGE TO DECIDE ON SKIPP VALUE
-    const skipper = (pageNum - 1) * PRODUCTS_PER_PAGE;
+    const totalProducts = await prisma.product.count();
+
+    const paginationData = calcPagi(pageNum, 16, 4, totalProducts);
+
+    const pagination = {
+      currentPagePosition: paginationData.a__current_page_position,
+      arraysOfProductSubpathNumbers: paginationData.b__array_of_buttons,
+      suroundingButtonLogic: paginationData.surounding_buttons_logic,
+      currentPageNumber: paginationData.currentPageNumber,
+    };
 
     const products = await prisma.product.findMany({
       take: PRODUCTS_PER_PAGE,
-      skip: skipper,
+      skip: paginationData.skipper,
       select: {
         id: true,
         name: true,
@@ -50,12 +71,11 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
       },
     });
 
-    const totalProducts = await prisma.product.count();
-
     return {
       props: {
         products,
         totalProducts,
+        pagination,
       },
     };
   };

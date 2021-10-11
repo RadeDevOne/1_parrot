@@ -43,8 +43,8 @@ describe("calculating pagination details", () => {
     // console.log(JSON.stringify(result5, null, 2));
     // console.log("------------------------");
     //
-    // console.log(calcPagi(12, 16, 5, 600));
-    // console.log(calcPagi(12, 16, 6, 600));
-    // console.log(calcPagi(12, 16, 4, 600));
+    console.log(calcPagi(12, 16, 5, 600));
+    console.log(calcPagi(12, 16, 6, 600));
+    console.log(calcPagi(12, 16, 4, 600));
   });
 });

@@ -3,20 +3,24 @@ import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
 
-import pagCalc from "@/util/pagCalc";
+import calcPagi from "@/util/calcPagi";
+
+import type { ProductsPropsI } from "../products/Products";
 
 export interface PropsI {
   currentPageNumber: number;
   totalItems: number;
+  pagination?: ProductsPropsI["pagination"];
 }
 
 const ChangerOfProductsPages: FC<PropsI> = ({
   currentPageNumber,
   totalItems,
+  pagination,
 }) => {
   const basePath = "/products/";
 
-  const paginationData = pagCalc(currentPageNumber, totalItems);
+  // const paginationData = pagCalc(currentPageNumber, totalItems);
 
   const pgData = paginationData[1];
   const contenders = paginationData[1].contenders;

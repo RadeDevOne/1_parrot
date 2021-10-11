@@ -21,6 +21,7 @@ const calcPag = (
     last: null | number;
   };
   currentPageNumber: number;
+  skipper: number;
 } => {
   //
   if (currentPageNum < 0) {
@@ -82,6 +83,13 @@ const calcPag = (
   const previous = currentPageNum - 1 < 0 ? null : currentPageNum - 1;
   const next = currentPageNum + 1 > lastPageNumber ? null : currentPageNum + 1;
 
+  // CALCULATE skipper (WE NEEDS THIS AS A QUERY, FROM WHICH NUMBER
+  // OF PRODUCTS WE QUERY)
+  const totalAmountOfProductsBeforeAndOnCurrentPage =
+    currentPageNum * productsPerPage;
+
+  const skipper = totalAmountOfProductsBeforeAndOnCurrentPage - 16 - 1;
+
   return {
     // THESE ARE TWO INDEXES
     a__current_page_position: positionOfCurrent,
@@ -100,6 +108,7 @@ const calcPag = (
       last,
     },
     currentPageNumber: currentPageNum,
+    skipper,
   };
 };
 

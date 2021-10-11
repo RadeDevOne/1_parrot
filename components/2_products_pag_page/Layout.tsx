@@ -6,10 +6,15 @@ import type { PropsI } from "@/pages/products/[pageNum]";
 
 import Products from "../products/Products";
 
-const Layout: FC<PropsI> = ({ products, totalProducts }) => {
+const Layout: FC<PropsI> = ({ products, totalProducts, pagination }) => {
   return (
     <main>
-      <Products pagAbove products={products} totalProducts={totalProducts} />
+      <Products
+        pagAbove
+        pagination={pagination}
+        products={products}
+        totalProducts={totalProducts}
+      />
     </main>
   );
 };
