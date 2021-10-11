@@ -98,7 +98,7 @@ describe("calculating pagination details", () => {
     // console.log("------------------------");
     // console.log("-------------4----------------");
     // EDGE CASE (HAD TO DO CORRECTIONS)
-    // console.log(calcPagi(4, 16, 4, 80));
+    console.log(calcPagi(4, 16, 4, 80));
     // console.log("------------------------");
     // console.log("------------------------");
     // console.log("------------------------");

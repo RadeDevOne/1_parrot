@@ -98,7 +98,7 @@ const calcPag = (
   let last = currentPageNum + 1 > lastPageNumber ? null : lastPageNumber;
 
   const previous = currentPageNum - 1 < 0 ? null : currentPageNum - 1;
-  const next = currentPageNum + 1 > lastPageNumber ? null : currentPageNum + 1;
+  let next = currentPageNum + 1 > lastPageNumber ? null : currentPageNum + 1;
 
   // THIS IS HOW WE CAN SET CHANGING OF SPAN
   // const currentSpanBlock = arrayOfSpans[positionOfCurrent[0]];
@@ -129,6 +129,7 @@ const calcPag = (
 
       if (last === currentPageNum) {
         last = null;
+        next = null;
       }
 
       if (arrayOfSpans[arrayOfSpans.length - 1][0] === null) {
