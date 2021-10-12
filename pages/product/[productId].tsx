@@ -56,8 +56,8 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 
 const Page: NP<PropsI> = (props) => {
   return (
-    <Layout>
-      <pre>{JSON.stringify({ product: props.product }, null, 2)}</pre>
+    <Layout {...props}>
+      {/* <pre>{JSON.stringify({ product: props.product }, null, 2)}</pre> */}
     </Layout>
   );
 };

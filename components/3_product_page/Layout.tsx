@@ -2,12 +2,14 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import type { PropsI } from "@/pages/product/[productId]";
+
 import ProductView from "../products/ProductView";
 
-const Layout: FC = ({ children }) => {
+const Layout: FC<PropsI> = ({ children, product }) => {
   return (
     <main>
-      <ProductView />
+      <ProductView product={product} />
       {children}
     </main>
   );
