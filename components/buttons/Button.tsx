@@ -15,6 +15,7 @@ type variantType = "primary" | "secondary" | "warning" | "hazard" | "success";
 type sizeType = "small" | "medium";
 
 interface PropsI {
+  disabled?: boolean;
   size?: sizeType;
   variant: variantType;
   outlined?: boolean;
@@ -23,6 +24,7 @@ interface PropsI {
 }
 
 const Button: FC<PropsI> = ({
+  disabled,
   size,
   variant,
   outlined,
@@ -50,30 +52,38 @@ const Button: FC<PropsI> = ({
     if (!onClick) return;
     if (onClickArgs) {
       onClick(onClickArgs);
+    } else {
+      onClick();
     }
   };
 
-  const addetTextSize = size && size === "medium" ? tw`text-lg` : tw`text-sm`;
+  let addetTextSize = size && size === "medium" ? tw`text-lg` : null;
+
+  addetTextSize = size && size === "small" ? tw`text-sm` : null;
 
   const textSize = addetTextSize ? addetTextSize : tw`text-sm sm:text-lg`;
+
+  const dis = disabled ? true : false;
 
   return (
     <Fragment>
       {!outlined ? (
         <button
+          disabled={dis}
           onClick={() => {
             click();
           }}
           css={[
             textSize,
             colors[variant],
-            tw`p-2 pl-5 pr-5 text-gray-100 rounded-lg focus:border-4 border-blue-300`,
+            tw`p-2 pl-5 pr-5 text-gray-100 rounded-lg focus:border-0 border-blue-300`,
           ]}
         >
           {children}
         </button>
       ) : (
         <button
+          disabled={dis}
           onClick={() => {
             click();
           }}

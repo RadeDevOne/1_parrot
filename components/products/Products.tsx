@@ -13,6 +13,7 @@ export interface ProductsPropsI {
   products: PropsI["products"];
   totalProducts: PropsI["totalProducts"];
   pagAbove?: boolean;
+  pagBelow?: boolean;
   pagination: PropsI["paginationData"];
 }
 
@@ -21,6 +22,7 @@ const Products: FC<ProductsPropsI> = ({
   totalProducts,
   pagAbove,
   pagination,
+  pagBelow,
 }) => {
   const { asPath } = useRouter();
 
@@ -60,9 +62,11 @@ const Products: FC<ProductsPropsI> = ({
           </div>
         </div>
       </section>
-      <div tw="mb-10">
-        <ChangerOfProductsPages pagination={pagination} />
-      </div>
+      {pagBelow && (
+        <div tw="mb-10">
+          <ChangerOfProductsPages pagination={pagination} />
+        </div>
+      )}
     </Fragment>
   );
 };

@@ -11,6 +11,7 @@ const Layout: FC<PropsI> = ({ products, totalProducts, pagination }) => {
     <main>
       <Products
         pagAbove
+        pagBelow
         pagination={pagination}
         products={products}
         totalProducts={totalProducts}

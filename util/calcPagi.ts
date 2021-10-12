@@ -165,7 +165,7 @@ const calcPag = (
     // THEY ARE VALIDATIONS TWO (SOMETIMES YOU CAN NAVIGATE BACK
     // WHEN YOU ARE AT BEGGINING, AND YOU CAN NAVIGATE FORTH, WHEN YOU ARE AT THE ENDING)
     surounding_buttons_logic: {
-      first,
+      first: currentPageNum === 1 ? null : first,
       previousSpanPage,
       previous,
       next,

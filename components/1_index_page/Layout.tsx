@@ -5,7 +5,7 @@ import tw, { css, styled, theme } from "twin.macro";
 import type { PropsI } from "@/pages/index";
 import Products from "../products/Products";
 
-import Button from "../buttons/Button";
+import SeeMoreProducts from "../navigation/SeeMoreProducts";
 
 const Layout: FC<PropsI> = ({
   products,
@@ -20,6 +20,8 @@ const Layout: FC<PropsI> = ({
         totalProducts={totalProducts}
         pagination={paginationData}
       />
+
+      <SeeMoreProducts />
     </main>
   );
 };
