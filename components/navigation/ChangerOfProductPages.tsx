@@ -51,7 +51,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
             margin-top: 2rem;
 
             & a {
-              ${tw`light:border-indigo-400`}
+              ${tw`light:border-indigo-300`}
             }
 
             & a.disabled-anch {
@@ -75,44 +75,83 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               pointer-events: none;
             }
 
-            & .previous {
-              &::after {
-                display: inline;
-                content: "Previous";
-                /* content: "◀️"; */
+            & .previous-anch {
+              @media screen and (max-width: 500px) {
+                display: none;
               }
 
-              @media screen and (max-width: 500px) {
+              & .previous {
                 &::after {
                   display: inline;
-                  /* content: "Previous"; */
-                  content: "◀️";
+                  content: "Previous";
+                  /* content: "◀️"; */
+                }
+
+                @media screen and (max-width: 500px) {
+                  &::after {
+                    display: inline;
+                    /* content: "Previous"; */
+                    content: "◀️";
+                  }
                 }
               }
             }
 
-            & .previous-one {
-              /*  */
-            }
-
-            & .next {
-              &::after {
-                display: inline;
-                content: "Next";
-                /* content: "▶️"; */
+            & .previous-one-anch {
+              display: none;
+              @media screen and (max-width: 500px) {
+                display: flex;
+                align-items: center;
               }
 
-              @media screen and (max-width: 500px) {
+              & .previous-one {
+                /*  */
                 &::after {
                   display: inline;
                   /* content: "Next"; */
-                  content: "▶️";
+                  content: "⬅️";
                 }
               }
             }
 
-            & .next-one {
-              /*  */
+            & .next-anch {
+              @media screen and (max-width: 500px) {
+                display: none;
+              }
+
+              & .next {
+                &::after {
+                  display: inline;
+                  content: "Next";
+                  /* content: "▶️"; */
+                }
+
+                @media screen and (max-width: 500px) {
+                  &::after {
+                    display: inline;
+                    /* content: "Next"; */
+                    content: "▶️";
+                  }
+                }
+              }
+            }
+
+            & .next-one-anch {
+              display: none;
+
+              @media screen and (max-width: 500px) {
+                display: flex;
+                align-items: center;
+              }
+
+              & .next-one {
+                &::after {
+                  display: inline;
+                  /* content: "Next"; */
+                  content: "➡️";
+                }
+                /*  */
+              }
             }
 
             & .first {
@@ -120,7 +159,8 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               &::after {
                 display: inline;
                 font-size: 0.8rem;
-                font-weight: 600;
+                font-weight: 400;
+                font-family: "Helvetica Neue", sans-serif;
                 content: "<<";
               }
               /* } */
@@ -131,7 +171,8 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               &::after {
                 display: inline;
                 font-size: 0.8rem;
-                font-weight: 600;
+                font-weight: 400;
+                font-family: "Helvetica Neue", sans-serif;
                 content: ">>";
               }
               /* } */
@@ -150,7 +191,9 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               className="first"
               css={[
                 tw`flex align-middle my-auto`,
-                first !== null ? css`` : tw`text-gray-400 light:text-gray-500`,
+                first !== null
+                  ? css``
+                  : tw`opacity-30 text-gray-400 light:text-gray-500`,
               ]}
             >
               {/* First */}
@@ -159,6 +202,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         </Link>
         <Link href={buildUrl(previousSpanPage, highlightedPageNum)}>
           <a
+            className="previous-anch"
             css={[
               previousSpanPage !== null ? css`` : tw`pointer-events-none`,
               tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0  hover:bg-blue-500 hover:text-white`,
@@ -170,7 +214,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
                 tw`flex align-middle my-auto`,
                 previousSpanPage !== null
                   ? css``
-                  : tw`text-gray-400 light:text-gray-500`,
+                  : tw`text-gray-400 light:text-gray-500 opacity-30`,
               ]}
             >
               {/* Previous */}
@@ -179,6 +223,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         </Link>
         <Link href={buildUrl(previous, highlightedPageNum)}>
           <a
+            className="previous-one-anch"
             css={[
               previous !== null ? css`` : tw`pointer-events-none`,
               tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 ml-0  hover:bg-blue-500 hover:text-white`,
@@ -190,7 +235,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
                 tw`flex align-middle my-auto`,
                 previous !== null
                   ? css``
-                  : tw`text-gray-400 light:text-gray-500`,
+                  : tw`text-gray-400 light:text-gray-500 opacity-30`,
               ]}
             >
               {/* Previous-ONE */}
@@ -216,6 +261,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         })}
         <Link href={`${basePath}${next}`}>
           <a
+            className="next-one-anch"
             css={[
               next !== null ? css`` : tw`pointer-events-none`,
               tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 hover:bg-blue-500 hover:text-white`,
@@ -225,7 +271,9 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
               className="next-one"
               css={[
                 tw`flex align-middle my-auto`,
-                next !== null ? css`` : tw`text-gray-400 light:text-gray-500`,
+                next !== null
+                  ? css``
+                  : tw`text-gray-400 light:text-gray-500 opacity-30`,
               ]}
             >
               {/* Next-ONE */}
@@ -234,9 +282,10 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
         </Link>
         <Link href={`${basePath}${nextSpanPage}`}>
           <a
+            className="next-anch"
             css={[
               nextSpanPage !== null ? css`` : tw`pointer-events-none`,
-              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 hover:bg-blue-500 hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-r-0 text-blue-700 hover:bg-blue-500 hover:text-white`,
             ]}
           >
             <span
@@ -245,7 +294,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
                 tw`flex align-middle my-auto`,
                 nextSpanPage !== null
                   ? css``
-                  : tw`text-gray-400 light:text-gray-500`,
+                  : tw`text-gray-400 light:text-gray-500 opacity-30`,
               ]}
             >
               {/* Next */}
@@ -256,14 +305,16 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
           <a
             css={[
               last !== null ? css`` : tw`pointer-events-none`,
-              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 rounded-r hover:bg-blue-500 hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-blue-700  text-blue-700  hover:bg-blue-500 hover:text-white`,
             ]}
           >
             <span
               className="last"
               css={[
                 tw`flex align-middle my-auto`,
-                last !== null ? css`` : tw`text-gray-400 light:text-gray-500`,
+                last !== null
+                  ? css``
+                  : tw`opacity-30 text-gray-400 light:text-gray-500`,
               ]}
             >
               {/* Last */}
