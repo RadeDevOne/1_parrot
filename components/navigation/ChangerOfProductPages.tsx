@@ -305,7 +305,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
           <a
             css={[
               last !== null ? css`` : tw`pointer-events-none`,
-              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-blue-700  text-blue-700  hover:bg-blue-500 hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-blue-700  text-blue-700  hover:bg-blue-500 rounded-r hover:text-white`,
             ]}
           >
             <span
