@@ -5,6 +5,8 @@ import tw, { css, styled, theme } from "twin.macro";
 import type { PropsI } from "@/pages/index";
 import Products from "../products/Products";
 
+import Button from "../buttons/Button";
+
 const Layout: FC<PropsI> = ({
   products,
   topRatedProducts,
@@ -18,6 +20,7 @@ const Layout: FC<PropsI> = ({
         totalProducts={totalProducts}
         pagination={paginationData}
       />
+      <Button variant="primary" />
     </main>
   );
 };
