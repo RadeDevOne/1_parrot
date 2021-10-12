@@ -69,9 +69,9 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
             }
 
             & .current {
-              border: #595f75 solid 2px;
-              color: #2a2c3b;
-              font-weight: 500;
+              border: #143138 solid 3px;
+              color: #b35c98;
+              font-weight: 600;
               pointer-events: none;
             }
 
@@ -252,7 +252,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
                 className={`contenders ${
                   item === highlightedPageNum ? "current" : "around"
                 } ${item === null ? "disabled-anch" : ""}`.trim()}
-                tw="py-2 px-4 leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"
+                tw="w-12 flex justify-center align-items[center] leading-tight bg-white border border-gray-200 text-blue-700 border-r-0 hover:bg-blue-500 hover:text-white"
               >
                 <span>{item === 0 ? "🏠" : item}</span>
               </a>
@@ -305,7 +305,7 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
           <a
             css={[
               last !== null ? css`` : tw`pointer-events-none`,
-              tw`flex align-middle py-2 px-4 leading-tight bg-white border border-blue-700  text-blue-700  hover:bg-blue-500 rounded-r hover:text-white`,
+              tw`flex align-middle py-2 px-4 leading-tight bg-white border light:border-blue-700  text-blue-700  hover:bg-blue-500 rounded-r hover:text-white`,
             ]}
           >
             <span
