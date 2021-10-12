@@ -70,8 +70,9 @@ const ChangerOfProductsPages: FC<PropsI> = ({ pagination }) => {
 
             & .current {
               border: #143138 solid 3px;
-              color: #b35c98;
-              font-weight: 600;
+              color: #73507c;
+              font-size: 1.2rem;
+              font-weight: 500;
               pointer-events: none;
             }
 
