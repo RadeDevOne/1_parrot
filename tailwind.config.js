@@ -1,5 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require("tailwindcss/colors")
+const colors = require("tailwindcss/colors");
 
 // console.log({ defaultTheme });
 
@@ -18,7 +18,10 @@ module.exports = {
         ribbon: "#0047ff",
         bledoliko: "crimson",
         __primary: colors.blue[500],
-        __secondary: colors.
+        __secondary: colors.gray[500],
+        __warning: colors.yellow[500],
+        __hazard: colors.red[500],
+        __success: colors.green[500],
       },
       // OVERRIDING DEFAULT FONT FAMILY
       fontFamily: {

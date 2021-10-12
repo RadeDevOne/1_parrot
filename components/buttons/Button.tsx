@@ -1,41 +1,71 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-enum VE {
+/* enum VE {
   primary = "primary",
   secondary = "secondary",
   warning = "warning",
   hazard = "hazard",
   success = "success",
-}
+} */
 
-type variantType =
-  | `${VE.primary}`
-  | `${VE.secondary}`
-  | `${VE.warning}`
-  | `${VE.hazard}`
-  | `${VE.success}`;
+type variantType = "primary" | "secondary" | "warning" | "hazard" | "success";
 
 interface PropsI {
   variant: variantType;
-  onClick?: () => void;
+  outlined?: boolean;
+  onClick?: (args?: any) => void;
+  onClickArgs?: any[];
 }
 
-const Button: FC<PropsI> = ({ variant }) => {
-  /*   const colors = {
-    "primary": 
-  }
+const Button: FC<PropsI> = ({ variant, outlined, onClick, onClickArgs }) => {
+  const colors = {
+    primary: tw`bg-__primary border-__primary`,
+    secondary: tw`bg-__secondary border-__secondary`,
+    warning: tw`bg-__warning border-__warning`,
+    hazard: tw`bg-__hazard border-__hazard`,
+    success: tw`bg-__success border-__success`,
+  };
 
- */
+  const _outlined = {
+    primary: tw`p-2 pl-5 pr-5 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-blue-500 hover:text-gray-100 focus:border-4 focus:border-blue-300`,
+  };
+
+  const click = () => {
+    if (onClick) {
+      if (onClickArgs) {
+        onClick(onClickArgs);
+      }
+    }
+  };
+
   return (
-    <button
-      css={[
-        tw`p-2 pl-5 pr-5 bg-bad text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300`,
-      ]}
-    >
-      Primary
-    </button>
+    <Fragment>
+      <button
+        onClick={() => {
+          click();
+        }}
+        css={[
+          colors[variant],
+          tw`p-2 pl-5 pr-5 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300`,
+        ]}
+      >
+        Primary
+      </button>
+      <button
+        onClick={() => {
+          click();
+        }}
+        css={[
+          colors[variant],
+          tw`p-2 pl-5 pr-5 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-blue-500 hover:text-gray-100 focus:border-4 focus:border-blue-300`,
+        ]}
+      >
+        Primary
+      </button>
+    </Fragment>
   );
 };
 
