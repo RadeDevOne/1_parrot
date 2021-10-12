@@ -12,10 +12,10 @@ import tw, { css, styled, theme } from "twin.macro";
 } */
 
 type variantType = "primary" | "secondary" | "warning" | "hazard" | "success";
-type sizeType = "small" | "medium" | "large";
+type sizeType = "small" | "medium";
 
 interface PropsI {
-  // size: sizeType;
+  size?: sizeType;
   variant: variantType;
   outlined?: boolean;
   onClick?: (args?: any) => void;
@@ -23,6 +23,7 @@ interface PropsI {
 }
 
 const Button: FC<PropsI> = ({
+  size,
   variant,
   outlined,
   onClick,
@@ -52,7 +53,9 @@ const Button: FC<PropsI> = ({
     }
   };
 
-  const textSize = tw`text-sm sm:text-lg`;
+  const addetTextSize = size && size === "medium" ? tw`text-lg` : tw`text-sm`;
+
+  const textSize = addetTextSize ? addetTextSize : tw`text-sm sm:text-lg`;
 
   return (
     <Fragment>
