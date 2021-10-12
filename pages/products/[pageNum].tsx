@@ -60,6 +60,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const totalProducts = await prisma.product.count();
 
+  // TODO try catch BLOCK AND REDIRRECT
   const pagination = calcPagi(pageNum, 16, 4, totalProducts);
 
   const products = await prisma.product.findMany({
