@@ -2,8 +2,16 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-interface PropsI {
-  placeholder: boolean;
+import { Product, Review } from "@prisma/client";
+
+import prisma from "@/lib/prisma";
+
+export interface PropsI {
+  product:
+    | (Product & {
+        reviews: Review[];
+      })
+    | null;
 }
 
 type paramsType = {
@@ -16,19 +24,36 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 
     params?.productId; //
 
+    const product = await prisma.product.findUnique({
+      where: {
+        id: params?.productId,
+      },
+      include: {
+        reviews: true,
+      },
+    });
+
+    // console.log({ product });
+
+    if (product === null) {
+      ctx.res.writeHead(302, { Location: "/" });
+
+      return {
+        props: {
+          product: null,
+        },
+      };
+    }
+
     return {
       props: {
-        placeholder: true,
+        product,
       },
     };
   };
 
 const Page: NP<PropsI> = (props) => {
-  //
-
-  console.log(props);
-
-  return <div>Hello</div>;
+  return <div>{JSON.stringify({ product: props.product }, null, 2)}</div>;
 };
 
 export default Page;

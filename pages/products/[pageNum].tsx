@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<
 > = async (ctx) => {
   const { params } = ctx;
 
-  console.log({ PAGENUM: params?.pageNum });
+  // console.log({ PAGENUM: params?.pageNum });
 
   // PAGE NUMBER
   const pageNum = parseInt(params?.pageNum || "0");
