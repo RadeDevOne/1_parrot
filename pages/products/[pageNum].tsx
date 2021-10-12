@@ -61,7 +61,33 @@ export const getServerSideProps: GetServerSideProps<
   const totalProducts = await prisma.product.count();
 
   // TODO try catch BLOCK AND REDIRRECT
-  const pagination = calcPagi(pageNum, 16, 4, totalProducts);
+
+  let pagination: {
+    a__current_page_position: [number, number];
+    b__array_of_buttons: (number | null)[][];
+    surounding_buttons_logic: {
+      first: number | null;
+      previousSpanPage: number | null;
+      previous: number | null;
+      next: number | null;
+      nextSpanPage: number | null;
+      last: number | null;
+    };
+    currentPageNumber: number;
+    skip: number;
+    currentButtonSpan: (number | null)[];
+    highlightedPageNum: number;
+  };
+
+  try {
+    pagination = calcPagi(pageNum, 16, 4, totalProducts);
+  } catch (err) {
+    console.error(err);
+
+    ctx.res.writeHead(302, { Location: "/" });
+
+    return { props: { nothing: true } };
+  }
 
   const products = await prisma.product.findMany({
     take: PRODUCTS_PER_PAGE,

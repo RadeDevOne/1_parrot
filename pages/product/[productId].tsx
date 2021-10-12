@@ -7,14 +7,14 @@ interface PropsI {
 }
 
 type paramsType = {
-  siteId: string;
+  productId: string;
 };
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
     const { params } = ctx;
 
-    params?.siteId; //
+    params?.productId; //
 
     return {
       props: {
