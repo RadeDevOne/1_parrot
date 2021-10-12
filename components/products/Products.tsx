@@ -50,7 +50,7 @@ const Products: FC<ProductsPropsI> = ({
                 We have everything
               </h3>
               <span tw="mt-3 text-sm light:text-gray-500 dark:text-gray-600">
-                200+ Products
+                {totalProducts - 6}+ Products
               </span>
             </Fragment>
           )}
