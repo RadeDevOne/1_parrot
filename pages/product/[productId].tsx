@@ -6,6 +6,8 @@ import { Product, Review } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
 
+import Layout from "@/components/3_product_page/Layout";
+
 export interface PropsI {
   product:
     | (Product & {
@@ -54,9 +56,9 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 
 const Page: NP<PropsI> = (props) => {
   return (
-    <div>
+    <Layout>
       <pre>{JSON.stringify({ product: props.product }, null, 2)}</pre>
-    </div>
+    </Layout>
   );
 };
 
