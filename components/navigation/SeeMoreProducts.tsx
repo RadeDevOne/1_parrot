@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import type { FC } from "react";
+import { FC, Fragment } from "react";
 import { useEffect, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
@@ -32,7 +32,11 @@ const SeeMoreProducts: FC = () => {
         {!disabled ? (
           "See more products"
         ) : (
-          <Loader size={6} color={"blanchedalmond"} />
+          <Fragment>
+            <Loader size={6} color={"blanchedalmond"} />
+            <Loader size={6} color={"blanchedalmond"} />
+            <Loader size={6} color={"blanchedalmond"} />
+          </Fragment>
         )}
       </Button>
     </section>
