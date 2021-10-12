@@ -20,9 +20,7 @@ const Layout: FC<PropsI> = ({
         totalProducts={totalProducts}
         pagination={paginationData}
       />
-      <Button variant="secondary" outlined>
-        See more products
-      </Button>
+      <Button variant="primary">See more products</Button>
     </main>
   );
 };

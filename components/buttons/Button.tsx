@@ -12,8 +12,10 @@ import tw, { css, styled, theme } from "twin.macro";
 } */
 
 type variantType = "primary" | "secondary" | "warning" | "hazard" | "success";
+type sizeType = "small" | "medium" | "large";
 
 interface PropsI {
+  // size: sizeType;
   variant: variantType;
   outlined?: boolean;
   onClick?: (args?: any) => void;
@@ -50,6 +52,8 @@ const Button: FC<PropsI> = ({
     }
   };
 
+  const textSize = tw`text-sm sm:text-lg`;
+
   return (
     <Fragment>
       {!outlined ? (
@@ -58,8 +62,9 @@ const Button: FC<PropsI> = ({
             click();
           }}
           css={[
+            textSize,
             colors[variant],
-            tw`p-2 pl-5 pr-5 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300`,
+            tw`p-2 pl-5 pr-5 text-gray-100 rounded-lg focus:border-4 border-blue-300`,
           ]}
         >
           {children}
@@ -70,8 +75,9 @@ const Button: FC<PropsI> = ({
             click();
           }}
           css={[
+            textSize,
             _outlined[variant],
-            tw`p-2 pl-5 pr-5 bg-transparent border-2 text-lg rounded-lg hover:text-gray-100 focus:border-4`,
+            tw`p-2 pl-5 pr-5 bg-transparent border-2 rounded-lg hover:text-gray-100 focus:border-4`,
           ]}
         >
           {children}
