@@ -22,6 +22,11 @@ module.exports = {
         __warning: colors.yellow[500],
         __hazard: colors.red[500],
         __success: colors.green[500],
+        __primary_outline_focus: colors.blue[300],
+        __secondary_outline_focus: colors.gray[300],
+        __warning_outline_focus: colors.yellow[300],
+        __hazard_outline_focus: colors.red[300],
+        __success_outline_focus: colors.green[300],
       },
       // OVERRIDING DEFAULT FONT FAMILY
       fontFamily: {

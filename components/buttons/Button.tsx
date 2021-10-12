@@ -20,7 +20,13 @@ interface PropsI {
   onClickArgs?: any[];
 }
 
-const Button: FC<PropsI> = ({ variant, outlined, onClick, onClickArgs }) => {
+const Button: FC<PropsI> = ({
+  variant,
+  outlined,
+  onClick,
+  onClickArgs,
+  children,
+}) => {
   const colors = {
     primary: tw`bg-__primary border-__primary`,
     secondary: tw`bg-__secondary border-__secondary`,
@@ -30,41 +36,47 @@ const Button: FC<PropsI> = ({ variant, outlined, onClick, onClickArgs }) => {
   };
 
   const _outlined = {
-    primary: tw`p-2 pl-5 pr-5 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-blue-500 hover:text-gray-100 focus:border-4 focus:border-blue-300`,
+    primary: tw`border-__primary text-__primary hover:bg-__primary focus:border-__primary_outline_focus`,
+    secondary: tw`border-__secondary text-__secondary hover:bg-__secondary focus:border-__secondary_outline_focus`,
+    warning: tw`border-__warning text-__warning hover:bg-__warning focus:border-__warning_outline_focus`,
+    hazard: tw`border-__hazard text-__hazard hover:bg-__hazard focus:border-__hazard_outline_focus`,
+    success: tw`border-__success text-__success hover:bg-__success focus:border-__success_outline_focus`,
   };
 
   const click = () => {
-    if (onClick) {
-      if (onClickArgs) {
-        onClick(onClickArgs);
-      }
+    if (!onClick) return;
+    if (onClickArgs) {
+      onClick(onClickArgs);
     }
   };
 
   return (
     <Fragment>
-      <button
-        onClick={() => {
-          click();
-        }}
-        css={[
-          colors[variant],
-          tw`p-2 pl-5 pr-5 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300`,
-        ]}
-      >
-        Primary
-      </button>
-      <button
-        onClick={() => {
-          click();
-        }}
-        css={[
-          colors[variant],
-          tw`p-2 pl-5 pr-5 bg-transparent border-2 border-blue-500 text-blue-500 text-lg rounded-lg hover:bg-blue-500 hover:text-gray-100 focus:border-4 focus:border-blue-300`,
-        ]}
-      >
-        Primary
-      </button>
+      {!outlined ? (
+        <button
+          onClick={() => {
+            click();
+          }}
+          css={[
+            colors[variant],
+            tw`p-2 pl-5 pr-5 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300`,
+          ]}
+        >
+          {children}
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            click();
+          }}
+          css={[
+            _outlined[variant],
+            tw`p-2 pl-5 pr-5 bg-transparent border-2 text-lg rounded-lg hover:text-gray-100 focus:border-4`,
+          ]}
+        >
+          {children}
+        </button>
+      )}
     </Fragment>
   );
 };
