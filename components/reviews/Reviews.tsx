@@ -22,13 +22,20 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
 
         <div tw="space-y-4">
           <div tw="flex">
-            <div tw="flex-shrink-0 mr-3">
+            <div tw="flex-shrink-0 mr-3 relative">
               <img
                 tw="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
                 // src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
                 src={unsplash_url}
                 alt="profile"
               />
+              <svg
+                tw="fill-current text-white bg-green-600 rounded-full p-1 absolute left-6 top-9 w-6 h-6 -mx-1 -my-1"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M19 11a7.5 7.5 0 0 1-3.5 5.94L10 20l-5.5-3.06A7.5 7.5 0 0 1 1 11V3c3.38 0 6.5-1.12 9-3 2.5 1.89 5.62 3 9 3v8zm-9 1.08l2.92 2.04-1.03-3.41 2.84-2.15-3.56-.08L10 5.12 8.83 8.48l-3.56.08L8.1 10.7l-1.03 3.4L10 12.09z" />
+              </svg>
             </div>
             <div tw="flex-1 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
               <strong tw="dark:text-gray-300">Sarah</strong>{" "}
