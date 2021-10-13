@@ -25,7 +25,7 @@ const Header: FC = ({ children }) => {
   }, [headerNCartServiceInitiallized, setHeaderAndCartServiceInitialized]);
 
   return (
-    <header tw="overflow-hidden sticky top-0 dark:bg-gray-800 light:bg-l">
+    <header tw="z-10 overflow-hidden sticky top-0 dark:bg-gray-800 light:bg-l">
       <PageLoadingIndiccator />
       <NavMenu />
       <ShoppingCart />

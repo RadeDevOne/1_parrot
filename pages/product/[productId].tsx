@@ -9,10 +9,16 @@ import prisma from "@/lib/prisma";
 import Layout from "@/components/3_product_page/Layout";
 
 export interface PropsI {
-  product:
-    | Product & {
-        reviews: Review[];
+  product: Product & {
+    reviews: (Review & {
+      profile: {
+        nick: string | null;
+        user: {
+          email: string | null;
+        } | null;
       };
+    })[];
+  };
 }
 
 type paramsType = {
@@ -32,7 +38,20 @@ export const getServerSideProps: GetServerSideProps<
       id: params?.productId,
     },
     include: {
-      reviews: true,
+      reviews: {
+        include: {
+          profile: {
+            select: {
+              nick: true,
+              user: {
+                select: {
+                  email: true,
+                },
+              },
+            },
+          },
+        },
+      },
     },
   });
 

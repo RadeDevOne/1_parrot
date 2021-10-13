@@ -20,7 +20,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
 
   const { description, name, image, price, countInStock } = product;
 
-  // console.log({ countInStock });
+  console.log({ countInStock });
 
   return (
     <Fragment>

@@ -24,7 +24,7 @@ const OutOfStock: FC<PropsI> = ({ countInStock }) => {
       {countInStock === 0 && (
         <section css={[tw`px-2`]}>
           <Info variant="blue" boldText="Out Of Stock">
-            We will replenis this product very soon.{" "}
+            We will replenish this product very soon.{" "}
             <span tw="inline-block">In the mean time you can: </span>
             <span tw="inline-block ml-1 mt-4">
               <Button
