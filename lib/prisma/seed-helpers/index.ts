@@ -21,11 +21,19 @@ export const generateProfilesData = (numberOfProfiles: number) => {
 
     profileIds.push(id);
 
+    const nick1 = faker.name.firstName();
+    const nick2 = faker.name.lastName();
+    const nick3 = faker.random.word();
+
+    const nickArr = [nick1, nick2, nick3];
+
+    const randomToTwo = Math.round(Math.random() * 10 * 0.2);
+
     profilesData.push({
       id,
       city: faker.address.city(),
       country: faker.address.country(),
-      nick: faker.name.firstName(),
+      nick: nickArr[randomToTwo],
       postalCode: faker.address.zipCode(),
       streetAddress: `${faker.address.streetName()}, number: ${Math.round(
         Math.random() * 100
