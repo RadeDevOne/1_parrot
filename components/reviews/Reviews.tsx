@@ -33,9 +33,11 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
 
             const displayName = user?.email || nick;
 
-            console.log(createdAt);
+            console.log(displayName);
 
             const revDate = format(createdAt, "do MMMM yyyy");
+
+            const five = new Array(5).fill(1);
 
             return (
               <div key={`${i}${rev.id}`} tw="flex">
@@ -63,14 +65,26 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                     Verified Buyer
                   </span>
                   <div tw="flex items-center mt-1 mb-0.5">
-                    <svg
-                      tw="w-4 h-4 fill-current text-yellow-600"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                    </svg>
-                    <svg
+                    {five.map((one, i) => {
+                      console.log({ rating });
+
+                      return (
+                        <svg
+                          key={`${i}-${one}`}
+                          css={[
+                            rating > i
+                              ? tw`text-yellow-600`
+                              : tw`text-gray-400`,
+                            tw`w-4 h-4 fill-current`,
+                          ]}
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                      );
+                    })}
+                    {/* <svg
                       tw="w-4 h-4 fill-current text-yellow-600"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
@@ -97,7 +111,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                       viewBox="0 0 20 20"
                     >
                       <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                    </svg>
+                    </svg> */}
                   </div>
                   <p tw="dark:text-gray-50 text-sm">
                     {comment}
