@@ -21,7 +21,7 @@ const OutOfStock: FC<PropsI> = ({ countInStock }) => {
         <section css={[tw`px-2`]}>
           <Info variant="blue" boldText="Out Of Stock">
             We will replenis this product very soon.{" "}
-            <span tw="inline-block">In Mean you can: </span>
+            <span tw="inline-block">In the maean time you can: </span>
             <span tw="inline-block ml-1 mt-4">
               <Button
                 onClick={() => {
