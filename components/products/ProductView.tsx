@@ -123,7 +123,9 @@ const ProductView: FC<PropsI> = ({ product }) => {
             </svg>
           </button> */}
           </div>
-          <Info />
+          <Info variant="blue" boldText="Out Of Stock">
+            Check other products.
+          </Info>
         </div>
       </div>
     </Fragment>
