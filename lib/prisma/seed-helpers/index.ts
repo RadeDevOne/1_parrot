@@ -115,12 +115,12 @@ export const generateReviewsData = (
       //
 
       const fallbackProfileId = profileIds[6];
-      const randomNum =
+      const randomProfId =
         profileIds[
-          Math.round(Math.random() * 10 * (prdoductIds.length - 2) * 0.1)
+          Math.round(Math.random() * 10 * (profileIds.length - 2) * 0.1)
         ];
 
-      const profId = randomNum || fallbackProfileId;
+      const profId = randomProfId || fallbackProfileId;
 
       reviewsData.push({
         id: cuid(),
