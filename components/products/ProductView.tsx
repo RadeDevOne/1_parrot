@@ -13,7 +13,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
     return null;
   }
 
-  const { description, name, image, price } = product;
+  const { description, name, image, price, countInStock } = product;
 
   return (
     <div tw="w-full md:flex md:items-center mt-8 md:px-5">
