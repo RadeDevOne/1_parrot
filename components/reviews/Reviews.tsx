@@ -31,7 +31,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
               profile: { nick, user },
             } = rev;
 
-            const displayName = user?.email || nick;
+            const displayName = user?.email || nick || "bobby";
 
             console.log(displayName);
 
@@ -57,7 +57,9 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                   </svg>
                 </div>
                 <div tw="flex-1 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                  <strong tw="dark:text-gray-300">{displayName}</strong>{" "}
+                  <strong tw="dark:text-gray-300 font-weight[500]">
+                    {displayName}
+                  </strong>{" "}
                   <span tw="light:text-gray-500 text-xs text-gray-400">
                     {revDate}
                   </span>
