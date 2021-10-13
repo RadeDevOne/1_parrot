@@ -23,7 +23,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
   return (
     <Fragment>
       <div tw="w-full md:flex md:items-center mt-8 md:px-5">
-        <div tw="w-full h-64 md:w-1/2 lg:h-96">
+        <div tw="w-full h-72 md:w-1/2 lg:h-96">
           <div tw="h-full mx-1.5">
             <img
               tw="h-full w-full rounded-md object-cover max-w-lg mx-auto"
