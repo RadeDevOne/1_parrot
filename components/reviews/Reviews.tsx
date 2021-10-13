@@ -73,9 +73,9 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                 diam nonumy eirmod tempor invidunt ut labore et dolore magna
                 aliquyam erat, sed diam voluptua.
               </p>
-              <div tw="mt-4 flex items-center">
+              {/* <div tw="mt-4 flex items-center">
                 <div tw="text-sm text-gray-500 font-semibold">5 Replies</div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
