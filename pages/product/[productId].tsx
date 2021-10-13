@@ -10,49 +10,50 @@ import Layout from "@/components/3_product_page/Layout";
 
 export interface PropsI {
   product:
-    | (Product & {
+    | Product & {
         reviews: Review[];
-      })
-    | null;
+      };
 }
 
 type paramsType = {
   productId: string;
 };
 
-export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
-  async (ctx) => {
-    const { params } = ctx;
+export const getServerSideProps: GetServerSideProps<
+  PropsI | { nothing: true },
+  paramsType
+> = async (ctx) => {
+  const { params } = ctx;
 
-    params?.productId; //
+  params?.productId; //
 
-    const product = await prisma.product.findUnique({
-      where: {
-        id: params?.productId,
-      },
-      include: {
-        reviews: true,
-      },
-    });
+  const product = await prisma.product.findUnique({
+    where: {
+      id: params?.productId,
+    },
+    include: {
+      reviews: true,
+    },
+  });
 
-    // console.log({ product });
+  // console.log({ product });
 
-    if (product === null) {
-      ctx.res.writeHead(302, { Location: "/" });
-
-      return {
-        props: {
-          product: null,
-        },
-      };
-    }
+  if (product === null) {
+    ctx.res.writeHead(302, { Location: "/" });
 
     return {
       props: {
-        product,
+        nothing: true,
       },
     };
+  }
+
+  return {
+    props: {
+      product: product,
+    },
   };
+};
 
 const Page: NP<PropsI> = (props) => {
   return (
