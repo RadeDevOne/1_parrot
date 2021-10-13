@@ -5,7 +5,9 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
-import Info from "../info/Info";
+// import Info from "../info/Info";
+
+import OutOfStockInfo from "./OutOfStockInfo";
 
 interface PropsI {
   product: ProductPropsI["product"];
@@ -123,9 +125,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
             </svg>
           </button> */}
           </div>
-          <Info variant="blue" boldText="Out Of Stock">
-            Check other products.
-          </Info>
+          <OutOfStockInfo countInStock={0} />
         </div>
       </div>
     </Fragment>

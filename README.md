@@ -1,7 +1,7 @@
 # CONTINUE WITH DEVELOPMENT
 
+We will soon replanish our stock
 <!-- ## STYLING
-
 USING TAILWIND TOGETHER WITH EMOTION (**TWIN MACRO BY ben-rogerson**)
 
 twin.macro with emotion (explained)
