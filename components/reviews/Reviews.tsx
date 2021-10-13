@@ -30,7 +30,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                 alt="profile"
               />
               <svg
-                tw="fill-current text-white bg-green-600 rounded-full p-1 absolute left-6 top-9 w-6 h-6 -mx-1 -my-1"
+                tw="fill-current text-white bg-green-600 rounded-full p-1 absolute left-7 top-8  md:left-7 md:top-9 w-4 h-4  md:w-5 md:h-5 -mx-1 -my-1"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
               >
