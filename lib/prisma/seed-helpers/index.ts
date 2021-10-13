@@ -100,15 +100,24 @@ export const generateReviewsData = (
     let profileNo = 0;
     let back = false;
 
-    const profileId = profileIds[profileNo];
+    // const profileId = profileIds[profileNo];
 
     for (let j = 0; j < 5; j++) {
       //
       //
+
+      const fallbackProfileId = profileIds[6];
+      const randomNum =
+        profileIds[
+          Math.round(Math.random() * 10 * (prdoductIds.length - 2) * 0.1)
+        ];
+
+      const profId = randomNum || fallbackProfileId;
+
       reviewsData.push({
         id: cuid(),
         productId: prdoductIds[i],
-        profileId,
+        profileId: profId,
         comment: faker.lorem.sentences(),
         rating: Math.round(Math.random() * 5.1) || 1,
         createdAt: faker.date.past(),
