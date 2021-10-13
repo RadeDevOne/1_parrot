@@ -36,7 +36,7 @@ async function main() {
   // Products AND WE WANT Reviews
   // BECAUSE WE WANT TO SEE BUNCH OF PRODUCTS WHERE BUNCH OF PROFILES LEFT A REVIEW
 
-  const profileData = generateProfilesData(30);
+  const profileData = generateProfilesData(60);
   const productData = generateProductData(800);
   const reviewsData = generateReviewsData(
     productData.productIds,
