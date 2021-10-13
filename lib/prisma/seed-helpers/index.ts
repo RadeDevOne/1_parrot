@@ -5,6 +5,12 @@ import cuid from "cuid";
 //
 import faker from "faker";
 
+import { uniqueNamesGenerator, Config, starWars } from "unique-names-generator";
+
+const config: Config = {
+  dictionaries: [starWars],
+};
+
 const unsplashTemplate = (name: string) => {
   const arr = name.split(" ");
   const prodName = arr[arr.length - 1];
@@ -21,19 +27,21 @@ export const generateProfilesData = (numberOfProfiles: number) => {
 
     profileIds.push(id);
 
-    const nick1 = faker.name.firstName();
+    /* const nick1 = faker.name.firstName();
     const nick2 = faker.name.lastName();
     const nick3 = faker.random.word();
 
     const nickArr = [nick1, nick2, nick3];
 
     const randomToTwo = Math.round(Math.random() * 10 * 0.2);
+    */
+    const characterName: string = uniqueNamesGenerator(config);
 
     profilesData.push({
       id,
       city: faker.address.city(),
       country: faker.address.country(),
-      nick: nickArr[randomToTwo],
+      nick: characterName,
       postalCode: faker.address.zipCode(),
       streetAddress: `${faker.address.streetName()}, number: ${Math.round(
         Math.random() * 100
