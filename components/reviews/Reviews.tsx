@@ -73,7 +73,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                   <span tw="ml-1 inline-block light:text-gray-500 text-xs text-gray-400">
                     {revDate}
                   </span>
-                  <span tw="w-full md:width[fit-content] inline-block ml-2 light:text-green-500 dark:text-green-600 text-xs">
+                  <span tw="w-full sm:width[fit-content] inline-block ml-2 light:text-green-500 dark:text-green-600 text-xs">
                     Verified Buyer
                   </span>
                   <div tw="flex items-center mt-1 mb-0.5">
