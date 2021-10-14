@@ -70,7 +70,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                   <strong tw="dark:text-gray-300 font-weight[500]">
                     {displayName}
                   </strong>{" "}
-                  <span tw="light:text-gray-500 text-xs text-gray-400">
+                  <span tw="ml-1 inline-block light:text-gray-500 text-xs text-gray-400">
                     {revDate}
                   </span>
                   <span tw="w-full md:width[fit-content] inline-block ml-2 light:text-green-500 dark:text-green-600 text-xs">
