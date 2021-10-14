@@ -26,21 +26,21 @@ const Nav: FC = () => {
 
   const paths = [
     {
-      href: "/",
-      name: "Home",
+      href: "/profile",
+      name: "Profile",
     },
     {
-      href: "/shop",
-      name: "Shop",
+      href: "/admin",
+      name: "Admin",
     },
-    {
+    /* {
       href: "/contact",
       name: "Contact",
     },
     {
       href: "/about",
       name: "About",
-    },
+    }, */
   ];
 
   const toggleMobileMenu = () => {
@@ -192,6 +192,7 @@ const Nav: FC = () => {
               })}
             </motion.div>
           )}
+
           <div
             css={css`
               & .theme-switcher {
@@ -202,9 +203,6 @@ const Nav: FC = () => {
             `}
             tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden"
           >
-            <div className="theme-switcher">
-              <Switcher />
-            </div>
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>
@@ -215,8 +213,11 @@ const Nav: FC = () => {
               );
             })}
           </div>
+          <div className="theme-switcher" tw="display[none] md:display[block]">
+            <Switcher />
+          </div>
 
-          <div tw="flex justify-center md:block">
+          <div tw="flex justify-center md:block w-0.5 absolute left-1/2 top-4">
             <button
               onClick={() =>
                 dispatchToHeaderNcart({
