@@ -18,9 +18,9 @@ const CartWrapper: FC = () => {
           & .close-btn {
             /* border: crimson solid 1px; */
             display: flex;
-            margin-right: 10vw;
-            margin-top: 20px;
 
+            margin-top: 20px;
+            ${tw`mx-auto`};
             align-self: flex-end;
             width: fit-content;
             ${tw`h-8`}
