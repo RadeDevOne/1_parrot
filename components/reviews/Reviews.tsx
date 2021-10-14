@@ -13,9 +13,9 @@ interface PropsI {
 }
 
 const Reviews: FC<PropsI> = ({ reviews }) => {
-  const fallbackImageName = ["face", "profile", "head"];
+  const fallbackImageName = ["face", "profile"];
   const unsplash_url = `https://source.unsplash.com/100x100/?${
-    fallbackImageName[Math.round(Math.random() * 2)]
+    fallbackImageName[Math.round(Math.random() * 1)]
   }`;
 
   return (
