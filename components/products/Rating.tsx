@@ -6,7 +6,7 @@ const Rating: FC<{ value: number }> = ({ value }) => {
   const five = new Array(5).fill(1);
 
   return (
-    <section css={[tw`bg-gray-200`, tw`hover:text-indigo-600`]}>
+    <section css={[tw`ml-4`]}>
       <div tw="flex items-center mt-1 mb-0.5">
         {five.map((one, i) => {
           // console.log({ value });

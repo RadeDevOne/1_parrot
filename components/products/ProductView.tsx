@@ -23,7 +23,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
   const { description, name, image, price, countInStock, averageRating } =
     product;
 
-  console.log({ countInStock, averageRating });
+  // console.log({ countInStock, averageRating });
 
   return (
     <Fragment>
