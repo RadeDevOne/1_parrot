@@ -9,6 +9,8 @@ import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
 import OutOfStockInfo from "./OutOfStockInfo";
 
+import Rating from "../products/Rating";
+
 interface PropsI {
   product: ProductPropsI["product"];
 }
@@ -39,6 +41,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
           <h3 tw="dark:text-gray-300 text-gray-700 uppercase text-lg ml-7">
             {name}
           </h3>
+          <Rating value={averageRating} />
           <span tw="text-gray-500 mt-3 ml-7">${price}</span>
 
           <hr tw="my-3 w-11/12 mx-auto" />
