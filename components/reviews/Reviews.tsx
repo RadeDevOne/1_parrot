@@ -41,7 +41,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
 
             const displayName = user?.email || nick || "bobby";
 
-            console.log(displayName);
+            // console.log(displayName);
 
             const revDate = format(createdAt, "do MMMM yy");
 
@@ -78,7 +78,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                   </span>
                   <div tw="flex items-center mt-1 mb-0.5">
                     {five.map((one, i) => {
-                      console.log({ rating });
+                      // console.log({ rating });
 
                       return (
                         <svg
