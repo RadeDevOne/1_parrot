@@ -8,6 +8,8 @@ import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
 import Stringified from "../dev-helpers/Stringified";
 
+import useIsMounted from "@/hooks/useIsMouned";
+
 interface PropsI {
   reviews: ProductPropsI["product"]["reviews"];
 }
@@ -18,6 +20,8 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
     `https://source.unsplash.com/100x100/?${
       fallbackImageName[Math.round(Math.random() * 1)]
     }`;
+
+  const mounted = useIsMounted();
 
   return (
     <section tw="mt-8 mb-8">
@@ -39,19 +43,21 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
 
             console.log(displayName);
 
-            const revDate = format(createdAt, "do MMMM yyyy");
+            const revDate = format(createdAt, "do MMMM yy");
 
             const five = new Array(5).fill(1);
 
             return (
               <div key={`${i}${rev.id}`} tw="flex">
                 <div tw="flex-shrink-0 mr-3 relative">
-                  <img
-                    tw="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
-                    // src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
-                    src={rev.profile.image || unsplash_url_maker()}
-                    alt="profile"
-                  />
+                  {mounted && (
+                    <img
+                      tw="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
+                      // src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
+                      src={rev.profile.image || unsplash_url_maker()}
+                      alt="profile"
+                    />
+                  )}
                   <svg
                     tw="fill-current text-white bg-green-600 rounded-full p-1 absolute left-7 top-8  md:left-7 md:top-9 w-4 h-4  md:w-5 md:h-5 -mx-1 -my-1"
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +73,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                   <span tw="light:text-gray-500 text-xs text-gray-400">
                     {revDate}
                   </span>
-                  <span tw="inline-block ml-2 light:text-green-500 dark:text-green-600 text-xs">
+                  <span tw="w-full md:width[fit-content] inline-block ml-2 light:text-green-500 dark:text-green-600 text-xs">
                     Verified Buyer
                   </span>
                   <div tw="flex items-center mt-1 mb-0.5">
