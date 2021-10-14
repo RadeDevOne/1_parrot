@@ -123,6 +123,7 @@ model Profile {
   userId                 String?
   role                   Role      @default(USER)
   // FOR SHIPPING PURPOSES
+  image                  String?
   streetAddress          String?
   city                   String?
   postalCode             String?

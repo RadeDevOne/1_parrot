@@ -13,6 +13,7 @@ export interface PropsI {
     reviews: (Review & {
       profile: {
         nick: string | null;
+        image: string | null;
         user: {
           email: string | null;
         } | null;
@@ -43,6 +44,7 @@ export const getServerSideProps: GetServerSideProps<
           profile: {
             select: {
               nick: true,
+              image: true,
               user: {
                 select: {
                   email: true,

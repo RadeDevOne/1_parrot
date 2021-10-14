@@ -42,6 +42,7 @@ export const generateProfilesData = (numberOfProfiles: number) => {
       city: faker.address.city(),
       country: faker.address.country(),
       nick: characterName,
+      image: null,
       postalCode: faker.address.zipCode(),
       streetAddress: `${faker.address.streetName()}, number: ${Math.round(
         Math.random() * 100

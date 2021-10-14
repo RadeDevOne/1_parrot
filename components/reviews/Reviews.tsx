@@ -13,7 +13,10 @@ interface PropsI {
 }
 
 const Reviews: FC<PropsI> = ({ reviews }) => {
-  const unsplash_url = "https://source.unsplash.com/100x100/?face";
+  const fallbackImageName = ["face", "profile", "head"];
+  const unsplash_url = `https://source.unsplash.com/100x100/?${
+    fallbackImageName[Math.round(Math.random() * 2)]
+  }`;
 
   return (
     <section tw="mt-8 mb-8">
@@ -45,7 +48,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                   <img
                     tw="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
                     // src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
-                    src={unsplash_url}
+                    src={rev.profile.image || unsplash_url}
                     alt="profile"
                   />
                   <svg
