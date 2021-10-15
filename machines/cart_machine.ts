@@ -113,6 +113,8 @@ const cartMachinre = createMachine<
     [fse.idle]: {},
     [fse.adding]: {},
     [fse.removing]: {},
+    [fse.erasing]: {},
+    [fse.checking]: {},
   },
 });
 
