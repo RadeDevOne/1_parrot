@@ -85,7 +85,7 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                           key={`${i}-${one}`}
                           css={[
                             rating > i
-                              ? tw`text-yellow-600`
+                              ? tw`dark:text-yellow-400 light:text-yellow-600`
                               : tw`text-gray-400`,
                             tw`w-4 h-4 fill-current`,
                           ]}

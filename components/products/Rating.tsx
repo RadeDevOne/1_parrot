@@ -15,8 +15,10 @@ const Rating: FC<{ value: number }> = ({ value }) => {
             <svg
               key={`${i}-${one}`}
               css={[
-                value > i ? tw`text-yellow-600` : tw`text-gray-400`,
-                tw`w-5 h-5 fill-current`,
+                value > i
+                  ? tw`dark:text-yellow-400 light:text-yellow-500`
+                  : tw`text-gray-400`,
+                tw`width[1.21rem] height[1.21rem] fill-current`,
               ]}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
