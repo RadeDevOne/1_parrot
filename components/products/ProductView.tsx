@@ -93,15 +93,15 @@ const ProductView: FC<PropsI> = ({ product }) => {
                 </div>
               </div>
               {/* <div tw="mt-3">
-          <label tw="text-gray-700 text-sm" htmlFor="count">
-            Color:
-            </label>
-            <div tw="flex items-center mt-1">
-            <button tw="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none"></button>
-            <button tw="h-5 w-5 rounded-full bg-yellow-400 mr-2 focus:outline-none"></button>
-            <button tw="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"></button>
-          </div>
-        </div> */}
+                <label tw="text-gray-700 text-sm" htmlFor="count">
+                  Color:
+                  </label>
+                  <div tw="flex items-center mt-1">
+                  <button tw="h-5 w-5 rounded-full bg-blue-600 border-2 border-blue-200 mr-2 focus:outline-none"></button>
+                  <button tw="h-5 w-5 rounded-full bg-yellow-400 mr-2 focus:outline-none"></button>
+                  <button tw="h-5 w-5 rounded-full bg-pink-600 mr-2 focus:outline-none"></button>
+                </div>
+              </div> */}
               <div tw="flex items-center mt-6 justify-center sm:justify-center  md:justify-center">
                 <button tw="mb-6 flex px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">
                   Add To Cart
