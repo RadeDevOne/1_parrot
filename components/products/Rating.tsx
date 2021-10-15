@@ -6,8 +6,8 @@ const Rating: FC<{ value: number }> = ({ value }) => {
   const five = new Array(5).fill(1);
 
   return (
-    <section css={[tw`ml-4`]}>
-      <div tw="flex items-center mt-1 mb-0.5">
+    <section css={[tw`ml-4 mb-2 mt-0.5`]}>
+      <div tw="flex items-center mt-1 mb-0.5 h-7">
         {five.map((one, i) => {
           // console.log({ value });
 
@@ -16,7 +16,7 @@ const Rating: FC<{ value: number }> = ({ value }) => {
               key={`${i}-${one}`}
               css={[
                 value > i ? tw`text-yellow-600` : tw`text-gray-400`,
-                tw`w-4 h-4 fill-current`,
+                tw`w-5 h-5 fill-current`,
               ]}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
