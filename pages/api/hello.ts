@@ -3,14 +3,20 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { getSession } from "next-auth/client";
 
+import rClient from "@/lib/redis";
+
 type Data = {
-  name: string;
+  stuff: any;
 };
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  await rClient.set("songzy", "something");
+
+  const stuff = await rClient.get("songzy");
+
   const session = await getSession({ req });
 
   session?.expires;
@@ -18,5 +24,5 @@ export default async function handler(
   session?.user;
   session?.userId;
 
-  res.status(200).json({ name: "John Doe" });
+  res.status(200).json({ stuff });
 }
