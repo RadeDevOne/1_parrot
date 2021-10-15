@@ -14,50 +14,58 @@ import { createMachine, assign, interpret } from "xstate";
 // WHEN CART MOUNTS IT SHOUD REFETCH ALREADY "CARTED" PRODUCTS TO CHECK
 // THE COUNT AGAIN
 
+//
+
 /**
  * @description finite states enum
  */
 export enum fse {
+  //
   idle = "idle",
+  // ADDING ONE PRODUCT (WITH A COUNT)
   adding = "adding",
+  // REMOVING ONE ITEM (OR REMOVING ENTIRE COUNT OF THE PRODUCT)
   removing = "removing",
+  // ERASING ENTIRE CART
+  erasing = "erasing",
+  // CHECKING CART (ON MOUNTING)
+  checking = "checking",
 }
 
 /**
  * @description EVENTS ENUM
  */
 export enum EE {
-  PLACEHOLDING_ONE = "PLACEHOLDING_ONE",
-  PLACEHOLDING_TWO = "PLACEHOLDING_TWO",
-  // events not depending on finite state
-  CHECK_CURRENT_DARK_MODE = "CHECK_CURRENT_DARK_MODE",
+  ADD = "ADD",
+  REMOVE = "REMOVE",
+  ERASE = "ERASE",
+  CHECK = "CHECK",
 }
 
 // TO BE USED AS GENERIC TYPES INSIDE STATE MACHINE DEFINISTION
 
 export interface MachineContextGenericI {
-  // isDarkMode: boolean;
-  random: number;
+  cartIsEmpty: true;
 }
 
 export type machineEventsGenericType =
   | {
-      type: EE.CHECK_CURRENT_DARK_MODE;
+      type: EE.ADD;
       payload: {
-        isDark: boolean;
+        //
       };
     }
   | {
-      type: EE.PLACEHOLDING_ONE;
+      type: EE.REMOVE;
       payload: {
-        placeholder: number;
+        //
       };
     }
   | {
-      type: EE.PLACEHOLDING_TWO;
-      payload: {
-        placeholder: string;
-      };
+      type: EE.ERASE;
+    }
+  | {
+      type: EE.CHECK;
     };
 
 export type machineFiniteStatesGenericType =
@@ -84,7 +92,7 @@ const cartMachinre = createMachine<
   id: "main_machine",
   initial: fse.idle,
   context: {
-    random: 2,
+    cartIsEmpty: true,
   },
   // ---- EVENTS RECEVIED WHEN CURRENT FINITE STATE DOESN'T MATTER -----
   on: {
