@@ -22,10 +22,14 @@ import { createMachine, assign, interpret } from "xstate";
 export enum fse {
   //
   idle = "idle",
-  // ADDING ONE PRODUCT (WITH A COUNT)
+  // ADDING ONE PRODUCT (ADDING ITEM AND THE COUNT AND THE PRICE)
   adding = "adding",
-  // REMOVING ONE ITEM (OR REMOVING ENTIRE COUNT OF THE PRODUCT)
+  // REMOVING ONE ITEM (REMOVING ITEM AND THE COUNT AND THE PRICE)
   removing = "removing",
+  // INCREASING COUNT OF THE ITEM BY ONE
+  count_upping = "count_upping",
+  // DECREASING COUNT OF THE ITEM BY ONE
+  count_downing = "count_downing",
   // ERASING ENTIRE CART
   erasing = "erasing",
   // CHECKING CART (ON MOUNTING)
@@ -113,6 +117,8 @@ const cartMachinre = createMachine<
     [fse.idle]: {},
     [fse.adding]: {},
     [fse.removing]: {},
+    [fse.count_upping]: {},
+    [fse.count_downing]: {},
     [fse.erasing]: {},
     [fse.checking]: {},
   },
