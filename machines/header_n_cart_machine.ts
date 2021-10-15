@@ -95,6 +95,6 @@ export const headerNCartService = interpret(headerNcartMachine);
 
 headerNCartService.onTransition((state, event) => {
   //
-  console.log({ state: state.value });
-  console.log("TRANSITION");
+  // console.log({ state: state.value });
+  // console.log("TRANSITION");
 });
