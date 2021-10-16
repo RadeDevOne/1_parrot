@@ -240,9 +240,9 @@ const cartMachinre = createMachine<
   },
 });
 
-export const mainService = interpret(cartMachinre);
+export const cartService = interpret(cartMachinre);
 
-mainService.onTransition((state, event) => {
+cartService.onTransition((state, event) => {
   //
   // console.log({ ctx: state.context });
   console.log("TRANSITION");

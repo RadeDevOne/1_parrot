@@ -10,9 +10,11 @@ import Header from "@/components/Header";
 // import PageLoadingIndiccator from "@/components/loaders/PageLoadingIndicator";
 
 import usePageLoadingService from "@/hooks/usePageLoadiingService";
+import useCartService from "@/hooks/useCartService";
 
 function MyApp({ Component, pageProps }: AppProps) {
   usePageLoadingService();
+  useCartService();
 
   return (
     <>
