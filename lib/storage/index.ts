@@ -35,6 +35,14 @@ const checkIfcartExistsAndCreateItIfDoesnt = () => {
 
   return JSON.parse(cartString) as CartType;
 };
+const parseCart = (cartString: string) => {
+  const cartObjct = JSON.parse(cartString);
+
+  return cartObjct as CartType;
+};
+//
+// ------------------------------------------------------------
+// ------------------------------------------------------------
 const calculateTotalPrice = () => {
   const cart = checkIfcartExistsAndCreateItIfDoesnt();
 
@@ -46,15 +54,8 @@ const calculateTotalPrice = () => {
 
   return total;
 };
-const parseCart = (cartString: string) => {
-  const cartObjct = JSON.parse(cartString);
-
-  return cartObjct as CartType;
-};
-//
 // ------------------------------------------------------------
 // ------------------------------------------------------------
-
 //
 // "CRUD" TO THE COOKIE
 export const addToCart = (item: CartItemI) => {
@@ -132,3 +133,30 @@ export const increaseItemCount = (id: string) => {
 export const decreaseItemCount = (id: string) => {
   //
 };
+
+export const getCart = () => {
+  const cartString = cook.get(CART);
+
+  if (!cartString) {
+    return null;
+  }
+
+  return parseCart(cartString);
+};
+
+// ---------------------------------------------------------
+// ---------------------------------------------------------
+// ---------------------------------------------------------
+// ---------------------------------------------------------
+
+const crud = {
+  addToCart,
+  removeFromCart,
+  eraseCart,
+  increaseItemCount,
+  decreaseItemCount,
+  calculateTotalPrice,
+  getCart,
+};
+
+export default crud;
