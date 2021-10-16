@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
@@ -16,12 +16,24 @@ interface PropsI {
 }
 
 const ProductView: FC<PropsI> = ({ product }) => {
+  const [productCount, setProductCount] = useState<number>(1);
+
   if (product === null) {
     return null;
   }
 
   const { description, name, image, price, countInStock, averageRating } =
     product;
+
+  const handleCountUp = (val: number) => {
+    /* if (val <= 0) {
+      setProductCount(0);
+      return;
+    } */
+
+    // setProductCount((count) => count + 1);
+    return;
+  };
 
   // console.log({ countInStock, averageRating });
 
