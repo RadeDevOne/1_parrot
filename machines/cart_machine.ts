@@ -136,14 +136,10 @@ const cartMachinre = createMachine<
   },
   // ---- EVENTS RECEVIED WHEN CURRENT FINITE STATE DOESN'T MATTER -----
   on: {
-    /* [EE.CHECK_CURRENT_DARK_MODE]: {
+    /* [EE.]: {
       actions: [
         assign((ctx, event) => {
-          const { isDark } = event.payload;
-
-          return {
-            isDarkMode: isDark,
-          };
+          // 
         }),
       ],
     }, */
@@ -175,6 +171,29 @@ const cartMachinre = createMachine<
             }),
           ],
         },
+        [EE.UP_COUNT]: {
+          target: fse.count_upping,
+          actions: [
+            assign({
+              cart: (_, e) => {
+                return crt.increase(e.payload.prodId);
+              },
+            }),
+          ],
+        },
+        [EE.DOWN_COUNT]: {
+          target: fse.count_downing,
+          actions: [
+            assign({
+              cart: (_, e) => {
+                return crt.decrease(e.payload.prodId);
+              },
+            }),
+          ],
+        },
+        [EE.ERASE]: {
+          target: fse.erasing,
+        },
       },
     },
     [fse.checking]: {
@@ -194,10 +213,30 @@ const cartMachinre = createMachine<
         target: fse.idle,
       },
     },
-    [fse.removing]: {},
-    [fse.count_upping]: {},
-    [fse.count_downing]: {},
-    [fse.erasing]: {},
+    [fse.removing]: {
+      always: {
+        target: fse.idle,
+      },
+    },
+    [fse.count_upping]: {
+      always: {
+        target: fse.idle,
+      },
+    },
+    [fse.count_downing]: {
+      always: {
+        target: fse.idle,
+      },
+    },
+    [fse.erasing]: {
+      entry: [
+        assign({
+          cart: (_, e) => {
+            return crt.erase();
+          },
+        }),
+      ],
+    },
   },
 });
 
