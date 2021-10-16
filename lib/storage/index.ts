@@ -3,7 +3,7 @@ import { CART } from "@/constants/cart";
 
 // TYPES
 
-interface CartItemI {
+export interface CartItemI {
   id: string;
   name: string;
   price: number;
@@ -209,6 +209,12 @@ const getItem = (id: string) => {
 // ------------------------------------------------------------
 // WHEN MACHINE MOUNTS, WHEN OUR APP MOUNTS
 // WE SHOULD GET CART AND ADD IT AS A CONTEXTUAL STATE IN THE MACHINE
+/**
+ *
+ * @returns cart
+ * @description getting cart (use this when you mount app), should call this
+ * inside the machine when some event anounces that cart component is mounted
+ */
 const establishCartOnMounting = () => {
   //
   const cart = getCart();
@@ -235,18 +241,18 @@ const establishCartOnMounting = () => {
 const add = (item: CartItemI) => {
   addToCart(item);
 
-  return getCart();
+  return getCart() as CartType;
 };
 /**
  *
  * @param id string (product id)
  * @returns cart
- * @description removes specified product from the cart (entire product with ll count)
+ * @description removes specified product from the cart (entire product with all count)
  */
 const remove = (id: string) => {
   removeFromCart(id);
 
-  return getCart();
+  return getCart() as CartType;
 };
 /**
  *
@@ -256,7 +262,7 @@ const remove = (id: string) => {
  */
 const increase = (id: string) => {
   increaseItemCount(id);
-  return getCart();
+  return getCart() as CartType;
 };
 /**
  *
@@ -266,7 +272,7 @@ const increase = (id: string) => {
  */
 const decrease = (id: string) => {
   decreaseItemCount(id);
-  return getCart();
+  return getCart() as CartType;
 };
 /**
  *
@@ -275,7 +281,7 @@ const decrease = (id: string) => {
  */
 const erase = () => {
   eraseCart();
-  return getCart();
+  return getCart() as CartType;
 };
 
 /**

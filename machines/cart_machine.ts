@@ -15,6 +15,10 @@ import { createMachine, assign, interpret } from "xstate";
 // THE COUNT AGAIN
 
 //
+import storageFuncs from "@/lib/storage";
+import type { CartType, CartItemI } from "@/lib/storage";
+
+const { method: crt } = storageFuncs;
 
 /**
  * @description finite states enum
@@ -42,6 +46,8 @@ export enum fse {
 export enum EE {
   ADD = "ADD",
   REMOVE = "REMOVE",
+  UP_COUNT = "UP_COUNT",
+  DOWN_COUNT = "DOWN_COUNT",
   ERASE = "ERASE",
   CHECK = "CHECK",
 }
@@ -50,19 +56,32 @@ export enum EE {
 
 export interface MachineContextGenericI {
   cartIsEmpty: true;
+  cart: CartType;
 }
 
 export type machineEventsGenericType =
   | {
       type: EE.ADD;
       payload: {
-        //
+        item: CartItemI;
       };
     }
   | {
       type: EE.REMOVE;
       payload: {
-        //
+        prodId: string;
+      };
+    }
+  | {
+      type: EE.UP_COUNT;
+      payload: {
+        prodId: string;
+      };
+    }
+  | {
+      type: EE.DOWN_COUNT;
+      payload: {
+        prodId: string;
       };
     }
   | {
@@ -84,6 +103,22 @@ export type machineFiniteStatesGenericType =
   | {
       value: fse.adding;
       context: MachineContextGenericI;
+    }
+  | {
+      value: fse.count_downing;
+      context: MachineContextGenericI;
+    }
+  | {
+      value: fse.count_upping;
+      context: MachineContextGenericI;
+    }
+  | {
+      value: fse.erasing;
+      context: MachineContextGenericI;
+    }
+  | {
+      value: fse.checking;
+      context: MachineContextGenericI;
     };
 
 // -----------------  MACHINE --------------------
@@ -97,6 +132,7 @@ const cartMachinre = createMachine<
   initial: fse.idle,
   context: {
     cartIsEmpty: true,
+    cart: {},
   },
   // ---- EVENTS RECEVIED WHEN CURRENT FINITE STATE DOESN'T MATTER -----
   on: {
@@ -114,13 +150,54 @@ const cartMachinre = createMachine<
   },
   // -------------------------------------------------------------------
   states: {
-    [fse.idle]: {},
-    [fse.adding]: {},
+    [fse.idle]: {
+      on: {
+        [EE.CHECK]: {
+          target: fse.checking,
+        },
+        [EE.ADD]: {
+          target: fse.adding,
+          actions: [
+            assign({
+              cart: (_, e) => {
+                return crt.add(e.payload.item);
+              },
+            }),
+          ],
+        },
+        [EE.REMOVE]: {
+          target: fse.removing,
+          actions: [
+            assign({
+              cart: (_, e) => {
+                return crt.remove(e.payload.prodId);
+              },
+            }),
+          ],
+        },
+      },
+    },
+    [fse.checking]: {
+      entry: [
+        assign({
+          cart: (_, __) => {
+            return crt.establishCartOnMounting();
+          },
+        }),
+      ],
+      always: {
+        target: fse.idle,
+      },
+    },
+    [fse.adding]: {
+      always: {
+        target: fse.idle,
+      },
+    },
     [fse.removing]: {},
     [fse.count_upping]: {},
     [fse.count_downing]: {},
     [fse.erasing]: {},
-    [fse.checking]: {},
   },
 });
 
