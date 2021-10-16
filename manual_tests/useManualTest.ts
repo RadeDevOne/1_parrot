@@ -152,6 +152,12 @@ const useManualTest = () => {
       name: "some good product",
       price: 666.66,
     });
+    const newItemAgain = cartCook.addToCart({
+      id: cuid(),
+      count: 46,
+      name: "some good product",
+      price: 666.66,
+    });
     console.log({ newItem });
 
     // REMOVING FROM CART
@@ -166,6 +172,8 @@ const useManualTest = () => {
     const removedItem = cartCook.getItem(itemIntendedForRemoval?.id as string);
 
     const myCart = cartCook.getCart();
+
+    console.log({ myCart });
 
     console.log("REMOVED ITEM IS undefined", removedItem === undefined);
     // @ts-ignore
