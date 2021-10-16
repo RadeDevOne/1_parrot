@@ -128,10 +128,52 @@ export const eraseCart = () => {
 
 export const increaseItemCount = (id: string) => {
   //
+  const cartString = cook.get(CART);
+
+  if (!cartString) {
+    throw new Error("There is no cart");
+  }
+
+  const cart = parseCart(cartString);
+
+  const item = cart[id];
+
+  if (!item) {
+    throw new Error("There is no item you want to increase");
+  }
+
+  item.count = item.count + 1;
+
+  cart[id] = item;
+
+  cook.set(CART, JSON.stringify(cart));
+
+  return cart;
 };
 
 export const decreaseItemCount = (id: string) => {
   //
+  const cartString = cook.get(CART);
+
+  if (!cartString) {
+    throw new Error("There is no cart");
+  }
+
+  const cart = parseCart(cartString);
+
+  const item = cart[id];
+
+  if (!item) {
+    throw new Error("There is no item you want to decrase");
+  }
+
+  item.count = item.count - 1;
+
+  cart[id] = item;
+
+  cook.set(CART, JSON.stringify(cart));
+
+  return cart;
 };
 
 export const getCart = () => {
@@ -142,6 +184,20 @@ export const getCart = () => {
   }
 
   return parseCart(cartString);
+};
+
+export const getItem = (id: string) => {
+  const cartString = cook.get(CART);
+
+  if (!cartString) {
+    throw new Error("There is no cart");
+  }
+
+  const cart = parseCart(cartString);
+
+  const item = cart[id];
+
+  return item as typeof item | undefined;
 };
 
 // ---------------------------------------------------------
@@ -157,6 +213,7 @@ const crud = {
   decreaseItemCount,
   calculateTotalPrice,
   getCart,
+  getItem,
 };
 
 export default crud;
