@@ -164,7 +164,7 @@ const decreaseItemCount = (id: string) => {
   const item = cart[id];
 
   if (!item) {
-    throw new Error("There is no item you want to decrase");
+    throw new Error("There is no item you want to decrease");
   }
 
   item.count = item.count - 1;
@@ -205,6 +205,9 @@ const getItem = (id: string) => {
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 
+/**
+ * @description info: first time adding to cart creates CART cookie
+ */
 const crud = {
   addToCart,
   removeFromCart,

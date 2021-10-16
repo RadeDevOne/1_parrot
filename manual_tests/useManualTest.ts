@@ -9,8 +9,15 @@ const useManualTest = () => {
     // ------- TESTING CART FUNCTIONS  ------------------------
     // --------------------------------------------------------
 
+    // TESTING ERRORS FIRST
+    // REMOVING FROM NON EXISTING CART SHOULD RESULT IN AN ERROR
     try {
-      // TESTING ERRORS FIRST
+      cartCook.removeFromCart(cuid());
+    } catch (err) {
+      // @ts-ignore
+      console.log(err.message);
+    }
+    try {
       // GETTING NON ITEM WITHOUT THE EXISTING CART
       cartCook.getItem(cuid());
     } catch (err) {
@@ -49,6 +56,13 @@ const useManualTest = () => {
     } catch (err) {
       // @ts-ignore
       console.log("DECRE COUNT", err.message);
+    }
+    // REMOVING SHOUD GIVE ERROR THAT ITEM DOESN'T EXIST
+    try {
+      cartCook.removeFromCart(cuid());
+    } catch (err) {
+      // @ts-ignore
+      console.log(err.message);
     }
 
     // TESTING ADDING TO CART AND GETTING FROM CART
@@ -129,6 +143,25 @@ const useManualTest = () => {
     const keysAgain = Object.keys(cartAgain || {});
 
     console.log("ZERO ITEMS", keysAgain.length === 0);
+
+    const newItemId = cuid();
+
+    const newItem = cartCook.addToCart({
+      id: newItemId,
+      count: 46,
+      name: "some good product",
+      price: 666.66,
+    });
+    console.log({ newItem });
+
+    // REMOVING FROM CART
+    const removedItem = cartCook.getItem(newItem2.id);
+
+    console.log({ removedItem });
+
+    cartCook.removeFromCart(newItem.id);
+
+    console.log("REMOVED ITEM IS undefined", removedItem === undefined);
 
     // --------------------------------------------------------
     // --------------------------------------------------------
