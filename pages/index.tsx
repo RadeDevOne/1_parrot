@@ -13,7 +13,7 @@ import { PRODUCTS_PER_PAGE } from "@/constants/index";
 import calcPagi from "@/util/calcPagi";
 
 // MANUAL TESTS
-import useManualTest from "../manual_tests/useManualTest";
+// import useManualTest from "../manual_tests/useManualTest";
 //
 
 export interface PropsI {
@@ -97,7 +97,7 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 const Page: NP<PropsI> = (props) => {
   //
   // MANUAL TESTS
-  useManualTest();
+  // useManualTest();
 
   return (
     <Layout {...props} />
