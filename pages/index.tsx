@@ -12,6 +12,10 @@ import { PRODUCTS_PER_PAGE } from "@/constants/index";
 
 import calcPagi from "@/util/calcPagi";
 
+// MANUAL TESTS
+import useManualTest from "../manual_tests/useManualTest";
+//
+
 export interface PropsI {
   products: {
     id: string;
@@ -92,17 +96,9 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 
 const Page: NP<PropsI> = (props) => {
   //
-  // TESTING COOKIES THINGS
-  /* useEffect(() => {
-    const key = "KEY";
+  // MANUAL TESTS
+  useManualTest();
 
-    const some = cook.set(key, JSON.stringify({ stuff: "cool stuff" }));
-
-    const againSome = cook.get(key);
-    if (!againSome) return;
-    console.log({ againSome: JSON.parse(againSome) });
-  }, []);
- */
   return (
     <Layout {...props} />
     // <div>

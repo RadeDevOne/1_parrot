@@ -78,8 +78,8 @@ export const addToCart = (item: CartItemI) => {
     count,
     price,
   };
-
-  const newItem = cook.set(CART, cart);
+  // DON'T FORGET TO STRINGIFY
+  const newItem = cook.set(CART, JSON.stringify(cart));
 
   if (!newItem) {
     throw new Error("Couldn't set up item to the cart for some reason!");
