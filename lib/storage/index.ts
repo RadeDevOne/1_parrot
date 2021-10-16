@@ -291,7 +291,7 @@ const crud = {
   getCart,
   getItem,
   // THESE FUNCTIONS WE ARE GOING TO USE INSIDE MACHINE
-  f: {
+  method: {
     add,
     remove,
     increase,
