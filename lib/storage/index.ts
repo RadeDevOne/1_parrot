@@ -43,6 +43,8 @@ const parseCart = (cartString: string) => {
 //
 // ------------------------------------------------------------
 // ------------------------------------------------------------
+
+//
 const calculateTotalPrice = () => {
   const cart = checkIfcartExistsAndCreateItIfDoesnt();
 
@@ -203,7 +205,78 @@ const getItem = (id: string) => {
 // ---------------------------------------------------------
 // ---------------------------------------------------------
 // ---------------------------------------------------------
-// ---------------------------------------------------------
+// ------------------------------------------------------------
+// ------------------------------------------------------------
+// WHEN MACHINE MOUNTS, WHEN OUR APP MOUNTS
+// WE SHOULD GET CART AND ADD IT AS A CONTEXTUAL STATE IN THE MACHINE
+const establishCartOnMounting = () => {
+  //
+  const cart = getCart();
+  //
+  if (cart) {
+    return cart;
+  }
+
+  cook.set(CART, JSON.stringify({}));
+
+  return {};
+};
+// ------------------------------------------------------------
+// ------------------------------------------------------------
+// WE SHOULD DEFINE THAT EVERY "CRUD"
+// FUNCTION, AT ITS END, GETS CART
+// AND THEN RETURN THAT CART
+/**
+ *
+ * @param item cart item data
+ * @returns cart
+ * @description adding one product whith the count and rest of the stuff
+ */
+const add = (item: CartItemI) => {
+  addToCart(item);
+
+  return getCart();
+};
+/**
+ *
+ * @param id string (product id)
+ * @returns cart
+ * @description removes specified product from the cart (entire product with ll count)
+ */
+const remove = (id: string) => {
+  removeFromCart(id);
+
+  return getCart();
+};
+/**
+ *
+ * @param id string (product id)
+ * @returns cart
+ * @description increases count by one for the specified product
+ */
+const increase = (id: string) => {
+  increaseItemCount(id);
+  return getCart();
+};
+/**
+ *
+ * @param id string (product id)
+ * @returns cart
+ * @description decreases count of single product by one
+ */
+const decrease = (id: string) => {
+  decreaseItemCount(id);
+  return getCart();
+};
+/**
+ *
+ * @returns empty cart
+ * @description erases all items from the cart
+ */
+const erase = () => {
+  eraseCart();
+  return getCart();
+};
 
 /**
  * @description info: first time adding to cart creates CART cookie
@@ -217,6 +290,15 @@ const crud = {
   calculateTotalPrice,
   getCart,
   getItem,
+  // THESE FUNCTIONS WE ARE GOING TO USE INSIDE MACHINE
+  f: {
+    add,
+    remove,
+    increase,
+    decrease,
+    erase,
+    establishCartOnMounting,
+  },
 };
 
 export default crud;
