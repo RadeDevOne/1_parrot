@@ -155,13 +155,21 @@ const useManualTest = () => {
     console.log({ newItem });
 
     // REMOVING FROM CART
-    const removedItem = cartCook.getItem(newItem2.id);
+    const itemIntendedForRemoval = cartCook.getItem(newItem.id);
 
-    console.log({ removedItem });
+    console.log({ itemIntendedForRemoval });
 
-    cartCook.removeFromCart(newItem.id);
+    cartCook.removeFromCart(itemIntendedForRemoval?.id as string);
+
+    // CHECKING IF IT IS REMOVED
+
+    const removedItem = cartCook.getItem(itemIntendedForRemoval?.id as string);
+
+    const myCart = cartCook.getCart();
 
     console.log("REMOVED ITEM IS undefined", removedItem === undefined);
+    // @ts-ignore
+    console.log("THIS SHOULD BE undefined", myCart[removedItem?.id as string]);
 
     // --------------------------------------------------------
     // --------------------------------------------------------

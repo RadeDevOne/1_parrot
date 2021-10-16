@@ -107,8 +107,8 @@ const removeFromCart = (id: string) => {
   }
 
   delete cart[id];
-
-  cook.set(CART, cart);
+  // DON'T FORGET TO STRINGIFY
+  cook.set(CART, JSON.stringify(cart));
 
   return id;
 };
