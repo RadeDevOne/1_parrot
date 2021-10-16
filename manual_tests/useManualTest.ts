@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import cuid from "cuid";
 
+import axios from "axios";
+
 import cartCook from "@/lib/storage";
 
 const useManualTest = () => {
@@ -178,6 +180,10 @@ const useManualTest = () => {
     console.log("REMOVED ITEM IS undefined", removedItem === undefined);
     // @ts-ignore
     console.log("THIS SHOULD BE undefined", myCart[removedItem?.id as string]);
+
+    axios.get("/api/foo").then((data) => {
+      console.log({ data });
+    });
 
     // --------------------------------------------------------
     // --------------------------------------------------------

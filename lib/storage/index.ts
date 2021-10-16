@@ -13,7 +13,7 @@ interface CartItemI {
 /**
  * @description key (string) IS id OF PRODUCT
  */
-type CartType = Record<string, CartItemI>;
+export type CartType = Record<string, CartItemI>;
 
 // ---- UTILITIES ---------------------------------------------
 // ------------------------------------------------------------
