@@ -58,7 +58,7 @@ const calculateTotalPrice = () => {
 // ------------------------------------------------------------
 //
 // "CRUD" TO THE COOKIE
-export const addToCart = (item: CartItemI) => {
+const addToCart = (item: CartItemI) => {
   checkIfcartExistsAndCreateItIfDoesnt();
 
   // CHECK IF INPUUT ALREADY EXISTS (TROW ERROR IF DOES)
@@ -88,7 +88,7 @@ export const addToCart = (item: CartItemI) => {
   return cart[item.id];
 };
 
-export const removeFromCart = (id: string) => {
+const removeFromCart = (id: string) => {
   // IF THERE IS NO CART , WE SHOULD THROW ERROR
 
   const cartString = cook.get(CART);
@@ -113,7 +113,7 @@ export const removeFromCart = (id: string) => {
   return id;
 };
 
-export const eraseCart = () => {
+const eraseCart = () => {
   // GETTING CART
   const cartString = cook.get(CART);
 
@@ -126,7 +126,7 @@ export const eraseCart = () => {
   return JSON.parse(cartString);
 };
 
-export const increaseItemCount = (id: string) => {
+const increaseItemCount = (id: string) => {
   //
   const cartString = cook.get(CART);
 
@@ -151,7 +151,7 @@ export const increaseItemCount = (id: string) => {
   return cart;
 };
 
-export const decreaseItemCount = (id: string) => {
+const decreaseItemCount = (id: string) => {
   //
   const cartString = cook.get(CART);
 
@@ -176,7 +176,7 @@ export const decreaseItemCount = (id: string) => {
   return cart;
 };
 
-export const getCart = () => {
+const getCart = () => {
   const cartString = cook.get(CART);
 
   if (!cartString) {
@@ -186,7 +186,7 @@ export const getCart = () => {
   return parseCart(cartString);
 };
 
-export const getItem = (id: string) => {
+const getItem = (id: string) => {
   const cartString = cook.get(CART);
 
   if (!cartString) {

@@ -53,10 +53,11 @@ const useManualTest = () => {
 
     // TESTING ADDING TO CART AND GETTING FROM CART
     const item1Id = cuid();
+    const item1Count = 6;
 
     const item1 = cartCook.addToCart({
       id: item1Id,
-      count: 6,
+      count: item1Count,
       name: "Blam",
       price: 666.6,
     });
@@ -71,9 +72,63 @@ const useManualTest = () => {
 
     console.log({ item1, sameItem1 });
 
-    // const id1 = cuid()
+    // TESTING INCREASING THE COUNT
+    cartCook.increaseItemCount(item1.id);
 
-    // cartCookie.addToCart({id: id1, count: 6, name: "Product1", price: 666 })
+    // SHOULD BE 7 NOW
+    const sameItemThird = cartCook.getItem(item1.id);
+    console.log("SHOULD BE 7", sameItemThird?.count === 7);
+
+    cartCook.decreaseItemCount(item1.id);
+    // SHOULD BE 6 now
+    const sameItemFour = cartCook.getItem(item1.id);
+
+    console.log("SHOULD BE 6 AGAIN", sameItemFour?.count === 6);
+
+    // CREATING ONE ITEM SHOULD'T ERASE OTHER ITEM
+    const newItem2Id = cuid();
+    const newItem3Id = cuid();
+
+    const newItem2 = cartCook.addToCart({
+      id: newItem2Id,
+      count: 3,
+      name: "foo",
+      price: 69,
+    });
+
+    const newItem3 = cartCook.addToCart({
+      id: newItem3Id,
+      count: 4,
+      name: "bar",
+      price: 126,
+    });
+
+    const newItem2Again = cartCook.getItem(newItem2Id);
+    const newItem3Again = cartCook.getItem(newItem3Id);
+
+    console.log("ITEM EXISTS", newItem2Again?.name === "foo");
+    console.log("ITEM EXISTS", newItem3Again?.name === "bar");
+
+    // GETTING THE CART
+    const cart = cartCook.getCart();
+
+    console.log({ cart });
+
+    // CART SHOULD HAVE THREE ITEMS NOW
+    const keys = Object.keys(cart || {});
+
+    console.log("SHOULD HAVE THREE KEYS", keys.length === 3);
+
+    // ERASING CART
+    cartCook.eraseCart();
+
+    const cartAgain = cartCook.getCart();
+
+    console.log({ cartAgain });
+
+    const keysAgain = Object.keys(cartAgain || {});
+
+    console.log("ZERO ITEMS", keysAgain.length === 0);
 
     // --------------------------------------------------------
     // --------------------------------------------------------
