@@ -24,12 +24,12 @@ const checkIfcartExistsAndCreateItIfDoesnt = () => {
   cartString = cook.get(CART);
 
   if (!cartString) {
-    cartString = cook.set(CART, {});
+    cartString = cook.set(CART, JSON.stringify({}));
   }
 
   if (!cartString) {
     throw new Error(
-      "Something is wrionfg with the checking if cr exists and creating it if doesn't"
+      "Something is wrong with the checking if cart exists and creating it if doesn't"
     );
   }
 
@@ -110,4 +110,25 @@ export const removeFromCart = (id: string) => {
   cook.set(CART, cart);
 
   return id;
+};
+
+export const eraseCart = () => {
+  // GETTING CART
+  const cartString = cook.get(CART);
+
+  if (!cartString) {
+    throw new Error("Can't remove car if cart doen't exit in the first place!");
+  }
+
+  cook.set(CART, JSON.stringify({}));
+
+  return JSON.parse(cartString);
+};
+
+export const increaseItemCount = (id: string) => {
+  //
+};
+
+export const decreaseItemCount = (id: string) => {
+  //
 };

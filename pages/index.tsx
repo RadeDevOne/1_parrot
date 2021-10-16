@@ -1,6 +1,8 @@
 /* eslint react/react-in-jsx-scope: 0 */
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
+import { useEffect } from "react";
+import cook from "js-cookie";
 
 import prisma from "@/lib/prisma";
 
@@ -90,7 +92,17 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 
 const Page: NP<PropsI> = (props) => {
   //
+  // TESTING COOKIES THINGS
+  /* useEffect(() => {
+    const key = "KEY";
 
+    const some = cook.set(key, JSON.stringify({ stuff: "cool stuff" }));
+
+    const againSome = cook.get(key);
+    if (!againSome) return;
+    console.log({ againSome: JSON.parse(againSome) });
+  }, []);
+ */
   return (
     <Layout {...props} />
     // <div>
