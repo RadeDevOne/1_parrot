@@ -7,7 +7,7 @@ import { useActor } from "@xstate/react";
 
 import { EE, fse, cartService } from "@/machines/cart_machine";
 
-import type { CartItemI } from "@/lib/storage";
+// import type { CartItemI } from "@/lib/storage";
 
 interface PropsI {
   itemId: string;
@@ -32,7 +32,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
   };
 
   const handleDecr = () => {
-    if (count === 0) {
+    if (count === 1) {
       dispatchToCart({
         type: EE.REMOVE,
         payload: {
