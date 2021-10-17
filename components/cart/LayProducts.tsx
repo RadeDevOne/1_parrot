@@ -2,10 +2,33 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { useActor } from "@xstate/react";
+
+import { EE, fse, cartService } from "@/machines/cart_machine";
+import type { CartType } from "@/lib/storage";
+
+function makeArrayFromCart(cart: CartType) {
+  const cartArray = [];
+
+  for (const k in cart) {
+    cartArray.push(cart[k]);
+  }
+
+  return cartArray;
+}
+
 const LayProducts: FC = () => {
+  const [cartState, dispatchToCart] = useActor(cartService);
+
+  const { context: cartContext } = cartState;
+
+  const { cart, totalPrice, cartIsEmpty } = cartContext;
+
   // DONT WANT TO SEE THIS TEMOPRRARY BECAUSE OF ERRORS
 
   // return null;
+
+  const cartArray = makeArrayFromCart(cart);
 
   return (
     <section tw=" overflow-y-auto w-full">
@@ -129,7 +152,7 @@ const LayProducts: FC = () => {
               </div>
             </div>
           </li>
-          <li tw="flex flex-col py-6 sm:flex-row sm:justify-between">
+          {/* <li tw="flex flex-col py-6 sm:flex-row sm:justify-between">
             <div tw="flex w-full space-x-2 sm:space-x-4">
               <img
                 tw="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
@@ -280,7 +303,7 @@ const LayProducts: FC = () => {
                 </div>
               </div>
             </div>
-          </li>
+          </li> */}
         </ul>
         <div tw="space-y-1 text-right">
           <p>
@@ -313,7 +336,11 @@ const LayProducts: FC = () => {
 
 export default LayProducts;
 
-const a = () => {
+//
+//
+//
+//
+/* const a = () => {
   return (
     // custom-number-input
     <div
@@ -359,7 +386,7 @@ const a = () => {
       </div>
     </div>
   );
-};
+}; */
 
 {
   /* <style>
