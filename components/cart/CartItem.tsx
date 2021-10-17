@@ -140,7 +140,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
             </label>
             <div tw="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-1">
               <button
-                onClick={() => {
+                onMouseDown={() => {
                   handleDecr();
                 }}
                 data-action="decrement"
@@ -155,7 +155,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
                 value={count}
               ></input>
               <button
-                onClick={() => {
+                onMouseDown={() => {
                   handleIncr();
                 }}
                 data-action="increment"
