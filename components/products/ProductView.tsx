@@ -11,6 +11,8 @@ import OutOfStockInfo from "./OutOfStockInfo";
 
 import Rating from "../products/Rating";
 
+import Alert from "../alerts/Alert";
+
 interface PropsI {
   product: ProductPropsI["product"];
 }
@@ -46,6 +48,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
     }
 
     setProductCount((count) => count - 1);
+    setOutOfBoundsUp(false);
 
     return;
   };
@@ -176,6 +179,14 @@ const ProductView: FC<PropsI> = ({ product }) => {
           )}
         </div>
       </div>
+      {outOfBoundsUp && (
+        <Alert
+          visible={true}
+          header="Not enough products in stock"
+          text="Yo are trying to buy more than we currently have"
+          variant="info"
+        />
+      )}
     </Fragment>
   );
 };
