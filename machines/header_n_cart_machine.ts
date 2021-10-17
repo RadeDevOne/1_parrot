@@ -82,6 +82,20 @@ const headerNcartMachine = createMachine<
       },
     },
     [fse.cart_visible]: {
+      exit: [
+        () => {
+          document.documentElement.classList.add("header-visible");
+          document.documentElement.classList.remove("cart-visible");
+        },
+      ],
+      entry: [
+        () => {
+          setTimeout(() => {
+            document.documentElement.classList.remove("header-visible");
+            document.documentElement.classList.add("cart-visible");
+          }, 450);
+        },
+      ],
       on: {
         [EE.TOGGLE]: {
           target: fse.header_visible,

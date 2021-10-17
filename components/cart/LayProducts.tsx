@@ -8,7 +8,7 @@ const LayProducts: FC = () => {
   // return null;
 
   return (
-    <section tw=" overflow-y-auto">
+    <section tw=" overflow-y-auto w-full">
       <div tw="dark:bg-gray-800 mx-auto flex flex-col max-w-3xl p-6 space-y-4 sm:p-10  dark:text-gray-100">
         <h2 tw="text-xl font-semibold">Your cart</h2>
         <ul

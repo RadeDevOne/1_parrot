@@ -10,7 +10,11 @@ import { headerNCartService, fse } from "@/machines/header_n_cart_machine";
 
 import CartWrapper from "./CartWrapper";
 
+import useIsMounted from "@/hooks/useIsMounted";
+
 const ShoppingCart: FC = () => {
+  const mounted = useIsMounted();
+
   const [cartUIState, cartUIDispatch] = useActor(headerNCartService);
 
   const cartIsVisible = cartUIState.value === fse.cart_visible;
@@ -28,59 +32,63 @@ const ShoppingCart: FC = () => {
 
   return (
     <>
-      <motion.section
-        animate={{
-          translateX: cartIsVisible ? "0%" : "80%",
-          translateY: cartIsVisible ? "0%" : "-100%",
-          scale: cartIsVisible ? 1 : 0,
-        }}
-        transition={{
-          duration: 0.4,
-        }}
-        initial={{
-          translateX: "80%",
-          translateY: "-100%",
-          scale: 0,
-        }}
-        tw="light:bg-white dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
-        css={css`
-          /* border: crimson solid 2px; */
-          position: fixed;
-          top: 0;
-          /* height: 60vh; */
-          width: 100vw;
-          height: 100vh;
-          /* transform: translateX(80%) translateY(5%); */
-        `}
-      >
-        <CartWrapper />
-        {/*  */}
-        {/*  */}
-      </motion.section>
-      <section
-        css={[
-          tw`dark:bg-gray-800 light:bg-white transform-gpu flex md:hidden lg:hidden xl:hidden`,
+      {mounted && (
+        <>
+          <motion.section
+            animate={{
+              translateX: cartIsVisible ? "0%" : "80%",
+              translateY: cartIsVisible ? "0%" : "-100%",
+              scale: cartIsVisible ? 1 : 0,
+            }}
+            transition={{
+              duration: 0.4,
+            }}
+            initial={{
+              translateX: "80%",
+              translateY: "-100%",
+              scale: 0,
+            }}
+            tw="border light:bg-white dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
+            css={css`
+              /* border: crimson solid 2px; */
+              position: fixed;
+              top: 0;
+              /* height: 60vh; */
+              width: 100vw;
+              height: 100vh;
+              /* transform: translateX(80%) translateY(5%); */
+            `}
+          >
+            <CartWrapper />
+            {/*  */}
+            {/*  */}
+          </motion.section>
+          <section
+            css={[
+              tw`dark:bg-gray-800 light:bg-white transform-gpu flex md:hidden lg:hidden xl:hidden`,
 
-          css`
-            /* border: crimson solid 1px; */
-            position: fixed;
+              css`
+                /* border: crimson solid 1px; */
+                position: fixed;
 
-            top: 0px;
+                top: 0px;
 
-            transition-property: transform;
-            transition-duration: 0.4s;
+                transition-property: transform;
+                transition-duration: 0.4s;
 
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-          `,
-          cartIsVisible
-            ? openClosedStylesMobile["open"]
-            : openClosedStylesMobile["closed"],
-        ]}
-      >
-        <CartWrapper />
-      </section>
+                width: 100vw;
+                height: 100vh;
+                /* overflow: hidden; */
+              `,
+              cartIsVisible
+                ? openClosedStylesMobile["open"]
+                : openClosedStylesMobile["closed"],
+            ]}
+          >
+            <CartWrapper />
+          </section>
+        </>
+      )}
     </>
   );
 };

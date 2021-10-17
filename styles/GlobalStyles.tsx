@@ -120,6 +120,14 @@ const customStyles = css`
     transition-duration: 0.4s;
     transition-timing-function: ease-in;
   } */
+
+  html.header-visible {
+    overflow-y: auto;
+  }
+
+  html.cart-visible {
+    overflow-y: hidden;
+  }
 `;
 
 const GlobalStyles = () => (
