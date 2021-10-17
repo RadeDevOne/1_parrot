@@ -5,7 +5,7 @@ import tw, { css, styled, theme } from "twin.macro";
 const LayProducts: FC = () => {
   // DONT WANT TO SEE THIS TEMOPRRARY BECAUSE OF ERRORS
 
-  return null;
+  // return null;
 
   return (
     <section tw=" overflow-y-auto">

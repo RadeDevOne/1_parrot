@@ -6,6 +6,8 @@ import { useActor } from "@xstate/react";
 import { headerNCartService, EE } from "@/machines/header_n_cart_machine";
 import LayProducts from "./LayProducts";
 
+import Alert from "../alerts/Alert";
+
 const CartWrapper: FC = () => {
   const [____, dispatchHC] = useActor(headerNCartService);
 
@@ -54,6 +56,7 @@ const CartWrapper: FC = () => {
 
       {/* PLACE FOR CART CONTENT */}
       <LayProducts />
+      <Alert />
     </section>
   );
 };
