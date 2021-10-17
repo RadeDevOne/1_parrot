@@ -96,7 +96,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
           <hr tw="my-3 w-11/12 mx-auto" />
           <div css={[productIsNotInTheCart ? tw`h-32` : tw`h-14`, tw`border`]}>
             {!productIsNotInTheCart ? (
-              <Info boldText="Product is already in the cart" variant="blue" />
+              <Info boldText="Product added to the cart" variant="blue" />
             ) : (
               <Fragment>
                 {countInStock !== 0 ? (
