@@ -35,6 +35,18 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
 
   const handleDecr = () => {
     //
+
+    if (count === 0) {
+      dispatchToCart({
+        type: EE.REMOVE,
+        payload: {
+          prodId: itemId,
+        },
+      });
+
+      return;
+    }
+
     dispatchToCart({
       type: EE.DOWN_COUNT,
       payload: {
