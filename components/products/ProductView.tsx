@@ -7,7 +7,7 @@ import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
 import { useActor } from "@xstate/react";
 
-import { cartService } from "@/machines/cart_machine";
+import { cartService, fse, EE } from "@/machines/cart_machine";
 // import Info from "../info/Info";
 
 import OutOfStockInfo from "./OutOfStockInfo";
