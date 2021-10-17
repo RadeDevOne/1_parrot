@@ -2,10 +2,14 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+interface PropsI {
+  variant: "info" | "warning" | "error" | "success";
+}
+
 const Alert: FC = () => {
   return (
     <div tw="w-full fixed bottom-0.5 left-0">
-      <div tw="border border-green-500 flex w-full max-w-sm mx-auto overflow-hidden bg-gray-200 rounded-lg shadow-md dark:bg-gray-600">
+      <div tw="border-green-500 dark:bg-gray-700 bg-gray-200 border flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-md">
         <div tw="bg-green-500 flex items-center justify-center w-12">
           <svg
             tw="w-6 h-6 text-white fill-current"
