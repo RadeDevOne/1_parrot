@@ -94,9 +94,17 @@ const ProductView: FC<PropsI> = ({ product }) => {
             {description}
           </p>
           <hr tw="my-3 w-11/12 mx-auto" />
-          <div css={[productIsNotInTheCart ? tw`h-32` : tw`h-14`, tw`border`]}>
+          <div
+            css={[
+              /* productIsNotInTheCart ? tw`h-32` : tw`h-14` ,*/ tw`border h-32`,
+            ]}
+          >
             {!productIsNotInTheCart ? (
-              <Info boldText="Product added to the cart" variant="blue" />
+              <div tw="mt-8 mx-2">
+                <Info boldText="Product added to the cart" variant="blue">
+                  <div>Go back to cart</div>
+                </Info>
+              </div>
             ) : (
               <Fragment>
                 {countInStock !== 0 ? (
