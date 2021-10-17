@@ -161,7 +161,22 @@ const ProductView: FC<PropsI> = ({ product }) => {
                       </div>
                     </div>
                     <div tw="flex items-center mt-6 justify-center sm:justify-center  md:justify-center">
-                      <button tw="mb-6 flex px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">
+                      <button
+                        onClick={() => {
+                          dispatch({
+                            type: EE.ADD,
+                            payload: {
+                              item: {
+                                count: productCount,
+                                id: product.id,
+                                name: product.name,
+                                price: parseFloat(product.price),
+                              },
+                            },
+                          });
+                        }}
+                        tw="mb-6 flex px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"
+                      >
                         Add To Cart
                         <span tw="ml-1">
                           <svg
