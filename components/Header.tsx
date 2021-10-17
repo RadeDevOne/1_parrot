@@ -5,13 +5,23 @@ import tw, { css, styled, theme } from "twin.macro";
 
 // import { useTheme as useColorMode } from "next-themes";
 
+import { useActor } from "@xstate/react";
+
 import { headerNCartService } from "@/machines/header_n_cart_machine";
 
 import PageLoadingIndiccator from "./loaders/PageLoadingIndicator";
 import NavMenu from "./navigation/NavMenu";
 import ShoppingCart from "./cart/ShoppingCart";
 
+import { cartService, EE, fse } from "@/machines/cart_machine";
+
 const Header: FC = ({ children }) => {
+  const [cartSate, cartDispatch] = useActor(cartService);
+
+  useEffect(() => {
+    cartDispatch({ type: EE.CHECK });
+  }, [cartDispatch]);
+
   // const {  theme } = useColorMode();
 
   const [headerNCartServiceInitiallized, setHeaderAndCartServiceInitialized] =
