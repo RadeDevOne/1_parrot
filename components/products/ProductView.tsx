@@ -53,7 +53,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
     return;
   };
 
-  console.log({ countInStock, outOfBoundsUp });
+  console.log({ countInStock, outOfBoundsUp, productCount });
 
   return (
     <Fragment>
