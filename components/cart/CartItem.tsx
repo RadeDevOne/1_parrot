@@ -23,19 +23,15 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
   const { name, price, image, count } = itemData;
 
   const handleIncr = () => {
-    //
     dispatchToCart({
       type: EE.UP_COUNT,
       payload: {
         prodId: itemId,
       },
     });
-    //
   };
 
   const handleDecr = () => {
-    //
-
     if (count === 0) {
       dispatchToCart({
         type: EE.REMOVE,
@@ -53,7 +49,6 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
         prodId: itemId,
       },
     });
-    //
   };
 
   const handleRemove = () => {
