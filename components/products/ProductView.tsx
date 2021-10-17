@@ -18,6 +18,8 @@ interface PropsI {
 const ProductView: FC<PropsI> = ({ product }) => {
   const [productCount, setProductCount] = useState<number>(1);
 
+  const [outOfBoundsUp, setOutOfBoundsUp] = useState<boolean>(false);
+
   if (product === null) {
     return null;
   }
@@ -25,17 +27,30 @@ const ProductView: FC<PropsI> = ({ product }) => {
   const { description, name, image, price, countInStock, averageRating } =
     product;
 
-  const handleCountUp = (val: number) => {
-    /* if (val <= 0) {
-      setProductCount(0);
+  const handleCountUp = () => {
+    if (countInStock === productCount) {
+      setOutOfBoundsUp(true);
       return;
-    } */
+    }
 
-    // setProductCount((count) => count + 1);
+    setProductCount((count) => count + 1);
+
     return;
   };
 
-  // console.log({ countInStock, averageRating });
+  const handleCountDown = () => {
+    //
+
+    if (productCount === 1) {
+      return;
+    }
+
+    setProductCount((count) => count - 1);
+
+    return;
+  };
+
+  console.log({ countInStock, outOfBoundsUp });
 
   return (
     <Fragment>
@@ -72,7 +87,12 @@ const ProductView: FC<PropsI> = ({ product }) => {
                 </label>
                 <div tw="flex justify-center">
                   <div tw="flex items-center mt-1">
-                    <button tw="text-gray-500 focus:outline-none focus:text-gray-600">
+                    <button
+                      onMouseDown={() => {
+                        handleCountUp();
+                      }}
+                      tw="text-gray-500 focus:outline-none focus:text-gray-600"
+                    >
                       <svg
                         tw="h-5 w-5"
                         fill="none"
@@ -85,10 +105,15 @@ const ProductView: FC<PropsI> = ({ product }) => {
                         <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                       </svg>
                     </button>
-                    <span tw="dark:text-gray-50 text-gray-700 text-lg mx-2">
-                      20
+                    <span tw="w-4 text-align[center] dark:text-gray-50 text-gray-700 text-lg mx-2">
+                      {productCount}
                     </span>
-                    <button tw="text-gray-500 focus:outline-none focus:text-gray-600">
+                    <button
+                      onMouseDown={() => {
+                        handleCountDown();
+                      }}
+                      tw="text-gray-500 focus:outline-none focus:text-gray-600"
+                    >
                       <svg
                         tw="h-5 w-5"
                         fill="none"
