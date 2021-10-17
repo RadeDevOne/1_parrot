@@ -8,6 +8,7 @@ export interface CartItemI {
   name: string;
   price: number;
   count: number;
+  image: string;
 }
 
 /**
@@ -72,13 +73,14 @@ const addToCart = (item: CartItemI) => {
     throw new Error("Item with that id already exists in cart");
   }
 
-  const { id, name, count, price } = item;
+  const { id, name, count, price, image } = item;
 
   cart[item.id] = {
     id,
     name,
     count,
     price,
+    image,
   };
   // DON'T FORGET TO STRINGIFY
   const newItem = cook.set(CART, JSON.stringify(cart));

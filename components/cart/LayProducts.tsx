@@ -58,7 +58,7 @@ const LayProducts: FC = () => {
           `}
         >
           {cartArray.map((item) => {
-            const { count, name, id, price } = item;
+            const { count, name, id, price, image } = item;
 
             // TODO IMAGE AND DFINING THIS AS A SEPARATE
             // COMPONENT
@@ -71,8 +71,8 @@ const LayProducts: FC = () => {
                 <div tw="flex w-full space-x-2 sm:space-x-4">
                   <img
                     tw="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
-                    src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&amp;ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80"
-                    // src={}
+                    // src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&amp;ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80"
+                    src={image}
                     alt="Polaroid camera"
                   />
                   <div tw="flex flex-col justify-between w-full pb-4">

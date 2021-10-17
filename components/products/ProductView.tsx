@@ -171,6 +171,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
                                 id: product.id,
                                 name: product.name,
                                 price: parseFloat(product.price),
+                                image: product.image,
                               },
                             },
                           });
