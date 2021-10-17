@@ -6,6 +6,7 @@ import type { PropsI } from "@/pages/product/[productId]";
 
 import ProductView from "../products/ProductView";
 import Reviews from "../reviews/Reviews";
+import Alert from "../alerts/Alert";
 
 const Layout: FC<PropsI> = ({ children, product }) => {
   return (
@@ -13,6 +14,7 @@ const Layout: FC<PropsI> = ({ children, product }) => {
       <ProductView product={product} />
       <Reviews reviews={product.reviews} />
       {children}
+      <Alert />
     </main>
   );
 };
