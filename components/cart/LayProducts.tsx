@@ -325,7 +325,7 @@ const LayProducts: FC = () => {
         <div tw="space-y-1 text-right">
           <p>
             Total amount:
-            <span tw="font-semibold">357 €</span>
+            <span tw="font-semibold">{totalPrice} €</span>
           </p>
           <p tw="text-sm dark:text-gray-400">
             Not including taxes and shipping costs
