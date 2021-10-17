@@ -16,6 +16,8 @@ import Rating from "../products/Rating";
 
 import Alert from "../alerts/Alert";
 
+import Info from "../info/Info";
+
 interface PropsI {
   product: ProductPropsI["product"];
 }
@@ -92,8 +94,10 @@ const ProductView: FC<PropsI> = ({ product }) => {
             {description}
           </p>
           <hr tw="my-3 w-11/12 mx-auto" />
-          <div tw="border h-32">
-            {productIsNotInTheCart && (
+          <div css={[productIsNotInTheCart ? tw`h-32` : tw`h-14`, tw`border`]}>
+            {!productIsNotInTheCart ? (
+              <Info boldText="Product is already in the cart" variant="blue" />
+            ) : (
               <Fragment>
                 {countInStock !== 0 ? (
                   <Fragment>
