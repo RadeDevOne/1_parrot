@@ -48,7 +48,7 @@ const ShoppingCart: FC = () => {
               translateY: "-100%",
               scale: 0,
             }}
-            tw="border light:bg-white dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
+            tw="light:bg-white dark:bg-gray-800 transform-gpu xl:flex lg:flex md:flex sm:hidden hidden"
             css={css`
               /* border: crimson solid 2px; */
               position: fixed;
