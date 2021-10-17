@@ -108,7 +108,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
                         <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                       </svg>
                     </button>
-                    <span tw="w-4 text-align[center] dark:text-gray-50 text-gray-700 text-lg mx-2">
+                    <span tw="w-5 text-align[center] dark:text-gray-50 text-gray-700 text-lg mx-2">
                       {productCount}
                     </span>
                     <button
