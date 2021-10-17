@@ -304,6 +304,7 @@ const crud = {
     decrease,
     erase,
     establishCartOnMounting,
+    calculateTotalPrice,
   },
 };
 
