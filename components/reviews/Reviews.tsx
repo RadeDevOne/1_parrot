@@ -8,7 +8,7 @@ import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
 import Stringified from "../dev-helpers/Stringified";
 
-import useIsMounted from "@/hooks/useIsMouned";
+import useIsMounted from "@/hooks/useIsMounted";
 
 interface PropsI {
   reviews: ProductPropsI["product"]["reviews"];

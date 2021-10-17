@@ -56,7 +56,12 @@ const CartWrapper: FC = () => {
 
       {/* PLACE FOR CART CONTENT */}
       <LayProducts />
-      <Alert header="Warning" text="you have been warned" variant="warning" />
+      <Alert
+        header="Warning"
+        visible={true}
+        text="you have been warned"
+        variant="warning"
+      />
     </section>
   );
 };

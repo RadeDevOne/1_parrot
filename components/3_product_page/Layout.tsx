@@ -14,7 +14,12 @@ const Layout: FC<PropsI> = ({ children, product }) => {
       <ProductView product={product} />
       <Reviews reviews={product.reviews} />
       {children}
-      <Alert header="Hello world" text="You are informed" variant="info" />
+      <Alert
+        visible={true}
+        header="Hello world"
+        text="You are informed"
+        variant="info"
+      />
     </main>
   );
 };
