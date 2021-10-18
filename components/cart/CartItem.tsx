@@ -6,6 +6,10 @@ import tw, { css, styled, theme } from "twin.macro";
 import { useActor } from "@xstate/react";
 
 import { EE, fse, cartService } from "@/machines/cart_machine";
+import {
+  EE as EEE,
+  headerNCartService,
+} from "@/machines/header_n_cart_machine";
 
 import Alert from "../alerts/Alert";
 
@@ -13,21 +17,22 @@ import Alert from "../alerts/Alert";
 
 interface PropsI {
   itemId: string;
-  countInStock: number;
 }
 
-const CartItem: FC<PropsI> = ({ itemId, countInStock }) => {
+const CartItem: FC<PropsI> = ({ itemId }) => {
   const [outOfBoundsUp, setOutOfBoundsUp] = useState<boolean>(false);
 
   const [cartState, dispatchToCart] = useActor(cartService);
 
-  const { cart } = cartState.context;
+  const [__, dispatch] = useActor(headerNCartService);
+
+  const { cart, totalPrice } = cartState.context;
 
   const itemData = cart[itemId];
 
-  const { name, price, image, count } = itemData;
+  const { name, price, image, count, countInStock } = itemData;
 
-  console.log({ countInStock, count });
+  // console.log({ countInStock, count });
 
   /*   useEffect(() => {
 
@@ -61,6 +66,14 @@ const CartItem: FC<PropsI> = ({ itemId, countInStock }) => {
         },
       });
 
+      // console.log({ totalPrice });
+
+      if (totalPrice - price === 0) {
+        dispatch({
+          type: EEE.TOGGLE,
+        });
+      }
+
       return;
     }
 
@@ -79,6 +92,12 @@ const CartItem: FC<PropsI> = ({ itemId, countInStock }) => {
         prodId: itemId,
       },
     });
+
+    if (totalPrice - count * price === 0) {
+      dispatch({
+        type: EEE.TOGGLE,
+      });
+    }
   };
 
   return (

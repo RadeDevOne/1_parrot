@@ -78,13 +78,7 @@ const LayProducts: FC = () => {
           {cartArray.map((item) => {
             const { id, countInStock } = item;
 
-            return (
-              <CartItem
-                countInStock={countInStock}
-                itemId={id}
-                key={`${item.id}-${item.count}`}
-              />
-            );
+            return <CartItem itemId={id} key={`${item.id}-${item.count}`} />;
           })}
         </ul>
         <div tw="space-y-1 text-right">
