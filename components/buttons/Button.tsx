@@ -90,7 +90,7 @@ const Button: FC<PropsI> = ({
           css={[
             textSize,
             _outlined[variant],
-            tw`p-2 pl-5 pr-5 bg-transparent border-2 rounded-lg hover:text-gray-100 focus:border-4`,
+            tw`p-2 pl-5 pr-5 bg-transparent border-2 rounded-lg hover:text-gray-100 focus:border-2`,
           ]}
         >
           {children}

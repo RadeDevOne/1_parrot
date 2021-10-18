@@ -8,7 +8,11 @@ import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 import { useActor } from "@xstate/react";
 
 import { cartService, fse, EE } from "@/machines/cart_machine";
-// import Info from "../info/Info";
+
+import {
+  headerNCartService,
+  EE as EEE,
+} from "@/machines/header_n_cart_machine";
 
 import OutOfStockInfo from "./OutOfStockInfo";
 
@@ -18,12 +22,16 @@ import Alert from "../alerts/Alert";
 
 import Info from "../info/Info";
 
+import Button from "../buttons/Button";
+
 interface PropsI {
   product: ProductPropsI["product"];
 }
 
 const ProductView: FC<PropsI> = ({ product }) => {
   const [cartState, dispatch] = useActor(cartService);
+
+  const [__, disp] = useActor(headerNCartService);
 
   const {
     context: { cart },
@@ -87,7 +95,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
             {name}
           </h3>
           <Rating value={averageRating} />
-          <span tw="text-gray-500 mt-3 ml-7">${price}</span>
+          <span tw="text-gray-500 mt-3 ml-7">€{price}</span>
 
           <hr tw="my-3 w-11/12 mx-auto" />
           <p tw="dark:text-gray-400 text-gray-500 px-5 md:px-6">
@@ -102,7 +110,18 @@ const ProductView: FC<PropsI> = ({ product }) => {
             {!productIsNotInTheCart ? (
               <div tw="mt-8 mx-2">
                 <Info boldText="Product added to the cart" variant="blue">
-                  <div>Go back to cart</div>
+                  <div tw="mt-2.5">
+                    <Button
+                      onClick={() => {
+                        disp({
+                          type: EEE.TOGGLE,
+                        });
+                      }}
+                      variant="primary"
+                    >
+                      See cart
+                    </Button>
+                  </div>
                 </Info>
               </div>
             ) : (
