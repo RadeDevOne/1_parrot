@@ -14,7 +14,7 @@ import type { ChangeEventHandler, FormEvent } from "react";
 
 // WE ARE GOING TO USE SIGNING IN WITH EMAIL LOGIC LIKE THIS
 // AND WE NEED TO CHECK SESSION
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 //
 //
 
@@ -22,11 +22,13 @@ import Spinner from "@/components/common/Spinner";
 
 const SignInPage: NP = () => {
   const { push, asPath } = useRouter();
-  const [session, loading] = useSession();
+  const { data, status } = useSession();
+
+  // const a = data.;
 
   useEffect(() => {
-    if (session) push("/");
-  }, [session, push]);
+    if (status === "authenticated") push("/");
+  }, [status, push]);
 
   const [{ email }, setFields] = useState<{
     email: string;
@@ -67,8 +69,11 @@ const SignInPage: NP = () => {
 
   const buttonDisabled = !email || reqStatus === "pending" ? true : false;
 
-  if (session) {
+  if (status === "unauthenticated") {
     return null;
+  }
+  if (status === "loading") {
+    return <span>loading...</span>;
   }
 
   return (

@@ -4,16 +4,34 @@
 import type { Session as Ses } from "next-auth";
 import type { Profile } from "@prisma/client";
 
-interface Session {
+interface SessStuff {
   expires?: Ses["expires"];
   user?: Ses["user"];
   profile?: Profile;
   userId?: string;
 }
 
-declare module "next-auth/client" {
-  function useSession(): [Session | null, boolean];
+type SesForUseSess =
+  | {
+      data: SessionStuff;
+      status: "authenticated";
+    }
+  | {
+      data: null;
+      status: "unauthenticated" | "loading";
+    }
+  | {
+      data: SessionStuff;
+      status: "authenticated";
+    }
+  | {
+      data: null;
+      status: "loading";
+    };
+
+declare module "next-auth/react" {
+  function useSession(): SesForUseSess;
   function getSession(
     options?: GetSessionOptions | undefined
-  ): Promise<Session | null>;
+  ): Promise<SessStuff | null>;
 }
