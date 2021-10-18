@@ -35,6 +35,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
               display: block;
               -webkit-font-smoothing: subpixel-antialiased;
               backface-visibility: hidden;
+              -webkit-filter: blur(0);
               ${tw`duration-500 ease-in-out transform`}
             }
 
