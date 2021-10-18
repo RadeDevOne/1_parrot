@@ -19,8 +19,6 @@ interface PropsI {
 const CartItem: FC<PropsI> = ({ itemId, countInStock }) => {
   const [outOfBoundsUp, setOutOfBoundsUp] = useState<boolean>(false);
 
-  console.log({ countInStock });
-
   const [cartState, dispatchToCart] = useActor(cartService);
 
   const { cart } = cartState.context;
@@ -28,6 +26,8 @@ const CartItem: FC<PropsI> = ({ itemId, countInStock }) => {
   const itemData = cart[itemId];
 
   const { name, price, image, count } = itemData;
+
+  console.log({ countInStock, count });
 
   /*   useEffect(() => {
 
