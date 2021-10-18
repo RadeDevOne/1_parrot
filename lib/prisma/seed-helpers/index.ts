@@ -66,7 +66,8 @@ export const generateProductData = (numberOfProducts: number) => {
 
     const countInStock = !(i % 2)
       ? 0
-      : parseInt(`${Math.random() * 10}`) * parseInt(`${Math.random() * 10}`);
+      : parseInt(`${Math.random() * 10}`) * parseInt(`${Math.random() * 10}`) +
+        1;
 
     const productName = faker.commerce.productName();
 
