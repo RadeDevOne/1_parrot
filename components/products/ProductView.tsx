@@ -96,7 +96,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
           <hr tw="my-3 w-11/12 mx-auto" />
           <div
             css={[
-              /* productIsNotInTheCart ? tw`h-32` : tw`h-14` ,*/ tw`border h-32`,
+              /* productIsNotInTheCart ? tw`h-32` : tw`h-14` ,*/ tw`mt-4 h-32`,
             ]}
           >
             {!productIsNotInTheCart ? (
@@ -197,7 +197,9 @@ const ProductView: FC<PropsI> = ({ product }) => {
                     </div>
                   </Fragment>
                 ) : (
-                  <OutOfStockInfo countInStock={0} />
+                  <div tw="mt-1.5">
+                    <OutOfStockInfo countInStock={0} />
+                  </div>
                 )}
               </Fragment>
             )}
