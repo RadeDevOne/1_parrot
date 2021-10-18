@@ -1,6 +1,7 @@
 // I CREATED THIS DECLARATION BECAUSE
 // BY USING CALLBACKS AND EVENTS IN HERE: pages/api/auth/[...nextauth].ts
-// I MENAGED TO DEFINE EXTENDING OF session OBJECT
+// I MENAGED TO DEFINE THE EXTENDING OF session OBJECT
+// I INJECTED MORE TUFF
 import type { Session as Ses } from "next-auth";
 import type { Profile } from "@prisma/client";
 
