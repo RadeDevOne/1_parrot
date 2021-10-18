@@ -32,7 +32,9 @@ const Product: FC<ProductPropsI> = ({ product }) => {
             }
 
             & h3.header3 {
-              display: block;
+              /* display: block; */
+              zoom: 100%;
+              display: table;
               -webkit-font-smoothing: subpixel-antialiased;
               backface-visibility: hidden;
               -webkit-filter: blur(0);
