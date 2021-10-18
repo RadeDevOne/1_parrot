@@ -4,6 +4,10 @@ import Head from "next/head";
 // import { injectGlobal } from "@emotion/css";
 import { ThemeProvider as DangerousThemeSettingProvider } from "next-themes";
 
+import { SessionProvider } from "next-auth/react";
+
+// import type { Session } from "next-auth";
+
 import GlobalStyles from "@/styles/GlobalStyles";
 
 import Header from "@/components/Header";
@@ -16,21 +20,25 @@ function MyApp({ Component, pageProps }: AppProps) {
   usePageLoadingService();
   useCartService();
 
+  const { session } = pageProps;
+
   return (
     <>
       <Head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
       <GlobalStyles />
-      <DangerousThemeSettingProvider
-        attribute="class"
-        enableColorScheme={false}
-        enableSystem={false}
-      >
-        {/* <PageLoadingIndiccator /> */}
-        <Header />
-        <Component {...pageProps} />
-      </DangerousThemeSettingProvider>
+      <SessionProvider session={session}>
+        <DangerousThemeSettingProvider
+          attribute="class"
+          enableColorScheme={false}
+          enableSystem={false}
+        >
+          {/* <PageLoadingIndiccator /> */}
+          <Header />
+          <Component {...pageProps} />
+        </DangerousThemeSettingProvider>
+      </SessionProvider>
     </>
   );
 }
