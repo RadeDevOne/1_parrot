@@ -14,7 +14,7 @@ interface SessStuff {
 
 type SesForUseSess =
   | {
-      data: SessionStuff;
+      data: SessStuff;
       status: "authenticated";
     }
   | {
@@ -22,7 +22,7 @@ type SesForUseSess =
       status: "unauthenticated" | "loading";
     }
   | {
-      data: SessionStuff;
+      data: SessStuff;
       status: "authenticated";
     }
   | {

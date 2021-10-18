@@ -4,7 +4,7 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 import { useEffect } from "react";
 import cook from "js-cookie";
 
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 import prisma from "@/lib/prisma";
 
@@ -53,8 +53,10 @@ export interface PropsI {
 
 export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   // const {} = getSession({req: ctx.req})
-  const sess = await getSession();
+  const sess = await getSession({ req: ctx.req });
   // sess?.profile.
+
+  console.log({ sess });
 
   // INITIAL PRODUCTS
   const products = await prisma.product.findMany({
@@ -104,6 +106,10 @@ const Page: NP<PropsI> = (props) => {
   //
   // MANUAL TESTS
   // useManualTest();
+
+  const { data, status } = useSession();
+
+  console.log({ data, status });
 
   return (
     <Layout {...props} />
