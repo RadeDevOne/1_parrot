@@ -1,19 +1,26 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import { useActor } from "@xstate/react";
 
 import { EE, fse, cartService } from "@/machines/cart_machine";
 
+import Alert from "../alerts/Alert";
+
 // import type { CartItemI } from "@/lib/storage";
 
 interface PropsI {
   itemId: string;
+  countInStock: number;
 }
 
-const CartItem: FC<PropsI> = ({ itemId }) => {
+const CartItem: FC<PropsI> = ({ itemId, countInStock }) => {
+  const [outOfBoundsUp, setOutOfBoundsUp] = useState<boolean>(false);
+
+  console.log({ countInStock });
+
   const [cartState, dispatchToCart] = useActor(cartService);
 
   const { cart } = cartState.context;
@@ -22,7 +29,21 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
 
   const { name, price, image, count } = itemData;
 
+  /*   useEffect(() => {
+
+    if(countInStock)
+
+  }, [setOutOfBoundsUp, countInStock, count]) */
+
   const handleIncr = () => {
+    if (countInStock === count) {
+      setOutOfBoundsUp(true);
+
+      return;
+    }
+
+    setOutOfBoundsUp(false);
+
     dispatchToCart({
       type: EE.UP_COUNT,
       payload: {
@@ -148,12 +169,14 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
               >
                 <span tw="m-auto text-2xl font-thin">−</span>
               </button>
-              <input
-                type="number"
-                tw=" focus:outline-none text-center w-full bg-gray-300 font-semibold text-sm hover:text-black focus:text-black  md:text-base cursor-default flex items-center text-gray-700  outline-none"
-                name="custom-input-number"
-                value={count}
-              ></input>
+              <span
+                // type="number"
+                tw=" text-center w-full bg-gray-300 font-semibold text-sm user-select[none]  md:text-base cursor-default flex items-center text-gray-700  outline-none justify-center"
+                // name="custom-input-number"
+                // value={count}
+              >
+                {count}
+              </span>
               <button
                 onMouseDown={() => {
                   handleIncr();
@@ -167,6 +190,14 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
           </div>
         </div>
       </div>
+      {outOfBoundsUp && (
+        <Alert
+          visible={true}
+          text=""
+          header="We don't have more of that product"
+          variant="info"
+        />
+      )}
     </li>
   );
 };

@@ -60,7 +60,7 @@ const Alert: FC<PropsI> = ({ header, text, variant, visible }) => {
               setVis(false);
             }, 4000);
           }}
-          tw="w-full fixed bottom-0.5 left-0"
+          tw="w-full fixed bottom-0.5 left-0 z-50"
         >
           <div
             css={[

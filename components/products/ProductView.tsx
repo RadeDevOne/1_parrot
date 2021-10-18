@@ -31,7 +31,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
 
   const productIsNotInTheCart = cart[product.id] === undefined;
 
-  console.log({ productIsNotInTheCart });
+  // console.log({ productIsNotInTheCart });
 
   const [productCount, setProductCount] = useState<number>(1);
 
@@ -68,7 +68,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
     return;
   };
 
-  console.log({ countInStock, outOfBoundsUp, productCount });
+  // console.log({ countInStock, outOfBoundsUp, productCount });
 
   return (
     <Fragment>
@@ -172,6 +172,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
                                 name: product.name,
                                 price: parseFloat(product.price),
                                 image: product.image,
+                                countInStock,
                               },
                             },
                           });

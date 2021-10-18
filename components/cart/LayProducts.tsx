@@ -1,10 +1,14 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import { useActor } from "@xstate/react";
 
-import { EE, fse, cartService } from "@/machines/cart_machine";
+import { cartService } from "@/machines/cart_machine";
+
+import { headerNCartService, EE } from "@/machines/header_n_cart_machine";
+
 import type { CartType } from "@/lib/storage";
 
 import CartItem from "./CartItem";
@@ -21,12 +25,24 @@ function makeArrayFromCart(cart: CartType) {
 
 const LayProducts: FC = () => {
   const [cartState, dispatchToCart] = useActor(cartService);
+  const [__, dispatch] = useActor(headerNCartService);
 
   const { context: cartContext } = cartState;
 
-  const { cart, totalPrice, cartIsEmpty } = cartContext;
+  const { cart, totalPrice } = cartContext;
 
-  console.log({ cart });
+  // const shouldCloseCart = totalPrice === 0;
+  // console.log({ shouldCloseCart, totalPrice });
+
+  /* useEffect(() => {
+    if (totalPrice !== 0) return;
+
+    dispatch({
+      type: EE.TOGGLE,
+    });
+  }, [totalPrice, dispatch]); */
+
+  // console.log({ cart });
 
   // DONT WANT TO SEE THIS TEMOPRRARY BECAUSE OF ERRORS
 
@@ -60,12 +76,15 @@ const LayProducts: FC = () => {
           `}
         >
           {cartArray.map((item) => {
-            const { id } = item;
+            const { id, countInStock } = item;
 
-            // TODO IMAGE AND DFINING THIS AS A SEPARATE
-            // COMPONENT
-
-            return <CartItem itemId={id} key={`${item.id}-${item.count}`} />;
+            return (
+              <CartItem
+                countInStock={countInStock}
+                itemId={id}
+                key={`${item.id}-${item.count}`}
+              />
+            );
           })}
         </ul>
         <div tw="space-y-1 text-right">
@@ -79,11 +98,16 @@ const LayProducts: FC = () => {
         </div>
         <div tw="flex justify-end space-x-4">
           <button
+            onClick={() => {
+              dispatch({
+                type: EE.TOGGLE,
+              });
+            }}
             type="button"
             tw="px-6 py-2 border rounded-md dark:border-gray-800"
           >
             Back
-            <span tw="sr-only sm:not-sr-only">to shop</span>
+            <span tw="sr-only sm:not-sr-only"> to shop</span>
           </button>
           <button
             type="button"
