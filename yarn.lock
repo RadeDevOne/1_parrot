@@ -832,10 +832,10 @@
   resolved "https://registry.yarnpkg.com/@napi-rs/triples/-/triples-1.0.3.tgz#76d6d0c3f4d16013c61e45dfca5ff1e6c31ae53c"
   integrity sha512-jDJTpta+P4p1NZTFVLHJ/TLFVYVcOqv6l8xwOeBKNPMgY/zDYH/YH7SJbvrr/h1RcS9GzbPcLKGzpuK9cV56UA==
 
-"@next-auth/prisma-adapter@^0.5.4":
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/@next-auth/prisma-adapter/-/prisma-adapter-0.5.4.tgz#af787a6a49ee9b9e38cedec761c9b7ab4cd99153"
-  integrity sha512-e3rIRNc/1A8puvzxVdlPOaV1NjAWIil2aE+kr51MHmg9uCrvJWf8ruNvLPU3I0QG187AG4i5eePXHkXEbgordQ==
+"@next-auth/prisma-adapter@^0.5.2-next.15":
+  version "0.5.2-next.15"
+  resolved "https://registry.yarnpkg.com/@next-auth/prisma-adapter/-/prisma-adapter-0.5.2-next.15.tgz#ea418cbc7cdcd93f3a293b87e45194765a178c18"
+  integrity sha512-kHB4v4fHzKLJ19wSzn3/uvKoJxpXee/iDdIbrYBLgMCxL4qpUizcuETD+qd2jW3saIXTCmcFiX6++eSarKkGPg==
 
 "@next/env@11.1.2":
   version "11.1.2"
@@ -5305,7 +5305,7 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
-next-auth@4.0.0-beta.4:
+next-auth@^4.0.0-beta.4:
   version "4.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.0.0-beta.4.tgz#f69438c92e06da3b9e2331b71f65e58076b13b2e"
   integrity sha512-1KRkRUenCbtTv2Y1KiuX8e0T+KBKv94Nt8KFv52xnqc1Ye3giy02J03htd2U+O3uE+hnqE44KBUa0GoHn2727g==

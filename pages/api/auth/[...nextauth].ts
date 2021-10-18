@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
 // import type { JWT } from "next-auth/jwt";
-import Email from "next-auth/providers/email";
+import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prismaClient from "../../../lib/prisma";
@@ -9,7 +9,7 @@ import prismaClient from "../../../lib/prisma";
 const handler = (req: NextApiRequest, res: NextApiResponse) =>
   NextAuth(req, res, {
     providers: [
-      Email({
+      EmailProvider({
         server: {
           host: process.env.EMAIL_SERVER_HOST,
           port: Number(process.env.EMAIL_SERVER_PORT),
