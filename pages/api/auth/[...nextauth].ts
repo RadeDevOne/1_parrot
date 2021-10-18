@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
 // import type { JWT } from "next-auth/jwt";
-import Providers from "next-auth/providers";
+import Email from "next-auth/providers/email";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prismaClient from "../../../lib/prisma";
@@ -9,7 +9,7 @@ import prismaClient from "../../../lib/prisma";
 const handler = (req: NextApiRequest, res: NextApiResponse) =>
   NextAuth(req, res, {
     providers: [
-      Providers.Email({
+      Email({
         server: {
           host: process.env.EMAIL_SERVER_HOST,
           port: Number(process.env.EMAIL_SERVER_PORT),
@@ -28,7 +28,6 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
       }),
     ],
 
-    database: process.env.DATABASE_URL,
     secret: process.env.SECRET,
     adapter: PrismaAdapter(prismaClient),
 
@@ -52,7 +51,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
     // WHEN User RECORD IS CREATED BY NEXT-AUTH
     // WE ALSO WANT TO CREATE A Profile RECORD TOO
     events: {
-      createUser: async (user) => {
+      createUser: async ({ user }) => {
         if (!user.email) return;
 
         const obtainedUser = await prismaClient.user.findUnique({
@@ -80,7 +79,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
 
     // WE WANT TO INSERT PROFILE ON session OBJECT
     callbacks: {
-      session: async (session, user) => {
+      session: async ({ session, user }) => {
         if (session.userId && session.profile) {
           return session;
         }
