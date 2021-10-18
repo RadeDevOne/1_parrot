@@ -23,14 +23,43 @@ const Product: FC<ProductPropsI> = ({ product }) => {
 
   return (
     <Link href={`${basePath}${product.id}`}>
-      <a tw="hover:cursor-pointer w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
+      <a
+        css={[
+          tw`hover:cursor-pointer w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden`,
+          css`
+            & * {
+              ${tw`transform-gpu`}
+            }
+
+            & h3.header3 {
+              display: block;
+              -webkit-font-smoothing: subpixel-antialiased;
+              backface-visibility: hidden;
+              ${tw`duration-500 ease-in-out transform`}
+            }
+
+            &:hover {
+              & h3 {
+                ${tw`scale-90`};
+                /* transform: scale3d(0.92, 0.92, 1); */
+              }
+            }
+          `,
+        ]}
+      >
         <div
-          tw="flex items-end justify-end h-56 w-full bg-cover"
+          css={[tw`relative flex flex-wrap justify-center overflow-hidden`]}
+          // tw="flex items-end justify-end h-56 w-full bg-cover"
           // SHOULD SET UP BACKGROUND IMAGE
-          css={css`
-            background-image: url(${product.image});
-          `}
         >
+          <div
+            tw="hover:scale-150 duration-500 ease-in-out transform flex items-end justify-end h-56 w-full bg-cover "
+            css={[
+              css`
+                background-image: url(${product.image});
+              `,
+            ]}
+          ></div>
           {!productIsInCart && product.countInStock > 0 && (
             <button
               onClick={(e) => {
@@ -53,7 +82,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
                   },
                 });
               }}
-              tw="p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+              tw="absolute bottom-7 -right-2 p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
             >
               <svg
                 tw="h-5 w-5"
@@ -70,7 +99,10 @@ const Product: FC<ProductPropsI> = ({ product }) => {
           )}
         </div>
         <div tw="px-5 py-3">
-          <h3 tw="light:text-gray-700 dark:text-gray-200 uppercase">
+          <h3
+            className="header3"
+            tw="light:text-gray-700 dark:text-gray-200 uppercase"
+          >
             {product.name}
           </h3>
           <span tw="light:text-gray-500 dark:text-gray-400 mt-2">
