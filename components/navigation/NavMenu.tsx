@@ -227,12 +227,12 @@ const Nav: FC = () => {
             {!cartIsEmpty && (
               <motion.button
                 initial={{ scale: 0 }}
-                animate={{ rotate: 360, scale: 1 }}
+                animate={{ rotate: [-20, 360], scale: [2, 1, 2.2, 1] }}
                 transition={{
                   type: "spring",
                   stiffness: 260,
                   damping: 20,
-                  duration: 0.5,
+                  duration: 0.8,
                 }}
                 onClick={() =>
                   dispatchToHeaderNcart({

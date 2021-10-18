@@ -16,6 +16,7 @@ export interface PropsI {
     name: string;
     image: string;
     price: string;
+    countInStock: number;
   }[];
   totalProducts: number;
   pagination: {
@@ -97,6 +98,7 @@ export const getServerSideProps: GetServerSideProps<
       name: true,
       image: true,
       price: true,
+      countInStock: true,
     },
     orderBy: {
       updatedAt: "desc",
