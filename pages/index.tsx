@@ -24,6 +24,7 @@ export interface PropsI {
     name: string;
     image: string;
     price: string;
+    countInStock: number;
   }[];
   topRatedProducts: {
     id: string;
@@ -66,6 +67,7 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
       name: true,
       image: true,
       price: true,
+      countInStock: true,
     },
     orderBy: {
       updatedAt: "desc",
