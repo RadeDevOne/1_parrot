@@ -20,7 +20,11 @@ import { signIn, useSession } from "next-auth/react";
 
 import Spinner from "@/components/common/Spinner";
 
+import Layout from "@/components/4_signin_page/Layout";
+
 const SignInPage: NP = () => {
+  console.log("signin page");
+
   const { push, asPath } = useRouter();
   const { data, status } = useSession();
 
@@ -69,15 +73,15 @@ const SignInPage: NP = () => {
 
   const buttonDisabled = !email || reqStatus === "pending" ? true : false;
 
-  if (status === "unauthenticated") {
+  /* if (status === "unauthenticated") {
     return null;
   }
   if (status === "loading") {
     return <span>loading...</span>;
-  }
+  } */
 
   return (
-    <main>
+    <Layout>
       <h1>Sign In</h1>
       <section
         css={css`
@@ -126,7 +130,7 @@ const SignInPage: NP = () => {
           </button>
         </form>
       </section>
-    </main>
+    </Layout>
   );
 };
 

@@ -4,7 +4,9 @@ import tw, { css, styled, theme } from "twin.macro";
 
 const SignInForm: FC = () => {
   return (
-    <section tw="bg-gray-50">
+    <section
+    // tw="bg-gray-50"
+    >
       <div tw="w-full lg:w-4/12 px-4 mx-auto pt-6">
         <div tw="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
           <div tw="rounded-t mb-0 px-6 py-6">

@@ -32,8 +32,8 @@ const Nav: FC = () => {
 
   const paths = [
     {
-      href: "/profile",
-      name: "Profile",
+      href: "/signin",
+      name: "Sign In",
     },
     {
       href: "/admin",
