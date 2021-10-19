@@ -5,19 +5,19 @@ import type { NextPage as NP } from "next";
 
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 
 const VerifyEmailInfoPage: NP = () => {
   const { push } = useRouter();
-  const [session, loading] = useSession();
+  const { data, status } = useSession();
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (session) push("/");
   }, [session, push]);
 
   if (session) {
     return null;
-  }
+  } */
 
   return (
     <section
