@@ -7,7 +7,13 @@ import cook from "js-cookie";
 import { NAV_HISTORY } from "@/constants/index";
 
 export const getNavHistory = () => {
-  return cook.get(NAV_HISTORY);
+  const navHistory = cook.get(NAV_HISTORY);
+
+  if (!navHistory?.startsWith("/")) {
+    throw new Error("Pth needs to start with `/`");
+  }
+
+  return navHistory;
 };
 
 export const setNavHistory = (path: string) => {
