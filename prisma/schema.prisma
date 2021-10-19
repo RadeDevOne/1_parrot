@@ -105,7 +105,7 @@ model User {
 }
 
 //
-model VerificationRequest {
+model VerificationToken {
   // VERSION 4 CHANGES
   // id         String   @id @default(cuid())
   identifier String
