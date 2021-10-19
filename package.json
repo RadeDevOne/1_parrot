@@ -67,7 +67,7 @@
     "framer-motion": "^4.1.17",
     "ioredis": "^4.27.10",
     "js-cookie": "^3.0.1",
-    "next": "11.1.2",
+    "next": "^11.1.2",
     "next-auth": "^4.0.0-beta.4",
     "next-compose-plugins": "^2.2.1",
     "next-connect": "^0.10.2",

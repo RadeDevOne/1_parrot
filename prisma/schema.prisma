@@ -15,7 +15,6 @@ generator client {
 
 // ENUMS AND OTHER TYPES
 // ROLE
-// ROLE
 enum Role {
   USER
   ADMIN
@@ -101,10 +100,11 @@ model User {
   // updatedAt      DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
-  // WE EXTEN THIS WITH Profile RECORD
+  // WE EXTEND THIS WITH Profile RECORD
   profiles      Profile[]
 }
 
+//
 model VerificationRequest {
   // VERSION 4 CHANGES
   // id         String   @id @default(cuid())
@@ -155,6 +155,7 @@ model Profile {
   productCreationHistory Product[]
   // THIS IS HELPFUL FOR SUPERADMIN
   nick                   String?
+
 }
 
 // -------------------------------------------------------------
