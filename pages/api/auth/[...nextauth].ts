@@ -3,6 +3,7 @@ import NextAuth from "next-auth";
 // import type { JWT } from "next-auth/jwt";
 import EmailProvider from "next-auth/providers/email";
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prismaClient from "../../../lib/prisma";
@@ -13,6 +14,11 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID as string,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      }),
+
+      FacebookProvider({
+        clientId: process.env.FACEBOOK_CLIENT_ID as string,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
       }),
 
       // ----------------------
