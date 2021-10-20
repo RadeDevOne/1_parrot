@@ -14,7 +14,6 @@ import Spinner from "@/components/common/Spinner";
 const SignInForm: FC = () => {
   const { push, asPath } = useRouter();
   const { data, status } = useSession();
-
   // const a = data.;
 
   useEffect(() => {
