@@ -17,6 +17,7 @@ import { NAV_HISTORY } from "@/constants/index";
 /**
  *
  * @description getting string in format http<>
+ * this is a url of protected page user wanted to visit
  */
 const getNavHistory = () => {
   const navHistory = cook.get(NAV_HISTORY);
@@ -36,6 +37,8 @@ const getNavHistory = () => {
  *
  * @param path in format http<>
  * @returns string | undefined
+ * @description stores url of the protected route, user wanted to
+ * to visit but he was unauthenticated
  */
 const setNavHistory = (path: string) => {
   if (!path.startsWith("http")) {

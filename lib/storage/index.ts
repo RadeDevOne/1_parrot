@@ -26,7 +26,10 @@ const checkIfcartExistsAndCreateItIfDoesnt = () => {
   cartString = cook.get(CART);
 
   if (!cartString) {
-    cartString = cook.set(CART, JSON.stringify({}));
+    cartString = cook.set(CART, JSON.stringify({}), {
+      secure: true,
+      sameSite: "Strict",
+    });
   }
 
   if (!cartString) {
@@ -85,7 +88,10 @@ const addToCart = (item: CartItemI) => {
     countInStock,
   };
   // DON'T FORGET TO STRINGIFY
-  const newItem = cook.set(CART, JSON.stringify(cart));
+  const newItem = cook.set(CART, JSON.stringify(cart), {
+    secure: true,
+    sameSite: "Strict",
+  });
 
   if (!newItem) {
     throw new Error("Couldn't set up item to the cart for some reason!");
@@ -114,7 +120,7 @@ const removeFromCart = (id: string) => {
 
   delete cart[id];
   // DON'T FORGET TO STRINGIFY
-  cook.set(CART, JSON.stringify(cart));
+  cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
 
   return id;
 };
@@ -127,7 +133,7 @@ const eraseCart = () => {
     throw new Error("Can't remove car if cart doen't exit in the first place!");
   }
 
-  cook.set(CART, JSON.stringify({}));
+  cook.set(CART, JSON.stringify({}), { secure: true, sameSite: "Strict" });
 
   return JSON.parse(cartString);
 };
@@ -152,7 +158,7 @@ const increaseItemCount = (id: string) => {
 
   cart[id] = item;
 
-  cook.set(CART, JSON.stringify(cart));
+  cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
 
   return cart;
 };
@@ -177,7 +183,7 @@ const decreaseItemCount = (id: string) => {
 
   cart[id] = item;
 
-  cook.set(CART, JSON.stringify(cart));
+  cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
 
   return cart;
 };
@@ -227,7 +233,7 @@ const establishCartOnMounting = () => {
     return cart;
   }
 
-  cook.set(CART, JSON.stringify({}));
+  cook.set(CART, JSON.stringify({}), { secure: true, sameSite: "Strict" });
 
   return {};
 };

@@ -12,4 +12,5 @@ const basePath = process.env.NEXTAUTH_URL as string;
 export const authorizedPathsRoots = {
   profile: `${basePath}/profile/`,
   admin: `${basePath}/admin/`,
+  order: `${basePath}/order/`,
 };
