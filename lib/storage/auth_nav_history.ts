@@ -23,3 +23,7 @@ export const setNavHistory = (path: string) => {
 
   return cook.set(NAV_HISTORY, path);
 };
+
+export const clearNavHistory = () => {
+  return cook.remove(NAV_HISTORY);
+};
