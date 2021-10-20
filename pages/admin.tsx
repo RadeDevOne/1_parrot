@@ -11,7 +11,7 @@ const AdminPage: NP = () => {
     <Button
       outlined
       onClick={() => {
-        signOut();
+        signOut({ callbackUrl: "http://localhost:3000/" });
       }}
       variant="secondary"
     >

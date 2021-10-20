@@ -16,9 +16,17 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
     const session = await getSession({ req: ctx.req });
 
-    if (session?.profile) {
+    console.log("HELLO WORLD PAGE", { session });
+
+    /* if (session?.profile) {
       ctx.res.writeHead(302, { Location: "/profile" });
-    }
+
+      return {
+        props: {
+          placeholder: false,
+        },
+      };
+    } */
 
     const { params } = ctx;
 
