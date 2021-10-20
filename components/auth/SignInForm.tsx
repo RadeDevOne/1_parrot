@@ -71,7 +71,9 @@ const SignInForm: FC = () => {
               <div tw="text-center">
                 <button
                   onClick={() => {
-                    signIn("github");
+                    signIn("github", {
+                      callbackUrl: "http://localhost:3000/hello-world",
+                    });
                   }}
                   tw="bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                   type="button"
