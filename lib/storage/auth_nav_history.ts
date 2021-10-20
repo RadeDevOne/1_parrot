@@ -14,16 +14,25 @@ import { NAV_HISTORY } from "@/constants/index";
 
 // const basePath = process.env.NEXTAUTH_URL;
 
+/**
+ *
+ * @description getting string in format http<>
+ */
 export const getNavHistory = () => {
   const navHistory = cook.get(NAV_HISTORY);
 
   if (!navHistory?.startsWith("http")) {
-    throw new Error("Pth needs to start with `http`");
+    throw new Error("Path needs to start with `http`");
   }
 
   return navHistory;
 };
 
+/**
+ *
+ * @param path in format http<>
+ * @returns string | undefined
+ */
 export const setNavHistory = (path: string) => {
   if (!path.startsWith("http")) {
     throw new Error("Your path should start with `http`");
@@ -34,7 +43,8 @@ export const setNavHistory = (path: string) => {
 
 /**
  *
- * @description run this after navigation to protected page happens
+ * @description run this after navigation to protected page happens,
+ * when navigation is successful
  */
 export const clearNavHistory = () => {
   return cook.remove(NAV_HISTORY);
