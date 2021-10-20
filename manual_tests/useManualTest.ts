@@ -6,6 +6,8 @@ import axios from "axios";
 
 import cartCook from "@/lib/storage";
 
+import navHist from "@/lib/storage/auth_nav_history";
+
 const useManualTest = () => {
   useEffect(() => {
     // ------- TESTING CART FUNCTIONS  ------------------------
@@ -199,6 +201,32 @@ const useManualTest = () => {
 
     // --------------------------------------------------------
     // --------------------------------------------------------
+    try {
+      const a = navHist.setNavHistory("a");
+    } catch (err) {
+      // @ts-ignore
+      console.log(err.message);
+    }
+    //
+    try {
+      const a = navHist.setNavHistory("/");
+    } catch (err) {
+      // @ts-ignore
+      console.log(err.message);
+    }
+
+    const one = navHist.setNavHistory("http://some");
+    console.log({ one });
+
+    const oneAgain = navHist.getNavHistory();
+
+    console.log({ one, oneAgain }, one === oneAgain);
+
+    const clearedNavHistory = navHist.clearNavHistory();
+
+    const navHistAg = navHist.getNavHistory();
+
+    console.log("CLEARED AUTH NAV HIST", clearedNavHistory === navHistAg);
   }, []);
 };
 

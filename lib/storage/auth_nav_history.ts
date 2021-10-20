@@ -18,7 +18,7 @@ import { NAV_HISTORY } from "@/constants/index";
  *
  * @description getting string in format http<>
  */
-export const getNavHistory = () => {
+const getNavHistory = () => {
   const navHistory = cook.get(NAV_HISTORY);
 
   if (!navHistory?.startsWith("http")) {
@@ -33,7 +33,7 @@ export const getNavHistory = () => {
  * @param path in format http<>
  * @returns string | undefined
  */
-export const setNavHistory = (path: string) => {
+const setNavHistory = (path: string) => {
   if (!path.startsWith("http")) {
     throw new Error("Your path should start with `http`");
   }
@@ -46,6 +46,14 @@ export const setNavHistory = (path: string) => {
  * @description run this after navigation to protected page happens,
  * when navigation is successful
  */
-export const clearNavHistory = () => {
-  return cook.remove(NAV_HISTORY);
+const clearNavHistory = () => {
+  cook.remove(NAV_HISTORY);
+
+  return undefined;
+};
+
+export default {
+  getNavHistory,
+  setNavHistory,
+  clearNavHistory,
 };
