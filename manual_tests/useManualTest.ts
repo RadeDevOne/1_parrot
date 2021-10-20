@@ -10,6 +10,8 @@ import navHist from "@/lib/storage/auth_nav_history";
 
 const useManualTest = () => {
   useEffect(() => {
+    const image = `https://source.unsplash.com/800x600/?chips`;
+
     // ------- TESTING CART FUNCTIONS  ------------------------
     // --------------------------------------------------------
 
@@ -49,7 +51,7 @@ const useManualTest = () => {
         name: "some",
         price: 666,
         countInStock: 6,
-        image: "___",
+        image,
       });
 
       cartCook.increaseItemCount(cuid());
@@ -81,7 +83,7 @@ const useManualTest = () => {
       name: "Blam",
       price: 666.6,
       countInStock: 6,
-      image: "____",
+      image,
     });
 
     const sameItem1 = cartCook.getItem(item1Id);
@@ -117,7 +119,7 @@ const useManualTest = () => {
       name: "foo",
       price: 69,
       countInStock: 6,
-      image: "____",
+      image,
     });
 
     const newItem3 = cartCook.addToCart({
@@ -126,7 +128,7 @@ const useManualTest = () => {
       name: "bar",
       price: 126,
       countInStock: 6,
-      image: "____",
+      image,
     });
 
     const newItem2Again = cartCook.getItem(newItem2Id);
@@ -164,7 +166,7 @@ const useManualTest = () => {
       name: "some good product",
       price: 666.66,
       countInStock: 6,
-      image: "___",
+      image,
     });
     const newItemAgain = cartCook.addToCart({
       id: cuid(),
@@ -172,7 +174,7 @@ const useManualTest = () => {
       name: "some good product",
       price: 666.66,
       countInStock: 6,
-      image: "____",
+      image,
     });
     console.log({ newItem });
 
@@ -225,8 +227,9 @@ const useManualTest = () => {
     const clearedNavHistory = navHist.clearNavHistory();
 
     const navHistAg = navHist.getNavHistory();
-
     console.log("CLEARED AUTH NAV HIST", clearedNavHistory === navHistAg);
+    /*
+     */
   }, []);
 };
 

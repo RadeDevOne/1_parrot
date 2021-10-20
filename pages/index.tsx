@@ -6,6 +6,9 @@ import cook from "js-cookie";
 
 import { getSession, useSession } from "next-auth/react";
 
+// MANUAL TESTS
+import useManualTest from "../manual_tests/useManualTest";
+//
 import prisma from "@/lib/prisma";
 
 import Layout from "@/components/1_index_page/Layout";
@@ -13,10 +16,6 @@ import Layout from "@/components/1_index_page/Layout";
 import { PRODUCTS_PER_PAGE } from "@/constants/index";
 
 import calcPagi from "@/util/calcPagi";
-
-// MANUAL TESTS
-import useManualTest from "../manual_tests/useManualTest";
-//
 
 export interface PropsI {
   products: {
@@ -107,7 +106,7 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 const Page: NP<PropsI> = (props) => {
   //
   // MANUAL TESTS
-  // useManualTest();
+  useManualTest();
 
   const { data, status } = useSession();
 

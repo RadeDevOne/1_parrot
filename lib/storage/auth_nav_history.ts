@@ -21,6 +21,10 @@ import { NAV_HISTORY } from "@/constants/index";
 const getNavHistory = () => {
   const navHistory = cook.get(NAV_HISTORY);
 
+  if (navHistory === undefined) {
+    return undefined;
+  }
+
   if (!navHistory?.startsWith("http")) {
     throw new Error("Path needs to start with `http`");
   }
@@ -38,7 +42,19 @@ const setNavHistory = (path: string) => {
     throw new Error("Your path should start with `http`");
   }
 
-  return cook.set(NAV_HISTORY, path);
+  cook.set(NAV_HISTORY, path);
+
+  const navHist = cook.get(NAV_HISTORY);
+
+  if (navHist === undefined) {
+    return undefined;
+  }
+
+  if (!navHist?.startsWith("http")) {
+    throw new Error("Path needs to start with `http`");
+  }
+
+  return navHist;
 };
 
 /**
