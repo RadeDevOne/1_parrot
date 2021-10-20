@@ -46,6 +46,8 @@ const useManualTest = () => {
         count: 1,
         name: "some",
         price: 666,
+        countInStock: 6,
+        image: "___",
       });
 
       cartCook.increaseItemCount(cuid());
@@ -76,6 +78,8 @@ const useManualTest = () => {
       count: item1Count,
       name: "Blam",
       price: 666.6,
+      countInStock: 6,
+      image: "____",
     });
 
     const sameItem1 = cartCook.getItem(item1Id);
@@ -110,6 +114,8 @@ const useManualTest = () => {
       count: 3,
       name: "foo",
       price: 69,
+      countInStock: 6,
+      image: "____",
     });
 
     const newItem3 = cartCook.addToCart({
@@ -117,6 +123,8 @@ const useManualTest = () => {
       count: 4,
       name: "bar",
       price: 126,
+      countInStock: 6,
+      image: "____",
     });
 
     const newItem2Again = cartCook.getItem(newItem2Id);
@@ -153,12 +161,16 @@ const useManualTest = () => {
       count: 46,
       name: "some good product",
       price: 666.66,
+      countInStock: 6,
+      image: "___",
     });
     const newItemAgain = cartCook.addToCart({
       id: cuid(),
       count: 46,
       name: "some good product",
       price: 666.66,
+      countInStock: 6,
+      image: "____",
     });
     console.log({ newItem });
 
