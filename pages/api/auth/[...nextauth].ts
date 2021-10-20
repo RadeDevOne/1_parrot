@@ -7,6 +7,8 @@ import FacebookProvider from "next-auth/providers/facebook";
 import GitHubProvider from "next-auth/providers/github";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
+import type { Role } from "@prisma/client";
+
 import prismaClient from "../../../lib/prisma";
 
 // WILL APPEND ON SESSION
@@ -14,6 +16,7 @@ export interface ProfileInsert {
   id: string;
   image: string | null;
   nick: string | null;
+  role: Role;
 }
 
 const handler = (req: NextApiRequest, res: NextApiResponse) =>
@@ -144,6 +147,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
             id: true,
             image: true,
             nick: true,
+            role: true,
           },
         });
 
