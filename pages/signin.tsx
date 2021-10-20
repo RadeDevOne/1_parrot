@@ -18,61 +18,9 @@ import { signIn, useSession } from "next-auth/react";
 //
 //
 
-import Spinner from "@/components/common/Spinner";
-
 import Layout from "@/components/4_signin_page/Layout";
 
 const SignInPage: NP = () => {
-  console.log("signin page");
-
-  const { push, asPath } = useRouter();
-  const { data, status } = useSession();
-
-  // const a = data.;
-
-  useEffect(() => {
-    if (status === "authenticated") push("/");
-  }, [status, push]);
-
-  const [{ email }, setFields] = useState<{
-    email: string;
-  }>({
-    email: "",
-  });
-
-  const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
-
-  const handleChange: ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
-  > = (e) =>
-    setFields((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-
-  const handleSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      setReqStatus("pending");
-      try {
-        //
-        // TRY SIGNING IN
-        const resp = signIn("email", { email });
-
-        console.log({ resp });
-      } catch (err) {
-        setReqStatus("idle");
-        //
-
-        console.error(err);
-      }
-    },
-    [email, setReqStatus]
-  );
-
-  const buttonDisabled = !email || reqStatus === "pending" ? true : false;
-
   /* if (status === "unauthenticated") {
     return null;
   }
@@ -80,9 +28,16 @@ const SignInPage: NP = () => {
     return <span>loading...</span>;
   } */
 
-  return (
-    <Layout>
-      <h1>Sign In</h1>
+  return <Layout>{/*  */}</Layout>;
+};
+
+export default SignInPage;
+
+//
+//
+//
+// {
+/*  <h1>Sign In</h1>
       <section
         css={css`
           padding-top: 10vh;
@@ -129,9 +84,5 @@ const SignInPage: NP = () => {
             )}
           </button>
         </form>
-      </section>
-    </Layout>
-  );
-};
-
-export default SignInPage;
+      </section> */
+// }
