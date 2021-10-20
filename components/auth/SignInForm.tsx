@@ -123,11 +123,12 @@ const SignInForm: FC = () => {
                 <div tw="relative w-full mb-3">
                   <label
                     tw="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
+                    htmlFor="e-thing"
                   >
                     Email
                   </label>
                   <input
+                    id="e-thing"
                     type="email"
                     tw="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Email"
