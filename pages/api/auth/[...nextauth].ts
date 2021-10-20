@@ -8,6 +8,13 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prismaClient from "../../../lib/prisma";
 
+// WILL APPEND ON SESSION
+export interface ProfileInsert {
+  id: string;
+  image: string | null;
+  nick: string | null;
+}
+
 const handler = (req: NextApiRequest, res: NextApiResponse) =>
   NextAuth(req, res, {
     providers: [
@@ -111,6 +118,11 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
                 equals: userId,
               },
             },
+          },
+          select: {
+            id: true,
+            image: true,
+            nick: true,
           },
         });
 

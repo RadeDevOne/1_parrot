@@ -24,6 +24,10 @@ export const setNavHistory = (path: string) => {
   return cook.set(NAV_HISTORY, path);
 };
 
+/**
+ *
+ * @description run this after navigation to protected page happens
+ */
 export const clearNavHistory = () => {
   return cook.remove(NAV_HISTORY);
 };
