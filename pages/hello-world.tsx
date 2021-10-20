@@ -1,9 +1,42 @@
 /* eslint react/react-in-jsx-scope: 0 */
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import type { NextPage as NP } from "next";
+import type { GetServerSideProps, NextPage as NP } from "next";
 
-const HelloWorldPage: NP = () => {
-  return <div>Hello Worl Page</div>;
+import { getSession } from "next-auth/react";
+
+interface PropsI {
+  placeholder: boolean;
+}
+
+type paramsType = {
+  siteId: string;
 };
 
-export default HelloWorldPage;
+export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
+  async (ctx) => {
+    const session = await getSession({ req: ctx.req });
+
+    if (session?.profile) {
+      ctx.res.writeHead(302, { Location: "/profile" });
+    }
+
+    const { params } = ctx;
+
+    params?.siteId; //
+
+    return {
+      props: {
+        placeholder: true,
+      },
+    };
+  };
+
+const Page: NP<PropsI> = (props) => {
+  //
+
+  console.log(props);
+
+  return <div>Hello World Page</div>;
+};
+
+export default Page;
