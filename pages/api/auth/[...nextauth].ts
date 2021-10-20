@@ -79,16 +79,31 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
     // WE ALSO WANT TO CREATE A Profile RECORD TOO
     events: {
       createUser: async ({ user }) => {
-        if (!user.email) return;
+        if (!user.email && !user.name) return;
 
-        const obtainedUser = await prismaClient.user.findUnique({
-          where: {
-            email: user.email,
-          },
-          select: {
-            id: true,
-          },
-        });
+        let obtainedUser;
+
+        if (user.email) {
+          obtainedUser = await prismaClient.user.findUnique({
+            where: {
+              email: user.email,
+            },
+            select: {
+              id: true,
+            },
+          });
+        }
+
+        if (user.name) {
+          obtainedUser = await prismaClient.user.findFirst({
+            where: {
+              name: user.name,
+            },
+            select: {
+              id: true,
+            },
+          });
+        }
 
         if (!obtainedUser) return;
 
