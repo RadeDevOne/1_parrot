@@ -12,21 +12,21 @@ import cook from "js-cookie";
 
 import { NAV_HISTORY } from "@/constants/index";
 
-const basePath = process.env.NEXTAUTH_URL;
+// const basePath = process.env.NEXTAUTH_URL;
 
 export const getNavHistory = () => {
   const navHistory = cook.get(NAV_HISTORY);
 
-  if (!navHistory?.startsWith("/")) {
-    throw new Error("Pth needs to start with `/`");
+  if (!navHistory?.startsWith("http")) {
+    throw new Error("Pth needs to start with `http`");
   }
 
   return navHistory;
 };
 
 export const setNavHistory = (path: string) => {
-  if (!path.startsWith("/")) {
-    throw new Error("Your path should start with `/`");
+  if (!path.startsWith("http")) {
+    throw new Error("Your path should start with `http`");
   }
 
   return cook.set(NAV_HISTORY, path);
