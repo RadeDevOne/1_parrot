@@ -2,9 +2,17 @@
 // HE SHOULD BE REDIRECTED TO THE signin PAGE
 // BUT AFTER SIGNIN HE SHOULD BE REDIRECTED TO THE PAGE HE REQUESTED
 
+// JUST TO KNOW
+// import { signIn, useSession } from "next-auth/react";
+// WITH SECOND ARGUMENT OF signIn YOU CAN DEFINE ROUTE TO BE
+// NAVIGATED ON SUCCESSFULL SIGNIN
+// https://next-auth.js.org/getting-started/client#specifying-a-callbackurl
+
 import cook from "js-cookie";
 
 import { NAV_HISTORY } from "@/constants/index";
+
+const basePath = process.env.NEXTAUTH_URL;
 
 export const getNavHistory = () => {
   const navHistory = cook.get(NAV_HISTORY);
