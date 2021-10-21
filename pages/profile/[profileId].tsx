@@ -6,6 +6,8 @@ import { getSession } from "next-auth/react";
 
 import cookie from "cookie";
 
+import { buildUnAuthHistoryPathCookieData } from "@/lib/intent_nav";
+
 interface PropsI {
   placeholder: boolean;
 }
@@ -18,6 +20,31 @@ export const getServerSideProps: GetServerSideProps<
   PropsI | { nothing: true },
   paramsType
 > = async (ctx) => {
+  //
+  const query = ctx.query;
+  const paramz = ctx.params;
+  const resolvedUrl = ctx.resolvedUrl;
+  const defaultLocale = ctx.defaultLocale;
+  const locale = ctx.locale;
+  const locales = ctx.locales;
+
+  console.log(
+    // JSON.stringify(
+    {
+      query,
+      params: paramz,
+      resolvedUrl,
+      defaultLocale,
+      locale,
+      locales,
+    },
+    null,
+    2
+    // )
+  );
+
+  console.log(buildUnAuthHistoryPathCookieData(ctx));
+
   /* const session = await getSession({ req: ctx.req });
 
   const headers = ctx.req.headers;
@@ -50,7 +77,7 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-const Page: NP<PropsI> = (props) => {
+const ProfilePage: NP<PropsI> = (props) => {
   //
 
   console.log(props);
@@ -58,4 +85,4 @@ const Page: NP<PropsI> = (props) => {
   return <div>Profile</div>;
 };
 
-export default Page;
+export default ProfilePage;

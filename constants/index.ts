@@ -21,4 +21,5 @@ export const consistantNavList = [
   // FOR TRYOUT AND TESTING
   { href: "/hello-world", name: "Hello World" },
   { href: "/profile/1234", name: "Profile" },
+  { href: "/hello/foo/bar/baz", name: "Baz Bar" },
 ];

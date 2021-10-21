@@ -20,6 +20,28 @@ export const getServerSideProps: GetServerSideProps<
 > = async (ctx) => {
   // const session = await getSession({ req: ctx.req });
 
+  const query = ctx.query;
+  const paramz = ctx.params;
+  const resolvedUrl = ctx.resolvedUrl;
+  const defaultLocale = ctx.defaultLocale;
+  const locale = ctx.locale;
+  const locales = ctx.locales;
+
+  console.log(
+    // JSON.stringify(
+    {
+      query,
+      params: paramz,
+      resolvedUrl,
+      defaultLocale,
+      locale,
+      locales,
+    },
+    null,
+    2
+    // )
+  );
+
   const authOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
 
   if (authOptions.status === "unauthenticated") {

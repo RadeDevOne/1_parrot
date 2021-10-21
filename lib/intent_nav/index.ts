@@ -5,17 +5,46 @@ import { getSession } from "next-auth/react";
 
 import cookie from "cookie";
 
+import { NAV_HISTORY } from "@/constants/index";
+
+// PROTECTED PAGE SHOUD PASS URL FROM ITS PROPS
+//
+
 /**
  *
- * @param absPath absolute path of the protected route user wanted
- * to initialy navigate (it must start with "http" or "https")
+ * @param absPath GetServerSidePropsContext
  */
-export const setNavHistoryCookie = (absPath: string) => {
-  if (!absPath.startsWith("http")) {
-    throw new Error("path must start with http");
+export const buildUnAuthHistoryPathCookieData = (
+  ctx: GetServerSidePropsContext
+) => {
+  const resolvedUrl = ctx.resolvedUrl;
+
+  let path: string;
+
+  if (resolvedUrl.includes("?") && resolvedUrl.includes("=")) {
+    //
+
+    const index = resolvedUrl.indexOf("?");
+
+    const substring = resolvedUrl.slice(0, index);
+
+    path = substring;
+  } else {
+    path = resolvedUrl;
   }
 
-  //
+  console.log({ path });
+
+  // WE WILL BULD httpOnly COOKIE
+  // ON UNAUTHORIZED PAGE
+  // BUT ON signin PAGE WE ARE GOING TO TAKE THAT COOKIE
+  // AND PASS IT AS SERVER SIDE PROP
+
+  const cookies = ctx.req.cookies;
+
+  console.log({ cookies });
+
+  return path;
 };
 
 //

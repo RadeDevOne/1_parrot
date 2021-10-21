@@ -26,6 +26,7 @@ const SignInPage: NP = () => {
     console.log("HISTORY HISTORY");
 
     console.log(window.history);
+    console.log(window.location);
   }, []);
 
   /* if (status === "unauthenticated") {
