@@ -106,7 +106,7 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 const Page: NP<PropsI> = (props) => {
   //
   // MANUAL TESTS
-  useManualTest();
+  // useManualTest();
 
   const { data, status } = useSession();
 
