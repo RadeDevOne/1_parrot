@@ -1,6 +1,8 @@
 import cook from "js-cookie";
 import { CART } from "@/constants/cart";
 
+// TODO: NEED TO USE localStorage INSTEAD OF cookie
+
 // TYPES
 
 export interface CartItemI {
@@ -21,16 +23,44 @@ export type CartType = Record<string, CartItemI>;
 // ------------------------------------------------------------
 //
 const checkIfcartExistsAndCreateItIfDoesnt = () => {
-  let cartString: string | undefined;
+  if (!localStorage) {
+    let cartString: string | undefined;
 
-  cartString = cook.get(CART);
+    cartString = cook.get(CART);
+
+    if (!cartString) {
+      cartString = cook.set(CART, JSON.stringify({}), {
+        secure: true,
+        sameSite: "Strict",
+      });
+    }
+
+    if (!cartString) {
+      throw new Error(
+        "Something is wrong with the checking if cart exists and creating it if doesn't"
+      );
+    }
+
+    return JSON.parse(cartString) as CartType;
+  }
+
+  // DOING THIS FOR localStorage
+
+  let cartString: string | null;
+
+  cartString = localStorage.getItem(CART);
 
   if (!cartString) {
-    cartString = cook.set(CART, JSON.stringify({}), {
-      secure: true,
-      sameSite: "Strict",
-    });
+    throw new Error(
+      "Something is wrong with the checking if cart exists and creating it if doesn't"
+    );
   }
+
+  if (!cartString) {
+    localStorage.setItem(CART, JSON.stringify({}));
+  }
+
+  cartString = localStorage.getItem(CART);
 
   if (!cartString) {
     throw new Error(
@@ -40,6 +70,7 @@ const checkIfcartExistsAndCreateItIfDoesnt = () => {
 
   return JSON.parse(cartString) as CartType;
 };
+//
 const parseCart = (cartString: string) => {
   const cartObjct = JSON.parse(cartString);
 
