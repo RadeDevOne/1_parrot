@@ -55,7 +55,7 @@ export enum EE {
 // TO BE USED AS GENERIC TYPES INSIDE STATE MACHINE DEFINISTION
 
 export interface MachineContextGenericI {
-  cartIsEmpty: true;
+  // cartIsEmpty: true;
   cart: CartType;
   totalPrice: number;
 }
@@ -133,7 +133,7 @@ const cartMachine = createMachine<
     id: "main_machine",
     initial: fse.idle,
     context: {
-      cartIsEmpty: true,
+      // cartIsEmpty: true,
       cart: {},
       totalPrice: 0,
     },
