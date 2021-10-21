@@ -99,8 +99,14 @@ const calculateTotalPrice = () => {
 const addToCart = (item: CartItemI) => {
   checkIfcartExistsAndCreateItIfDoesnt();
 
-  // CHECK IF INPUUT ALREADY EXISTS (TROW ERROR IF DOES)
-  const cartString = cook.get(CART);
+  let cartString: string | undefined | null;
+
+  if (!localStorage) {
+    // CHECK IF INPUUT ALREADY EXISTS (TROW ERROR IF DOES)
+    cartString = cook.get(CART);
+  } else {
+    cartString = localStorage.getItem(CART);
+  }
 
   const cart = parseCart(cartString || ""); //   || won't happen ever (just for typescript purposes)
 
@@ -119,10 +125,18 @@ const addToCart = (item: CartItemI) => {
     countInStock,
   };
   // DON'T FORGET TO STRINGIFY
-  const newItem = cook.set(CART, JSON.stringify(cart), {
-    secure: true,
-    sameSite: "Strict",
-  });
+
+  let newItem: string | undefined | null;
+
+  if (!localStorage) {
+    newItem = cook.set(CART, JSON.stringify(cart), {
+      secure: true,
+      sameSite: "Strict",
+    });
+  } else {
+    localStorage.setItem(CART, JSON.stringify(cart));
+    newItem = localStorage.getItem(CART);
+  }
 
   if (!newItem) {
     throw new Error("Couldn't set up item to the cart for some reason!");
@@ -132,9 +146,13 @@ const addToCart = (item: CartItemI) => {
 };
 
 const removeFromCart = (id: string) => {
+  let cartString: string | undefined | null;
   // IF THERE IS NO CART , WE SHOULD THROW ERROR
-
-  const cartString = cook.get(CART);
+  if (!localStorage) {
+    cartString = cook.get(CART);
+  } else {
+    cartString = localStorage.getItem(CART);
+  }
 
   if (!cartString) {
     throw new Error("You are trying to remove item but cart doesn't exist!");
@@ -151,27 +169,49 @@ const removeFromCart = (id: string) => {
 
   delete cart[id];
   // DON'T FORGET TO STRINGIFY
-  cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
+
+  if (!localStorage) {
+    cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
+  } else {
+    localStorage.setItem(CART, JSON.stringify(cart));
+  }
 
   return id;
 };
 
 const eraseCart = () => {
   // GETTING CART
-  const cartString = cook.get(CART);
+
+  let cartString: null | undefined | string;
+
+  if (!localStorage) {
+    cartString = cook.get(CART);
+  } else {
+    cartString = localStorage.getItem(CART);
+  }
 
   if (!cartString) {
     throw new Error("Can't remove car if cart doen't exit in the first place!");
   }
 
-  cook.set(CART, JSON.stringify({}), { secure: true, sameSite: "Strict" });
+  if (!localStorage) {
+    cook.set(CART, JSON.stringify({}), { secure: true, sameSite: "Strict" });
+  } else {
+    localStorage.setItem(CART, JSON.stringify({}));
+  }
 
   return JSON.parse(cartString);
 };
 
 const increaseItemCount = (id: string) => {
   //
-  const cartString = cook.get(CART);
+  let cartString: null | undefined | string;
+
+  if (!localStorage) {
+    cartString = cook.get(CART);
+  } else {
+    cartString = localStorage.getItem(CART);
+  }
 
   if (!cartString) {
     throw new Error("There is no cart");
@@ -189,14 +229,23 @@ const increaseItemCount = (id: string) => {
 
   cart[id] = item;
 
-  cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
+  if (!localStorage) {
+    cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
+  } else {
+    localStorage.setItem(CART, JSON.stringify(cart));
+  }
 
   return cart;
 };
 
 const decreaseItemCount = (id: string) => {
   //
-  const cartString = cook.get(CART);
+  let cartString: null | undefined | string;
+  if (!localStorage) {
+    cartString = cook.get(CART);
+  } else {
+    cartString = localStorage.getItem(CART);
+  }
 
   if (!cartString) {
     throw new Error("There is no cart");
@@ -213,14 +262,22 @@ const decreaseItemCount = (id: string) => {
   item.count = item.count - 1;
 
   cart[id] = item;
-
-  cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
+  if (!localStorage) {
+    cook.set(CART, JSON.stringify(cart), { secure: true, sameSite: "Strict" });
+  } else {
+    localStorage.setItem(CART, JSON.stringify(cart));
+  }
 
   return cart;
 };
 
 const getCart = () => {
-  const cartString = cook.get(CART);
+  let cartString: string | null | undefined;
+  if (!localStorage) {
+    cartString = cook.get(CART);
+  } else {
+    localStorage.getItem(CART);
+  }
 
   if (!cartString) {
     return null;
@@ -230,7 +287,12 @@ const getCart = () => {
 };
 
 const getItem = (id: string) => {
-  const cartString = cook.get(CART);
+  let cartString: undefined | null | string;
+  if (!localStorage) {
+    cartString = cook.get(CART);
+  } else {
+    cartString = localStorage.getItem(CART);
+  }
 
   if (!cartString) {
     throw new Error("There is no cart");
@@ -264,7 +326,11 @@ const establishCartOnMounting = () => {
     return cart;
   }
 
-  cook.set(CART, JSON.stringify({}), { secure: true, sameSite: "Strict" });
+  if (!localStorage) {
+    cook.set(CART, JSON.stringify({}), { secure: true, sameSite: "Strict" });
+  } else {
+    localStorage.setItem(CART, JSON.stringify({}));
+  }
 
   return {};
 };
