@@ -96,6 +96,8 @@ const useManualTest = () => {
 
     console.log({ item1, sameItem1 });
 
+    console.log({ CARTCARTCART: cartCook.getCart() });
+
     // TESTING INCREASING THE COUNT
     cartCook.increaseItemCount(item1.id);
 
@@ -142,7 +144,7 @@ const useManualTest = () => {
 
     console.log({ cart });
 
-    // CART SHOULD HAVE THREE ITEMS NOW
+    // CART SHOULD HAVE 4 ITEMS NOW
     const keys = Object.keys(cart || {});
 
     console.log("SHOULD HAVE THREE KEYS", keys.length === 3);
@@ -162,13 +164,13 @@ const useManualTest = () => {
 
     const newItem = cartCook.addToCart({
       id: newItemId,
-      count: 46,
-      name: "some good product",
-      price: 666.66,
+      count: 22,
+      name: "you look cool",
+      price: 46.0,
       countInStock: 6,
       image,
     });
-    const newItemAgain = cartCook.addToCart({
+    const newItem22 = cartCook.addToCart({
       id: cuid(),
       count: 46,
       name: "some good product",
@@ -176,7 +178,11 @@ const useManualTest = () => {
       countInStock: 6,
       image,
     });
-    console.log({ newItem });
+    console.log({ newItem, newItem22 });
+
+    const crt = cartCook.getCart();
+
+    console.log({ "ENTIRE CART": crt });
 
     // REMOVING FROM CART
     const itemIntendedForRemoval = cartCook.getItem(newItem.id);
@@ -188,6 +194,8 @@ const useManualTest = () => {
     // CHECKING IF IT IS REMOVED
 
     const removedItem = cartCook.getItem(itemIntendedForRemoval?.id as string);
+
+    console.log({ removedItem });
 
     const myCart = cartCook.getCart();
 

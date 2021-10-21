@@ -51,16 +51,9 @@ const checkIfcartExistsAndCreateItIfDoesnt = () => {
   cartString = localStorage.getItem(CART);
 
   if (!cartString) {
-    throw new Error(
-      "Something is wrong with the checking if cart exists and creating it if doesn't"
-    );
-  }
-
-  if (!cartString) {
     localStorage.setItem(CART, JSON.stringify({}));
+    cartString = localStorage.getItem(CART);
   }
-
-  cartString = localStorage.getItem(CART);
 
   if (!cartString) {
     throw new Error(
@@ -276,7 +269,7 @@ const getCart = () => {
   if (!localStorage) {
     cartString = cook.get(CART);
   } else {
-    localStorage.getItem(CART);
+    cartString = localStorage.getItem(CART);
   }
 
   if (!cartString) {
