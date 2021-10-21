@@ -147,7 +147,7 @@ const useManualTest = () => {
     // CART SHOULD HAVE 4 ITEMS NOW
     const keys = Object.keys(cart || {});
 
-    console.log("SHOULD HAVE THREE KEYS", keys.length === 3);
+    console.log("SHOULD HAVE THREE KEYS", keys.length === 4);
 
     // ERASING CART
     cartCook.eraseCart();
