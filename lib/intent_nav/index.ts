@@ -1,4 +1,5 @@
 import type { GetServerSidePropsContext, Redirect } from "next";
+import type { Role } from "@prisma/client";
 
 import { getSession } from "next-auth/react";
 
@@ -33,13 +34,33 @@ export const redirectToUserIntentNav = (ctx: GetServerSidePropsContext) => {
 /**
  *
  * @param ctx GetServerSidePropsContext
+ * @param authorization {role: Role} IF USER ISN'T THIS ROLE IT SHOULD BE REDIRRECTED
  * @description redirecting to the signin page if user isn't authenticated
+ * IF YOU ADD SECOND ARGUMENT YOU CAN CHECK AUTHORIZATION
  */
 export const redirectToSigninIfNoAuth = async (
-  ctx: GetServerSidePropsContext
+  ctx: GetServerSidePropsContext,
+  authorization?: {
+    role: Role;
+  }
 ) => {
   //
   const session = await getSession({ req: ctx.req });
+
+  if (session && authorization && authorization.role) {
+    const { profile } = session;
+
+    if (profile?.role !== authorization.role) {
+      return null;
+    }
+
+    const redirect: Redirect = {
+      destination: "/signin",
+      permanent: false,
+    };
+
+    return redirect;
+  }
 
   if (session) return null;
 
