@@ -4,6 +4,8 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 
 import { getSession } from "next-auth/react";
 
+import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
+
 interface PropsI {
   placeholder: boolean;
 }
@@ -12,13 +14,26 @@ type paramsType = {
   siteId: string;
 };
 
-export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
-  async (ctx) => {
-    const session = await getSession({ req: ctx.req });
+export const getServerSideProps: GetServerSideProps<
+  PropsI | { nothing: true },
+  paramsType
+> = async (ctx) => {
+  // const session = await getSession({ req: ctx.req });
 
-    console.log("HELLO WORLD PAGE", { session });
+  const redirect = await redirectToSigninIfNoAuth(ctx);
 
-    /* if (session?.profile) {
+  if (redirect !== null) {
+    return {
+      redirect,
+      props: {
+        nothing: true,
+      },
+    };
+  }
+
+  // console.log("HELLO WORLD PAGE", { session });
+
+  /* if (session?.profile) {
       ctx.res.writeHead(302, { Location: "/profile" });
 
       return {
@@ -28,16 +43,16 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
       };
     } */
 
-    const { params } = ctx;
+  const { params } = ctx;
 
-    params?.siteId; //
+  params?.siteId; //
 
-    return {
-      props: {
-        placeholder: true,
-      },
-    };
+  return {
+    props: {
+      placeholder: true,
+    },
   };
+};
 
 const Page: NP<PropsI> = (props) => {
   //

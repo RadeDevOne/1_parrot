@@ -1,6 +1,6 @@
-import type { GetServerSidePropsContext } from "next";
+import type { GetServerSidePropsContext, Redirect } from "next";
 
-// import {getSession} from 'next-auth/react'
+import { getSession } from "next-auth/react";
 
 import anh from "../storage/auth_nav_history";
 
@@ -35,8 +35,20 @@ export const redirectToUserIntentNav = (ctx: GetServerSidePropsContext) => {
  * @param ctx GetServerSidePropsContext
  * @description redirecting to the signin page if user isn't authenticated
  */
-const redirectIfNotAuthenticated = (ctx: GetServerSidePropsContext) => {
+export const redirectToSigninIfNoAuth = async (
+  ctx: GetServerSidePropsContext
+) => {
   //
+  const session = await getSession({ req: ctx.req });
+
+  if (session) return null;
+
+  const redirect: Redirect = {
+    destination: "/signin",
+    permanent: false,
+  };
+
+  return redirect;
 };
 
 /**
@@ -44,6 +56,6 @@ const redirectIfNotAuthenticated = (ctx: GetServerSidePropsContext) => {
  * @param ctx GetServerSidePropsContext
  * @description redirecting to the signin page if user isn't authorized
  */
-const redirectIfNotAuthorized = (ctx: GetServerSidePropsContext) => {
+const redirectIfNotAuthorized = async (ctx: GetServerSidePropsContext) => {
   //
 };
