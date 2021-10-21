@@ -3,16 +3,19 @@ import type { Role } from "@prisma/client";
 
 import { getSession } from "next-auth/react";
 
-import anh from "../storage/auth_nav_history";
+import cookie from "cookie";
 
 /**
  *
  * @param absPath absolute path of the protected route user wanted
- * to initialy navigate
+ * to initialy navigate (it must start with "http" or "https")
  */
-export const setUserIntentNav = (absPath: string) => {
+export const setNavHistoryCookie = (absPath: string) => {
+  if (!absPath.startsWith("http")) {
+    throw new Error("path must start with http");
+  }
+
   //
-  return anh.setNavHistory(absPath);
 };
 
 //
@@ -83,13 +86,4 @@ export const redirectToSigninIfNoAuth = async (
   };
 
   return { redirect, status: "unauthenticated" };
-};
-
-/**
- *
- * @param ctx GetServerSidePropsContext
- * @description redirecting to the signin page if user isn't authorized
- */
-const redirectIfNotAuthorized = async (ctx: GetServerSidePropsContext) => {
-  //
 };

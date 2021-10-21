@@ -1,10 +1,9 @@
 /* eslint react/react-in-jsx-scope: 0 */
-
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import tw, { css, styled, theme } from "twin.macro";
+import { useState, useCallback, useEffect } from "react";
 
 import type { NextPage as NP } from "next";
-import { useState, useCallback, useEffect } from "react";
 
 import { useRouter } from "next/router";
 
@@ -21,6 +20,14 @@ import { signIn, useSession } from "next-auth/react";
 import Layout from "@/components/4_signin_page/Layout";
 
 const SignInPage: NP = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log("HISTORY HISTORY");
+
+    console.log(window.history);
+  }, []);
+
   /* if (status === "unauthenticated") {
     return null;
   }

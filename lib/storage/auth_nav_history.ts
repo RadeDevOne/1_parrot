@@ -1,3 +1,15 @@
+// NO OP NO OP NO OP
+
+//
+
+//
+
+//
+
+//
+
+//
+
 // METHODS TO HELP WHEN UNAUTHENTICATED USER REQUESTS PAGE THAT REQUIRE AUTH
 // HE SHOULD BE REDIRECTED TO THE signin PAGE
 // BUT AFTER SIGNIN HE SHOULD BE REDIRECTED TO THE PAGE HE REQUESTED
@@ -9,6 +21,8 @@
 // https://next-auth.js.org/getting-started/client#specifying-a-callbackurl
 
 import cook from "js-cookie";
+
+import cookie from "cookie";
 
 import { NAV_HISTORY } from "@/constants/index";
 
@@ -70,6 +84,21 @@ const clearNavHistory = () => {
 
   return undefined;
 };
+
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+
+//
+export const setNavHistoryCookie = () => {
+  //
+};
+
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+// -----------------------------------------------------------
+// -----------------------------------------------------------
 
 export default {
   getNavHistory,

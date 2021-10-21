@@ -31,18 +31,6 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
-  // console.log("HELLO WORLD PAGE", { session });
-
-  /* if (session?.profile) {
-      ctx.res.writeHead(302, { Location: "/profile" });
-
-      return {
-        props: {
-          placeholder: false,
-        },
-      };
-    } */
-
   const { params } = ctx;
 
   params?.siteId; //
