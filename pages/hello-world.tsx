@@ -20,11 +20,11 @@ export const getServerSideProps: GetServerSideProps<
 > = async (ctx) => {
   // const session = await getSession({ req: ctx.req });
 
-  const redirect = await redirectToSigninIfNoAuth(ctx);
+  const authOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
 
-  if (redirect !== null) {
+  if (authOptions.status === "unauthenticated") {
     return {
-      redirect,
+      redirect: authOptions.redirect,
       props: {
         nothing: true,
       },

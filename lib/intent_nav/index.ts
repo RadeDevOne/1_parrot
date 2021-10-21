@@ -16,60 +16,73 @@ export const setUserIntentNav = (absPath: string) => {
 };
 
 //
-// THIS IS GOING TO BE NO OP
-/**
- *
- * @decrription NO-OP because path we are passing into signIn function as a
- * callbackUrl  is going to be the path we need instead of path that this method provides
- */
-export const redirectToUserIntentNav = (ctx: GetServerSidePropsContext) => {
-  //
-  const navHist = anh.getNavHistory();
-
-  if (navHist === undefined) return;
-
-  ctx.res?.writeHead(302, { Location: navHist });
-};
 
 /**
  *
  * @param ctx GetServerSidePropsContext
- * @param authorization {role: Role} IF USER ISN'T THIS ROLE IT SHOULD BE REDIRRECTED
- * @description redirecting to the signin page if user isn't authenticated
- * IF YOU ADD SECOND ARGUMENT YOU CAN CHECK AUTHORIZATION
+ * @param redirectTo string (must start with "/")
+ * @param authorization optional {role: Role} IF USER ISN'T THIS ROLE IT SHOULD BE REDIRRECTED
+ * @description redirecting to the `redirectTo` page if user isn't authenticated
+ *
  */
 export const redirectToSigninIfNoAuth = async (
   ctx: GetServerSidePropsContext,
+  redirectTo: string,
   authorization?: {
     role: Role;
   }
-) => {
+): Promise<
+  | {
+      status: "unauthenticated";
+      redirect: Redirect;
+    }
+  | {
+      // redirect: undefined;
+      status: "authenticated";
+    }
+> => {
+  if (!redirectTo.startsWith("/")) {
+    throw new Error('"redirectTo" argument must start with "/"');
+  }
+
   //
   const session = await getSession({ req: ctx.req });
+
+  /* 
+  console.log("session && authorization && authorization.role");
+  console.log(session && authorization && authorization.role);
+  */
 
   if (session && authorization && authorization.role) {
     const { profile } = session;
 
-    if (profile?.role !== authorization.role) {
-      return null;
+    if (profile?.role === authorization.role) {
+      // AUTHENTICATED AND AUTHORIZED
+      return { status: "authenticated" };
     }
 
     const redirect: Redirect = {
-      destination: "/signin",
+      destination: redirectTo,
       permanent: false,
     };
 
-    return redirect;
+    return {
+      redirect,
+      status: "unauthenticated",
+    };
   }
 
-  if (session) return null;
+  // AUTHENTICATED
+  if (session) {
+    return { status: "authenticated" };
+  }
 
   const redirect: Redirect = {
-    destination: "/signin",
+    destination: redirectTo,
     permanent: false,
   };
 
-  return redirect;
+  return { redirect, status: "unauthenticated" };
 };
 
 /**
