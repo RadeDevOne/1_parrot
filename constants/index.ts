@@ -14,3 +14,8 @@ export const authorizedPathsRoots = {
   admin: `${basePath}/admin/`,
   order: `${basePath}/order/`,
 };
+
+export const consistantNavList = [
+  { href: "/signin", name: "Sign In" },
+  { href: "/admin", name: "Admin" },
+];

@@ -18,6 +18,8 @@ import Switcher from "../color_mode/Switcher";
 
 import SpinnerPageLoading from "../loaders/SpinnerPageLoading";
 
+import { consistantNavList } from "@/constants/index";
+
 const Nav: FC = () => {
   const [headerNCartState, dispatchToHeaderNcart] =
     useActor(headerNCartService);
@@ -31,14 +33,15 @@ const Nav: FC = () => {
   const [contentScaledTo0, setContentScaledTo0] = useState<boolean>(false);
 
   const paths = [
-    {
-      href: "/signin",
-      name: "Sign In",
-    },
-    {
-      href: "/admin",
-      name: "Admin",
-    },
+    ...consistantNavList,
+    // {
+    // href: "/signin",
+    // name: "Sign In",
+    // },
+    // {
+    // href: "/admin",
+    // name: "Admin",
+    // },
     /* {
       href: "/contact",
       name: "Contact",
