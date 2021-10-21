@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<
   PropsI | { nothing: true },
   paramsType
 > = async (ctx) => {
-  const session = await getSession({ req: ctx.req });
+  /* const session = await getSession({ req: ctx.req });
 
   const headers = ctx.req.headers;
 
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const parsedCart = JSON.parse(ctx.req.cookies.CART);
 
-  console.log({ parsedCart });
+  console.log({ parsedCart }); */
 
   /*   if(!session){
 

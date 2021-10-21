@@ -1,4 +1,4 @@
-import type { NextPageContext } from "next";
+import type { GetServerSidePropsContext } from "next";
 
 // import {getSession} from 'next-auth/react'
 
@@ -21,11 +21,29 @@ export const setUserIntentNav = (absPath: string) => {
  * @decrription NO-OP because path we are passing into signIn function as a
  * callbackUrl  is going to be the path we need instead of path that this method provides
  */
-export const redirectToUserIntentNav = (ctx: NextPageContext) => {
+export const redirectToUserIntentNav = (ctx: GetServerSidePropsContext) => {
   //
   const navHist = anh.getNavHistory();
 
   if (navHist === undefined) return;
 
   ctx.res?.writeHead(302, { Location: navHist });
+};
+
+/**
+ *
+ * @param ctx GetServerSidePropsContext
+ * @description redirecting to the signin page if user isn't authenticated
+ */
+const redirectIfNotAuthenticated = (ctx: GetServerSidePropsContext) => {
+  //
+};
+
+/**
+ *
+ * @param ctx GetServerSidePropsContext
+ * @description redirecting to the signin page if user isn't authorized
+ */
+const redirectIfNotAuthorized = (ctx: GetServerSidePropsContext) => {
+  //
 };
