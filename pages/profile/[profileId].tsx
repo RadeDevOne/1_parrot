@@ -6,7 +6,7 @@ import { getSession } from "next-auth/react";
 
 import cookie from "cookie";
 
-import { buildUnAuthHistoryPathCookieData } from "@/lib/intent_nav";
+// import { buildUnAuthHistoryPathCookie } from "@/lib/intent_nav";
 
 interface PropsI {
   placeholder: boolean;
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps<
     // )
   );
 
-  console.log(buildUnAuthHistoryPathCookieData(ctx));
+  // console.log(buildUnAuthHistoryPathCookie(ctx));
 
   /* const session = await getSession({ req: ctx.req });
 

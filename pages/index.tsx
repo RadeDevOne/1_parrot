@@ -6,8 +6,9 @@ import cook from "js-cookie";
 
 import { getSession, useSession } from "next-auth/react";
 
-// MANUAL TESTS
+// MANUAL TESTS, TRYOUTS AND EVERYTHING ELSE YOU CAN TRY AND COMMENT OUT
 import useManualTest from "../manual_tests/useManualTest";
+import useSetSomeBrowserCookie from "../manual_tests/useSetSomeBrowserCookie";
 //
 import prisma from "@/lib/prisma";
 
@@ -104,9 +105,12 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 };
 
 const Page: NP<PropsI> = (props) => {
-  //
-  // MANUAL TESTS
+  //--------------------------------------
+  // MANUAL TESTS, AND OTHER TRYOUT STUFF
   // useManualTest();
+  useSetSomeBrowserCookie();
+  //--------------------------------------
+  // -------------------------------------
 
   const { data, status } = useSession();
 

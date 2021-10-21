@@ -1,6 +1,6 @@
 export const PRODUCTS_PER_PAGE = 16;
 
-export const NAV_HISTORY = "NAV_HISTORY";
+export const NAV_UNAUTH_HISTORY = "NAV_UNAUTH_HISTORY";
 
 const basePath = process.env.NEXTAUTH_URL as string;
 
@@ -21,5 +21,5 @@ export const consistantNavList = [
   // FOR TRYOUT AND TESTING
   { href: "/hello-world", name: "Hello World" },
   { href: "/profile/1234", name: "Profile" },
-  { href: "/hello/foo/bar/baz", name: "Baz Bar" },
+  { href: "/foobar/foo/bar/baz", name: "Baz Bar" },
 ];
