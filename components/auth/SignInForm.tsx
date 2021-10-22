@@ -120,7 +120,11 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      // console.log("submit");
+      if (email === "") {
+        return;
+      }
+
+      console.log("submit");
 
       setEmailReqStatus("pending");
       // return;

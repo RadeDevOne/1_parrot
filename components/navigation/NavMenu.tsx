@@ -197,7 +197,7 @@ const Nav: FC = () => {
               {paths.map(({ href, name }, i) => {
                 return (
                   <Link href={href} key={`${i}-`}>
-                    <a tw="ml-4 my-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
+                    <a tw="ml-4 mt-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
                       {name}
                     </a>
                   </Link>
