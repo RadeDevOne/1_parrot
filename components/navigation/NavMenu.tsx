@@ -20,6 +20,7 @@ import SpinnerPageLoading from "../loaders/SpinnerPageLoading";
 
 import SignOutButton from "../auth/SignOutButton";
 import SignInButton from "../auth/SignInButton";
+import ProfileDropdownButton from "../dropdowns/ProfileDropdownButton";
 
 import { consistantNavList } from "@/constants/index";
 
@@ -97,7 +98,7 @@ const Nav: FC = () => {
             cursor: pointer;
           }
         `,
-        tw`shadow`,
+        tw`shadow overflow-hidden md:overflow-visible`,
       ]}
     >
       <div tw="container px-2 py-4 mx-auto md:flex md:justify-between md:items-center">
@@ -173,14 +174,14 @@ const Nav: FC = () => {
                 & .mobile-theme-switcher {
                   /* border: crimson solid 1px; */
                   width: fit-content;
-                  ${tw`mr-auto mt-4 mb-4 ml-2.5`}
+                  ${tw`mr-auto relative md:top-0 top-0.5 pt-4 mb-4 ml-2.5`}
                 }
 
                 transition-property: max-height;
                 transition-duration: 0.2s;
                 transition-timing-function: ease-out;
               `}
-              tw="transform-gpu flex-col overflow-hidden sm:flex xl:hidden lg:hidden md:hidden"
+              tw="transform-gpu flex-col sm:flex xl:hidden lg:hidden md:hidden"
               style={{ maxHeight: mobileMenuOpened ? "180px" : "0px" }}
             >
               <div
@@ -225,6 +226,7 @@ const Nav: FC = () => {
                 </Link>
               );
             })}
+            <ProfileDropdownButton />
             <SignOutButton />
             <SignInButton />
           </div>

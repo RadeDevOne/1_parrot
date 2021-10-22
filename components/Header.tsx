@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 // import { useTheme as useColorMode } from "next-themes";
@@ -13,10 +13,12 @@ import PageLoadingIndiccator from "./loaders/PageLoadingIndicator";
 import NavMenu from "./navigation/NavMenu";
 import ShoppingCart from "./cart/ShoppingCart";
 
+import ProfileDropdownMenu from "./dropdowns/ProfileDropdownMenu";
+
 import { cartService, EE, fse } from "@/machines/cart_machine";
 
 const Header: FC = ({ children }) => {
-  const [cartSate, cartDispatch] = useActor(cartService);
+  const [____, cartDispatch] = useActor(cartService);
 
   useEffect(() => {
     cartDispatch({ type: EE.CHECK });
@@ -35,12 +37,15 @@ const Header: FC = ({ children }) => {
   }, [headerNCartServiceInitiallized, setHeaderAndCartServiceInitialized]);
 
   return (
-    <header tw="z-10 overflow-hidden sticky top-0 dark:bg-gray-800 light:bg-l">
-      <PageLoadingIndiccator />
-      <NavMenu />
-      <ShoppingCart />
-      {children}
-    </header>
+    <Fragment>
+      <header tw="overflow-hidden md:overflow-visible z-10 sticky top-0 dark:bg-gray-800 light:bg-l">
+        <PageLoadingIndiccator />
+        <NavMenu />
+        <ShoppingCart />
+        {children}
+      </header>
+      {/* <ProfileDropdownMenu /> */}
+    </Fragment>
   );
 };
 
