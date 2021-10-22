@@ -82,7 +82,8 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
       [e.target.name]: e.target.value,
     }));
 
-  const handleSubmit = useCallback(
+  // EMAIL SUMBIT
+  const handleEmailSigninSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
@@ -90,7 +91,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
       try {
         //
         // TRY SIGNING IN
-        const resp = signIn("email", { email });
+        const resp = await handleSignin("email", { email });
 
         console.log({ resp });
       } catch (err) {
@@ -102,6 +103,45 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     },
     [email, setReqStatus]
   );
+
+  // GITHUB SIGNIN
+  const signinWithGithub = async () => {
+    setReqStatus("pending");
+    try {
+      const resp = await handleSignin("github");
+      console.log({ resp });
+    } catch (err) {
+      setReqStatus("idle");
+
+      console.error(err);
+    }
+  };
+  // GOOGLE SIGNIN
+  const signinWithGoogle = async () => {
+    setReqStatus("pending");
+    try {
+      const resp = await handleSignin("google");
+
+      console.log({ resp });
+    } catch (err) {
+      setReqStatus("idle");
+
+      console.error(err);
+    }
+  };
+  // FACEBOOK SIGNIN
+  const signinWithFacebook = async () => {
+    setReqStatus("pending");
+    try {
+      const resp = await handleSignin("facebook");
+
+      console.log({ resp });
+    } catch (err) {
+      setReqStatus("idle");
+
+      console.error(err);
+    }
+  };
 
   const buttonDisabled = !email || reqStatus === "pending" ? true : false;
 
@@ -117,9 +157,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
               <div tw="text-center">
                 <button
                   onClick={() => {
-                    signIn("github", {
-                      callbackUrl: "http://localhost:3000/hello-world",
-                    });
+                    signinWithGithub();
                   }}
                   tw="bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                   type="button"
@@ -133,7 +171,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                 </button>
                 <button
                   onClick={() => {
-                    signIn("google");
+                    signinWithGoogle();
                   }}
                   tw="bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                   type="button"
@@ -147,7 +185,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                 </button>
                 <button
                   onClick={() => {
-                    signIn("facebook");
+                    signinWithFacebook();
                   }}
                   tw="bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                   type="button"
@@ -166,7 +204,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
               <div tw="text-gray-400 text-center mb-3 font-bold">
                 <small>Or sign in with email magic link</small>
               </div>
-              <form>
+              <form onSubmit={handleEmailSigninSubmit}>
                 <div tw="relative w-full mb-3">
                   <label
                     tw="block uppercase text-gray-600 text-xs font-bold mb-2"
@@ -211,8 +249,9 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                 </div>
                 <div tw="text-center mt-6">
                   <button
+                    disabled={buttonDisabled}
+                    type="submit"
                     tw="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                    type="button"
                   >
                     {" "}
                     Sign In{" "}
