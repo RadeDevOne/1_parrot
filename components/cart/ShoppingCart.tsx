@@ -57,6 +57,8 @@ const ShoppingCart: FC = () => {
               width: 100vw;
               height: 100vh;
               /* transform: translateX(80%) translateY(5%); */
+
+              z-index: 20;
             `}
           >
             <CartWrapper />
