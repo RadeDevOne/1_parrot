@@ -14,10 +14,14 @@ import { signIn, useSession } from "next-auth/react";
 
 import Spinner from "@/components/common/Spinner";
 
+import { DotLoader as Loader } from "react-spinners";
+
 import type { PropsI as SigninPagePropsI } from "@/pages/signin";
 
 const SignInText: FC<{ pending: boolean }> = ({ pending, children }) => {
-  return <span>{!pending ? children : <Spinner />}</span>;
+  return (
+    <span>{!pending ? children : <Loader size={12} color="crimson" />}</span>
+  );
 };
 
 interface PropsI {
@@ -75,7 +79,18 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
 
   console.log({ email });
 
-  const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+  const [emailReqStatus, setEmailReqStatus] = useState<"idle" | "pending">(
+    "idle"
+  );
+  const [githubReqStatus, setGithubReqStatus] = useState<"idle" | "pending">(
+    "idle"
+  );
+  const [googleReqStatus, setGoogleReqStatus] = useState<"idle" | "pending">(
+    "idle"
+  );
+  const [facebookReqStatus, setFacebookReqStatus] = useState<
+    "idle" | "pending"
+  >("idle");
 
   const handleChange: ChangeEventHandler<
     // HTMLInputElement  | HTMLTextAreaElement
@@ -91,7 +106,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      setReqStatus("pending");
+      setEmailReqStatus("pending");
       try {
         //
         // TRY SIGNING IN
@@ -99,55 +114,60 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
 
         console.log({ resp });
       } catch (err) {
-        setReqStatus("idle");
+        setEmailReqStatus("idle");
         //
 
         console.error(err);
       }
     },
-    [email, setReqStatus]
+    [email, setEmailReqStatus]
   );
 
   // GITHUB SIGNIN
   const signinWithGithub = async () => {
-    setReqStatus("pending");
+    setGithubReqStatus("pending");
     try {
       const resp = await handleSignin("github");
       console.log({ resp });
     } catch (err) {
-      setReqStatus("idle");
+      setGithubReqStatus("idle");
 
       console.error(err);
     }
   };
   // GOOGLE SIGNIN
   const signinWithGoogle = async () => {
-    setReqStatus("pending");
+    setGoogleReqStatus("pending");
     try {
       const resp = await handleSignin("google");
 
       console.log({ resp });
     } catch (err) {
-      setReqStatus("idle");
+      setGoogleReqStatus("idle");
 
       console.error(err);
     }
   };
   // FACEBOOK SIGNIN
   const signinWithFacebook = async () => {
-    setReqStatus("pending");
+    setFacebookReqStatus("pending");
     try {
       const resp = await handleSignin("facebook");
 
       console.log({ resp });
     } catch (err) {
-      setReqStatus("idle");
+      setFacebookReqStatus("idle");
 
       console.error(err);
     }
   };
 
-  const buttonDisabled = !email || reqStatus === "pending" ? true : false;
+  const embd = !email || emailReqStatus === "pending" ? true : false;
+  const ghbd = githubReqStatus === "pending" ? true : false;
+  const goobd = googleReqStatus === "pending" ? true : false;
+  const fabd = facebookReqStatus === "pending" ? true : false;
+
+  const buttonDisabled = ghbd || goobd || fabd || embd;
 
   return (
     <section>
@@ -160,6 +180,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
               </div>
               <div tw="text-center">
                 <button
+                  disabled={buttonDisabled}
                   onClick={() => {
                     signinWithGithub();
                   }}
@@ -172,11 +193,12 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     src="/images/social/github.svg"
                   />
 
-                  <SignInText pending={reqStatus === "pending"}>
+                  <SignInText pending={githubReqStatus === "pending"}>
                     Github
                   </SignInText>
                 </button>
                 <button
+                  disabled={buttonDisabled}
                   onClick={() => {
                     signinWithGoogle();
                   }}
@@ -188,11 +210,12 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="w-5 mr-1"
                     src="/images/social/google.svg"
                   />
-                  <SignInText pending={reqStatus === "pending"}>
+                  <SignInText pending={googleReqStatus === "pending"}>
                     Google{" "}
                   </SignInText>
                 </button>
                 <button
+                  disabled={buttonDisabled}
                   onClick={() => {
                     signinWithFacebook();
                   }}
@@ -204,7 +227,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="w-5 mr-1"
                     src="/images/social/fb-round.svg"
                   />
-                  <SignInText pending={reqStatus === "pending"}>
+                  <SignInText pending={facebookReqStatus === "pending"}>
                     Facebook{" "}
                   </SignInText>
                 </button>
@@ -265,7 +288,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
                     {" "}
-                    <SignInText pending={reqStatus === "pending"}>
+                    <SignInText pending={emailReqStatus === "pending"}>
                       Sign In{" "}
                     </SignInText>
                   </button>
