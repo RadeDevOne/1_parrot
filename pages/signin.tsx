@@ -3,24 +3,56 @@
 import tw, { css, styled, theme } from "twin.macro";
 import { useState, useCallback, useEffect } from "react";
 
-import type { NextPage as NP } from "next";
+import type { GetServerSideProps, NextPage as NP } from "next";
 
 import { useRouter } from "next/router";
 
-import type { ChangeEventHandler, FormEvent } from "react";
+// import type { ChangeEventHandler, FormEvent } from "react";
 
 // import { useActor } from "@xstate/react";
 
 // WE ARE GOING TO USE SIGNING IN WITH EMAIL LOGIC LIKE THIS
 // AND WE NEED TO CHECK SESSION
-import { signIn, useSession } from "next-auth/react";
+// import { signIn, useSession } from "next-auth/react";
 //
 //
+
+// FOR CLEARING UNAUTHORIZED path FROM THE COOKIE
+import { clearUnAuthHistoryCookie } from "@/lib/intent_nav";
+
+import { NAV_UNAUTH_HISTORY } from "@/constants/index";
+
+export interface PropsI {
+  unauthPath?: string;
+}
+
+export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
+  // WE NEED TO GET COOKIES AND READ THEM
+
+  const cookies = ctx.req.cookies;
+
+  // console.log({ cookies });
+
+  let unauthPath: string | undefined;
+
+  if (cookies[NAV_UNAUTH_HISTORY]) {
+    unauthPath = cookies[NAV_UNAUTH_HISTORY];
+  }
+
+  // NOW WE CAN DESTROY MENTIONED COOKIE
+  clearUnAuthHistoryCookie(ctx);
+
+  return {
+    props: {
+      unauthPath,
+    },
+  };
+};
 
 import Layout from "@/components/4_signin_page/Layout";
 
-const SignInPage: NP = () => {
-  const router = useRouter();
+const SignInPage: NP<PropsI> = ({ unauthPath }) => {
+  /* const router = useRouter();
 
   useEffect(() => {
     console.log("HISTORY HISTORY");
@@ -28,7 +60,7 @@ const SignInPage: NP = () => {
     console.log(window.history);
     console.log(window.location);
   }, []);
-
+ */
   /* if (status === "unauthenticated") {
     return null;
   }
@@ -36,10 +68,19 @@ const SignInPage: NP = () => {
     return <span>loading...</span>;
   } */
 
-  return <Layout>{/*  */}</Layout>;
+  return <Layout unauthPath={unauthPath}>{/*  */}</Layout>;
 };
 
 export default SignInPage;
+
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
+// -------------------------
 
 //
 //

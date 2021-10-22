@@ -6,13 +6,13 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import SignInForm from "../auth/SignInForm";
 
-const Layout: FC = ({ children }) => {
-  console.log("signin layout");
+import type { PropsI } from "@/pages/signin";
 
+const Layout: FC<PropsI> = ({ children, unauthPath }) => {
   return (
     <main>
       {children}
-      <SignInForm />
+      <SignInForm unauthPath={unauthPath} />
 
       {/*  */}
     </main>

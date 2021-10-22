@@ -11,7 +11,15 @@ import { signIn, useSession } from "next-auth/react";
 
 import Spinner from "@/components/common/Spinner";
 
-const SignInForm: FC = () => {
+import type { PropsI as SigninPagePropsI } from "@/pages/signin";
+
+interface PropsI {
+  unauthPath: SigninPagePropsI["unauthPath"];
+}
+
+const SignInForm: FC<PropsI> = ({ unauthPath }) => {
+  console.log({ unauthPath });
+
   const { push, asPath } = useRouter();
   const { data, status } = useSession();
   // const a = data.;
