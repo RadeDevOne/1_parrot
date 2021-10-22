@@ -2,26 +2,41 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import useProfileData from "@/hooks/useProfileData";
+
 const ProfileDropdownMenu: FC = () => {
+  const profileData = useProfileData();
+
+  if (!profileData) {
+    return null;
+  }
+
+  const { id, name, email, image } = profileData;
+
+  console.log({ name });
+
   // Dropdown menu
   return (
     <div tw="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-300 rounded-md shadow-xl dark:bg-gray-800 ">
       <a
         href="#"
-        tw="flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+        tw="overflow-ellipsis flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
       >
         <img
           tw="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
-          src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8d29tYW4lMjBibHVlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=face&w=500&q=200"
-          alt="jane avatar"
+          src={image}
+          alt={`${name} avatar`}
         />
-        <div tw="mx-1">
+
+        <div tw="mx-1 overflow-ellipsis">
           <h1 tw="text-sm font-semibold text-gray-700 dark:text-gray-200">
-            Jane Doe
+            {name}
           </h1>
-          <p tw="text-sm text-gray-500 dark:text-gray-400">
-            janedoe@exampl.com
-          </p>
+          {email && (
+            <p tw="overflow-ellipsis text-sm text-gray-500 dark:text-gray-400">
+              {email}
+            </p>
+          )}
         </div>
       </a>
 
