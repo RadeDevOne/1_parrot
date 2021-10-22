@@ -5,14 +5,7 @@ import { useState, useCallback, useEffect } from "react";
 
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-import { useRouter } from "next/router";
-
-// import type { ChangeEventHandler, FormEvent } from "react";
-
-// import { useActor } from "@xstate/react";
-
 import { getSession } from "next-auth/react";
-//
 //
 
 // FOR CLEARING UNAUTHORIZED path FROM THE COOKIE
