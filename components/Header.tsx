@@ -13,8 +13,6 @@ import PageLoadingIndiccator from "./loaders/PageLoadingIndicator";
 import NavMenu from "./navigation/NavMenu";
 import ShoppingCart from "./cart/ShoppingCart";
 
-import ProfileDropdownMenu from "./dropdowns/ProfileDropdownMenu";
-
 import { cartService, EE, fse } from "@/machines/cart_machine";
 
 const Header: FC = ({ children }) => {
@@ -44,7 +42,6 @@ const Header: FC = ({ children }) => {
         <ShoppingCart />
         {children}
       </header>
-      {/* <ProfileDropdownMenu /> */}
     </Fragment>
   );
 };
