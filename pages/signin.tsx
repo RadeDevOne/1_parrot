@@ -1,7 +1,6 @@
 /* eslint react/react-in-jsx-scope: 0 */
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import tw, { css, styled, theme } from "twin.macro";
-import { useState, useCallback, useEffect } from "react";
 
 import type { GetServerSideProps, NextPage as NP } from "next";
 
