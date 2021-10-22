@@ -11,9 +11,7 @@ import { useRouter } from "next/router";
 
 // import { useActor } from "@xstate/react";
 
-// WE ARE GOING TO USE SIGNING IN WITH EMAIL LOGIC LIKE THIS
-// AND WE NEED TO CHECK SESSION
-// import { signIn, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 //
 //
 
@@ -28,6 +26,20 @@ export interface PropsI {
 
 export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   // WE NEED TO GET COOKIES AND READ THEM
+
+  const session = await getSession({ req: ctx.req });
+
+  if (session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {
+        unauthPath: "/",
+      },
+    };
+  }
 
   const cookies = ctx.req.cookies;
 

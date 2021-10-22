@@ -14,13 +14,21 @@ import { signIn, useSession } from "next-auth/react";
 
 import Spinner from "@/components/common/Spinner";
 
-import { DotLoader as Loader } from "react-spinners";
+import { ClipLoader as Loader } from "react-spinners";
 
 import type { PropsI as SigninPagePropsI } from "@/pages/signin";
 
 const SignInText: FC<{ pending: boolean }> = ({ pending, children }) => {
   return (
-    <span>{!pending ? children : <Loader size={12} color="crimson" />}</span>
+    <span tw="inline-block">
+      {!pending ? (
+        children
+      ) : (
+        <span tw="flex ml-2 w-14 justify-center">
+          <Loader size={14} color="rebeccapurple" />
+        </span>
+      )}
+    </span>
   );
 };
 
@@ -41,6 +49,12 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
       email?: string;
     }
   ) => {
+    /* let pth = unauthPath;
+
+    if(!pth){
+      pth = process.env.NEXTAUTH_URL + "/"
+    } */
+
     let email: string | undefined;
 
     if (options && options.email) {
@@ -77,7 +91,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     email: "",
   });
 
-  console.log({ email });
+  // console.log({ email });
 
   const [emailReqStatus, setEmailReqStatus] = useState<"idle" | "pending">(
     "idle"
@@ -106,7 +120,10 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
+      // console.log("submit");
+
       setEmailReqStatus("pending");
+      // return;
       try {
         //
         // TRY SIGNING IN
@@ -126,6 +143,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
   // GITHUB SIGNIN
   const signinWithGithub = async () => {
     setGithubReqStatus("pending");
+    // return;
     try {
       const resp = await handleSignin("github");
       console.log({ resp });
@@ -138,6 +156,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
   // GOOGLE SIGNIN
   const signinWithGoogle = async () => {
     setGoogleReqStatus("pending");
+    // return;
     try {
       const resp = await handleSignin("google");
 
@@ -151,6 +170,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
   // FACEBOOK SIGNIN
   const signinWithFacebook = async () => {
     setFacebookReqStatus("pending");
+    // return;
     try {
       const resp = await handleSignin("facebook");
 
@@ -162,7 +182,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     }
   };
 
-  const embd = !email || emailReqStatus === "pending" ? true : false;
+  const embd = emailReqStatus === "pending" ? true : false;
   const ghbd = githubReqStatus === "pending" ? true : false;
   const goobd = googleReqStatus === "pending" ? true : false;
   const fabd = facebookReqStatus === "pending" ? true : false;
@@ -182,9 +202,10 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                 <button
                   disabled={buttonDisabled}
                   onClick={() => {
+                    // console.log("button enabled");
                     signinWithGithub();
                   }}
-                  tw="bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                  tw="w-28 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                   type="button"
                 >
                   <img
@@ -200,9 +221,10 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                 <button
                   disabled={buttonDisabled}
                   onClick={() => {
+                    // console.log("button enabled");
                     signinWithGoogle();
                   }}
-                  tw="bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                  tw="w-28 mr-2 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                   type="button"
                 >
                   <img
@@ -217,9 +239,10 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                 <button
                   disabled={buttonDisabled}
                   onClick={() => {
+                    // console.log("button enabled");
                     signinWithFacebook();
                   }}
-                  tw="bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                  tw="w-32 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                   type="button"
                 >
                   <img
@@ -288,9 +311,12 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
                     {" "}
-                    <SignInText pending={emailReqStatus === "pending"}>
-                      Sign In{" "}
-                    </SignInText>
+                    Sign In{" "}
+                    {emailReqStatus === "pending" && (
+                      <span tw="inline-block w-5 ml-1">
+                        <Loader color="crimson" size={14} />
+                      </span>
+                    )}
                   </button>
                 </div>
               </form>
