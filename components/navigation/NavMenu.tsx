@@ -19,14 +19,14 @@ import Switcher from "../color_mode/Switcher";
 import SpinnerPageLoading from "../loaders/SpinnerPageLoading";
 
 import SignOutButton from "../auth/SignOutButton";
+import SignInButton from "../auth/SignInButton";
 
 import { consistantNavList } from "@/constants/index";
 
 const Nav: FC = () => {
-  const [headerNCartState, dispatchToHeaderNcart] =
-    useActor(headerNCartService);
+  const [____, dispatchToHeaderNcart] = useActor(headerNCartService);
 
-  const [cartState, dispatchToCart] = useActor(cartService);
+  const [cartState] = useActor(cartService);
 
   const cartIsEmpty = Object.keys(cartState.context.cart).length === 0;
 
@@ -100,11 +100,11 @@ const Nav: FC = () => {
         tw`shadow`,
       ]}
     >
-      <div tw="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+      <div tw="container px-2 py-4 mx-auto md:flex md:justify-between md:items-center">
         <div tw="flex items-center justify-between">
           <div>
             <Link href="/">
-              <a tw="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
+              <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
                 Brand
               </a>
             </Link>
@@ -193,10 +193,11 @@ const Nav: FC = () => {
                 <Switcher />
               </div>
               <SignOutButton />
+              <SignInButton />
               {paths.map(({ href, name }, i) => {
                 return (
                   <Link href={href} key={`${i}-`}>
-                    <a tw="my-1 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
+                    <a tw="ml-4 my-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-indigo-500 dark:hover:text-indigo-400 md:mx-4 md:my-0">
                       {name}
                     </a>
                   </Link>
@@ -215,7 +216,6 @@ const Nav: FC = () => {
             `}
             tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden"
           >
-            <SignOutButton />
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>
@@ -225,8 +225,13 @@ const Nav: FC = () => {
                 </Link>
               );
             })}
+            <SignOutButton />
+            <SignInButton />
           </div>
-          <div className="theme-switcher" tw="display[none] md:display[block]">
+          <div
+            className="theme-switcher"
+            tw="display[none] md:display[block] mr-2"
+          >
             <Switcher />
           </div>
 

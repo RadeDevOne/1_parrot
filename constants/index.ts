@@ -16,10 +16,10 @@ export const authorizedPathsRoots = {
 };
 
 export const consistantNavList = [
-  { href: "/signin", name: "Sign In" },
+  // { href: "/signin", name: "Sign In" },
   { href: "/admin", name: "Admin" },
   // FOR TRYOUT AND TESTING
   { href: "/profile/1234", name: "Profile" },
-  { href: "/hello-world", name: "Hello World" },
+  // { href: "/hello-world", name: "Hello World" },
   // { href: "/foobar/foo/bar/baz", name: "Baz Bar" },
 ];
