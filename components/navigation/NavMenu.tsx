@@ -18,6 +18,8 @@ import Switcher from "../color_mode/Switcher";
 
 import SpinnerPageLoading from "../loaders/SpinnerPageLoading";
 
+import SignOutButton from "../auth/SignOutButton";
+
 import { consistantNavList } from "@/constants/index";
 
 const Nav: FC = () => {
@@ -190,6 +192,7 @@ const Nav: FC = () => {
               >
                 <Switcher />
               </div>
+              <SignOutButton />
               {paths.map(({ href, name }, i) => {
                 return (
                   <Link href={href} key={`${i}-`}>
@@ -212,6 +215,7 @@ const Nav: FC = () => {
             `}
             tw="flex-row hidden xl:flex lg:flex md:flex md:mx-6 sm:hidden"
           >
+            <SignOutButton />
             {paths.map(({ href, name }, i) => {
               return (
                 <Link href={href} key={`${i}-`}>

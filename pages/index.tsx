@@ -108,7 +108,7 @@ const Page: NP<PropsI> = (props) => {
   //--------------------------------------
   // MANUAL TESTS, AND OTHER TRYOUT STUFF
   // useManualTest();
-  useSetSomeBrowserCookie();
+  // useSetSomeBrowserCookie();
   //--------------------------------------
   // -------------------------------------
 

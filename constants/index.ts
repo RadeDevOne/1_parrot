@@ -19,7 +19,7 @@ export const consistantNavList = [
   { href: "/signin", name: "Sign In" },
   { href: "/admin", name: "Admin" },
   // FOR TRYOUT AND TESTING
-  { href: "/hello-world", name: "Hello World" },
   { href: "/profile/1234", name: "Profile" },
-  { href: "/foobar/foo/bar/baz", name: "Baz Bar" },
+  { href: "/hello-world", name: "Hello World" },
+  // { href: "/foobar/foo/bar/baz", name: "Baz Bar" },
 ];

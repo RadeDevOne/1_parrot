@@ -16,6 +16,10 @@ import Spinner from "@/components/common/Spinner";
 
 import type { PropsI as SigninPagePropsI } from "@/pages/signin";
 
+const SignInText: FC<{ pending: boolean }> = ({ pending, children }) => {
+  return <span>{!pending ? children : <Spinner />}</span>;
+};
+
 interface PropsI {
   unauthPath: SigninPagePropsI["unauthPath"];
 }
@@ -167,7 +171,10 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="w-5 mr-1"
                     src="/images/social/github.svg"
                   />
-                  Github
+
+                  <SignInText pending={reqStatus === "pending"}>
+                    Github
+                  </SignInText>
                 </button>
                 <button
                   onClick={() => {
@@ -181,7 +188,9 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="w-5 mr-1"
                     src="/images/social/google.svg"
                   />
-                  Google{" "}
+                  <SignInText pending={reqStatus === "pending"}>
+                    Google{" "}
+                  </SignInText>
                 </button>
                 <button
                   onClick={() => {
@@ -195,7 +204,9 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="w-5 mr-1"
                     src="/images/social/fb-round.svg"
                   />
-                  Facebook{" "}
+                  <SignInText pending={reqStatus === "pending"}>
+                    Facebook{" "}
+                  </SignInText>
                 </button>
               </div>
               <hr tw="mt-6 border-b-2 border-gray-300" />
@@ -254,7 +265,9 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     tw="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                   >
                     {" "}
-                    Sign In{" "}
+                    <SignInText pending={reqStatus === "pending"}>
+                      Sign In{" "}
+                    </SignInText>
                   </button>
                 </div>
               </form>
