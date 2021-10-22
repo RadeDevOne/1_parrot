@@ -54,6 +54,19 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   // NOW WE CAN DESTROY MENTIONED COOKIE
   clearUnAuthHistoryCookie(ctx);
 
+  // BUT IF unauthPath IS UNDEFINED HERE
+  // THAT MEANS WE HAVE NORMAL NAVIGATION WHERE SOMEON CLICKED ON
+  // signin LINK (WE DON'T HAVE LINK WE HAVE button WHERE WE USE Router.push)
+  // AND WE CAN ACCESS HISTORY (REFERRAL URL)
+  // AND WE WILL PASS "referrer" LINK
+  // WE CAN USE THIS FROM HEADERS
+
+  // console.log(ctx.req.headers.referer);
+
+  // WE WILL PASS THAT URLS (PREVIOUS URL) AS unauthPath
+  // IF unauthPath IS UNEFINED
+  unauthPath = ctx.req.headers.referer;
+
   return {
     props: {
       unauthPath,
@@ -64,6 +77,14 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 import Layout from "@/components/4_signin_page/Layout";
 
 const SignInPage: NP<PropsI> = ({ unauthPath }) => {
+  /*  useEffect(() => {
+    console.log(window.location);
+    console.log(window.history);
+
+    
+    console.log(document.referrer);
+  });
+ */
   /* const router = useRouter();
 
   useEffect(() => {
