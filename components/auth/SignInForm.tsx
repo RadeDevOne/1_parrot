@@ -1,7 +1,10 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
+import tw, { css, styled, theme } from "twin.macro";
 import type { FC, ChangeEventHandler, FormEvent } from "react";
 import { useState, useCallback, useEffect } from "react";
-import tw, { css, styled, theme } from "twin.macro";
+
+import type { LiteralUnion } from "next-auth/react";
+import type { BuiltInProviderType } from "next-auth/providers/index";
 
 import { useRouter } from "next/router";
 
@@ -18,15 +21,47 @@ interface PropsI {
 }
 
 const SignInForm: FC<PropsI> = ({ unauthPath }) => {
-  console.log({ unauthPath });
-
+  // console.log({ unauthPath });
+  /* 
   const { push, asPath } = useRouter();
-  const { data, status } = useSession();
-  // const a = data.;
+  const { data, status } = useSession(); 
+  */
 
-  useEffect(() => {
-    if (status === "authenticated") push("/");
-  }, [status, push]);
+  const handleSignin = async (
+    provider: BuiltInProviderType,
+    options?: {
+      email?: string;
+    }
+  ) => {
+    let email: string | undefined;
+
+    if (options && options.email) {
+      email = options.email;
+    }
+
+    if (provider !== "email" && email) {
+      throw new Error("'email' providers requires valid email");
+    }
+    if (provider === "email" && !email) {
+      throw new Error(
+        "If you passed valid email in option, provider needs to be 'email'"
+      );
+    }
+
+    if (email && provider === "email") {
+      if (unauthPath) {
+        return signIn("email", { email, callbackUrl: unauthPath });
+      }
+
+      return signIn("email", { email });
+    }
+
+    if (unauthPath) {
+      return signIn(provider, { callbackUrl: unauthPath });
+    }
+
+    return signIn(provider);
+  };
 
   const [{ email }, setFields] = useState<{
     email: string;
@@ -34,10 +69,13 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     email: "",
   });
 
+  console.log({ email });
+
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
 
   const handleChange: ChangeEventHandler<
-    HTMLInputElement | HTMLTextAreaElement
+    // HTMLInputElement  | HTMLTextAreaElement
+    EventTarget & HTMLInputElement
   > = (e) =>
     setFields((prev) => ({
       ...prev,
@@ -137,8 +175,11 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     Email
                   </label>
                   <input
+                    // value={email}
+                    onChange={handleChange}
                     id="e-thing"
                     type="email"
+                    name="email"
                     tw="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Email"
                   />
