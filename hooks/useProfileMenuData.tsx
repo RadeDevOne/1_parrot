@@ -37,17 +37,13 @@ const useProfileMenuData = () => {
   }
 
   let name =
-    (user?.name || profile?.nick || "Profile").slice(
+    (user?.name || profile?.nick || "Profile ").slice(
       0,
-      (user?.name || profile?.nick || "Profile").indexOf(" ")
+      (user?.name || profile?.nick || "Profile ").indexOf(" ")
     ) ||
     user?.name ||
     profile?.nick ||
     undefined;
-
-  if (name === "Profil") {
-    name = "Profile";
-  }
 
   if (name === undefined || name === "Profile") {
     // console.log(user?.email);
@@ -83,7 +79,9 @@ const useProfileMenuData = () => {
     shorterEmail = email.slice(0)
   } */
 
-  return { name, email, image, id };
+  const role = profile.role;
+
+  return { name, email, image, id, role };
 };
 
 export default useProfileMenuData;
