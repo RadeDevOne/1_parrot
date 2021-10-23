@@ -20,8 +20,25 @@ export const getServerSideProps: GetServerSideProps<
   PropsI | { nothing: true },
   paramsType
 > = async (ctx) => {
-  const validaationResult = await validateProfille(ctx);
+  // REDIRECTING AND SETTING THE COOKIE IF THERE IS NO
+  // AUTHENTICATED USER
+  const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
 
+  if (redirectOptions.status === "unauthenticated") {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: redirectOptions.redirect,
+    };
+  }
+
+  // THIS GOES AFTER BECAUSE HERE WE EXPECT TO HAVE profile
+  // ------------------------------------------------------
+  // TO TEST IF THIS WORKS, SIGN IN AN GO TO
+  // RANDOM PROFILE PAGE FOR EXAMPLE
+  // "/profile/<random>"
+  const validaationResult = await validateProfille(ctx);
   if (
     validaationResult === "unauthorized" ||
     validaationResult === "unauthenticated"
@@ -36,19 +53,7 @@ export const getServerSideProps: GetServerSideProps<
       },
     };
   }
-
-  // REDIRECTING AND SETTING THE COOKIE IF THERE IS NO
-  // AUTHENTICATED USER
-  const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
-
-  if (redirectOptions.status === "unauthenticated") {
-    return {
-      props: {
-        nothing: true,
-      },
-      redirect: redirectOptions.redirect,
-    };
-  }
+  // -------------------------------------------------------
 
   return {
     props: {
