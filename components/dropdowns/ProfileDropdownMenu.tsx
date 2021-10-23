@@ -17,7 +17,6 @@ interface PropsI {
 }
 
 const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
-  // Dropdown menu
   return (
     <div tw="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-300 rounded-md shadow-xl dark:bg-gray-800 ">
       <Link href={`/profile/${id}`}>
