@@ -8,12 +8,16 @@ import { useSession } from "next-auth/react";
 
 import { ClipLoader as Loader } from "react-spinners";
 
+import useHamburgerClose from "@/hooks/useHamburgerClose";
+
 const SignInButton: FC = () => {
   const { push, asPath } = useRouter();
 
   const { status } = useSession();
 
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+
+  const { handleHamburgerClose } = useHamburgerClose();
 
   return (
     <Fragment>
@@ -27,6 +31,7 @@ const SignInButton: FC = () => {
               push("/signin").then(() => {
                 setReqStatus("idle");
               });
+              handleHamburgerClose();
             }}
           >
             Sign In

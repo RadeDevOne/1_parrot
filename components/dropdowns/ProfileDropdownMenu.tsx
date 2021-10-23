@@ -8,6 +8,8 @@ import { signOut } from "next-auth/react";
 
 import { Role } from "@prisma/client";
 
+// import useHamburgerClose from "@/hooks/useHamburgerClose";
+
 interface PropsI {
   id: string;
   name: string;
@@ -17,6 +19,8 @@ interface PropsI {
 }
 
 const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
+  // const { handleHamburgerClose } = useHamburgerClose();
+
   return (
     <div tw="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-300 rounded-md shadow-xl dark:bg-gray-800 ">
       <Link href={`/profile/${id}`}>
@@ -94,6 +98,7 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
       <button
         onMouseDown={() => {
           signOut();
+          // handleHamburgerClose();
         }}
         tw="flex w-full items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
       >

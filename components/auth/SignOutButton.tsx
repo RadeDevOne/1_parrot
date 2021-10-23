@@ -7,10 +7,14 @@ import { signOut, useSession } from "next-auth/react";
 
 import { ClipLoader as Loader } from "react-spinners";
 
+import useHamburgerClose from "@/hooks/useHamburgerClose";
+
 const SignOutButton: FC = () => {
   const { status } = useSession();
 
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+
+  const { handleHamburgerClose } = useHamburgerClose();
 
   return (
     <Fragment>
@@ -24,6 +28,7 @@ const SignOutButton: FC = () => {
               signOut({ callbackUrl: process.env.NEXTAUTH_URL }).then(() => {
                 // setReqStatus("idle");
               });
+              handleHamburgerClose();
             }}
           >
             {reqStatus === "idle" ? "Sign Out" : <Loader size={12} />}
