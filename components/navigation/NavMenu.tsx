@@ -4,6 +4,8 @@ import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
 
+import { useRouter } from "next/router";
+
 import { motion } from "framer-motion";
 
 import { useActor } from "@xstate/react";
@@ -25,6 +27,14 @@ import ProfileDropdownButton from "../dropdowns/ProfileDropdownButton";
 import { consistantNavList } from "@/constants/index";
 
 const Nav: FC = () => {
+  const { asPath } = useRouter();
+
+  let isProfilePage = false;
+
+  if (asPath.includes("/profile")) {
+    isProfilePage = true;
+  }
+
   const [____, dispatchToHeaderNcart] = useActor(headerNCartService);
 
   const [cartState] = useActor(cartService);
@@ -226,8 +236,8 @@ const Nav: FC = () => {
                 </Link>
               );
             })}
-            <ProfileDropdownButton />
-            <SignOutButton />
+            {!isProfilePage && <ProfileDropdownButton />}
+            {isProfilePage && <SignOutButton />}
             <SignInButton />
           </div>
           <div

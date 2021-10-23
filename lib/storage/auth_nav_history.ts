@@ -24,7 +24,7 @@ import cook from "js-cookie";
 
 import cookie from "cookie";
 
-import { NAV_HISTORY } from "@/constants/index";
+import { NAV_UNAUTH_HISTORY } from "@/constants/index";
 
 // const basePath = process.env.NEXTAUTH_URL;
 
@@ -34,7 +34,7 @@ import { NAV_HISTORY } from "@/constants/index";
  * this is a url of protected page user wanted to visit
  */
 const getNavHistory = () => {
-  const navHistory = cook.get(NAV_HISTORY);
+  const navHistory = cook.get(NAV_UNAUTH_HISTORY);
 
   if (navHistory === undefined) {
     return undefined;
@@ -59,9 +59,9 @@ const setNavHistory = (path: string) => {
     throw new Error("Your path should start with `http`");
   }
 
-  cook.set(NAV_HISTORY, path);
+  cook.set(NAV_UNAUTH_HISTORY, path);
 
-  const navHist = cook.get(NAV_HISTORY);
+  const navHist = cook.get(NAV_UNAUTH_HISTORY);
 
   if (navHist === undefined) {
     return undefined;
@@ -80,7 +80,7 @@ const setNavHistory = (path: string) => {
  * when navigation is successful
  */
 const clearNavHistory = () => {
-  cook.remove(NAV_HISTORY);
+  cook.remove(NAV_UNAUTH_HISTORY);
 
   return undefined;
 };
