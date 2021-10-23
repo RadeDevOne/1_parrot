@@ -7,18 +7,34 @@ import { useSession, signOut } from "next-auth/react";
 
 import ProfileDropdownMenu from "./ProfileDropdownMenu";
 
+import isSSR from "@/util/isSSR";
+
+import useProfileMenuData from "@/hooks/useProfileMenuData";
+
 const ProfileDropdownButton: FC = () => {
+  const profileData = useProfileMenuData();
+
   const [dropdownOpened, setDropdownOpened] = useState<boolean>(false);
 
-  const { status } = useSession();
+  if (!profileData) {
+    return null;
+  }
 
   return (
     <Fragment>
-      {status === "authenticated" && (
+      {profileData.id && (
         <div tw="relative margin-top[-5px] inline-block light:bg-l">
           {/* <!-- Dropdown toggle button --> */}
           <button
-            onBlur={() => setDropdownOpened(false)}
+            onBlur={() =>
+              Promise.resolve().then(() => {
+                if (!isSSR()) {
+                  setTimeout(() => {
+                    setDropdownOpened(false);
+                  }, 266);
+                }
+              })
+            }
             onMouseDown={() => {
               setDropdownOpened((prev) => !prev);
             }}
@@ -37,7 +53,14 @@ const ProfileDropdownButton: FC = () => {
               ></path>
             </svg>
           </button>
-          {dropdownOpened && <ProfileDropdownMenu />}
+          {dropdownOpened && (
+            <ProfileDropdownMenu
+              id={profileData.id}
+              image={profileData.image}
+              name={profileData.name}
+              email={profileData.email}
+            />
+          )}
         </div>
       )}
     </Fragment>

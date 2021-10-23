@@ -1,8 +1,9 @@
 import { useSession } from "next-auth/react";
 
-// todo use useEffect here and useState
+// todo use useEffect here and useState (MAYBE NOT)
 
-const useProfileData = () => {
+const useProfileMenuData = () => {
+  //
   const { data, status } = useSession();
 
   if (status !== "authenticated") {
@@ -19,6 +20,20 @@ const useProfileData = () => {
     return null;
   }
 
+  const id = profile?.id;
+
+  if (!id) {
+    return null;
+  }
+
+  let nameDerivedFromEmail;
+
+  if (user?.email) {
+    //
+    nameDerivedFromEmail = user.email.slice(0, user.email.indexOf("@") + 1);
+    //
+  }
+
   let name =
     (user?.name || profile?.nick || "Profile").slice(
       0,
@@ -28,37 +43,45 @@ const useProfileData = () => {
     profile?.nick ||
     undefined;
 
+  if (name === "Profil") {
+    name = "Profile";
+  }
+
   if (name === undefined || name === "Profile") {
-    console.log(user?.email);
+    // console.log(user?.email);
 
     if (user?.email) {
-      name = user.email.slice(0, user.email.indexOf("@") + 1);
+      name = user.email.slice(0, user.email.indexOf("@"));
     }
   }
 
-  console.log({ name });
-
-  /* 
-  if (!profile?.nick && !user?.name && !user?.email) {
-    name = "Profile";
-  } */
+  // console.log({ name });
 
   const email = user?.email || undefined;
   const image =
     user?.image ||
     profile?.image ||
     "https://source.unsplash.com/800x600/?person";
-  const id = profile?.id;
 
-  if (!id) {
-    return null;
+  if (nameDerivedFromEmail && !name) {
+    name = nameDerivedFromEmail;
+  }
+
+  if (nameDerivedFromEmail && name === "Profile") {
+    name = nameDerivedFromEmail;
   }
 
   if (!name) {
     name = "My Profile";
   }
 
+  /*  let shorterEmail;
+  
+  if(email && email.length > ){
+    shorterEmail = email.slice(0)
+  } */
+
   return { name, email, image, id };
 };
 
-export default useProfileData;
+export default useProfileMenuData;

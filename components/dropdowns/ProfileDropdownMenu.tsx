@@ -2,25 +2,20 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import useProfileData from "@/hooks/useProfileData";
+interface PropsI {
+  id: string;
+  name: string;
+  email?: string;
+  image: string;
+}
 
-const ProfileDropdownMenu: FC = () => {
-  const profileData = useProfileData();
-
-  if (!profileData) {
-    return null;
-  }
-
-  const { id, name, email, image } = profileData;
-
-  console.log({ name });
-
+const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name }) => {
   // Dropdown menu
   return (
     <div tw="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-300 rounded-md shadow-xl dark:bg-gray-800 ">
       <a
         href="#"
-        tw="overflow-ellipsis flex items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+        tw="overflow-ellipsis flex flex-wrap items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
       >
         <img
           tw="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
@@ -32,8 +27,15 @@ const ProfileDropdownMenu: FC = () => {
           <h1 tw="text-sm font-semibold text-gray-700 dark:text-gray-200">
             {name}
           </h1>
+        </div>
+        <div
+          /* onClick={() => {
+            console.log("hello world");
+          }} */
+          tw="w-full select-none overflow-ellipsis"
+        >
           {email && (
-            <p tw="overflow-ellipsis text-sm text-gray-500 dark:text-gray-400">
+            <p tw="pl-2 mt-1 overflow-ellipsis text-sm text-gray-500 dark:text-gray-400">
               {email}
             </p>
           )}
