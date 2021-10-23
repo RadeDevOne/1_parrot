@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 import { useActor } from "@xstate/react";
 
-// import { , EE } from "@/machines/";
+import { hamburgerService, EE } from "@/machines/hamburger_machine";
 
 import useProfileMenuData from "@/hooks/useProfileMenuData";
 
@@ -17,7 +17,7 @@ const MobileProfileButton: FC = () => {
 
   const { asPath } = useRouter();
 
-  // const [___, dispatch] = useActor();
+  const [___, dispatch] = useActor(hamburgerService);
 
   if (!profileMenuData) {
     return null;
@@ -39,7 +39,13 @@ const MobileProfileButton: FC = () => {
           <Link href={`/profile/${id}`}>
             {/* eslint-disable-next-line */}
             <a
-              // onMouseDown={() => dipatch()}
+              onMouseDown={() =>
+                setTimeout(() => {
+                  dispatch({
+                    type: EE.CLOSE,
+                  });
+                }, 120)
+              }
               tw="hover:text-gray-500 dark:hover:text-gray-600 mt-1 overflow-ellipsis flex items-center p-3 -mt-2 text-sm text-gray-700 transition-colors duration-200 transform dark:text-gray-300"
             >
               <div tw="pl-4">
