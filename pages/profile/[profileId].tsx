@@ -2,24 +2,41 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-// import { getSession } from "next-auth/react";
-
-// import cookie from "cookie";
+import prisma from "@/lib/prisma";
 
 import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
+
+import validateProfille from "@/lib/auth/validateProfile";
 
 interface PropsI {
   placeholder: boolean;
 }
 
-type paramsType = {
-  siteId: string;
+export type paramsType = {
+  profileId: string;
 };
 
 export const getServerSideProps: GetServerSideProps<
   PropsI | { nothing: true },
   paramsType
 > = async (ctx) => {
+  const validaationResult = await validateProfille(ctx);
+
+  if (
+    validaationResult === "unauthorized" ||
+    validaationResult === "unauthenticated"
+  ) {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
   // REDIRECTING AND SETTING THE COOKIE IF THERE IS NO
   // AUTHENTICATED USER
   const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
