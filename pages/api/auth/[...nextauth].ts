@@ -97,10 +97,10 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
           });
         }
 
-        if (!obtainedUser && user.name) {
-          obtainedUser = await prismaClient.user.findFirst({
+        if (!obtainedUser && user.id) {
+          obtainedUser = await prismaClient.user.findUnique({
             where: {
-              name: user.name,
+              id: user.id,
             },
             select: {
               id: true,
