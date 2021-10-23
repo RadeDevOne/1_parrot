@@ -2,11 +2,14 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { Role } from "@prisma/client";
+
 interface PropsI {
   id: string;
   name: string;
   email?: string;
   image: string;
+  role: Role;
 }
 
 const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name }) => {

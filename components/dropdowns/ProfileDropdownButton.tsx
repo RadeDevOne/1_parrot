@@ -59,6 +59,7 @@ const ProfileDropdownButton: FC = () => {
               image={profileData.image}
               name={profileData.name}
               email={profileData.email}
+              role={profileData.role}
             />
           )}
         </div>
