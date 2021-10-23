@@ -2,16 +2,15 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import ProfileView from "../profile/ProfileView";
+
 const Layout: FC = ({ children }) => {
   return (
     <main>
+      <ProfileView />
+      {/*  */}
       {children}
-      {/* <Alert
-        visible={true}
-        header="Hello world"
-        text="You are informed"
-        variant="info"
-      /> */}
+      {/*  */}
     </main>
   );
 };

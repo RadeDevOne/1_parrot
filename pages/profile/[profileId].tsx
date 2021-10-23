@@ -8,6 +8,9 @@ import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
 
 import validateProfille from "@/lib/auth/validateProfile";
 
+import Layout from '@/components/5_profile_page/Layout'
+
+
 interface PropsI {
   placeholder: boolean;
 }
@@ -73,7 +76,7 @@ const ProfilePage: NP<PropsI> = (props) => {
 
   console.log(props);
 
-  return <div>Profile</div>;
+  return <Layout />;
 };
 
 export default ProfilePage;
