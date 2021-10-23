@@ -30,7 +30,7 @@ const MobileProfileButton: FC = () => {
       {!asPath.includes("/profile") && !asPath.includes("/admin") && (
         <section
           css={[
-            tw`flex width[fit-content] mt-1 pb-1`,
+            tw`flex width[fit-content] mt-1 pb-1 border-t-2 border-t-gray-300 dark:border-t-gray-600`,
             tw`hover:text-indigo-600`,
           ]}
         >

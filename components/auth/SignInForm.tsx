@@ -9,6 +9,13 @@ import type { BuiltInProviderType } from "next-auth/providers/index";
 import { useRouter } from "next/router";
 
 import { signIn, useSession } from "next-auth/react";
+
+import { motion } from "framer-motion";
+
+import useHamburgerClose from "@/hooks/useHamburgerClose";
+
+import useIsMounted from "@/hooks/useIsMounted";
+
 //
 //
 
@@ -37,11 +44,15 @@ interface PropsI {
 }
 
 const SignInForm: FC<PropsI> = ({ unauthPath }) => {
+  const { handleHamburgerClose } = useHamburgerClose();
+
   // console.log({ unauthPath });
   /* 
   const { push, asPath } = useRouter();
   const { data, status } = useSession(); 
   */
+
+  const isMounted = useIsMounted();
 
   const handleSignin = async (
     provider: BuiltInProviderType,
@@ -132,7 +143,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
         //
         // TRY SIGNING IN
         const resp = await handleSignin("email", { email });
-
+        handleHamburgerClose();
         console.log({ resp });
       } catch (err) {
         setEmailReqStatus("idle");
@@ -150,7 +161,8 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     // return;
     try {
       const resp = await handleSignin("github");
-      console.log({ resp });
+      handleHamburgerClose();
+      // console.log({ resp });
     } catch (err) {
       setGithubReqStatus("idle");
 
@@ -163,8 +175,8 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     // return;
     try {
       const resp = await handleSignin("google");
-
-      console.log({ resp });
+      handleHamburgerClose();
+      // console.log({ resp });
     } catch (err) {
       setGoogleReqStatus("idle");
 
@@ -178,13 +190,21 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     try {
       const resp = await handleSignin("facebook");
 
-      console.log({ resp });
+      handleHamburgerClose();
+
+      // console.log({ resp });
     } catch (err) {
       setFacebookReqStatus("idle");
 
       console.error(err);
     }
   };
+
+  /* const 
+
+  useEffect(() => {
+
+  }, []) */
 
   const embd = emailReqStatus === "pending" ? true : false;
   const ghbd = githubReqStatus === "pending" ? true : false;
@@ -194,96 +214,112 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
   const buttonDisabled = ghbd || goobd || fabd || embd;
 
   return (
-    <section>
-      <>
-        <div tw="w-full lg:w-4/12 px-4 mx-auto pt-6 mt-12">
-          <div tw="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
-            <div tw="rounded-t mb-0 px-6 py-6">
-              <div tw="text-center mb-3">
-                <h6 tw="text-gray-500 text-sm font-bold">Sign in with</h6>
-              </div>
-              <div tw="text-center">
-                <button
-                  disabled={buttonDisabled}
-                  onClick={() => {
-                    // console.log("button enabled");
-                    signinWithGithub();
-                  }}
-                  tw="w-28 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                  type="button"
-                >
-                  <img
-                    alt="..."
-                    tw="w-5 mr-1"
-                    src="/images/social/github.svg"
-                  />
-
-                  <SignInText pending={githubReqStatus === "pending"}>
-                    Github
-                  </SignInText>
-                </button>
-                <button
-                  disabled={buttonDisabled}
-                  onClick={() => {
-                    // console.log("button enabled");
-                    signinWithGoogle();
-                  }}
-                  tw="w-28 mr-2 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                  type="button"
-                >
-                  <img
-                    alt="..."
-                    tw="w-5 mr-1"
-                    src="/images/social/google.svg"
-                  />
-                  <SignInText pending={googleReqStatus === "pending"}>
-                    Google{" "}
-                  </SignInText>
-                </button>
-                <button
-                  disabled={buttonDisabled}
-                  onClick={() => {
-                    // console.log("button enabled");
-                    signinWithFacebook();
-                  }}
-                  tw="w-32 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                  type="button"
-                >
-                  <img
-                    alt="..."
-                    tw="w-5 mr-1"
-                    src="/images/social/fb-round.svg"
-                  />
-                  <SignInText pending={facebookReqStatus === "pending"}>
-                    Facebook{" "}
-                  </SignInText>
-                </button>
-              </div>
-              <hr tw="mt-6 border-b-2 border-gray-300" />
-            </div>
-            <div tw="flex-auto px-4 lg:px-10 py-10 pt-0">
-              <div tw="text-gray-400 text-center mb-3 font-bold">
-                <small>Or sign in with email magic link</small>
-              </div>
-              <form onSubmit={handleEmailSigninSubmit}>
-                <div tw="relative w-full mb-3">
-                  <label
-                    tw="block uppercase text-gray-600 text-xs font-bold mb-2"
-                    htmlFor="e-thing"
-                  >
-                    Email
-                  </label>
-                  <input
-                    // value={email}
-                    onChange={handleChange}
-                    id="e-thing"
-                    type="email"
-                    name="email"
-                    tw="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Email"
-                  />
+    <>
+      {isMounted && (
+        <motion.section
+          animate={{
+            x: ["-350%", "0%"],
+          }}
+          transition={{
+            duration: 0.6,
+            ease: "linear",
+            bounce: 0.5,
+            bounceStiffness: 0.6,
+          }}
+          css={[
+            css`
+              transform: translateX(-350%);
+            `,
+          ]}
+        >
+          <div tw="w-full lg:w-4/12 px-4 mx-auto pt-6 mt-12">
+            <div tw="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+              <div tw="rounded-t mb-0 px-6 py-6">
+                <div tw="text-center mb-3">
+                  <h6 tw="text-gray-500 text-sm font-bold">Sign in with</h6>
                 </div>
-                {/* <div tw="relative w-full mb-3">
+                <div tw="text-center">
+                  <button
+                    disabled={buttonDisabled}
+                    onClick={() => {
+                      // console.log("button enabled");
+                      signinWithGithub();
+                    }}
+                    tw="w-28 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    <img
+                      alt="..."
+                      tw="w-5 mr-1"
+                      src="/images/social/github.svg"
+                    />
+
+                    <SignInText pending={githubReqStatus === "pending"}>
+                      Github
+                    </SignInText>
+                  </button>
+                  <button
+                    disabled={buttonDisabled}
+                    onClick={() => {
+                      // console.log("button enabled");
+                      signinWithGoogle();
+                    }}
+                    tw="w-28 mr-2 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    <img
+                      alt="..."
+                      tw="w-5 mr-1"
+                      src="/images/social/google.svg"
+                    />
+                    <SignInText pending={googleReqStatus === "pending"}>
+                      Google{" "}
+                    </SignInText>
+                  </button>
+                  <button
+                    disabled={buttonDisabled}
+                    onClick={() => {
+                      // console.log("button enabled");
+                      signinWithFacebook();
+                    }}
+                    tw="w-32 bg-white active:bg-gray-50 text-gray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
+                    type="button"
+                  >
+                    <img
+                      alt="..."
+                      tw="w-5 mr-1"
+                      src="/images/social/fb-round.svg"
+                    />
+                    <SignInText pending={facebookReqStatus === "pending"}>
+                      Facebook{" "}
+                    </SignInText>
+                  </button>
+                </div>
+                <hr tw="mt-6 border-b-2 border-gray-300" />
+              </div>
+              <div tw="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <div tw="text-gray-400 text-center mb-3 font-bold">
+                  <small>Or sign in with email magic link</small>
+                </div>
+                <form onSubmit={handleEmailSigninSubmit}>
+                  <div tw="relative w-full mb-3">
+                    <label
+                      tw="block uppercase text-gray-600 text-xs font-bold mb-2"
+                      htmlFor="e-thing"
+                    >
+                      Email
+                    </label>
+                    <input
+                      // value={email}
+                      onChange={handleChange}
+                      id="e-thing"
+                      type="email"
+                      name="email"
+                      tw="border-0 px-3 py-3 placeholder-gray-300 text-gray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Email"
+                    />
+                  </div>
+                  {/* <div tw="relative w-full mb-3">
                 <label
                   tw="block uppercase text-gray-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
@@ -296,39 +332,40 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                   placeholder="Password"
                 />
               </div> */}
-                <div>
-                  <label tw="inline-flex items-center cursor-pointer">
-                    <input
-                      id="customCheckLogin"
-                      type="checkbox"
-                      tw="border-0 rounded text-gray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                    />
-                    <span tw="ml-2 text-sm font-semibold text-gray-600">
-                      Remember me
-                    </span>
-                  </label>
-                </div>
-                <div tw="text-center mt-6">
-                  <button
-                    disabled={buttonDisabled}
-                    type="submit"
-                    tw="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                  >
-                    {" "}
-                    Sign In{" "}
-                    {emailReqStatus === "pending" && (
-                      <span tw="inline-block w-5 ml-1">
-                        <Loader color="crimson" size={14} />
+                  <div>
+                    <label tw="inline-flex items-center cursor-pointer">
+                      <input
+                        id="customCheckLogin"
+                        type="checkbox"
+                        tw="border-0 rounded text-gray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                      />
+                      <span tw="ml-2 text-sm font-semibold text-gray-600">
+                        Remember me
                       </span>
-                    )}
-                  </button>
-                </div>
-              </form>
+                    </label>
+                  </div>
+                  <div tw="text-center mt-6">
+                    <button
+                      disabled={buttonDisabled}
+                      type="submit"
+                      tw="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                    >
+                      {" "}
+                      Sign In{" "}
+                      {emailReqStatus === "pending" && (
+                        <span tw="inline-block w-5 ml-1">
+                          <Loader color="crimson" size={14} />
+                        </span>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      </>
-    </section>
+        </motion.section>
+      )}
+    </>
   );
 };
 
