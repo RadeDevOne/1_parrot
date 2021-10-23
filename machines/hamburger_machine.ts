@@ -69,8 +69,34 @@ const hamburgerMachine = createMachine<
   }, */
   // -------------------------------------------------------------------
   states: {
-    [fse.open]: {},
-    [fse.closed]: {},
+    [fse.open]: {
+      entry: [
+        assign({
+          hamburgerOpened: (_, __) => {
+            return true;
+          },
+        }),
+      ],
+      on: {
+        [EE.CLOSE]: {
+          target: fse.closed,
+        },
+      },
+    },
+    [fse.closed]: {
+      entry: [
+        assign({
+          hamburgerOpened: (_, __) => {
+            return false;
+          },
+        }),
+      ],
+      on: {
+        [EE.OPEN]: {
+          target: fse.open,
+        },
+      },
+    },
   },
 });
 

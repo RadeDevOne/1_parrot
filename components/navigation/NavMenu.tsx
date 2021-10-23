@@ -13,8 +13,8 @@ import { useActor } from "@xstate/react";
 import isSSR from "@/util/isSSR";
 
 import { EE, headerNCartService } from "@/machines/header_n_cart_machine";
-
 import { cartService } from "@/machines/cart_machine";
+import { hamburgerService, EE as EEE, fse } from "@/machines/hamburger_machine";
 
 import Switcher from "../color_mode/Switcher";
 
@@ -40,12 +40,13 @@ const Nav: FC = () => {
   }
 
   const [____, dispatchToHeaderNcart] = useActor(headerNCartService);
+  const [hamburgerState, dispatchToHamburger] = useActor(hamburgerService);
 
   const [cartState] = useActor(cartService);
 
   const cartIsEmpty = Object.keys(cartState.context.cart).length === 0;
 
-  const [mobileMenuOpened, setMobileMenuOpened] = useState<boolean>(false);
+  // const [mobileMenuOpened, setMobileMenuOpened] = useState<boolean>(false);
 
   const [contentScaledTo0, setContentScaledTo0] = useState<boolean>(false);
 
@@ -70,14 +71,23 @@ const Nav: FC = () => {
   ];
 
   const toggleMobileMenu = () => {
-    // console.log(isSSR());
-
     if (isSSR()) return;
-    setMobileMenuOpened((prev) => !prev);
+
+    if (hamburgerState.value === fse.open) {
+      dispatchToHamburger({
+        type: EEE.CLOSE,
+      });
+    }
+
+    if (hamburgerState.value === fse.closed) {
+      dispatchToHamburger({
+        type: EEE.OPEN,
+      });
+    }
   };
 
   useEffect(() => {
-    if (mobileMenuOpened) {
+    if (hamburgerState.context.hamburgerOpened) {
       setTimeout(() => {
         setContentScaledTo0(false);
       }, 100);
@@ -86,7 +96,7 @@ const Nav: FC = () => {
         setContentScaledTo0(true);
       }, 100);
     } */
-  }, [mobileMenuOpened, setContentScaledTo0]);
+  }, [hamburgerState, setContentScaledTo0]);
 
   // I NEED EFFECT BECAUSE OF FRMER MOTION COMPONENT
   // AND SSR (THEY DON'T GO TOGETER NICE (MOUNTED IT FIRST))
@@ -168,10 +178,11 @@ const Nav: FC = () => {
                 scale: contentScaledTo0 ? 0 : 1,
                 x: contentScaledTo0 ? -200 : 0,
               }}
-              initial={{
+              /* initial={{
                 scale: 0,
                 x: -200,
-              }}
+                y: 0,
+              }} */
               transition={{ duration: 0.3 }}
               css={css`
                 /* only for transition to work */
@@ -179,6 +190,8 @@ const Nav: FC = () => {
                 max-height: 180px;
                 /*  */
                 height: auto;
+
+                transform: scale(0) translateX(-200) /* translateY(-200) */;
 
                 & a {
                   display: block;
@@ -196,7 +209,11 @@ const Nav: FC = () => {
                 transition-timing-function: ease-out;
               `}
               tw="transform-gpu flex-col sm:flex xl:hidden lg:hidden md:hidden"
-              style={{ maxHeight: mobileMenuOpened ? "180px" : "0px" }}
+              style={{
+                maxHeight: hamburgerState.context.hamburgerOpened
+                  ? "180px"
+                  : "0px",
+              }}
             >
               <div
                 css={css`
