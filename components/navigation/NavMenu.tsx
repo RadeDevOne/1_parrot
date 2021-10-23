@@ -23,6 +23,7 @@ import SpinnerPageLoading from "../loaders/SpinnerPageLoading";
 import SignOutButton from "../auth/SignOutButton";
 import SignInButton from "../auth/SignInButton";
 import ProfileDropdownButton from "../dropdowns/ProfileDropdownButton";
+import MobileProfileButton from "../profile/MobileProfileButton";
 
 import { consistantNavList } from "@/constants/index";
 
@@ -205,6 +206,7 @@ const Nav: FC = () => {
               </div>
               <SignOutButton />
               <SignInButton />
+              <MobileProfileButton />
               {paths.map(({ href, name }, i) => {
                 return (
                   <Link href={href} key={`${i}-`}>
