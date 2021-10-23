@@ -30,10 +30,13 @@ import { consistantNavList } from "@/constants/index";
 const Nav: FC = () => {
   const { asPath } = useRouter();
 
-  let isProfilePage = false;
+  let isProfileOrAdminPage = false;
 
   if (asPath.includes("/profile")) {
-    isProfilePage = true;
+    isProfileOrAdminPage = true;
+  }
+  if (asPath.includes("/admin")) {
+    isProfileOrAdminPage = true;
   }
 
   const [____, dispatchToHeaderNcart] = useActor(headerNCartService);
@@ -238,8 +241,8 @@ const Nav: FC = () => {
                 </Link>
               );
             })}
-            {!isProfilePage && <ProfileDropdownButton />}
-            {isProfilePage && <SignOutButton />}
+            {!isProfileOrAdminPage && <ProfileDropdownButton />}
+            {isProfileOrAdminPage && <SignOutButton />}
             <SignInButton />
           </div>
           <div

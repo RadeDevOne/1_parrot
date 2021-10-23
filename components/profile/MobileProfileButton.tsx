@@ -27,7 +27,7 @@ const MobileProfileButton: FC = () => {
 
   return (
     <Fragment>
-      {!asPath.includes("/profile") && (
+      {!asPath.includes("/profile") && !asPath.includes("/admin") && (
         <section
           css={[
             tw`flex width[fit-content] mt-1 pb-1`,
