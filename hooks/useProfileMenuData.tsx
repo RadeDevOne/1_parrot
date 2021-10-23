@@ -6,6 +6,8 @@ const useProfileMenuData = () => {
   //
   const { data, status } = useSession();
 
+  console.log({ data, status });
+
   if (status !== "authenticated") {
     return null;
   }
