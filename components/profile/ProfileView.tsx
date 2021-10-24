@@ -1,16 +1,47 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import Link from "next/link";
 
+import useProfData from "@/hooks/useProfileMenuData";
+
 import type { PropsI } from "@/pages/profile/[profileId]";
+
+type profType = PropsI["profile"];
+
+interface UserDataI extends profType {
+  email: string;
+}
 
 const ProfileView: FC<PropsI> = ({ profile }) => {
   console.log({ profile });
 
-  const [profileData, setProfileData] = useState<typeof profile>(profile);
+  const sessionData = useProfData();
+
+  const [profileData, setProfileData] = useState<UserDataI>({
+    ...profile,
+    email: (sessionData ? sessionData?.email : "") || "",
+  });
+
+  const [sanitizedProfileData, setSanitizedProfileData] = useState<UserDataI>({
+    //
+    ...profileData,
+    id: profileData.id,
+    // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
+    // SO WE WILL ASK FOR FULL NAME)
+    nick: profileData.nick || sessionData?.name || "",
+    image: profileData.image || sessionData?.image || "",
+  });
+
+  useEffect(() => {
+    //
+  }, [sessionData]);
+
+  if (!sessionData) {
+    return null;
+  }
 
   if (!profileData) {
     return null;
@@ -19,13 +50,6 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
   if (!profileData.id) {
     return null;
   }
-
-  const sanitizedProfile: typeof profile = {
-    id: profileData.id,
-    // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
-    // SO WE WILL ASK FOR FULL NAME)
-    // nick:
-  };
 
   return (
     <div tw="pt-16">
