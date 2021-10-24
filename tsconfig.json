@@ -32,6 +32,11 @@
     "jsxImportSource": "@emotion/react"
   },
   "files": ["twin.d.ts"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "countries_n_states/index.mjs"
+  ],
   "exclude": ["node_modules"]
 }

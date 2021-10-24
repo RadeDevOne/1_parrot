@@ -11,6 +11,8 @@ import Spinner from "../common/Spinner";
 
 import type { PropsI } from "@/pages/profile/[profileId]";
 
+import countries from "../../countries_n_states/1_countries.json";
+
 type profType = PropsI["profile"];
 
 interface UserDataI extends profType {
@@ -64,6 +66,8 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
   }
 
   console.log({ sanitizedProfileData });
+
+  console.log(countries);
 
   const { city, country, email, image, nick, streetAddress, postalCode, id } =
     sanitizedProfileData;
