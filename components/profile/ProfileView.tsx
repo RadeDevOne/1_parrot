@@ -187,7 +187,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
       </div>
 
       {/* SHIPPING BILLING AND REST OF STUFF */}
-      <section tw="rounded-md w-full lg:w-6/12 px-4 mx-auto mb-12">
+      <section tw="mt-8 rounded-md w-full lg:w-6/12 px-4 mx-auto mb-12">
         <form
           id="payment-form"
           method="POST"
@@ -280,13 +280,37 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   placeholder="San Francisco"
                 />
               </label>
-              <label tw="inline-flex w-2/4 border-gray-200 py-3">
+              {/* <label tw="inline-flex w-2/4 border-gray-200 py-3">
                 <span tw="dark:text-gray-300 text-right px-2">State</span>
                 <input
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="state"
                   placeholder="CA"
                 />
+              </label> */}
+              <label tw="flex border-t border-gray-200 h-12 py-3 items-center select-none relative">
+                <span tw="dark:text-gray-300 text-right px-2">State</span>
+                <div
+                  id="state"
+                  tw="focus:outline-none px-3 w-full flex items-center"
+                >
+                  <select
+                    name="state"
+                    defaultValue={"CO"}
+                    tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
+                  >
+                    {states.map((item, i) => {
+                      return (
+                        <option
+                          key={`${i + item.state_code}`}
+                          value={item.state_code}
+                        >
+                          {item.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </label>
               <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
                 <span tw="dark:text-gray-300 text-right px-2 xl:px-0 ">
@@ -305,34 +329,17 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   tw="focus:outline-none px-3 w-full flex items-center"
                 >
                   <select
+                    defaultValue={"KR"}
                     name="country"
                     tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
                   >
-                    <option value="AU">Australia</option>
-                    <option value="BE">Belgium</option>
-                    <option value="BR">Brazil</option>
-                    <option value="CA">Canada</option>
-                    <option value="CN">China</option>
-                    <option value="DK">Denmark</option>
-                    <option value="FI">Finland</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                    <option value="HK">Hong Kong</option>
-                    <option value="IE">Ireland</option>
-                    <option value="IT">Italy</option>
-                    <option value="JP">Japan</option>
-                    <option value="LU">Luxembourg</option>
-                    <option value="MX">Mexico</option>
-                    <option value="NL">Netherlands</option>
-                    <option value="PL">Poland</option>
-                    <option value="PT">Portugal</option>
-                    <option value="SG">Singapore</option>
-                    <option value="ES">Spain</option>
-                    <option value="TN">Tunisia</option>
-                    <option value="GB">United Kingdom</option>
-                    <option value="US" selected>
-                      United States
-                    </option>
+                    {countries.map((item, i) => {
+                      return (
+                        <option key={`${i}-${item.iso2}`} value={item.iso2}>
+                          {item.name}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </label>
