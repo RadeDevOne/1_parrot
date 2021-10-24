@@ -104,181 +104,27 @@ const ProfileView: FC = () => {
       </div>
 
       {/* SHIPPING BILLING AND REST OF STUFF */}
-      <div tw="h-screen grid grid-cols-3">
-        <div tw="lg:col-span-3 col-span-3 bg-indigo-50 space-y-8 px-12">
-          <div tw="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
-            <div tw="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
-              <div tw="text-yellow-500">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  tw="w-6 sm:w-5 h-6 sm:h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <div tw="text-sm font-medium ml-3">Checkout</div>
-            </div>
-            <div tw="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">
-              Complete your shipping and payment details below.
-            </div>
-            <div tw="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer">
-              <svg
-                tw="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </div>
-          </div>
-          <div tw="rounded-md">
-            <form id="payment-form" method="POST" action="">
-              <section>
-                <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
-                  Shipping & Billing Information
-                </h2>
-                <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
-                  <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                    <span tw="text-right px-2">Name</span>
-                    <input
-                      name="name"
-                      tw="focus:outline-none px-3"
-                      placeholder="Try Odinsson"
-                      required
-                    />
-                  </label>
-                  <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                    <span tw="text-right px-2">Email</span>
-                    <input
-                      name="email"
-                      type="email"
-                      tw="focus:outline-none px-3"
-                      placeholder="try@example.com"
-                      required
-                    />
-                  </label>
-                  <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                    <span tw="text-right px-2">Address</span>
-                    <input
-                      name="address"
-                      tw="focus:outline-none px-3"
-                      placeholder="10 Street XYZ 654"
-                    />
-                  </label>
-                  <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                    <span tw="text-right px-2">City</span>
-                    <input
-                      name="city"
-                      tw="focus:outline-none px-3"
-                      placeholder="San Francisco"
-                    />
-                  </label>
-                  <label tw="inline-flex w-2/4 border-gray-200 py-3">
-                    <span tw="text-right px-2">State</span>
-                    <input
-                      name="state"
-                      tw="focus:outline-none px-3"
-                      placeholder="CA"
-                    />
-                  </label>
-                  <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
-                    <span tw="text-right px-2 xl:px-0 xl:content[none]">
-                      ZIP
-                    </span>
-                    <input
-                      name="postal_code"
-                      tw="focus:outline-none px-3"
-                      placeholder="98603"
-                    />
-                  </label>
-                  <label tw="flex border-t border-gray-200 h-12 py-3 items-center select-none relative">
-                    <span tw="text-right px-2">Country</span>
-                    <div
-                      id="country"
-                      tw="focus:outline-none px-3 w-full flex items-center"
-                    >
-                      <select
-                        name="country"
-                        tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
-                      >
-                        <option value="AU">Australia</option>
-                        <option value="BE">Belgium</option>
-                        <option value="BR">Brazil</option>
-                        <option value="CA">Canada</option>
-                        <option value="CN">China</option>
-                        <option value="DK">Denmark</option>
-                        <option value="FI">Finland</option>
-                        <option value="FR">France</option>
-                        <option value="DE">Germany</option>
-                        <option value="HK">Hong Kong</option>
-                        <option value="IE">Ireland</option>
-                        <option value="IT">Italy</option>
-                        <option value="JP">Japan</option>
-                        <option value="LU">Luxembourg</option>
-                        <option value="MX">Mexico</option>
-                        <option value="NL">Netherlands</option>
-                        <option value="PL">Poland</option>
-                        <option value="PT">Portugal</option>
-                        <option value="SG">Singapore</option>
-                        <option value="ES">Spain</option>
-                        <option value="TN">Tunisia</option>
-                        <option value="GB">United Kingdom</option>
-                        <option value="US" selected>
-                          United States
-                        </option>
-                      </select>
-                    </div>
-                  </label>
-                </fieldset>
-              </section>
-            </form>
-          </div>
-          <div tw="rounded-md">
-            <section>
-              <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
-                Payment Information
-              </h2>
-              <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
-                <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                  <span tw="text-right px-2">Card</span>
-                  <input
-                    name="card"
-                    tw="focus:outline-none px-3 w-full"
-                    placeholder="Card number MM/YY CVC"
-                    required
-                  />
-                </label>
-              </fieldset>
-            </section>
-          </div>
-          <button tw="px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
-            Pay €846.98
-          </button>
-        </div>
-      </div>
 
-      {/* <section tw="rounded-md w-full lg:w-6/12 px-4 mx-auto">
+      <section tw="rounded-md w-full lg:w-6/12 px-4 mx-auto mb-12">
         <form id="payment-form" method="POST" action="">
-          <section>
+          <section
+            className="info-fieldz"
+            css={[
+              css`
+                &.info-fieldz.info-fieldz.info-fieldz.info-fieldz {
+                  border: crimson solid 0px;
+
+                  overflow-x: hidden;
+                  background: ${theme`colors.l`};
+                }
+              `,
+              tw`rounded`,
+            ]}
+          >
             <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
               Shipping & Billing Information
             </h2>
-            <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
+            <fieldset tw="mb-3 bg-white shadow-lg text-gray-600">
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="text-right px-2">Name</span>
                 <input
@@ -371,7 +217,7 @@ const ProfileView: FC = () => {
             </fieldset>
           </section>
         </form>
-      </section> */}
+      </section>
     </div>
   );
 };
