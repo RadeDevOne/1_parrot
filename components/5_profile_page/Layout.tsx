@@ -2,12 +2,14 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import type { PropsI } from "@/pages/profile/[profileId]";
+
 import ProfileView from "../profile/ProfileView";
 
-const Layout: FC = ({ children }) => {
+const Layout: FC<PropsI> = ({ children, profile }) => {
   return (
     <main>
-      <ProfileView />
+      <ProfileView profile={profile} />
       {/*  */}
       {children}
       {/*  */}

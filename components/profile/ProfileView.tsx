@@ -4,7 +4,11 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import Link from "next/link";
 
-const ProfileView: FC = () => {
+import type { PropsI } from "@/pages/profile/[profileId]";
+
+const ProfileView: FC<PropsI> = ({ profile }) => {
+  console.log({ profile });
+
   return (
     <div tw="pt-16">
       <div tw="w-full lg:w-4/12 px-4 mx-auto">
@@ -129,6 +133,31 @@ const ProfileView: FC = () => {
 
                   overflow-x: hidden;
                   /* background: ${theme`colors.l`}; */
+
+                  & input {
+                    /* ${tw`border dark:border-gray-200 border-gray-800`}; */
+
+                    &:-webkit-autofill,
+                    &:-webkit-autofill:hover {
+                      ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
+                      ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+                    }
+                  }
+
+                  /* & input:-webkit-autofill,
+                  & input:-webkit-autofill:hover,
+                  & input:-webkit-autofill:focus,
+                  & textarea:-webkit-autofill,
+                  & textarea:-webkit-autofill:hover,
+                  & textarea:-webkit-autofill:focus,
+                  & select:-webkit-autofill,
+                  & select:-webkit-autofill:hover,
+                  & select:-webkit-autofill:focus {
+                    border: 1px solid green;
+                    -webkit-text-fill-color: green;
+                    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+                    transition: background-color 5000s ease-in-out 0s;
+                  } */
                 }
               `,
               tw`rounded bg-l dark:bg-gray-800`,
@@ -141,7 +170,7 @@ const ProfileView: FC = () => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Name</span>
                 <input
-                  tw="focus:outline-none px-3"
+                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="name"
                   placeholder="Try Odinsson"
                   required
@@ -150,7 +179,7 @@ const ProfileView: FC = () => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Email</span>
                 <input
-                  tw="focus:outline-none px-3"
+                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="email"
                   type="email"
                   placeholder="try@example.com"
@@ -160,7 +189,7 @@ const ProfileView: FC = () => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Address</span>
                 <input
-                  tw="focus:outline-none px-3"
+                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="address"
                   placeholder="10 Street XYZ 654"
                 />
@@ -168,7 +197,7 @@ const ProfileView: FC = () => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">City</span>
                 <input
-                  tw="focus:outline-none px-3"
+                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="city"
                   placeholder="San Francisco"
                 />
@@ -176,7 +205,7 @@ const ProfileView: FC = () => {
               <label tw="inline-flex w-2/4 border-gray-200 py-3">
                 <span tw="dark:text-gray-300 text-right px-2">State</span>
                 <input
-                  tw="focus:outline-none px-3"
+                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="state"
                   placeholder="CA"
                 />
@@ -186,7 +215,7 @@ const ProfileView: FC = () => {
                   ZIP
                 </span>
                 <input
-                  tw="focus:outline-none px-3"
+                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="postal_code"
                   placeholder="98603"
                 />
@@ -372,7 +401,7 @@ export default ProfileView;
                 </ul>
                 <div tw="flex-grow border-2 py-1 px-3 lg:flex justify-between round hidden">
                     <input tw="flex-grow text-gray-600 focus:outline-none" type="text" placeholder="Search Product ..." / />
-                    <span>
+                    <span>-webkit-text-fill-color[inherit] background-clip[content-box] 
                         <svg xmlns="http://www.w3.org/2000/svg" tw="h-6 w-6 text-gray-400 hover:text-gray-600 transition duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -435,27 +464,27 @@ export default ProfileView;
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span twdark:text-gray-400 ="text-right px-2">Name</span>
                                 <input name="name" tw="focus:outline-none px-3" placeholder="Try Odinsson" required />
-                            </label>
+                            </label>-webkit-text-fill-color[inherit] background-clip[content-box] 
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span twdark:text-gray-400 ="text-right px-2">Email</span>
                                 <input name="email" type="email" tw="focus:outline-none px-3" placeholder="try@example.com" required />
-                            </label>
+                            </label>-webkit-text-fill-color[inherit] background-clip[content-box] 
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span twdark:text-gray-400 ="text-right px-2">Address</span>
                                 <input name="address" tw="focus:outline-none px-3" placeholder="10 Street XYZ 654" />
-                            </label>
+                            </label>-webkit-text-fill-color[inherit] background-clip[content-box] 
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span twdark:text-gray-400 ="text-right px-2">City</span>
                                 <input name="city" tw="focus:outline-none px-3" placeholder="San Francisco" />
-                            </label>
+                            </label>-webkit-text-fill-color[inherit] background-clip[content-box] 
                             <label tw="inline-flex w-2/4 border-gray-200 py-3">
                                 <span twdark:text-gray-400 ="text-right px-2">State</span>
                                 <input name="state" tw="focus:outline-none px-3" placeholder="CA" />
-                            </label>
+                            </label>-webkit-text-fill-color[inherit] background-clip[content-box] 
                             <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
                                 <span twdark:text-gray-400 ="text-right px-2 xl:px-0 xl:content-none">ZIP</span>
                                 <input name="postal_code" tw="focus:outline-none px-3" placeholder="98603" />
-                            </label>
+                            </label>-webkit-text-fill-color[inherit] background-clip[content-box] 
                             <label tw="flex border-t border-gray-200 h-12 py-3 items-center select relative">
                                 <span twdark:text-gray-400 ="text-right px-2">Country</span>
                                 <div id="country" tw="focus:outline-none px-3 w-full flex items-center">
@@ -497,7 +526,7 @@ export default ProfileView;
                         <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                             <span twdark:text-gray-400 ="text-right px-2">Card</span>
                             <input name="card" tw="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required />
-                        </label>
+                        </label>-webkit-text-fill-color[inherit] background-clip[content-box] 
                     </fieldset>
                 </section>
             </div>

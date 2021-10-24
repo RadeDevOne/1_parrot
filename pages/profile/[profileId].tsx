@@ -4,15 +4,16 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 
 import prisma from "@/lib/prisma";
 
+import type { Profile } from "@prisma/client";
+
 import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
 
 import validateProfille from "@/lib/auth/validateProfile";
 
-import Layout from '@/components/5_profile_page/Layout'
+import Layout from "@/components/5_profile_page/Layout";
 
-
-interface PropsI {
-  placeholder: boolean;
+export interface PropsI {
+  profile: Profile;
 }
 
 export type paramsType = {
@@ -63,10 +64,31 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
   // -------------------------------------------------------
+  // READING PROFILE DATA
+
+  const profile = await prisma.profile.findUnique({
+    where: {
+      id: ctx.params?.profileId || "",
+    },
+  });
+
+  // WE CAN REDIRECT IF PROFILE IS null
+
+  if (!profile) {
+    return {
+      props: { nothing: true },
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
+
+  //
 
   return {
     props: {
-      placeholder: true,
+      profile,
     },
   };
 };
@@ -74,9 +96,9 @@ export const getServerSideProps: GetServerSideProps<
 const ProfilePage: NP<PropsI> = (props) => {
   //
 
-  console.log(props);
+  // console.log(props);
 
-  return <Layout />;
+  return <Layout profile={props.profile} />;
 };
 
 export default ProfilePage;
