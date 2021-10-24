@@ -36,8 +36,14 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
   });
 
   useEffect(() => {
-    //
-  }, [sessionData]);
+    setSanitizedProfileData((prev) => ({
+      ...prev,
+      // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
+      // SO WE WILL ASK FOR FULL NAME)
+      nick: prev.nick || sessionData?.name || "",
+      image: prev.image || sessionData?.image || "",
+    }));
+  }, [sessionData, setSanitizedProfileData]);
 
   if (!sessionData) {
     return null;
@@ -150,7 +156,6 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
       </div>
 
       {/* SHIPPING BILLING AND REST OF STUFF */}
-
       <section tw="rounded-md w-full lg:w-6/12 px-4 mx-auto mb-12">
         <form
           id="payment-form"
@@ -212,7 +217,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Name</span>
                 <input
-                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
+                  tw="background-clip[content-box] focus:outline-none px-3"
                   name="name"
                   placeholder="Try Odinsson"
                   required
@@ -221,7 +226,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Email</span>
                 <input
-                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
+                  tw="background-clip[content-box] focus:outline-none px-3"
                   name="email"
                   type="email"
                   placeholder="try@example.com"
@@ -231,7 +236,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Address</span>
                 <input
-                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
+                  tw="background-clip[content-box] focus:outline-none px-3"
                   name="address"
                   placeholder="10 Street XYZ 654"
                 />
@@ -247,7 +252,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="inline-flex w-2/4 border-gray-200 py-3">
                 <span tw="dark:text-gray-300 text-right px-2">State</span>
                 <input
-                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
+                  tw="background-clip[content-box] focus:outline-none px-3"
                   name="state"
                   placeholder="CA"
                 />
