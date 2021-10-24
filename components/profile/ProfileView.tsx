@@ -106,7 +106,20 @@ const ProfileView: FC = () => {
       {/* SHIPPING BILLING AND REST OF STUFF */}
 
       <section tw="rounded-md w-full lg:w-6/12 px-4 mx-auto mb-12">
-        <form id="payment-form" method="POST" action="">
+        <form
+          id="payment-form"
+          method="POST"
+          action=""
+          css={[
+            css`
+              &#payment-form#payment-form {
+                & input {
+                  background-color: inherit;
+                }
+              }
+            `,
+          ]}
+        >
           <section
             className="info-fieldz"
             css={[
@@ -115,69 +128,71 @@ const ProfileView: FC = () => {
                   border: crimson solid 0px;
 
                   overflow-x: hidden;
-                  background: ${theme`colors.l`};
+                  /* background: ${theme`colors.l`}; */
                 }
               `,
-              tw`rounded`,
+              tw`rounded bg-l dark:bg-gray-800`,
             ]}
           >
-            <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
+            <h2 tw="dark:text-gray-300 ml-4 mt-2 uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
               Shipping & Billing Information
             </h2>
-            <fieldset tw="mb-3 bg-white shadow-lg text-gray-600">
+            <fieldset tw="mb-3 shadow-lg text-gray-600">
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                <span tw="text-right px-2">Name</span>
+                <span tw="dark:text-gray-300 text-right px-2">Name</span>
                 <input
-                  name="name"
                   tw="focus:outline-none px-3"
+                  name="name"
                   placeholder="Try Odinsson"
                   required
                 />
               </label>
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                <span tw="text-right px-2">Email</span>
+                <span tw="dark:text-gray-300 text-right px-2">Email</span>
                 <input
+                  tw="focus:outline-none px-3"
                   name="email"
                   type="email"
-                  tw="focus:outline-none px-3"
                   placeholder="try@example.com"
                   required
                 />
               </label>
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                <span tw="text-right px-2">Address</span>
+                <span tw="dark:text-gray-300 text-right px-2">Address</span>
                 <input
-                  name="address"
                   tw="focus:outline-none px-3"
+                  name="address"
                   placeholder="10 Street XYZ 654"
                 />
               </label>
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                <span tw="text-right px-2">City</span>
+                <span tw="dark:text-gray-300 text-right px-2">City</span>
                 <input
-                  name="city"
                   tw="focus:outline-none px-3"
+                  name="city"
                   placeholder="San Francisco"
                 />
               </label>
               <label tw="inline-flex w-2/4 border-gray-200 py-3">
-                <span tw="text-right px-2">State</span>
+                <span tw="dark:text-gray-300 text-right px-2">State</span>
                 <input
-                  name="state"
                   tw="focus:outline-none px-3"
+                  name="state"
                   placeholder="CA"
                 />
               </label>
               <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
-                <span tw="text-right px-2 xl:px-0 ">ZIP</span>
+                <span tw="dark:text-gray-300 text-right px-2 xl:px-0 ">
+                  ZIP
+                </span>
                 <input
-                  name="postal_code"
                   tw="focus:outline-none px-3"
+                  name="postal_code"
                   placeholder="98603"
                 />
               </label>
               <label tw="flex border-t border-gray-200 h-12 py-3 items-center select-none relative">
-                <span tw="text-right px-2">Country</span>
+                <span tw="dark:text-gray-300 text-right px-2">Country</span>
                 <div
                   id="country"
                   tw="focus:outline-none px-3 w-full flex items-center"
@@ -418,31 +433,31 @@ export default ProfileView;
                         <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Shipping & Billing Information</h2>
                         <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span tw="text-right px-2">Name</span>
+                                <span twdark:text-gray-400 ="text-right px-2">Name</span>
                                 <input name="name" tw="focus:outline-none px-3" placeholder="Try Odinsson" required />
                             </label>
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span tw="text-right px-2">Email</span>
+                                <span twdark:text-gray-400 ="text-right px-2">Email</span>
                                 <input name="email" type="email" tw="focus:outline-none px-3" placeholder="try@example.com" required />
                             </label>
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span tw="text-right px-2">Address</span>
+                                <span twdark:text-gray-400 ="text-right px-2">Address</span>
                                 <input name="address" tw="focus:outline-none px-3" placeholder="10 Street XYZ 654" />
                             </label>
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span tw="text-right px-2">City</span>
+                                <span twdark:text-gray-400 ="text-right px-2">City</span>
                                 <input name="city" tw="focus:outline-none px-3" placeholder="San Francisco" />
                             </label>
                             <label tw="inline-flex w-2/4 border-gray-200 py-3">
-                                <span tw="text-right px-2">State</span>
+                                <span twdark:text-gray-400 ="text-right px-2">State</span>
                                 <input name="state" tw="focus:outline-none px-3" placeholder="CA" />
                             </label>
                             <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
-                                <span tw="text-right px-2 xl:px-0 xl:content-none">ZIP</span>
+                                <span twdark:text-gray-400 ="text-right px-2 xl:px-0 xl:content-none">ZIP</span>
                                 <input name="postal_code" tw="focus:outline-none px-3" placeholder="98603" />
                             </label>
                             <label tw="flex border-t border-gray-200 h-12 py-3 items-center select relative">
-                                <span tw="text-right px-2">Country</span>
+                                <span twdark:text-gray-400 ="text-right px-2">Country</span>
                                 <div id="country" tw="focus:outline-none px-3 w-full flex items-center">
                                     <select name="country" tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none">
                                         <option value="AU">Australia</option>
@@ -480,7 +495,7 @@ export default ProfileView;
                     <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Payment Information</h2>
                     <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
                         <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                            <span tw="text-right px-2">Card</span>
+                            <span twdark:text-gray-400 ="text-right px-2">Card</span>
                             <input name="card" tw="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required />
                         </label>
                     </fieldset>
