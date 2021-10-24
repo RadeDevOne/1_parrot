@@ -26,16 +26,19 @@ const ProfileView: FC = () => {
                   tw`w-full h-2 px-4 flex justify-center rounded-b-2xl`,
                 ]}
               >
-                <div css={[ css`
+                <div
+                  css={[
+                    css`
+                      transition-property: transform;
+                      transition-duration: 0.3s;
 
-                  transition-property: transform;
-                  transition-duration: 0.3s;
-
-                  &:hover {
-                    transform: scale(1.2);
-                  }
-                
-                ` ,tw`relative flex justify-center`]}>
+                      &:hover {
+                        transform: scale(1.2);
+                      }
+                    `,
+                    tw`relative flex justify-center`,
+                  ]}
+                >
                   <img
                     alt="..."
                     src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
@@ -46,37 +49,37 @@ const ProfileView: FC = () => {
               <div
                 css={[
                   css`
-                    & > a {
-                      & span {
-                        color: #bd768e;
-                      }
-
+                    & a {
                       & span:hover {
-                        color: #423a61;
+                        color: #bd768e;
                       }
                     }
                   `,
                   tw`w-full px-4 text-center mt-20`,
                 ]}
               >
-                <Link href={`/profile/stats/${"bitcoinether"}`}>
-                  <a>
-                    <div tw="flex justify-center py-4 lg:pt-4 pt-8">
+                <div tw="flex justify-center py-4 lg:pt-4 pt-8">
+                  <Link href={`/profile/stats/${"bitcoinether"}`}>
+                    <a>
                       <div tw="mr-4 p-3 text-center">
                         <span tw="text-xl font-bold block uppercase tracking-wide text-gray-600">
                           22
                         </span>
                         <span tw="text-sm text-gray-400">Purchases</span>
                       </div>
+                    </a>
+                  </Link>
+                  <Link href={`/profile/stats/${"bitcoinether"}`}>
+                    <a>
                       <div tw="mr-4 p-3 text-center">
                         <span tw="text-xl font-bold block uppercase tracking-wide text-gray-600">
                           10
                         </span>
                         <span tw="text-sm text-gray-400">Favorites</span>
                       </div>
-                    </div>
-                  </a>
-                </Link>
+                    </a>
+                  </Link>
+                </div>
               </div>
             </div>
             <div tw="text-center mt-12">
