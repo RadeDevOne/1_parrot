@@ -63,7 +63,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     return null;
   }
 
-  console.log({ sanitizedProfileDta });
+  console.log({ sanitizedProfileData });
 
   const { city, country, email, image, nick, streetAddress, postalCode, id } =
     sanitizedProfileData;
