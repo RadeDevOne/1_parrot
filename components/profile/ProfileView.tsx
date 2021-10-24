@@ -12,6 +12,7 @@ import Spinner from "../common/Spinner";
 import type { PropsI } from "@/pages/profile/[profileId]";
 
 import countries from "../../countries_n_states/1_countries.json";
+import states from "../../countries_n_states/2_states.json";
 
 type profType = PropsI["profile"];
 
@@ -67,7 +68,8 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
 
   console.log({ sanitizedProfileData });
 
-  console.log(countries);
+  console.log({ countries });
+  console.log({ states });
 
   const { city, country, email, image, nick, streetAddress, postalCode, id } =
     sanitizedProfileData;
