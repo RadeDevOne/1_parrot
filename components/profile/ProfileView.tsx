@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const ProfileView: FC = () => {
   return (
-    <section tw="pt-16">
+    <div tw="pt-16">
       <div tw="w-full lg:w-4/12 px-4 mx-auto">
         <div tw="relative flex flex-col min-w-0 break-words bg-gray-800 light:bg-l w-full mb-6 shadow-xl rounded-lg mt-16">
           <div tw="px-6">
@@ -64,10 +64,12 @@ const ProfileView: FC = () => {
                   >
                     <a>
                       <div tw="mr-4 p-3 text-center">
-                        <span tw="text-xl font-bold block uppercase tracking-wide text-gray-600">
+                        <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
                           22
                         </span>
-                        <span tw="text-sm text-gray-400">Purchases</span>
+                        <span tw="text-sm text-gray-400 light:text-gray-600">
+                          Purchases
+                        </span>
                       </div>
                     </a>
                   </Link>
@@ -76,10 +78,12 @@ const ProfileView: FC = () => {
                   >
                     <a>
                       <div tw="mr-4 p-3 text-center">
-                        <span tw="text-xl font-bold block uppercase tracking-wide text-gray-600">
+                        <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
                           10
                         </span>
-                        <span tw="text-sm text-gray-400">Favorites</span>
+                        <span tw="text-sm text-gray-400 light:text-gray-600">
+                          Favorites
+                        </span>
                       </div>
                     </a>
                   </Link>
@@ -87,10 +91,10 @@ const ProfileView: FC = () => {
               </div>
             </div>
             <div tw="text-center mt-12">
-              <h3 tw="text-xl font-semibold leading-normal mb-2 dark:text-gray-500 text-gray-900 mb-2">
+              <h3 tw="text-xl font-semibold leading-normal dark:text-gray-400 text-gray-900 mb-2">
                 Jenna Stones
               </h3>
-              <div tw="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold">
+              <div tw="text-sm leading-normal mt-0 mb-2 text-gray-200 light:text-gray-700 font-semibold">
                 <i tw="mr-2 text-lg text-gray-400"></i>
                 blah.some@mail.com
               </div>
@@ -98,7 +102,107 @@ const ProfileView: FC = () => {
           </div>
         </div>
       </div>
-    </section>
+      <section tw="rounded-md">
+        <form id="payment-form" method="POST" action="">
+          <section>
+            <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
+              Shipping & Billing Information
+            </h2>
+            <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
+              <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
+                <span tw="text-right px-2">Name</span>
+                <input
+                  name="name"
+                  tw="focus:outline-none px-3"
+                  placeholder="Try Odinsson"
+                  required
+                />
+              </label>
+              <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
+                <span tw="text-right px-2">Email</span>
+                <input
+                  name="email"
+                  type="email"
+                  tw="focus:outline-none px-3"
+                  placeholder="try@example.com"
+                  required
+                />
+              </label>
+              <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
+                <span tw="text-right px-2">Address</span>
+                <input
+                  name="address"
+                  tw="focus:outline-none px-3"
+                  placeholder="10 Street XYZ 654"
+                />
+              </label>
+              <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
+                <span tw="text-right px-2">City</span>
+                <input
+                  name="city"
+                  tw="focus:outline-none px-3"
+                  placeholder="San Francisco"
+                />
+              </label>
+              <label tw="inline-flex w-2/4 border-gray-200 py-3">
+                <span tw="text-right px-2">State</span>
+                <input
+                  name="state"
+                  tw="focus:outline-none px-3"
+                  placeholder="CA"
+                />
+              </label>
+              <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
+                <span tw="text-right px-2 xl:px-0 ">ZIP</span>
+                <input
+                  name="postal_code"
+                  tw="focus:outline-none px-3"
+                  placeholder="98603"
+                />
+              </label>
+              <label tw="flex border-t border-gray-200 h-12 py-3 items-center select-none relative">
+                <span tw="text-right px-2">Country</span>
+                <div
+                  id="country"
+                  tw="focus:outline-none px-3 w-full flex items-center"
+                >
+                  <select
+                    name="country"
+                    tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
+                  >
+                    <option value="AU">Australia</option>
+                    <option value="BE">Belgium</option>
+                    <option value="BR">Brazil</option>
+                    <option value="CA">Canada</option>
+                    <option value="CN">China</option>
+                    <option value="DK">Denmark</option>
+                    <option value="FI">Finland</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="HK">Hong Kong</option>
+                    <option value="IE">Ireland</option>
+                    <option value="IT">Italy</option>
+                    <option value="JP">Japan</option>
+                    <option value="LU">Luxembourg</option>
+                    <option value="MX">Mexico</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="PL">Poland</option>
+                    <option value="PT">Portugal</option>
+                    <option value="SG">Singapore</option>
+                    <option value="ES">Spain</option>
+                    <option value="TN">Tunisia</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="US" selected>
+                      United States
+                    </option>
+                  </select>
+                </div>
+              </label>
+            </fieldset>
+          </section>
+        </form>
+      </section>
+    </div>
   );
 };
 
@@ -236,7 +340,7 @@ export default ProfileView;
                     <li><a tw="hover:text-gray-900" href="#">Contact Us</a></li>
                 </ul>
                 <div tw="flex-grow border-2 py-1 px-3 lg:flex justify-between round hidden">
-                    <input tw="flex-grow text-gray-600 focus:outline-none" type="text" placeholder="Search Product ..." />
+                    <input tw="flex-grow text-gray-600 focus:outline-none" type="text" placeholder="Search Product ..." / />
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" tw="h-6 w-6 text-gray-400 hover:text-gray-600 transition duration-100 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -299,27 +403,27 @@ export default ProfileView;
                         <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span tw="text-right px-2">Name</span>
-                                <input name="name" tw="focus:outline-none px-3" placeholder="Try Odinsson" required="">
+                                <input name="name" tw="focus:outline-none px-3" placeholder="Try Odinsson" required />
                             </label>
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span tw="text-right px-2">Email</span>
-                                <input name="email" type="email" tw="focus:outline-none px-3" placeholder="try@example.com" required="">
+                                <input name="email" type="email" tw="focus:outline-none px-3" placeholder="try@example.com" required />
                             </label>
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span tw="text-right px-2">Address</span>
-                                <input name="address" tw="focus:outline-none px-3" placeholder="10 Street XYZ 654">
+                                <input name="address" tw="focus:outline-none px-3" placeholder="10 Street XYZ 654" />
                             </label>
                             <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span tw="text-right px-2">City</span>
-                                <input name="city" tw="focus:outline-none px-3" placeholder="San Francisco">
+                                <input name="city" tw="focus:outline-none px-3" placeholder="San Francisco" />
                             </label>
                             <label tw="inline-flex w-2/4 border-gray-200 py-3">
                                 <span tw="text-right px-2">State</span>
-                                <input name="state" tw="focus:outline-none px-3" placeholder="CA">
+                                <input name="state" tw="focus:outline-none px-3" placeholder="CA" />
                             </label>
                             <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
-                                <span tw="text-right px-2 xl:px-0 xl:text-none">ZIP</span>
-                                <input name="postal_code" tw="focus:outline-none px-3" placeholder="98603">
+                                <span tw="text-right px-2 xl:px-0 xl:content-none">ZIP</span>
+                                <input name="postal_code" tw="focus:outline-none px-3" placeholder="98603" />
                             </label>
                             <label tw="flex border-t border-gray-200 h-12 py-3 items-center select relative">
                                 <span tw="text-right px-2">Country</span>
@@ -361,7 +465,7 @@ export default ProfileView;
                     <fieldset tw="mb-3 bg-white shadow-lg rounded text-gray-600">
                         <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                             <span tw="text-right px-2">Card</span>
-                            <input name="card" tw="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required="">
+                            <input name="card" tw="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required />
                         </label>
                     </fieldset>
                 </section>
