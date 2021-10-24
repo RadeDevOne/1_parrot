@@ -63,7 +63,10 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     return null;
   }
 
-  // console.log({ sanitizedProfileDta });
+  console.log({ sanitizedProfileDta });
+
+  const { city, country, email, image, nick, streetAddress, postalCode, id } =
+    sanitizedProfileData;
 
   return (
     <div tw="pt-16">
@@ -99,6 +102,20 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                     tw`relative flex justify-center`,
                   ]}
                 >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                    />
+                  </svg>
                   <img
                     alt="..."
                     src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
