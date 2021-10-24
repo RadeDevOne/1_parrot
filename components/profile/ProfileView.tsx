@@ -7,6 +7,8 @@ import Link from "next/link";
 
 import useProfData from "@/hooks/useProfileMenuData";
 
+import Spinner from "../common/Spinner";
+
 import type { PropsI } from "@/pages/profile/[profileId]";
 
 type profType = PropsI["profile"];
@@ -20,22 +22,22 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
 
   const sessionData = useProfData();
 
-  const [profileData, setProfileData] = useState<UserDataI>({
+  /*  const [profileData, setProfileData] = useState<UserDataI>({
     ...profile,
     email: (sessionData ? sessionData?.email : "") || "",
-  });
+  }); */
 
   const [sanitizedProfileData, setSanitizedProfileData] = useState<UserDataI>({
     //
-    ...profileData,
-    id: profileData.id,
+    ...profile,
     // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
     // SO WE WILL ASK FOR FULL NAME)
-    nick: profileData.nick || sessionData?.name || "",
-    image: profileData.image || sessionData?.image || "",
+    nick: profile?.nick || sessionData?.name || "",
+    image: profile?.image || sessionData?.image || "",
+    email: sessionData?.email || "",
   });
 
-  useEffect(() => {
+  /* useEffect(() => {
     setSanitizedProfileData((prev) => ({
       ...prev,
       // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
@@ -43,19 +45,25 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
       nick: prev.nick || sessionData?.name || "",
       image: prev.image || sessionData?.image || "",
     }));
-  }, [sessionData, setSanitizedProfileData]);
+  }, [sessionData, setSanitizedProfileData]); */
 
   if (!sessionData) {
     return null;
   }
 
-  if (!profileData) {
+  if (sessionData.authStatus === "loading") {
+    return <Spinner />;
+  }
+
+  if (!profile) {
     return null;
   }
 
-  if (!profileData.id) {
+  if (!profile.id) {
     return null;
   }
+
+  // console.log({ sanitizedProfileDta });
 
   return (
     <div tw="pt-16">

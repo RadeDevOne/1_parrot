@@ -6,9 +6,9 @@ const useProfileMenuData = () => {
   //
   const { data, status } = useSession();
 
-  console.log({ data, status });
+  // console.log({ data, status });
 
-  if (status !== "authenticated") {
+  if (status === "unauthenticated") {
     return null;
   }
 
@@ -81,7 +81,7 @@ const useProfileMenuData = () => {
 
   const role = profile.role;
 
-  return { name, email, image, id, role };
+  return { name, email, image, id, role, authStatus: status };
 };
 
 export default useProfileMenuData;

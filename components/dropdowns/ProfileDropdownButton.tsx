@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { useState, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import { useSession, signOut } from "next-auth/react";
+// import { useSession, signOut } from "next-auth/react";
 
 import ProfileDropdownMenu from "./ProfileDropdownMenu";
 
