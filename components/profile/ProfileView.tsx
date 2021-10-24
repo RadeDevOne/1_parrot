@@ -3,6 +3,8 @@ import type { FC } from "react";
 import { useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { motion } from "framer-motion";
+
 import Link from "next/link";
 
 import useProfData from "@/hooks/useProfileMenuData";
@@ -288,30 +290,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   placeholder="CA"
                 />
               </label> */}
-              <label tw="flex border-t border-gray-200 h-12 py-3 items-center select-none relative">
-                <span tw="dark:text-gray-300 text-right px-2">State</span>
-                <div
-                  id="state"
-                  tw="focus:outline-none px-3 w-full flex items-center"
-                >
-                  <select
-                    name="state"
-                    defaultValue={"CO"}
-                    tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
-                  >
-                    {states.map((item, i) => {
-                      return (
-                        <option
-                          key={`${i + item.state_code}`}
-                          value={item.state_code}
-                        >
-                          {item.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </div>
-              </label>
+
               <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
                 <span tw="dark:text-gray-300 text-right px-2 xl:px-0 ">
                   ZIP
@@ -343,6 +322,50 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   </select>
                 </div>
               </label>
+              {
+                <motion.label
+                  css={[
+                    css`
+                      /*  */
+                      /*  */
+                      /* ${tw`h-12 py-3`} */
+                      height: 0px;
+                      overflow-y: hidden;
+                      border: crimson solid 1px;
+                    `,
+                    tw`flex border-t border-gray-200 items-center select-none relative`,
+                  ]}
+                  animate={{
+                    height: ["0rem", "3rem"],
+                  }}
+                  transition={{
+                    duration: 0.2,
+                  }}
+                >
+                  <span tw="dark:text-gray-300 text-right px-2">State</span>
+                  <div
+                    id="state"
+                    tw="focus:outline-none px-3 w-full flex items-center"
+                  >
+                    <select
+                      name="state"
+                      defaultValue={"CO"}
+                      tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
+                    >
+                      {states.map((item, i) => {
+                        return (
+                          <option
+                            key={`${i + item.state_code}`}
+                            value={item.state_code}
+                          >
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </motion.label>
+              }
             </fieldset>
           </section>
         </form>
