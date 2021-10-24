@@ -59,7 +59,9 @@ const ProfileView: FC = () => {
                 ]}
               >
                 <div tw="flex justify-center py-4 lg:pt-4 pt-8">
-                  <Link href={`/profile/stats/${"bitcoinether"}`}>
+                  <Link
+                    href={`/profile/stats/${"bitcoinether"}${"#purchases"}`}
+                  >
                     <a>
                       <div tw="mr-4 p-3 text-center">
                         <span tw="text-xl font-bold block uppercase tracking-wide text-gray-600">
@@ -69,7 +71,9 @@ const ProfileView: FC = () => {
                       </div>
                     </a>
                   </Link>
-                  <Link href={`/profile/stats/${"bitcoinether"}`}>
+                  <Link
+                    href={`/profile/stats/${"bitcoinether"}${"#favorites"}`}
+                  >
                     <a>
                       <div tw="mr-4 p-3 text-center">
                         <span tw="text-xl font-bold block uppercase tracking-wide text-gray-600">

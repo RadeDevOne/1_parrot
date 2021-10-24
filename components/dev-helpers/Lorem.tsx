@@ -2,12 +2,14 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-const TestComponent: FC = () => {
+const Lorem: FC = () => {
   return (
-    <section css={[tw`bg-gray-200`, tw`hover:text-indigo-600`]}>
+    <section
+    // css={[tw`bg-gray-200`, tw`hover:text-indigo-600`]}
+    >
       <div
         css={css`
-          background-color: ${theme`colors.electric`};
+          /* background-color: ${theme`colors.electric`}; */
         `}
       >
         Lorem Ipsum
@@ -151,4 +153,4 @@ const TestComponent: FC = () => {
   );
 };
 
-export default TestComponent;
+export default Lorem;

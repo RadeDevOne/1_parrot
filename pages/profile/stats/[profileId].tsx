@@ -2,6 +2,8 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
+import Lorem from "@/components/dev-helpers/Lorem";
+
 interface PropsI {
   placeholder: boolean;
 }
@@ -26,10 +28,23 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 const ProfileStatsPage: NP<PropsI> = (props) => {
   //
 
-  console.log(props);
+  console.log({ props });
 
-  // eslint-disable-next-line
-  return <div>🦉 Profile Stats</div>;
+  return (
+    <main>
+      {/* eslint-disable-next-line */}
+      <h1>🦉 Profile Stats</h1>
+      Helo world
+      <h2 style={{ color: "blanchedalmond" }} id="favorites">
+        Favorites
+      </h2>
+      <Lorem />
+      <h2 style={{ color: "blanchedalmond" }} id="purchases">
+        Past Purchases
+      </h2>
+      <Lorem />
+    </main>
+  );
 };
 
 export default ProfileStatsPage;
