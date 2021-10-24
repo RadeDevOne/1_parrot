@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import Link from "next/link";
@@ -8,6 +9,23 @@ import type { PropsI } from "@/pages/profile/[profileId]";
 
 const ProfileView: FC<PropsI> = ({ profile }) => {
   console.log({ profile });
+
+  const [profileData, setProfileData] = useState<typeof profile>(profile);
+
+  if (!profileData) {
+    return null;
+  }
+
+  if (!profileData.id) {
+    return null;
+  }
+
+  const sanitizedProfile: typeof profile = {
+    id: profileData.id,
+    // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
+    // SO WE WILL ASK FOR FULL NAME)
+    // nick:
+  };
 
   return (
     <div tw="pt-16">
