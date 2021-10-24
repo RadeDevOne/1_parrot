@@ -26,7 +26,16 @@ const ProfileView: FC = () => {
                   tw`w-full h-2 px-4 flex justify-center rounded-b-2xl`,
                 ]}
               >
-                <div tw="relative flex justify-center">
+                <div css={[ css`
+
+                  transition-property: transform;
+                  transition-duration: 0.3s;
+
+                  &:hover {
+                    transform: scale(1.2);
+                  }
+                
+                ` ,tw`relative flex justify-center`]}>
                   <img
                     alt="..."
                     src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
@@ -37,9 +46,13 @@ const ProfileView: FC = () => {
               <div
                 css={[
                   css`
-                    & > a:hover {
+                    & > a {
                       & span {
                         color: #bd768e;
+                      }
+
+                      & span:hover {
+                        color: #423a61;
                       }
                     }
                   `,
@@ -67,7 +80,7 @@ const ProfileView: FC = () => {
               </div>
             </div>
             <div tw="text-center mt-12">
-              <h3 tw="text-xl font-semibold leading-normal mb-2 text-gray-700 mb-2">
+              <h3 tw="text-xl font-semibold leading-normal mb-2 dark:text-gray-500 text-gray-900 mb-2">
                 Jenna Stones
               </h3>
               <div tw="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold">
