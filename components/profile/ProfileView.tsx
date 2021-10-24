@@ -102,7 +102,7 @@ const ProfileView: FC = () => {
           </div>
         </div>
       </div>
-      <section tw="rounded-md">
+      <section tw="rounded-md w-full lg:w-6/12 px-4 mx-auto">
         <form id="payment-form" method="POST" action="">
           <section>
             <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
