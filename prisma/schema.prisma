@@ -154,9 +154,12 @@ model Profile {
   reviewsHistory         Review[]
   // FOR ADMIN USER
   productCreationHistory Product[]
-  // THIS IS HELPFUL FOR SUPERADMIN
+  // THIS IS HELPFUL FOR SUPERADMIN (WE CAN SAVE THERE NAME OF THE USER TOO)
+  // IT IS A BIT MISLEADING BUT NEVER MIND
   nick                   String?
-
+  // SOMETIMES OUR USER OBJECT WON'T HAVE email (GITHUB OAUTH DOESN'T REVEAL A email)
+  // SO VE CAN ADD email HERE TOO
+  email                  String?
 }
 
 // -------------------------------------------------------------
