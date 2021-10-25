@@ -23,3 +23,5 @@ export const consistantNavList = [
   // { href: "/hello-world", name: "Hello World" },
   // { href: "/foobar/foo/bar/baz", name: "Baz Bar" },
 ];
+
+export const FALLBACK_PHOTO = "https://placeimg.com/640/480/product";
