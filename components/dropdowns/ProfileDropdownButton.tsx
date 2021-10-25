@@ -31,7 +31,7 @@ const ProfileDropdownButton: FC = () => {
                 if (!isSSR()) {
                   setTimeout(() => {
                     setDropdownOpened(false);
-                  }, 266);
+                  }, 366);
                 }
               })
             }
