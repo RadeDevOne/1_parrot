@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import type { FC } from "react";
+import type { FC, ChangeEventHandler } from "react";
 import { useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
@@ -89,6 +89,14 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     id,
   } = sanitizedProfileData;
 
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const {
+      target: { name: inputName, value: inputValue },
+    } = e;
+
+    setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
+  };
+
   return (
     <div tw="pt-16">
       <div tw="w-full lg:w-4/12 px-4 mx-auto">
@@ -140,7 +148,11 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   <img
                     alt="..."
                     // src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
-                    src={image}
+                    src={
+                      sessionData?.image ||
+                      profile?.image ||
+                      "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                    }
                     tw="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-width[110px]"
                   />
                 </div>
@@ -191,7 +203,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
             </div>
             <div tw="text-center mt-12">
               <h3 tw="text-xl font-semibold leading-normal dark:text-gray-400 text-gray-900 mb-2">
-                {name}
+                {sessionData?.name || profile?.nick || ""}
               </h3>
               {email && email !== name && (
                 <div tw="text-sm leading-normal mt-0 mb-2 text-gray-200 light:text-gray-700 font-semibold">
@@ -277,7 +289,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                 <span tw="dark:text-gray-300 text-right px-2">Name</span>
                 <input
                   tw="background-clip[content-box] focus:outline-none px-3"
-                  name="name"
+                  name="nick"
                   placeholder="Try Odinsson"
                   required
                 />
