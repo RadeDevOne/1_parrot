@@ -215,11 +215,11 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                 {sessionData?.name || profile?.nick || ""}
               </h3>
               {sessionData?.email ||
-                (profile?.email && email !== name && (
-                  <div tw="text-sm leading-normal mt-0 mb-2 text-gray-200 light:text-gray-700 font-semibold">
+                (profile?.email && (
+                  <h4 tw="text-sm leading-normal mt-0 mb-2 dark:text-gray-200 light:text-gray-700">
                     <i tw="mr-2 text-lg text-gray-400"></i>
                     {sessionData?.email || profile?.email || ""}
-                  </div>
+                  </h4>
                 ))}
             </div>
           </div>
@@ -298,7 +298,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Name</span>
                 <input
-                  value={sanitizedProfileData.nick || ""}
+                  // value={sanitizedProfileData.nick || ""}
                   onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="nick"
@@ -309,7 +309,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Email</span>
                 <input
-                  value={sanitizedProfileData.email || ""}
+                  // value={sanitizedProfileData.email || ""}
                   onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="email"
@@ -321,7 +321,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Address</span>
                 <input
-                  value={sanitizedProfileData.streetAddress || ""}
+                  // value={sanitizedProfileData.streetAddress || ""}
                   onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="streetAddress"
@@ -331,7 +331,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">City</span>
                 <input
-                  value={sanitizedProfileData.city || ""}
+                  // value={sanitizedProfileData.city || ""}
                   onChange={handleInputChange}
                   tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="city"
@@ -352,7 +352,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   ZIP
                 </span>
                 <input
-                  value={sanitizedProfileData.postalCode || undefined}
+                  // value={sanitizedProfileData.postalCode || undefined}
                   onChange={handleInputChange}
                   tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="postalCode"
@@ -366,7 +366,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   tw="focus:outline-none px-3 w-full flex items-center"
                 >
                   <select
-                    value={sanitizedProfileData.country || "KR"}
+                    // value={sanitizedProfileData.country || "KR"}
                     onChange={handleSelectChange}
                     onBlur={handleSelectChange}
                     defaultValue={"KR"}
@@ -409,7 +409,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                     tw="focus:outline-none px-3 w-full flex items-center"
                   >
                     <select
-                      value={sanitizedProfileData.regionOrState || "CO"}
+                      // value={sanitizedProfileData.regionOrState || "CO"}
                       onChange={handleSelectChange}
                       onBlur={handleSelectChange}
                       name="regionOrState"
