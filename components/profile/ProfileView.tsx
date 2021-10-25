@@ -222,11 +222,23 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                     /* ${tw`border dark:border-gray-200 border-gray-800`}; */
 
                     &:-webkit-autofill,
-                    &:-webkit-autofill:hover {
+                    &:-webkit-autofill:hover 
+                    {
                       ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
                       ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
                     }
                   }
+
+                  & textarea:-webkit-autofill,
+                  & textarea:-webkit-autofill:hover,
+                  & textarea:-webkit-autofill:focus,
+                  & select:-webkit-autofill,
+                  & select:-webkit-autofill:hover,
+                  & select:-webkit-autofill:focus {
+                    ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
+                      ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+                  }
+
 
                   /* & input:-webkit-autofill,
                   & input:-webkit-autofill:hover,
