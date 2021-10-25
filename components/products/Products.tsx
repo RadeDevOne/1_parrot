@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import tw /* , { css, styled, theme } */ from "twin.macro";
 
 import { useRouter } from "next/router";
@@ -8,6 +8,8 @@ import Product from "./Product";
 import ChangerOfProductsPages from "../navigation/ChangerOfProductPages";
 import type { PropsI } from "@/pages/index";
 // import type { PropsI as ProductsPagePropsI } from "@/pages/products/[pageNum]";
+
+// import { FALLBACK_PHOTO } from "@/constants/index";
 
 export interface ProductsPropsI {
   products: PropsI["products"];
@@ -26,11 +28,11 @@ const Products: FC<ProductsPropsI> = ({
 }) => {
   const { asPath } = useRouter();
 
+  // const [imageErrored, setImageErrored] = useState<boolean>(false);
   // console.log(asPath);
 
   const splitted = asPath.split("/");
   const currentPageNumber = parseInt(splitted[splitted.length - 1]) || 0;
-
   // console.log({ currentPageNumber });
 
   return (

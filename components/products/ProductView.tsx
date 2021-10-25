@@ -3,9 +3,9 @@ import type { FC } from "react";
 import { Fragment, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
-
 import { useActor } from "@xstate/react";
+
+import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
 import { cartService, fse, EE } from "@/machines/cart_machine";
 
@@ -24,6 +24,8 @@ import Info from "../info/Info";
 
 import Button from "../buttons/Button";
 
+import { FALLBACK_PHOTO } from "@/constants/index";
+
 interface PropsI {
   product: ProductPropsI["product"];
 }
@@ -32,6 +34,8 @@ const ProductView: FC<PropsI> = ({ product }) => {
   const [cartState, dispatch] = useActor(cartService);
 
   const [__, disp] = useActor(headerNCartService);
+
+  const [imageErrored, setImageErrored] = useState<boolean>(false);
 
   const {
     context: { cart },
@@ -85,8 +89,11 @@ const ProductView: FC<PropsI> = ({ product }) => {
           <div tw="h-full mx-1.5">
             <img
               tw="h-full w-full rounded-md object-cover max-w-lg mx-auto"
-              src={image}
+              src={!imageErrored ? image : FALLBACK_PHOTO}
               alt="product"
+              onError={(e) => {
+                setImageErrored(true);
+              }}
             />
           </div>
         </div>

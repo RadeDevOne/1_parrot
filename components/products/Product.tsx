@@ -1,13 +1,14 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import Link from "next/link";
-
 import { useActor } from "@xstate/react";
 
 import { cartService, EE } from "@/machines/cart_machine";
 
+import { FALLBACK_PHOTO } from "@/constants/index";
 import type { PropsI } from "@/pages/index";
 
 interface ProductPropsI {
@@ -17,6 +18,7 @@ interface ProductPropsI {
 const Product: FC<ProductPropsI> = ({ product }) => {
   const basePath = "/product/";
 
+  // const [imageErrored, setImageErrored] = useState<boolean>(false);
   const [cartState, dispatchToCart] = useActor(cartService);
 
   const productIsInCart = cartState.context.cart[product.id] !== undefined;
@@ -59,7 +61,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
             tw="hover:scale-150 duration-500 ease-in-out transform flex items-end justify-end h-56 w-full bg-cover "
             css={[
               css`
-                background-image: url(${product.image});
+                background-image: url(${product.image}), url(${FALLBACK_PHOTO});
               `,
             ]}
           ></div>
