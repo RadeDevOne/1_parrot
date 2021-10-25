@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import type { FC, ChangeEventHandler } from "react";
+import type { FC, ChangeEventHandler, SyntheticEvent } from "react";
 import { useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
@@ -86,10 +86,19 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     nick: name,
     streetAddress,
     postalCode,
+    regionOrState,
     id,
   } = sanitizedProfileData;
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const {
+      target: { name: inputName, value: inputValue },
+    } = e;
+
+    setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
+  };
+
+  const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const {
       target: { name: inputName, value: inputValue },
     } = e;
@@ -205,12 +214,13 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <h3 tw="text-xl font-semibold leading-normal dark:text-gray-400 text-gray-900 mb-2">
                 {sessionData?.name || profile?.nick || ""}
               </h3>
-              {email && email !== name && (
-                <div tw="text-sm leading-normal mt-0 mb-2 text-gray-200 light:text-gray-700 font-semibold">
-                  <i tw="mr-2 text-lg text-gray-400"></i>
-                  {email}
-                </div>
-              )}
+              {sessionData?.email ||
+                (profile?.email && email !== name && (
+                  <div tw="text-sm leading-normal mt-0 mb-2 text-gray-200 light:text-gray-700 font-semibold">
+                    <i tw="mr-2 text-lg text-gray-400"></i>
+                    {sessionData?.email || profile?.email || ""}
+                  </div>
+                ))}
             </div>
           </div>
         </div>
@@ -288,6 +298,8 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Name</span>
                 <input
+                  value={sanitizedProfileData.nick || ""}
+                  onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="nick"
                   placeholder="Try Odinsson"
@@ -297,6 +309,8 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Email</span>
                 <input
+                  value={sanitizedProfileData.email || ""}
+                  onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="email"
                   type="email"
@@ -307,15 +321,19 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Address</span>
                 <input
+                  value={sanitizedProfileData.streetAddress || ""}
+                  onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
-                  name="address"
+                  name="streetAddress"
                   placeholder="10 Street XYZ 654"
                 />
               </label>
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">City</span>
                 <input
-                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
+                  value={sanitizedProfileData.city || ""}
+                  onChange={handleInputChange}
+                  tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="city"
                   placeholder="San Francisco"
                 />
@@ -334,8 +352,10 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   ZIP
                 </span>
                 <input
-                  tw="   -webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
-                  name="postal_code"
+                  value={sanitizedProfileData.postalCode || undefined}
+                  onChange={handleInputChange}
+                  tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
+                  name="postalCode"
                   placeholder="98603"
                 />
               </label>
@@ -346,6 +366,9 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   tw="focus:outline-none px-3 w-full flex items-center"
                 >
                   <select
+                    value={sanitizedProfileData.country || "KR"}
+                    onChange={handleSelectChange}
+                    onBlur={handleSelectChange}
                     defaultValue={"KR"}
                     name="country"
                     tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
@@ -386,7 +409,10 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                     tw="focus:outline-none px-3 w-full flex items-center"
                   >
                     <select
-                      name="state"
+                      value={sanitizedProfileData.regionOrState || "CO"}
+                      onChange={handleSelectChange}
+                      onBlur={handleSelectChange}
+                      name="regionOrState"
                       defaultValue={"CO"}
                       tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
                     >
