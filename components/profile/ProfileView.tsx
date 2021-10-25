@@ -37,9 +37,9 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     ...profile,
     // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
     // SO WE WILL ASK FOR FULL NAME)
-    nick: profile?.nick || sessionData?.name || "",
-    image: profile?.image || sessionData?.image || "",
-    email: sessionData?.email || "",
+    nick: sessionData?.name || profile?.nick || "",
+    image: sessionData?.image || profile?.image || "",
+    email: sessionData?.email || profile?.email || "",
     city: profile.city || "",
     country: profile.country || "",
     postalCode: profile.postalCode || "",
@@ -76,9 +76,18 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
 
   console.log({ countries });
   console.log({ states });
+  console.log({ sessionData });
 
-  const { city, country, email, image, nick, streetAddress, postalCode, id } =
-    sanitizedProfileData;
+  const {
+    city,
+    country,
+    email,
+    image,
+    nick: name,
+    streetAddress,
+    postalCode,
+    id,
+  } = sanitizedProfileData;
 
   return (
     <div tw="pt-16">
@@ -130,7 +139,8 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   </svg>
                   <img
                     alt="..."
-                    src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                    // src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                    src={image}
                     tw="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-width[110px]"
                   />
                 </div>
@@ -181,12 +191,14 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
             </div>
             <div tw="text-center mt-12">
               <h3 tw="text-xl font-semibold leading-normal dark:text-gray-400 text-gray-900 mb-2">
-                Jenna Stones
+                {name}
               </h3>
-              <div tw="text-sm leading-normal mt-0 mb-2 text-gray-200 light:text-gray-700 font-semibold">
-                <i tw="mr-2 text-lg text-gray-400"></i>
-                blah.some@mail.com
-              </div>
+              {email && email !== name && (
+                <div tw="text-sm leading-normal mt-0 mb-2 text-gray-200 light:text-gray-700 font-semibold">
+                  <i tw="mr-2 text-lg text-gray-400"></i>
+                  {email}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -222,8 +234,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                     /* ${tw`border dark:border-gray-200 border-gray-800`}; */
 
                     &:-webkit-autofill,
-                    &:-webkit-autofill:hover 
-                    {
+                    &:-webkit-autofill:hover {
                       ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
                       ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
                     }
@@ -236,9 +247,8 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   & select:-webkit-autofill:hover,
                   & select:-webkit-autofill:focus {
                     ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
-                      ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+                    ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
                   }
-
 
                   /* & input:-webkit-autofill,
                   & input:-webkit-autofill:hover,
