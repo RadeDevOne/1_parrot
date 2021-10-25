@@ -40,8 +40,10 @@ export const generateProfilesData = (numberOfProfiles: number) => {
     profilesData.push({
       id,
       city: faker.address.city(),
-      country: faker.address.country(),
+      country: "US",
       nick: characterName,
+      email: faker.internet.email(),
+      regionOrState: faker.address.state(),
       image: null,
       postalCode: faker.address.zipCode(),
       streetAddress: `${faker.address.streetName()}, number: ${Math.round(
