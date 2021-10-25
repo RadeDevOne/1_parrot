@@ -112,6 +112,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
 
         await prismaClient.profile.create({
           data: {
+            email: user.email,
             user: {
               connect: {
                 id: obtainedUser.id,
