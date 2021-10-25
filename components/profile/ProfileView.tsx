@@ -40,6 +40,10 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     nick: profile?.nick || sessionData?.name || "",
     image: profile?.image || sessionData?.image || "",
     email: sessionData?.email || "",
+    city: profile.city || "",
+    country: profile.country || "",
+    postalCode: profile.postalCode || "",
+    streetAddress: profile.streetAddress || "",
   });
 
   /* useEffect(() => {
