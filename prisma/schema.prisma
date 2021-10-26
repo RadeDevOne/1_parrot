@@ -132,13 +132,13 @@ model VerificationToken {
 // --------------------------------------------------
 
 model Profile {
-  id                     String    @id @default(cuid())
+  id                     String     @id @default(cuid())
   // PROFILE SHOULDN'T NECESSARY HAS THE RELATED USER
   // SUPERADMIN PROFILE SHOULDN'T HAVE ANY USER RECORD
   // RELATED TO HIM, THAT'S WHY user IS OPTIONAL HERE
-  user                   User?     @relation(fields: [userId], references: [id])
+  user                   User?      @relation(fields: [userId], references: [id])
   userId                 String?
-  role                   Role      @default(USER)
+  role                   Role       @default(USER)
   // FOR SHIPPING PURPOSES
   image                  String?
   streetAddress          String?
@@ -147,8 +147,8 @@ model Profile {
   country                String?
   regionOrState          String?
   // paymentMethod          String?
-  createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @default(now()) @updatedAt
+  createdAt              DateTime   @default(now())
+  updatedAt              DateTime   @default(now()) @updatedAt
   // --------------
   ordersHistory          Order[]
   reviewsHistory         Review[]
@@ -156,10 +156,13 @@ model Profile {
   productCreationHistory Product[]
   // THIS IS HELPFUL FOR SUPERADMIN (WE CAN SAVE THERE NAME OF THE USER TOO)
   // IT IS A BIT MISLEADING BUT NEVER MIND
-  nick                   String?
+  favoriteProducts       Favorite[]
+
+
+  nick  String?
   // SOMETIMES OUR USER OBJECT WON'T HAVE email (GITHUB OAUTH DOESN'T REVEAL A email)
   // SO VE CAN ADD email HERE TOO
-  email                  String?
+  email String?
 }
 
 // -------------------------------------------------------------
@@ -199,11 +202,13 @@ model Product {
   orderElements OrderElement[]
   // HERE WE WILL HAVE ONLY ONE RECORD (JUST YOU TO KNOW)
   // averageRating AvarageProductRating[]
+  favorites     Favorite[]
 }
 
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 // !!!!!! IGNORE THIS
+//
 // AVERAGE RATING SHOULD HAVE IT'S OWN RECORD
 // IT SHIULD LINK
 // SO EVERY TIME REVIEW IS MADE YOU MAKE A REVIEW
@@ -311,9 +316,15 @@ model Order {
 // ----------------------------------------------------------------------
 // ------------   Favorite ------------   (favorite product)
 
-// model Favorite {
-//   id String @id @default(cuid())
-// }
+model Favorite {
+  id        String   @id @default(cuid())
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
 
 // -----------------------------------------------------------------------
 // -----------------------------------------------------------------------
