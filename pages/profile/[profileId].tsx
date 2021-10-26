@@ -13,7 +13,11 @@ import validateProfille from "@/lib/auth/validateProfile";
 import Layout from "@/components/5_profile_page/Layout";
 
 export interface PropsI {
-  profile: Profile;
+  profile: Profile & {
+    _count: {
+      ordersHistory: number;
+    } | null;
+  };
 }
 
 export type paramsType = {
@@ -69,6 +73,13 @@ export const getServerSideProps: GetServerSideProps<
   const profile = await prisma.profile.findUnique({
     where: {
       id: ctx.params?.profileId || "",
+    },
+    include: {
+      _count: {
+        select: {
+          ordersHistory: true,
+        },
+      },
     },
   });
 

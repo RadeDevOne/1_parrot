@@ -72,11 +72,10 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     return null;
   }
 
-  console.log({ sanitizedProfileData });
-
-  console.log({ countries });
-  console.log({ states });
-  console.log({ sessionData });
+  // console.log({ sanitizedProfileData });
+  // console.log({ countries });
+  // console.log({ states });
+  // console.log({ sessionData });
 
   const {
     city,
@@ -105,6 +104,16 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
 
     setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
   };
+
+  let ordersCount = 0;
+
+  if (profile._count) {
+    const { ordersHistory } = profile._count;
+
+    ordersCount = ordersHistory;
+  }
+
+  console.log({ ordersCount });
 
   return (
     <div tw="pt-16">
@@ -179,20 +188,39 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                 ]}
               >
                 <div tw="flex justify-center py-4 lg:pt-4 pt-8">
-                  <Link
-                    href={`/profile/stats/${"bitcoinether"}${"#purchases"}`}
-                  >
-                    <a>
-                      <div tw="mr-4 p-3 text-center">
-                        <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
-                          22
-                        </span>
-                        <span tw="text-sm text-gray-400 light:text-gray-600">
-                          Purchases
-                        </span>
-                      </div>
-                    </a>
-                  </Link>
+                  {
+                    ordersCount > 0 ? (
+                      <Link
+                        href={`/profile/stats/${"bitcoinether"}${"#purchases"}`}
+                      >
+                        <a>
+                          <div tw="mr-4 p-3 text-center">
+                            <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
+                              {ordersCount}
+                            </span>
+                            <span tw="text-sm text-gray-400 light:text-gray-600">
+                              Purchases
+                            </span>
+                          </div>
+                        </a>
+                      </Link>
+                    ) : (
+                      //   <Link
+                      //   href={`/profile/stats/${"bitcoinether"}${"#purchases"}`}
+                      // >
+                      <span>
+                        <div tw="mr-4 p-3 text-center">
+                          <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
+                            0
+                          </span>
+                          <span tw="text-sm text-gray-400 light:text-gray-600">
+                            Purchases
+                          </span>
+                        </div>
+                      </span>
+                    )
+                    // </Link>
+                  }
                   <Link
                     href={`/profile/stats/${"bitcoinether"}${"#favorites"}`}
                   >
