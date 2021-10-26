@@ -103,7 +103,7 @@ export const generateProductData = (numberOfProducts: number) => {
     productsData.push({
       id,
       name: productName,
-      image: unsplashTemplate(productName + "_" + "product"),
+      image: unsplashTemplate(productName + "-" + "product"),
       // image: faker.image.fashion(),
       averageRating: Math.round(Math.random() * 5.1) || 1,
       countInStock,

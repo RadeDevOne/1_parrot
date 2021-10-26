@@ -14,6 +14,8 @@ import {
 
 import createReview from "../db/create/review";
 
+// import prns from "../_dev/mock_data/product_names.json";
+
 const prisma = new PrismaClient();
 
 async function main() {
@@ -82,6 +84,7 @@ async function main() {
   //
 
   console.log("SEEDED SOME DATA");
+  // console.log({ prns });
 }
 
 main()
