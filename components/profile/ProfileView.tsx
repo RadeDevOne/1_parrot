@@ -107,10 +107,12 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
 
   let ordersCount = 0;
 
-  if (profile._count) {
-    const { ordersHistory } = profile._count;
+  console.log(profile.ordersHistory);
 
-    ordersCount = ordersHistory;
+  if (profile.ordersHistory && profile.ordersHistory) {
+    const { ordersHistory } = profile;
+    // @ts-ignore
+    ordersCount = ordersHistory[0]._count || 0;
   }
 
   console.log({ ordersCount });

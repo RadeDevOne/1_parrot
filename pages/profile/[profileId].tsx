@@ -4,7 +4,7 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 
 import prisma from "@/lib/prisma";
 
-import type { Profile } from "@prisma/client";
+import type { Profile, Prisma } from "@prisma/client";
 
 import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
 
@@ -14,9 +14,9 @@ import Layout from "@/components/5_profile_page/Layout";
 
 export interface PropsI {
   profile: Profile & {
-    _count: {
-      ordersHistory: number;
-    } | null;
+    ordersHistory: {
+      _count: Prisma.OrderCountOutputType | null;
+    }[];
   };
 }
 
@@ -75,9 +75,12 @@ export const getServerSideProps: GetServerSideProps<
       id: ctx.params?.profileId || "",
     },
     include: {
-      _count: {
+      ordersHistory: {
+        where: {
+          status: "FULFILLED",
+        },
         select: {
-          ordersHistory: true,
+          _count: true,
         },
       },
     },
