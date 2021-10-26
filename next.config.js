@@ -54,6 +54,8 @@ module.exports = (phase, { defaultConfig }) => {
   }; */
   // ***********************
 
+  newConfig.swcMinify = true;
+
   const configuration = withPlugins([/* envPlugin,  */ svgReactPlugin])(phase, {
     defaultConfig: newConfig,
   });
