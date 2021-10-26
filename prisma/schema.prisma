@@ -250,6 +250,21 @@ model Review {
 
 }
 
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+// ------------   Favorite ------------   (favorite product)
+
+model Favorite {
+  id        String   @id @default(cuid())
+  profile   Profile  @relation(fields: [profileId], references: [id])
+  profileId String
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 
@@ -309,21 +324,6 @@ model Order {
   paymentResultId String?
   payedAt         DateTime?
   deliveredAt     DateTime?
-}
-
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-// ------------   Favorite ------------   (favorite product)
-
-model Favorite {
-  id        String   @id @default(cuid())
-  profile   Profile  @relation(fields: [profileId], references: [id])
-  profileId String
-  product   Product  @relation(fields: [productId], references: [id])
-  productId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 // -----------------------------------------------------------------------
