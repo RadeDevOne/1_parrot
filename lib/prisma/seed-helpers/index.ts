@@ -8,14 +8,14 @@ import faker from "faker";
 import { uniqueNamesGenerator, Config, starWars } from "unique-names-generator";
 
 // NO OP (BUT THIS IS HOW WE WOULD USE UNSPLASH API)
-import { createApi } from "unsplash-js";
+/* import { createApi } from "unsplash-js";
 // eslint-disable-next-line
 import nodeFetch from "node-fetch";
 const unsplash = createApi({
   accessKey: process.env.UNSPLASH_KEY as string,
   // @ts-ignore
   fetch: nodeFetch,
-});
+}); */
 //
 
 const config: Config = {
