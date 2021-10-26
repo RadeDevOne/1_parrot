@@ -190,9 +190,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                 <div tw="flex justify-center py-4 lg:pt-4 pt-8">
                   {
                     ordersCount > 0 ? (
-                      <Link
-                        href={`/profile/stats/${"bitcoinether"}${"#purchases"}`}
-                      >
+                      <Link href={`/profile/stats/${id}${"#purchases"}`}>
                         <a>
                           <div tw="mr-4 p-3 text-center">
                             <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
