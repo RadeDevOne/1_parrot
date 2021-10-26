@@ -383,7 +383,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   </select>
                 </div>
               </label>
-              {
+              {sanitizedProfileData.country === "US" && (
                 <motion.label
                   css={[
                     css`
@@ -392,7 +392,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                       /* ${tw`h-12 py-3`} */
                       height: 0px;
                       overflow-y: hidden;
-                      border: crimson solid 1px;
+                      /* border: crimson solid 1px; */
                     `,
                     tw`flex border-t border-gray-200 items-center select-none relative`,
                   ]}
@@ -429,7 +429,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                     </select>
                   </div>
                 </motion.label>
-              }
+              )}
             </fieldset>
           </section>
         </form>
