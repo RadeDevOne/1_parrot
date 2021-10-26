@@ -211,10 +211,10 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               </div>
             </div>
             <div tw="text-center mt-12">
-              <h3 tw="text-xl font-semibold leading-normal dark:text-gray-400 text-gray-900 mb-2">
+              <h3 tw="text-xl font-semibold leading-normal dark:text-gray-300 text-gray-900 mb-2">
                 {sessionData?.name || profile?.nick || ""}
               </h3>
-              <h3 tw="text-sm leading-normal mt-0 mb-2 dark:text-gray-200 light:text-gray-800">
+              <h3 tw="text-sm leading-normal underline mt-0 mb-2 dark:text-gray-200 light:text-gray-800">
                 {sessionData?.email ||
                   (profile?.email && (
                     <i>
@@ -255,13 +255,13 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   /* background: ${theme`colors.l`}; */
 
                   & label > span {
-                    ${tw`dark:text-gray-50`}
+                    ${tw`dark:text-gray-400 light:text-gray-600`}
                   }
 
                   & input {
                     /* ${tw`border dark:border-gray-200 border-gray-800`}; */
 
-                    ${tw`dark:text-gray-300 dark:placeholder-gray-600`}
+                    ${tw`dark:text-gray-50 dark:placeholder-gray-600 light:text-gray-800 font-family["FiraMono"] overflow-ellipsis`}
 
                     &:-webkit-autofill,
                     &:-webkit-autofill:hover {
@@ -299,7 +299,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               tw`rounded bg-l dark:bg-gray-800`,
             ]}
           >
-            <h2 tw="dark:text-gray-300 ml-4 mt-2 uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
+            <h2 tw="dark:text-gray-600 ml-4 mt-2 uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
               Shipping & Billing Information
             </h2>
             <fieldset tw="mb-3 shadow-lg text-gray-600">
