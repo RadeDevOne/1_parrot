@@ -1,11 +1,21 @@
 import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import parseCartFromCookie from "@/lib/storage/backend/parseCartAndKeysFromCookie";
+import prisma from "@/lib/prisma";
+
+import { getSession } from "next-auth/react";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 handler.get(async (req, res) => {
+  const { productId } = req.query;
+
+  const session = await getSession({ req });
+
+  console.log({ session, productId });
+
+  res.status(200).json({ session, productId });
+
   /* const cookies = req.cookies;
 
   console.log({ cookies });
