@@ -214,13 +214,15 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <h3 tw="text-xl font-semibold leading-normal dark:text-gray-400 text-gray-900 mb-2">
                 {sessionData?.name || profile?.nick || ""}
               </h3>
-              {sessionData?.email ||
-                (profile?.email && (
-                  <h4 tw="text-sm leading-normal mt-0 mb-2 dark:text-gray-200 light:text-gray-700">
-                    <i tw="mr-2 text-lg text-gray-400"></i>
-                    {sessionData?.email || profile?.email || ""}
-                  </h4>
-                ))}
+              <h3 tw="text-sm leading-normal mt-0 mb-2 dark:text-gray-200 light:text-gray-800">
+                {sessionData?.email ||
+                  (profile?.email && (
+                    <i>
+                      {/* <i tw="mr-2 text-lg text-gray-600"></i> */}
+                      {sessionData?.email || profile?.email || ""}
+                    </i>
+                  ))}
+              </h3>
             </div>
           </div>
         </div>
@@ -252,8 +254,14 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   overflow-x: hidden;
                   /* background: ${theme`colors.l`}; */
 
+                  & label > span {
+                    ${tw`dark:text-gray-50`}
+                  }
+
                   & input {
                     /* ${tw`border dark:border-gray-200 border-gray-800`}; */
+
+                    ${tw`dark:text-gray-300 dark:placeholder-gray-600`}
 
                     &:-webkit-autofill,
                     &:-webkit-autofill:hover {
@@ -298,7 +306,9 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Name</span>
                 <input
-                  // value={sanitizedProfileData.nick || ""}
+                  defaultValue={
+                    sanitizedProfileData.nick || sessionData.name || ""
+                  }
                   onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="nick"
@@ -309,7 +319,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">Email</span>
                 <input
-                  // value={sanitizedProfileData.email || ""}
+                  defaultValue={sanitizedProfileData.email || ""}
                   onChange={handleInputChange}
                   tw="background-clip[content-box] focus:outline-none px-3"
                   name="email"
@@ -331,7 +341,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                 <span tw="dark:text-gray-300 text-right px-2">City</span>
                 <input
-                  // value={sanitizedProfileData.city || ""}
+                  defaultValue={sanitizedProfileData.city || ""}
                   onChange={handleInputChange}
                   tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="city"
@@ -352,7 +362,7 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   ZIP
                 </span>
                 <input
-                  // value={sanitizedProfileData.postalCode || undefined}
+                  defaultValue={sanitizedProfileData.postalCode || undefined}
                   onChange={handleInputChange}
                   tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                   name="postalCode"
@@ -366,10 +376,10 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                   tw="focus:outline-none px-3 w-full flex items-center"
                 >
                   <select
-                    // value={sanitizedProfileData.country || "KR"}
+                    defaultValue={sanitizedProfileData.country || "KR"}
                     onChange={handleSelectChange}
                     onBlur={handleSelectChange}
-                    defaultValue={"KR"}
+                    // defaultValue={"KR"}
                     name="country"
                     tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
                   >
@@ -409,11 +419,11 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
                     tw="focus:outline-none px-3 w-full flex items-center"
                   >
                     <select
-                      // value={sanitizedProfileData.regionOrState || "CO"}
+                      defaultValue={sanitizedProfileData.regionOrState || "CO"}
                       onChange={handleSelectChange}
                       onBlur={handleSelectChange}
                       name="regionOrState"
-                      defaultValue={"CO"}
+                      // defaultValue={"CO"}
                       tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
                     >
                       {states.map((item, i) => {
