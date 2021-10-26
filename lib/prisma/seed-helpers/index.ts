@@ -29,6 +29,18 @@ const unsplashTemplate = (name: string) => {
   return `https://source.unsplash.com/800x600/?${prodName.toLowerCase()}`;
 };
 
+const placeImagesGen = () => {
+  const one = `https://randomuser.me/api/portraits/thumb/men/${Math.round(
+    Math.random() * 76
+  )}.jpg`;
+
+  const two = `https://randomuser.me/api/portraits/thumb/women/${Math.round(
+    Math.random() * 76
+  )}.jpg`;
+
+  return Math.round(Math.random() * 2) ? one : two;
+};
+
 export const generateProfilesData = (numberOfProfiles: number) => {
   const profilesData: Profile[] = [];
   const profileIds: string[] = [];
@@ -55,7 +67,7 @@ export const generateProfilesData = (numberOfProfiles: number) => {
       nick: characterName,
       email: faker.internet.email(),
       regionOrState: faker.address.state(),
-      image: null,
+      image: placeImagesGen(),
       postalCode: faker.address.zipCode(),
       streetAddress: `${faker.address.streetName()}, number: ${Math.round(
         Math.random() * 100

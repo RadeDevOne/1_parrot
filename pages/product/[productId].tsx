@@ -2,6 +2,12 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
+import { useEffect } from "react";
+//
+import axios from "axios";
+import { useSession } from "next-auth/react";
+//
+
 import { Product, Review } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
@@ -77,6 +83,14 @@ export const getServerSideProps: GetServerSideProps<
 };
 
 const Page: NP<PropsI> = (props) => {
+  const { data, status } = useSession();
+
+  useEffect(() => {
+    if (!data) return;
+
+    axios.get(`/api/product/favorite/${data.profile?.id || 1}`);
+  }, [data]);
+
   return (
     <Layout {...props}>
       {/* <pre>{JSON.stringify({ product: props.product }, null, 2)}</pre> */}

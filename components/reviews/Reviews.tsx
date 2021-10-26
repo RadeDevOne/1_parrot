@@ -1,12 +1,13 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import { format } from "date-fns";
 
 import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
-import Stringified from "../dev-helpers/Stringified";
+// import Stringified from "../dev-helpers/Stringified";
 
 import useIsMounted from "@/hooks/useIsMounted";
 
@@ -15,6 +16,8 @@ interface PropsI {
 }
 
 const Reviews: FC<PropsI> = ({ reviews }) => {
+  const [imageErrored, setImageErrored] = useState<boolean>(false);
+
   const fallbackImageName = ["face", "profile"];
   const unsplash_url_maker = () =>
     `https://source.unsplash.com/100x100/?${
@@ -22,6 +25,27 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
     }`;
 
   const mounted = useIsMounted();
+
+  const placeImgs = [
+    "https://www.fillmurray.com/360/360",
+    "https://www.placecage.com/360/360",
+    "https://www.stevensegallery.com/360/360",
+  ];
+
+  const placeImagsPlus = () => {
+    const one = `https://randomuser.me/api/portraits/thumb/men/${Math.round(
+      Math.random() * 76
+    )}.jpg`;
+
+    const two = `https://randomuser.me/api/portraits/thumb/women/${Math.round(
+      Math.random() * 76
+    )}.jpg`;
+
+    return Math.round(Math.random() * 2) ? one : two;
+  };
+
+  const imageErrCandidate = () =>
+    placeImgs[Math.round(Math.random() * (placeImgs.length - 1))];
 
   return (
     <section tw="mt-8 mb-8">
@@ -52,9 +76,14 @@ const Reviews: FC<PropsI> = ({ reviews }) => {
                 <div tw="flex-shrink-0 mr-3 relative">
                   {mounted && (
                     <img
+                      onError={() => setImageErrored(true)}
                       tw="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10"
                       // src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80"
-                      src={rev.profile.image || unsplash_url_maker()}
+                      src={
+                        !imageErrored
+                          ? rev.profile.image || unsplash_url_maker()
+                          : placeImagsPlus()
+                      }
                       alt="profile"
                     />
                   )}
