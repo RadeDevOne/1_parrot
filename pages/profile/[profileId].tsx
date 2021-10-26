@@ -13,11 +13,8 @@ import validateProfille from "@/lib/auth/validateProfile";
 import Layout from "@/components/5_profile_page/Layout";
 
 export interface PropsI {
-  profile: Profile & {
-    ordersHistory: {
-      _count: Prisma.OrderCountOutputType | null;
-    }[];
-  };
+  profile: Profile;
+  fulfilledOrdersCount: number;
 }
 
 export type paramsType = {
@@ -74,16 +71,6 @@ export const getServerSideProps: GetServerSideProps<
     where: {
       id: ctx.params?.profileId || "",
     },
-    include: {
-      ordersHistory: {
-        where: {
-          status: "FULFILLED",
-        },
-        select: {
-          _count: true,
-        },
-      },
-    },
   });
 
   // WE CAN REDIRECT IF PROFILE IS null
@@ -98,11 +85,20 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
+  // COUNTING FULFILLED ORDERS, LINKED TO PROFILE
+  const fulfilledOrdersCount = await prisma.order.count({
+    where: {
+      buyerId: profile.id,
+      status: "FULFILLED",
+    },
+  });
+
   //
 
   return {
     props: {
       profile,
+      fulfilledOrdersCount,
     },
   };
 };
@@ -112,7 +108,7 @@ const ProfilePage: NP<PropsI> = (props) => {
 
   // console.log(props);
 
-  return <Layout profile={props.profile} />;
+  return <Layout {...props} />;
 };
 
 export default ProfilePage;

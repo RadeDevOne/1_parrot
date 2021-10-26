@@ -22,7 +22,7 @@ interface UserDataI extends profType {
   email: string;
 }
 
-const ProfileView: FC<PropsI> = ({ profile }) => {
+const ProfileView: FC<PropsI> = ({ profile, fulfilledOrdersCount }) => {
   console.log({ profile });
 
   const sessionData = useProfData();
@@ -105,18 +105,6 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
     setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
   };
 
-  let ordersCount = 0;
-
-  console.log(profile.ordersHistory);
-
-  if (profile.ordersHistory && profile.ordersHistory) {
-    const { ordersHistory } = profile;
-    // @ts-ignore
-    ordersCount = ordersHistory[0]._count || 0;
-  }
-
-  console.log({ ordersCount });
-
   return (
     <div tw="pt-16">
       <div tw="w-full lg:w-4/12 px-4 mx-auto">
@@ -191,12 +179,12 @@ const ProfileView: FC<PropsI> = ({ profile }) => {
               >
                 <div tw="flex justify-center py-4 lg:pt-4 pt-8">
                   {
-                    ordersCount > 0 ? (
+                    fulfilledOrdersCount > 0 ? (
                       <Link href={`/profile/stats/${id}${"#purchases"}`}>
                         <a>
                           <div tw="mr-4 p-3 text-center">
                             <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
-                              {ordersCount}
+                              {fulfilledOrdersCount}
                             </span>
                             <span tw="text-sm text-gray-400 light:text-gray-600">
                               Purchases

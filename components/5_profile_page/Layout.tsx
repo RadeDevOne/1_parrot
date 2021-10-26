@@ -6,10 +6,13 @@ import type { PropsI } from "@/pages/profile/[profileId]";
 
 import ProfileView from "../profile/ProfileView";
 
-const Layout: FC<PropsI> = ({ children, profile }) => {
+const Layout: FC<PropsI> = ({ children, fulfilledOrdersCount, profile }) => {
   return (
     <main>
-      <ProfileView profile={profile} />
+      <ProfileView
+        profile={profile}
+        fulfilledOrdersCount={fulfilledOrdersCount}
+      />
       {/*  */}
       {children}
       {/*  */}

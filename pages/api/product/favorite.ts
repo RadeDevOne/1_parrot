@@ -6,7 +6,7 @@ import parseCartFromCookie from "@/lib/storage/backend/parseCartAndKeysFromCooki
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 handler.get(async (req, res) => {
-  const cookies = req.cookies;
+  /* const cookies = req.cookies;
 
   console.log({ cookies });
 
@@ -19,7 +19,7 @@ handler.get(async (req, res) => {
     console.log(cart[keys[0]].id);
   }
 
-  return res.status(200).send("hello 666");
+  return res.status(200).send("hello 666"); */
 });
 
 export default handler;
