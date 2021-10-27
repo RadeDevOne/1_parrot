@@ -30,27 +30,33 @@ const getProdNames = () => {
 // console.log(getProdNames());
 // console.log(process.env.UNSPLASH_KEY);
 
-const genImgz = async () => {
+const genImgz = async (provider) => {
   const prodz = getProdNames();
 
   for (let i = 0; i < prodz.length; i++) {
     // console.log(product);
 
-    const images = await pex.photos.search({
-      query: prodz[i].name,
-      page: 1,
-      per_page: 5,
-    });
+    let images;
 
-    /*  const result = await unsplash.search.getPhotos({
-      query: prodz[i].name,
-      page: 1,
-      perPage: 20,
-      orientation: "landscape",
-    });
+    if (provider === "pexels") {
+      images = await pex.photos.search({
+        query: prodz[i].name,
+        page: 1,
+        per_page: 5,
+      });
+    }
 
-    const images = result.response.results;
- */
+    if (provider === "unsplash") {
+      const result = await unsplash.search.getPhotos({
+        query: prodz[i].name,
+        page: 1,
+        perPage: 20,
+        orientation: "landscape",
+      });
+
+      images = result.response.results;
+    }
+
     console.log({ images });
 
     prodz[i].images = images;
@@ -65,7 +71,7 @@ const genImgz = async () => {
 
 // console.log("blah");
 
-genImgz();
+genImgz("unsplash");
 
 /* const client = pexels.createClient(
   "563492ad6f917000010000019f6cd3c0598941b1a1cc2ce5fdf9b09a"

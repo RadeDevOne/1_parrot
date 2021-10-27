@@ -9,9 +9,10 @@ import { getSession, useSession } from "next-auth/react";
 // MANUAL TESTS, TRYOUTS AND EVERYTHING ELSE YOU CAN TRY AND COMMENT OUT
 import useManualTest from "../manual_tests/useManualTest";
 import useSetSomeBrowserCookie from "../manual_tests/useSetSomeBrowserCookie";
+import imdat from "../_dev/output/prods_and_imgs.json";
+import gener from "@/lib/prisma/seed-helpers/productsAndImages";
 //
 
-import imdat from "../_dev/output/prods_and_imgs.json";
 import prisma from "@/lib/prisma";
 
 import Layout from "@/components/1_index_page/Layout";
@@ -60,7 +61,6 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   // sess?.profile.
 
   console.log({ sess });
-  console.log({ imdat });
 
   // INITIAL PRODUCTS
   const products = await prisma.product.findMany({
@@ -112,12 +112,15 @@ const Page: NP<PropsI> = (props) => {
   // MANUAL TESTS, AND OTHER TRYOUT STUFF
   // useManualTest();
   // useSetSomeBrowserCookie();
+  // console.log(JSON.stringify({ imdat }));
+  // console.log(imdat);
+  // console.log(gener());
   //--------------------------------------
   // -------------------------------------
-  console.log(JSON.stringify({ imdat: imdat[0].images.photos }));
+
   const { data, status } = useSession();
 
-  console.log({ data, status });
+  // console.log({ data, status });
 
   return (
     <Layout {...props} />
