@@ -72,7 +72,15 @@ const handler = (req: NextApiRequest, res: NextApiResponse) =>
       encryption: true,
     },
     debug: true, */
-
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
+    /* jwt: {
+      signingKey: process.env.JWT_SIGNING_PUBLIC_KEY,
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+      // verificationOptions
+    }, */
+    // -------------------------------------------------------------
+    // -------------------------------------------------------------
     pages: {
       signIn: "/signin",
       verifyRequest: "/verify-email-info",
