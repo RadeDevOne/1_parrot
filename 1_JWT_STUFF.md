@@ -1,3 +1,7 @@
+# PAY NO ATTENTION TO THIS
+
+I WANTED TO DO THIS BECAUSE OF WARNING FOR GOOGLE OAUTH ONLY (`next-auth` RELLATED)
+
 ```
 npm i -g node-jose-tools
 ```
