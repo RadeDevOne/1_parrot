@@ -8,7 +8,7 @@ function parseProductNamesandImages() {
     // @ts-ignore
     const images = prodsImz[i].images;
     const imLength = images.length as number;
-    const randomIndex = Math.round(Math.random() * (imLength - 1));
+    const randomIndex = Math.round(Math.random() * (imLength - 6));
 
     const randomImage = (images[randomIndex] || images[0]).urls.regular;
 

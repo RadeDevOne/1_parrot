@@ -87,7 +87,7 @@ export const generateProductData = (numberOfProducts: number) => {
       : parseInt(`${Math.random() * 10}`) * parseInt(`${Math.random() * 10}`) +
         6;
 
-    const productName = faker.commerce.productName();
+    // const productName = faker.commerce.productName();
 
     const id = cuid();
 
