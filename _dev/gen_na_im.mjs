@@ -1,35 +1,36 @@
 import fs from "fs";
-
+import "dotenv/config.js";
 import { createApi } from "unsplash-js";
-
 import pexels from "pexels";
 
-import faker from "faker";
+// import faker from "faker";
 
-import { product_names } from "./mock_data/product_names.mjs";
+// import { product_names } from "./mock_data/product_names.mjs";
 
 // 5 * 160 (160 names) (160 requests) (5 products per request)
 
 import nodeFetch from "node-fetch";
 const unsplash = createApi({
-  // accessKey: <key here>,
-  // @ts-ignore
+  accessKey: process.env.UNSPLASH_KEY,
   fetch: nodeFetch,
 });
 
-const client = pexels
-  .createClient
-  // <key here>
-  ();
+const pex = pexels.createClient(process.env.PEXELS_KEY);
 
-const numOfClusters = 8;
-const numOfProductsPerCluster = 100;
+const getProdNames = () => {
+  const prz = fs.readFileSync("_dev/mock_data/pn.json", { encoding: "utf-8" });
+
+  return JSON.parse(prz);
+};
+
+console.log(getProdNames());
+console.log(process.env.UNSPLASH_KEY);
 
 const generatePexelImagesForProducts = async () => {
   for (let i = 0; i < 40; i++) {
     // console.log(product);
     /* 
-    const images = await client.photos.search({
+    const images = await pex.photos.search({
       query: product_names[i].product,
       page: 1,
       per_page: 5,

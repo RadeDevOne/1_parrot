@@ -38,7 +38,7 @@
     "**/*.ts",
     "**/*.tsx",
     "countries_n_states/index.mjs",
-    "_dev/pexels.mjs"
+    "_dev/gen_na_im.mjs"
   ],
   "exclude": ["node_modules"]
 }
