@@ -39,6 +39,7 @@ const generatePexelImagesForProducts = async () => {
       query: product_names[i].product,
       page: 1,
       perPage: 20,
+      orientation: "landscape",
     });
 
     const images = result.response;
