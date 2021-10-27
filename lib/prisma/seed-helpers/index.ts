@@ -106,10 +106,10 @@ export const generateProductData = (numberOfProducts: number) => {
       description: faker.commerce.productDescription(),
       category: faker.commerce.department(),
       brand: faker.company.companyName(),
-      price: faker.commerce.price() + ",99",
+      price: faker.commerce.price(56, 266, 99),
       adminId: null,
-      createdAt: faker.date.past(),
-      updatedAt: faker.date.future(),
+      createdAt: faker.date.past(2019),
+      updatedAt: faker.date.past(2020),
     });
   }
 
