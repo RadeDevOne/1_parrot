@@ -41,7 +41,7 @@ const genImgz = async (provider) => {
     if (provider === "pexels") {
       images = await pex.photos.search({
         // query: prodz[i].name.slice(0, prodz[i].name.indexOf(" ")) + " product",
-        query: prodz[i].name.slice(0, prodz[i].name.indexOf(" ")),
+        query: "product " + prodz[i].name.slice(0, prodz[i].name.indexOf(" ")),
         page: 1,
         per_page: 5,
       });
