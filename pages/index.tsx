@@ -1,17 +1,19 @@
 /* eslint react/react-in-jsx-scope: 0 */
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
-import { useEffect } from "react";
-import cook from "js-cookie";
+// import { useEffect } from "react";
+// import cook from "js-cookie";
 
 import { getSession, useSession } from "next-auth/react";
 
+// -------------------------------------------------------------
 // MANUAL TESTS, TRYOUTS AND EVERYTHING ELSE YOU CAN TRY AND COMMENT OUT
 import useManualTest from "../manual_tests/useManualTest";
 import useSetSomeBrowserCookie from "../manual_tests/useSetSomeBrowserCookie";
 import imdat from "../_dev/output/prods_and_imgs.json";
 import gener from "@/lib/prisma/seed-helpers/productsAndImages";
 //
+// --------------------------------------------------------------
 
 import prisma from "@/lib/prisma";
 
@@ -108,14 +110,19 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
 };
 
 const Page: NP<PropsI> = (props) => {
-  //--------------------------------------
-  // MANUAL TESTS, AND OTHER TRYOUT STUFF
+  //-----------------------------------------------
+  //-----------------------------------------------
+  //-----------------------------------------------
+  //-----------------------------------------------
+  // ---- MANUAL TESTS, AND OTHER TRYOUT STUFF ----
   // useManualTest();
   // useSetSomeBrowserCookie();
   // console.log(JSON.stringify({ imdat }));
   // console.log(imdat);
   // console.log(gener());
   //--------------------------------------
+  // -------------------------------------
+  // -------------------------------------
   // -------------------------------------
 
   const { data, status } = useSession();

@@ -7,16 +7,7 @@ import faker from "faker";
 
 import { uniqueNamesGenerator, Config, starWars } from "unique-names-generator";
 
-// NO OP (BUT THIS IS HOW WE WOULD USE UNSPLASH API)
-/* import { createApi } from "unsplash-js";
-// eslint-disable-next-line
-import nodeFetch from "node-fetch";
-const unsplash = createApi({
-  accessKey: process.env.UNSPLASH_KEY as string,
-  // @ts-ignore
-  fetch: nodeFetch,
-}); */
-//
+import gen800ProdsAndImgz from "./productsAndImages";
 
 const config: Config = {
   dictionaries: [starWars],
@@ -86,7 +77,9 @@ export const generateProductData = (numberOfProducts: number) => {
   const productsData: Product[] = [];
   const productIds: string[] = [];
 
-  for (let i = 0; i < numberOfProducts; i++) {
+  const productsAmount800 = gen800ProdsAndImgz();
+
+  for (let i = 0; i < productsAmount800.length; i++) {
     // WE WILL DO THAT EVERY OTHER PRODUCT IS OUT OF STOCK
 
     const countInStock = !(i % 2)
@@ -102,15 +95,18 @@ export const generateProductData = (numberOfProducts: number) => {
 
     productsData.push({
       id,
-      name: productName,
-      image: unsplashTemplate(productName + "-" + "product"),
+      name: /* productName */ productsAmount800[i].name,
+      image:
+        /* unsplashTemplate(productName + "-" + "product") */ productsAmount800[
+          i
+        ].imageUrl,
       // image: faker.image.fashion(),
       averageRating: Math.round(Math.random() * 5.1) || 1,
       countInStock,
       description: faker.commerce.productDescription(),
       category: faker.commerce.department(),
       brand: faker.company.companyName(),
-      price: faker.commerce.price(),
+      price: faker.commerce.price() + 0.99,
       adminId: null,
       createdAt: faker.date.past(),
       updatedAt: faker.date.future(),
