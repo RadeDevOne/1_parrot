@@ -41,7 +41,7 @@ const genImgz = async (provider) => {
     if (provider === "pexels") {
       images = await pex.photos.search({
         // query: prodz[i].name.slice(0, prodz[i].name.indexOf(" ")) + " product",
-        query: "product " + prodz[i].name.slice(0, prodz[i].name.indexOf(" ")),
+        query: "product " + prodz[i].value,
         page: 1,
         per_page: 5,
       });
@@ -49,7 +49,7 @@ const genImgz = async (provider) => {
 
     if (provider === "unsplash") {
       const result = await unsplash.search.getPhotos({
-        query: prodz[i].name,
+        query: prodz[i].value,
         page: 1,
         perPage: 20,
         orientation: "landscape",
