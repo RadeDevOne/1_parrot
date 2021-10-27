@@ -13,7 +13,7 @@ const config: Config = {
   dictionaries: [starWars],
 };
 
-const unsplashTemplate = (name: string) => {
+export const unsplashTemplate = (name: string) => {
   const arr = name.split(" ");
   const prodName = arr[arr.length - 1];
 

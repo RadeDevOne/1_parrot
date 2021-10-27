@@ -8,6 +8,7 @@ import { useActor } from "@xstate/react";
 
 import { cartService, EE } from "@/machines/cart_machine";
 
+import { unsplashTemplate } from "@/lib/prisma/seed-helpers";
 import { FALLBACK_PHOTO } from "@/constants/index";
 import type { PropsI } from "@/pages/index";
 
@@ -61,7 +62,9 @@ const Product: FC<ProductPropsI> = ({ product }) => {
             tw="hover:scale-150 duration-500 ease-in-out transform flex items-end justify-end h-56 w-full bg-cover "
             css={[
               css`
-                background-image: url(${product.image}), url(${FALLBACK_PHOTO});
+                background-image: url(${product.image}),
+                  url(${unsplashTemplate(product.name)})
+                    /* , url(${FALLBACK_PHOTO}) */;
               `,
             ]}
           ></div>
