@@ -114,7 +114,7 @@ const Page: NP<PropsI> = (props) => {
   // useSetSomeBrowserCookie();
   //--------------------------------------
   // -------------------------------------
-  console.log(JSON.stringify({ imdat: imdat[0].images.results[0].urls.raw }));
+  console.log(JSON.stringify({ imdat: imdat[0].images.photos }));
   const { data, status } = useSession();
 
   console.log({ data, status });

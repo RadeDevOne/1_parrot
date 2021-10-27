@@ -1,4 +1,8 @@
+// RUNNING THIS FILE WITH
+//                             node _dev/gen_na_im.mjs
+//
 import fs from "fs";
+// ENV VARIABLES LOADED FROM .env WITH THIS PACKAGE
 import "dotenv/config.js";
 import { createApi } from "unsplash-js";
 import pexels from "pexels";
@@ -23,47 +27,45 @@ const getProdNames = () => {
   return JSON.parse(prz);
 };
 
-console.log(getProdNames());
-console.log(process.env.UNSPLASH_KEY);
+// console.log(getProdNames());
+// console.log(process.env.UNSPLASH_KEY);
 
-const generatePexelImagesForProducts = async () => {
-  for (let i = 0; i < 40; i++) {
+const genImgz = async () => {
+  const prodz = getProdNames();
+
+  for (let i = 0; i < prodz.length; i++) {
     // console.log(product);
-    /* 
+
     const images = await pex.photos.search({
-      query: product_names[i].product,
+      query: prodz[i].name,
       page: 1,
       per_page: 5,
-    }); */
+    });
 
-    const result = await unsplash.search.getPhotos({
-      query: product_names[i].product,
+    /*  const result = await unsplash.search.getPhotos({
+      query: prodz[i].name,
       page: 1,
       perPage: 20,
       orientation: "landscape",
     });
 
-    const images = result.response;
-
+    const images = result.response.results;
+ */
     console.log({ images });
 
-    product_names[i].images = images;
+    prodz[i].images = images;
   }
 
   // console.log({ product_names });
 
-  fs.writeFileSync(
-    "_dev/output/prods_and_imgs.json",
-    JSON.stringify(product_names),
-    {
-      encoding: "utf8",
-    }
-  );
+  fs.writeFileSync("_dev/output/prods_and_imgs.json", JSON.stringify(prodz), {
+    encoding: "utf8",
+  });
 };
 
 // console.log("blah");
 
-// generatePexelImagesForProducts();
+genImgz();
 
 /* const client = pexels.createClient(
   "563492ad6f917000010000019f6cd3c0598941b1a1cc2ce5fdf9b09a"
