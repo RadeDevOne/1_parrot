@@ -70,7 +70,8 @@
           ["@/svgs", "./svgs"],
           ["@/styles", "./styles"],
           ["@/db", "./db"],
-          ["@/pages", "./pages"]
+          ["@/pages", "./pages"],
+          ["@/middlewares", "./middlewares"]
         ],
         "extensions": [".ts", ".js", ".jsx", ".tsx", ".json"]
       }

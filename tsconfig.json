@@ -14,7 +14,8 @@
       "@/svgs/*": ["svgs/*"],
       "@/styles/*": ["styles/*"],
       "@/db/*": ["db/*"],
-      "@/pages/*": ["pages/*"]
+      "@/pages/*": ["pages/*"],
+      "@/middlewares/*": ["middlewares/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

@@ -5,25 +5,16 @@ import prisma from "@/lib/prisma";
 
 import { getSession } from "next-auth/react";
 
+import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
+
 const handler = nc<NextApiRequest, NextApiResponse>();
+
+handler.use(verifyUserMiddleware);
 
 handler.get(async (req, res) => {
   const { productId } = req.query;
 
-  const session = await getSession({ req });
-
-  console.log({ session, productId });
-
-  if (!session) {
-    return res
-      .status(401)
-      .send("Not authenticated to add product to the favorite.");
-  }
-
-  //
-  //
-
-  res.status(200).json({ session, productId });
+  res.status(200).json({ productId });
 
   /* const cookies = req.cookies;
 

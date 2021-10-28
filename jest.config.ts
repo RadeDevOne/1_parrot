@@ -37,6 +37,7 @@ export default {
     "@/styles(.*)$": "<rootDir>/styles$1",
     "@/db(.*)$": "<rootDir>/db$1",
     "@/pages(.*)$": "<rootDir>/pages$1",
+    "@/middlewares(.*)$": "<rootDir>/middlewares$1",
   },
 
   // MAYBE THIS WILL WORK INSTEAD
