@@ -8,6 +8,8 @@ import { useActor } from "@xstate/react";
 
 import { cartService, EE } from "@/machines/cart_machine";
 
+import formatPrice from "@/util/formatPrice";
+
 import { unsplashTemplate } from "@/lib/prisma/seed-helpers";
 import { FALLBACK_PHOTO } from "@/constants/index";
 import type { PropsI } from "@/pages/index";
@@ -116,8 +118,9 @@ const Product: FC<ProductPropsI> = ({ product }) => {
             {product.name}
           </h3>
           <span tw="light:text-gray-500 dark:text-gray-400 mt-2">
-            {"€"}
-            {product.price}
+            {/* {"€"} */}
+            {/* {product.price} */}
+            {formatPrice(product.price, "EUR")}
           </span>
         </div>
       </a>
