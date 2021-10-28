@@ -9,6 +9,8 @@ import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
 import { cartService, fse, EE } from "@/machines/cart_machine";
 
+import formatPrice from "@/util/formatPrice";
+
 import {
   headerNCartService,
   EE as EEE,
@@ -102,7 +104,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
             {name}
           </h3>
           <Rating value={averageRating} />
-          <span tw="text-gray-500 mt-3 ml-7">€{price}</span>
+          <span tw="text-gray-500 mt-3 ml-7">{formatPrice(price, "EUR")}</span>
 
           <hr tw="my-3 w-11/12 mx-auto" />
           <p tw="dark:text-gray-400 text-gray-500 px-5 md:px-6">

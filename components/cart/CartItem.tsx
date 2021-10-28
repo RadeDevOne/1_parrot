@@ -11,6 +11,8 @@ import {
   headerNCartService,
 } from "@/machines/header_n_cart_machine";
 
+import formatPrice from "@/util/formatPrice";
+
 import Alert from "../alerts/Alert";
 
 // import type { CartItemI } from "@/lib/storage";
@@ -110,18 +112,22 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
           tw="flex-shrink-0 object-cover w-20 h-20 dark:border-transparent rounded outline-none sm:w-32 sm:h-32 dark:bg-gray-500"
           // src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&amp;ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=1350&amp;q=80"
           src={image}
-          alt="Polaroid camera"
+          alt={name}
         />
         <div tw="flex flex-col justify-between w-full pb-4">
           <div tw="flex justify-between w-full pb-2 space-x-2">
             <div tw="space-y-1">
               <h3 tw="text-lg font-semibold leading-snug sm:pr-8">{name}</h3>
-              <p tw="text-sm dark:text-gray-700">Classic</p>
+              {/* <p tw="text-sm dark:text-gray-700">Classic</p> */}
             </div>
             <div tw="text-right">
-              <p tw="text-lg font-semibold">{price.toFixed(2)}€</p>
+              <p tw="text-lg font-semibold">
+                {formatPrice(price, "EUR")}
+                {/* € */}
+              </p>
               <p tw="text-sm line-through dark:text-gray-600">
-                {(price + 10.99).toFixed(2)}€
+                {formatPrice(price + 10.99, "EUR")}
+                {/* € */}
               </p>
             </div>
           </div>

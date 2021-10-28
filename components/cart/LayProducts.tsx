@@ -11,6 +11,8 @@ import { headerNCartService, EE } from "@/machines/header_n_cart_machine";
 
 import type { CartType } from "@/lib/storage";
 
+import formatPrice from "@/util/formatPrice";
+
 import CartItem from "./CartItem";
 
 function makeArrayFromCart(cart: CartType) {
@@ -84,7 +86,10 @@ const LayProducts: FC = () => {
         <div tw="space-y-1 text-right">
           <p>
             Total amount:{" "}
-            <span tw="font-semibold">{totalPrice.toFixed(2)} €</span>
+            <span tw="font-semibold">
+              {formatPrice(totalPrice, "EUR")}
+              {/*  € */}
+            </span>
           </p>
           <p tw="text-sm dark:text-gray-400">
             Not including taxes and shipping costs
