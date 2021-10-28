@@ -83,7 +83,8 @@ const LayProducts: FC = () => {
         </ul>
         <div tw="space-y-1 text-right">
           <p>
-            Total amount: <span tw="font-semibold">{totalPrice} €</span>
+            Total amount:{" "}
+            <span tw="font-semibold">{totalPrice.toFixed(2)} €</span>
           </p>
           <p tw="text-sm dark:text-gray-400">
             Not including taxes and shipping costs
