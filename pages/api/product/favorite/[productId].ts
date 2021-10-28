@@ -9,7 +9,7 @@ import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
-// handler.use(verifyUserMiddleware);
+handler.use(verifyUserMiddleware);
 
 handler.get(async (req, res) => {
   const { productId } = req.query;
