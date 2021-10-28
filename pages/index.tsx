@@ -58,11 +58,15 @@ export interface PropsI {
 }
 
 export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
+  // TESTS AND TRYOUTS -------------------------------
+  // -------------------------------------------------
   // const {} = getSession({req: ctx.req})
-  const sess = await getSession({ req: ctx.req });
-  // sess?.profile.
-
-  console.log({ sess });
+  // const sess = await getSession({ req: ctx.req });
+  // sess?.profile
+  // console.log({ sess });
+  console.log({ cookies: ctx.req.cookies });
+  // -------------------------------------------------
+  // -------------------------------------------------
 
   // INITIAL PRODUCTS
   const products = await prisma.product.findMany({

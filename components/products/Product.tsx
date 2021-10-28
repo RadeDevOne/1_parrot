@@ -116,7 +116,8 @@ const Product: FC<ProductPropsI> = ({ product }) => {
             {product.name}
           </h3>
           <span tw="light:text-gray-500 dark:text-gray-400 mt-2">
-            ${product.price}
+            {"€"}
+            {product.price}
           </span>
         </div>
       </a>
