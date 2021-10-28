@@ -14,6 +14,15 @@ handler.get(async (req, res) => {
 
   console.log({ session, productId });
 
+  if (!session) {
+    return res
+      .status(401)
+      .send("Not authenticated to add product to the favorite.");
+  }
+
+  //
+  //
+
   res.status(200).json({ session, productId });
 
   /* const cookies = req.cookies;
