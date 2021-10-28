@@ -63,8 +63,10 @@ const Product: FC<ProductPropsI> = ({ product }) => {
             css={[
               css`
                 background-image: url(${product.image}),
-                  url(${unsplashTemplate(product.name)})
-                    /* , url(${FALLBACK_PHOTO}) */;
+                  /* url(${unsplashTemplate(product.name)})
+                  , 
+                  
+                  */ url(${FALLBACK_PHOTO});
               `,
             ]}
           ></div>
