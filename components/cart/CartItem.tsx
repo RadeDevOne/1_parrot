@@ -115,7 +115,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
           alt={name}
         />
         <div tw="flex flex-col justify-between w-full pb-4">
-          <div tw="flex justify-between w-full pb-2 space-x-2">
+          <div tw="flex justify-between w-full pb-0 space-x-2">
             <div tw="space-y-1">
               <h3 tw="text-lg font-semibold leading-snug sm:pr-8">{name}</h3>
               {/* <p tw="text-sm dark:text-gray-700">Classic</p> */}
