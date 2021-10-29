@@ -63,7 +63,7 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
 
       <hr tw="border-gray-200 dark:border-gray-700 " />
       {/* <Link href={`/profile/${id}`}> */}
-      <button tw="flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+      <button tw="w-full flex items-center p-3 text-sm text-gray-600 capitalize transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
         <svg
           tw="w-5 h-5 mx-1"
           viewBox="0 0 24 24"
