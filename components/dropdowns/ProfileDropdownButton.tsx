@@ -1,9 +1,17 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useState, Fragment } from "react";
+import { useState, Fragment, createRef, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 // import { useSession, signOut } from "next-auth/react";
+
+import { useActor } from "@xstate/react";
+
+import {
+  EE,
+  fse,
+  profileDropdownService,
+} from "@/machines/profile_dropdown_machine";
 
 import ProfileDropdownMenu from "./ProfileDropdownMenu";
 
@@ -14,7 +22,13 @@ import useProfileMenuData from "@/hooks/useProfileMenuData";
 const ProfileDropdownButton: FC = () => {
   const profileData = useProfileMenuData();
 
-  const [dropdownOpened, setDropdownOpened] = useState<boolean>(false);
+  const [
+    {
+      context: { dropdownFocused },
+      value: stateVal,
+    },
+    dispatch,
+  ] = useActor(profileDropdownService);
 
   if (!profileData) {
     return null;
@@ -26,17 +40,12 @@ const ProfileDropdownButton: FC = () => {
         <div tw="relative margin-top[-5px] inline-block light:bg-l">
           {/* <!-- Dropdown toggle button --> */}
           <button
-            onBlur={() =>
-              Promise.resolve().then(() => {
-                if (!isSSR()) {
-                  setTimeout(() => {
-                    setDropdownOpened(false);
-                  }, 366);
-                }
-              })
-            }
+            /* onBlur={() => {
+            }} */
             onMouseDown={() => {
-              setDropdownOpened((prev) => !prev);
+              /* dispatch({
+                type: EE.OPEN,
+              }); */
             }}
             tw="relative z-index[5] flex items-center px-1 py-1 text-sm text-gray-600 bg-l border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
           >
@@ -53,15 +62,15 @@ const ProfileDropdownButton: FC = () => {
               ></path>
             </svg>
           </button>
-          {dropdownOpened && (
-            <ProfileDropdownMenu
-              id={profileData.id}
-              image={profileData.image}
-              name={profileData.name}
-              email={profileData.email}
-              role={profileData.role}
-            />
-          )}
+          {/* {dropdownVisible && ( */}
+          <ProfileDropdownMenu
+            id={profileData.id}
+            image={profileData.image}
+            name={profileData.name}
+            email={profileData.email}
+            role={profileData.role}
+          />
+          {/* )} */}
         </div>
       )}
     </Fragment>

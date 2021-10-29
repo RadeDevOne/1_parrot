@@ -16,10 +16,12 @@ import Header from "@/components/Header";
 import usePageLoadingService from "@/hooks/usePageLoadiingService";
 import useCartService from "@/hooks/useCartService";
 import useHamburgerMachine from "@/hooks/useHamburgerMachine";
+import useProfileDropdownMachine from "@/hooks/useProfileDropdownService";
 
 function MyApp({ Component, pageProps }: AppProps) {
   usePageLoadingService();
   useHamburgerMachine();
+  useProfileDropdownMachine();
   useCartService();
 
   const { session } = pageProps;
