@@ -46,6 +46,9 @@ const ProfileDropdownButton: FC = () => {
               /* dispatch({
                 type: EE.OPEN,
               }); */
+              dispatch({
+                type: EE.OPEN,
+              });
             }}
             tw="relative z-index[5] flex items-center px-1 py-1 text-sm text-gray-600 bg-l border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
           >
