@@ -33,13 +33,11 @@ interface PropsI {
 const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
   const { push: routerPush } = useRouter();
 
-  const menuRef = createRef<HTMLDivElement>();
+  // const menuRef = createRef<HTMLDivElement>();
 
   // const { handleHamburgerClose } = useHamburgerClose();
 
-  const [{ context, value: stateVal }, dispatch] = useActor(
-    profileDropdownService
-  );
+  const [{ value: stateVal }, dispatch] = useActor(profileDropdownService);
 
   const handleClick = (path: string) => {
     if (!path.startsWith("/")) {
@@ -48,51 +46,36 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
 
     routerPush(path);
 
-    dispatch({
-      type: EE.CLOSE,
-    });
-  };
-
-  const handleBlur = () => {
-    if (isSSR()) return;
-
-    setTimeout(() => {
-      Promise.resolve()
-        .then(() => {
-          return Promise.resolve();
-        })
-        .then(() => {
-          return Promise.resolve();
-        })
-        .then(() => {
-          dispatch({
-            type: EE.CLOSE,
-          });
-        });
-    }, 166);
-  };
-
-  useEffect(() => {
-    if (stateVal === fse.opened && menuRef.current) {
-      // const a =
-      // @ts-ignore
-      menuRef.current /* .querySelector("button:nth-of-type(1)") */
-        .focus();
-
-      // console.log({ a });
+    if (stateVal === fse.opened) {
+      dispatch({
+        type: EE.CLOSE,
+      });
+    } else {
+      dispatch({
+        type: EE.OPEN,
+      });
     }
-  }, [stateVal, menuRef]);
+  };
 
   return (
     <Fragment>
       {
         <div
+          id="prof-drop"
           style={{ visibility: stateVal === fse.opened ? "visible" : "hidden" }}
-          onBlur={handleBlur}
+          /* onBlur={handleBlur}
           ref={menuRef}
           role="button"
-          tabIndex={0}
-          tw="absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-300 rounded-md shadow-xl dark:bg-gray-800 "
+          tabIndex={0} */
+          css={[
+            css`
+              & button:focus {
+                /* ${tw`dark:outline-color[crimson] outline-width[2px] outline-offset[1px]`} */
+                /* outline-offset: 9.6px; */
+              }
+            `,
+            tw`absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-300 rounded-md shadow-xl dark:bg-gray-800`,
+          ]}
         >
           {/* <Link href={`/profile/${id}`}> */}
           <button
@@ -184,7 +167,13 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
           <hr tw="border-gray-200 dark:border-gray-700 " />
 
           <button
-            // onBlur={handleBlur}
+            onBlur={() => {
+              // signOut();
+
+              dispatch({
+                type: EE.CLOSE,
+              });
+            }}
             onMouseDown={() => {
               signOut();
               // handleHamburgerClose();

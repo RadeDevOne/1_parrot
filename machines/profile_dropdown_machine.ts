@@ -51,6 +51,7 @@ const profileDropdownMachine = createMachine<
   id: "main_machine",
   initial: fse.closed,
   context: {
+    // NO OP
     dropdownFocused: false,
   },
   // ---- EVENTS RECEVIED WHEN CURRENT FINITE STATE DOESN'T MATTER -----
@@ -70,17 +71,6 @@ const profileDropdownMachine = createMachine<
   // -------------------------------------------------------------------
   states: {
     [fse.opened]: {
-      entry: [
-        assign({
-          dropdownFocused: (_, __) => true,
-        }),
-      ],
-      exit: [
-        assign({
-          dropdownFocused: (_, __) => false,
-        }),
-      ],
-      //
       on: {
         [EE.CLOSE]: {
           target: fse.closed,
