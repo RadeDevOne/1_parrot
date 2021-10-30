@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import type { FC } from "react";
+import type { FC, MouseEvent, SyntheticEvent, Touch } from "react";
 import { useState, Fragment, createRef, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
@@ -43,6 +43,28 @@ const ProfileDropdownButton: FC = () => {
       });
     }
   };
+
+  useEffect(() => {
+    const elIds = ["#prof-drop-b", "#prof-drop"];
+
+    if (isSSR()) return;
+
+    const dropButton = document.querySelector(elIds[0]);
+    const dropMenu = document.querySelector(elIds[1]);
+
+    console.log(dropButton?.children);
+
+    const bodyMousedownHandler = (e: MouseEvent<HTMLBodyElement>) => {
+      console.log(e.target);
+    };
+    // @ts-ignore
+    document.body.addEventListener("mousedown", bodyMousedownHandler);
+
+    return () => {
+      // @ts-ignore
+      document.body.removeEventListener("mousedown", bodyMousedownHandler);
+    };
+  }, [dispatch]);
 
   if (!profileData) {
     return null;
