@@ -45,17 +45,50 @@ const ProfileDropdownButton: FC = () => {
   };
 
   useEffect(() => {
-    const elIds = ["#prof-drop-b", "#prof-drop"];
+    const elIds = ["prof-drop-b", "prof-drop"];
 
     if (isSSR()) return;
 
-    const dropButton = document.querySelector(elIds[0]);
-    const dropMenu = document.querySelector(elIds[1]);
+    const dropButton = document.querySelector(`#${elIds[0]} > button`);
+    // const dropMenu = document.querySelector(elIds[1]);
 
-    console.log(dropButton?.children);
+    const dropButtonSpan = document.querySelector(
+      `#${elIds[0]} > button > span`
+    );
 
     const bodyMousedownHandler = (e: MouseEvent<HTMLBodyElement>) => {
-      console.log(e.target);
+      /* console.log({
+        dropButton,
+        dropButtonSpan,
+      }); */
+
+      /* console.log(
+        e.currentTarget === dropButton || e.currentTarget === dropButtonSpan
+      );
+     */
+
+      // console.log(e.currentTarget, dropButton);
+
+      if (e.target === dropButton || e.target === dropButtonSpan) {
+        // console.log("clicked");
+        return;
+      }
+
+      new Promise((res, rej) => {
+        setTimeout(() => {
+          res("");
+        }, 66);
+      })
+        .then(() => {
+          return "";
+        })
+        .then(() => {
+          setTimeout(() => {
+            dispatch({
+              type: EE.CLOSE,
+            });
+          }, 66);
+        });
     };
     // @ts-ignore
     document.body.addEventListener("mousedown", bodyMousedownHandler);
