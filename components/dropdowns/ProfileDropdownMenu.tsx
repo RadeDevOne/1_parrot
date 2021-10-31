@@ -84,8 +84,19 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
       {
         // eslint-disable-next-line
         <div
-          // role="dialog"
-          // onKeyPress={handleKeyPress}
+          role="dialog"
+          // escape ONLY GETS DETECTED IN on keydown
+          onKeyDown={(e) => {
+            // console.log("esc");
+
+            console.log(e.key);
+
+            if (e.key === "Escape") {
+              dispatch({
+                type: EE.CLOSE,
+              });
+            }
+          }}
           // onMouseDown={handleMd}
           id="prof-drop"
           style={{ visibility: stateVal === fse.opened ? "visible" : "hidden" }}
@@ -105,6 +116,11 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
         >
           {/* <Link href={`/profile/${id}`}> */}
           <button
+            /* onKeyPress={(e) => {
+              console.log("esc");
+              if (e.key === "escape") {
+              }
+            }} */
             // onBlur={handleBlur}
             onClick={() => {
               handleClick(`/profile/${id}`);
