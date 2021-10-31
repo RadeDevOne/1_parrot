@@ -72,7 +72,7 @@ const ProfileDropdownButton: FC = () => {
       );
      */
 
-      console.log(e.currentTarget, dropButton);
+      // console.log(e.currentTarget, dropButton);
 
       if (
         e.target === dropButton ||
@@ -102,6 +102,9 @@ const ProfileDropdownButton: FC = () => {
     };
     // @ts-ignore
     document.body.addEventListener("mousedown", bodyMousedownHandler);
+    // document.body.addEventListener("mousedown", () => {
+    // console.log("mdown");
+    // });
 
     return () => {
       // @ts-ignore
