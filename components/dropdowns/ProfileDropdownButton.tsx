@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import type { FC, MouseEvent, SyntheticEvent, Touch } from "react";
+import type { FC, MouseEvent } from "react";
 import { useState, Fragment, createRef, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
@@ -23,6 +23,8 @@ import useProfileMenuData from "@/hooks/useProfileMenuData";
 
 const ProfileDropdownButton: FC = () => {
   const profileData = useProfileMenuData();
+
+  const dropdownButtonRef = createRef<HTMLButtonElement>();
 
   const [
     {
@@ -55,6 +57,9 @@ const ProfileDropdownButton: FC = () => {
     const dropButtonSpan = document.querySelector(
       `#${elIds[0]} > button > span`
     );
+    const dropButtonSvg = document.querySelector(`#${elIds[0]} > button svg`);
+
+    if (!dropdownButtonRef.current) return;
 
     const bodyMousedownHandler = (e: MouseEvent<HTMLBodyElement>) => {
       /* console.log({
@@ -67,9 +72,14 @@ const ProfileDropdownButton: FC = () => {
       );
      */
 
-      // console.log(e.currentTarget, dropButton);
+      console.log(e.currentTarget, dropButton);
 
-      if (e.target === dropButton || e.target === dropButtonSpan) {
+      if (
+        e.target === dropButton ||
+        e.target === dropButtonSpan ||
+        e.target === dropdownButtonRef.current ||
+        e.target === dropButtonSvg
+      ) {
         // console.log("clicked");
         return;
       }
@@ -97,7 +107,7 @@ const ProfileDropdownButton: FC = () => {
       // @ts-ignore
       document.body.removeEventListener("mousedown", bodyMousedownHandler);
     };
-  }, [dispatch]);
+  }, [dispatch, dropdownButtonRef]);
 
   if (!profileData) {
     return null;
@@ -112,6 +122,7 @@ const ProfileDropdownButton: FC = () => {
         >
           {/* <!-- Dropdown toggle button --> */}
           <button
+            ref={dropdownButtonRef}
             onClick={handleClick}
             tw="relative z-index[5] flex items-center px-1 py-1 text-sm text-gray-600 bg-l border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
           >
