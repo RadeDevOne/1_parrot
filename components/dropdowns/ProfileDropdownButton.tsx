@@ -103,7 +103,7 @@ const ProfileDropdownButton: FC = () => {
     // @ts-ignore
     document.body.addEventListener("mousedown", bodyMousedownHandler);
     // document.body.addEventListener("mousedown", () => {
-    // console.log("mdown");
+    // console.log("mdown test");
     // });
 
     return () => {
