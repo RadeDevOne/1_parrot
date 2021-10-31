@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import type { FC } from "react";
-import { Fragment, useEffect, createRef } from "react";
+import type { FC, KeyboardEvent as KE, KeyboardEventHandler } from "react";
+import { Fragment, useEffect, createRef, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 // import Link from "next/link";
@@ -33,6 +33,8 @@ interface PropsI {
 const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
   const { push: routerPush } = useRouter();
 
+  const [shiftPressed, setShiftPressed] = useState<boolean>(false);
+
   // const menuRef = createRef<HTMLDivElement>();
 
   // const { handleHamburgerClose } = useHamburgerClose();
@@ -57,10 +59,34 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
     }
   };
 
+  const handleKeyPress: KeyboardEventHandler<HTMLButtonElement> = (e) => {
+    // console.log({ e });
+
+    if (e.shiftKey) {
+      setShiftPressed(true);
+    }
+  };
+
+  const handleMd = () => {
+    setShiftPressed(false);
+  };
+
+  useEffect(() => {
+    if (!isSSR()) {
+      document.body.addEventListener("mousedown", handleMd);
+    }
+  }, []);
+
+  console.log({ shiftPressed });
+
   return (
     <Fragment>
       {
+        // eslint-disable-next-line
         <div
+          // role="dialog"
+          // onKeyPress={handleKeyPress}
+          // onMouseDown={handleMd}
           id="prof-drop"
           style={{ visibility: stateVal === fse.opened ? "visible" : "hidden" }}
           /* onBlur={handleBlur}
@@ -167,14 +193,22 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
           <hr tw="border-gray-200 dark:border-gray-700 " />
 
           <button
-            onBlur={() => {
+            onKeyDownCapture={handleKeyPress}
+            onKeyUp={() => setShiftPressed(false)}
+            onBlur={(e) => {
               // signOut();
+
+              // console.log({ e });
+
+              console.log({ shiftPressed });
+
+              if (shiftPressed) return;
 
               dispatch({
                 type: EE.CLOSE,
               });
             }}
-            onMouseDown={() => {
+            onClick={() => {
               signOut();
               // handleHamburgerClose();
             }}
