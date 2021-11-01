@@ -226,7 +226,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
                 onKeyPress={(e) => {
                   // console.log(e.key);
                   if (e.key === "Enter") {
-                    handleDecr();
+                    handleIncr();
                   }
                 }}
                 data-action="increment"
