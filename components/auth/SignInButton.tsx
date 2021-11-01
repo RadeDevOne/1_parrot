@@ -10,7 +10,10 @@ import { ClipLoader as Loader } from "react-spinners";
 
 import useHamburgerClose from "@/hooks/useHamburgerClose";
 
-const SignInButton: FC = () => {
+const SignInButton: FC<{
+  disableFocus?: boolean;
+  disable?: boolean;
+}> = ({ disableFocus, disable }) => {
   const { push, asPath } = useRouter();
 
   const { status } = useSession();
@@ -19,12 +22,19 @@ const SignInButton: FC = () => {
 
   const { handleHamburgerClose } = useHamburgerClose();
 
+  let tabIndex = 0;
+
+  if (disableFocus) {
+    tabIndex = -1;
+  }
+
   return (
     <Fragment>
       {status === "unauthenticated" && asPath !== "/signin" && (
         <div tw="my-2.5 mr-0.5 md:-my-1 md:mr-1 md:ml-1.5">
           <button
-            disabled={reqStatus === "pending"}
+            tabIndex={tabIndex}
+            disabled={reqStatus === "pending" || disable}
             tw="dark:text-white bg-__primary width[88.91px] px-3 py-0.5 rounded"
             onMouseDown={() => {
               setReqStatus("pending");

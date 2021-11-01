@@ -3,8 +3,11 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { useActor } from "@xstate/react";
+
 import { useTheme } from "next-themes";
 
+import { fse, hamburgerService } from "@/machines/hamburger_machine";
 import isSSR from "@/util/isSSR";
 
 const DarkIcon: FC = () => (
@@ -39,21 +42,44 @@ const LightIcon: FC = () => (
   </svg>
 );
 
-const Switcher: FC = () => {
+const Switcher: FC<{
+  disableFocus?: boolean;
+}> = ({ disableFocus }) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState<boolean>(false);
+  const [clicked, setClicked] = useState<boolean>(false);
+
+  const [{ value }] = useActor(hamburgerService);
 
   useEffect(() => {
     setMounted(true);
   }, [setMounted]);
+
+  /* let tabIndex = 0;
+
+  if (disableFocus) {
+    tabIndex = -1;
+  } */
 
   return (
     <>
       {!isSSR() && mounted && (
         <section>
           <button
+            disabled={value === fse.closed}
+            onBlur={() => {
+              setClicked(false);
+            }}
+            onMouseDown={() => {
+              setClicked(true);
+            }}
+            // tabIndex={tabIndex}
             css={[
-              tw`w-10 h-5 rounded-full bg-white flex items-center transition duration-300 focus:outline-none shadow border-2 border-gray-800`,
+              clicked
+                ? tw`focus:outline-none`
+                : tw`focus:outline-black dark:focus:outline-white`,
+
+              tw`w-10 h-5 rounded-full bg-white flex items-center transition duration-300 shadow border-2 border-gray-800`,
             ]}
             onClick={() => {
               // TOGGLE THEME

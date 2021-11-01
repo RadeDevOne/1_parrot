@@ -21,6 +21,7 @@ interface PropsI {
   outlined?: boolean;
   onClick?: (args?: any) => void;
   onClickArgs?: any[];
+  disableFocus?: boolean;
 }
 
 const Button: FC<PropsI> = ({
