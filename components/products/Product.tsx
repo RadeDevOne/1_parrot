@@ -94,7 +94,37 @@ const Product: FC<ProductPropsI> = ({ product }) => {
                   },
                 });
               }}
-              tw="absolute bottom-7 -right-2 p-2 rounded-full bg-blue-600 text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
+              css={[
+                tw`absolute bottom-7 -right-2 p-2 rounded-full bg-blue-600 light:background[#043b68] text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500`,
+                css`
+                  width: 46px;
+                  height: 46px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  & svg {
+                    transform: scale(1.2);
+
+                    /* fill: blanchedalmond; */
+                    ${tw`dark:stroke[gold] stroke[#e6a9e2]`}
+                  }
+
+                  /* &:focus svg {
+                    outline-style: dashed;
+                    outline-offset: 2px;
+                    outline-color: crimson;
+                    outline-width: 2px;
+                  }
+ */
+                  &:hover {
+                    transform: scale(1.1);
+                  }
+                  &:focus {
+                    transform: scale(1.1);
+                    border: #c7dfd6 solid 3px;
+                  }
+                `,
+              ]}
             >
               <svg
                 tw="h-5 w-5"
@@ -103,7 +133,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
                 strokeLinejoin="round"
                 strokeWidth="2"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
+                // stroke=""
               >
                 <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
               </svg>
