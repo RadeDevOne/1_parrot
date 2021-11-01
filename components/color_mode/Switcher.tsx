@@ -44,7 +44,8 @@ const LightIcon: FC = () => (
 
 const Switcher: FC<{
   disableFocus?: boolean;
-}> = ({ disableFocus }) => {
+  largeScreen?: boolean;
+}> = ({ disableFocus, largeScreen }) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
@@ -55,18 +56,23 @@ const Switcher: FC<{
     setMounted(true);
   }, [setMounted]);
 
-  /* let tabIndex = 0;
+  let tabIndex = 0;
 
   if (disableFocus) {
     tabIndex = -1;
-  } */
+  }
+  /* 
+  const pick = 
+
+  const disabled = 
+ */
 
   return (
     <>
       {!isSSR() && mounted && (
         <section>
           <button
-            disabled={value === fse.closed}
+            disabled={largeScreen ? false : value === fse.closed}
             onBlur={() => {
               setClicked(false);
             }}

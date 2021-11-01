@@ -224,7 +224,7 @@ const Nav: FC = () => {
                 `}
                 className="mobile-theme-switcher"
               >
-                <Switcher /* disableFocus */ />
+                <Switcher />
               </div>
               {/*  )} */}
               <SignOutButton /* disableFocus */
@@ -273,7 +273,7 @@ const Nav: FC = () => {
             className="theme-switcher"
             tw="display[none] md:display[block] mr-2"
           >
-            <Switcher />
+            <Switcher largeScreen />
           </div>
 
           <div tw="flex justify-center md:block w-0.5 absolute left-1/2 top-4">
