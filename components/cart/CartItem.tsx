@@ -6,7 +6,9 @@ import tw, { css, styled, theme } from "twin.macro";
 import { useActor } from "@xstate/react";
 
 import { EE, fse, cartService } from "@/machines/cart_machine";
+// import { fse as fsee, hamburgerService } from "@/machines/hamburger_machine";
 import {
+  fse as fsee,
   EE as EEE,
   headerNCartService,
 } from "@/machines/header_n_cart_machine";
@@ -26,7 +28,9 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
 
   const [cartState, dispatchToCart] = useActor(cartService);
 
-  const [__, dispatch] = useActor(headerNCartService);
+  const [{ value: hVal }, dispatch] = useActor(headerNCartService);
+
+  // const [] = useActor(hamburgerService);
 
   const { cart, totalPrice } = cartState.context;
 
@@ -133,6 +137,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
           </div>
           <div tw="flex text-sm divide-x">
             <button
+              disabled={hVal === fsee.header_visible}
               onClick={() => {
                 handleRemove();
               }}
@@ -152,7 +157,11 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
               </svg>
               <span>Remove</span>
             </button>
-            <button type="button" tw="flex items-center px-2 py-1 space-x-1">
+            <button
+              disabled={hVal === fsee.header_visible}
+              type="button"
+              tw="flex items-center px-2 py-1 space-x-1"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
@@ -168,7 +177,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
             css={css`
               & input:focus,
               & button:focus {
-                outline: none !important;
+                /* outline: none !important; */
               }
 
               & input[type="number"]::-webkit-inner-spin-button,
@@ -186,25 +195,39 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
             </label>
             <div tw="flex flex-row h-8 w-full rounded-lg relative bg-transparent mt-1">
               <button
+                disabled={hVal === fsee.header_visible}
                 onMouseDown={() => {
                   handleDecr();
                 }}
+                onKeyPress={(e) => {
+                  // console.log(e.key);
+                  if (e.key === "Enter") {
+                    handleDecr();
+                  }
+                }}
                 data-action="decrement"
-                tw=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+                tw="focus:outline-black bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer"
               >
                 <span tw="m-auto text-2xl font-thin">−</span>
               </button>
               <span
                 // type="number"
-                tw=" text-center w-full bg-gray-300 font-semibold text-sm user-select[none]  md:text-base cursor-default flex items-center text-gray-700  outline-none justify-center"
+                tw=" text-center w-full bg-gray-300 font-semibold text-sm user-select[none]  md:text-base cursor-default flex items-center text-gray-700 justify-center"
                 // name="custom-input-number"
                 // value={count}
               >
                 {count}
               </span>
               <button
+                disabled={hVal === fsee.header_visible}
                 onMouseDown={() => {
                   handleIncr();
+                }}
+                onKeyPress={(e) => {
+                  // console.log(e.key);
+                  if (e.key === "Enter") {
+                    handleDecr();
+                  }
                 }}
                 data-action="increment"
                 tw="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"

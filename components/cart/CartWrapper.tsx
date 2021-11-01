@@ -3,13 +3,13 @@ import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import { useActor } from "@xstate/react";
-import { headerNCartService, EE } from "@/machines/header_n_cart_machine";
+import { headerNCartService, EE, fse } from "@/machines/header_n_cart_machine";
 import LayProducts from "./LayProducts";
 
 import Alert from "../alerts/Alert";
 
 const CartWrapper: FC = () => {
-  const [____, dispatchHC] = useActor(headerNCartService);
+  const [{ value }, dispatchHC] = useActor(headerNCartService);
 
   return (
     <section
@@ -37,6 +37,7 @@ const CartWrapper: FC = () => {
       ]}
     >
       <button
+        disabled={value === fse.header_visible}
         className="close-btn"
         onClick={() => dispatchHC({ type: EE.TOGGLE })}
       >

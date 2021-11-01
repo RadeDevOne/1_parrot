@@ -7,7 +7,7 @@ import { useActor } from "@xstate/react";
 
 import { cartService } from "@/machines/cart_machine";
 
-import { headerNCartService, EE } from "@/machines/header_n_cart_machine";
+import { headerNCartService, EE, fse } from "@/machines/header_n_cart_machine";
 
 import type { CartType } from "@/lib/storage";
 
@@ -26,8 +26,8 @@ function makeArrayFromCart(cart: CartType) {
 }
 
 const LayProducts: FC = () => {
-  const [cartState, dispatchToCart] = useActor(cartService);
-  const [__, dispatch] = useActor(headerNCartService);
+  const [cartState] = useActor(cartService);
+  const [{ value }, dispatch] = useActor(headerNCartService);
 
   const { context: cartContext } = cartState;
 
@@ -97,6 +97,7 @@ const LayProducts: FC = () => {
         </div>
         <div tw="flex justify-end space-x-4">
           <button
+            disabled={value === fse.header_visible}
             onClick={() => {
               dispatch({
                 type: EE.TOGGLE,
@@ -109,6 +110,7 @@ const LayProducts: FC = () => {
             <span tw="sr-only sm:not-sr-only"> to shop</span>
           </button>
           <button
+            disabled={value === fse.header_visible}
             type="button"
             tw="px-6 py-2 border rounded-md dark:bg-gray-400 dark:text-gray-900 dark:border-gray-400"
           >

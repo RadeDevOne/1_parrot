@@ -48,7 +48,10 @@ const Products: FC<ProductsPropsI> = ({
         <div tw="container mx-auto px-6">
           {currentPageNumber === 0 && (
             <Fragment>
-              <h3 tw="light:text-gray-700 dark:text-gray-200 text-2xl font-medium">
+              <h3
+                tabIndex={-1}
+                tw="light:text-gray-700 dark:text-gray-200 text-2xl font-medium"
+              >
                 We have everything
               </h3>
               <span tw="mt-3 text-sm light:text-gray-500 dark:text-gray-600">
