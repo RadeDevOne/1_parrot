@@ -148,16 +148,22 @@ const Nav: FC = () => {
                 }, 50);
               }}
               type="button"
-              tw="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400"
+              css={[
+                tw`text-gray-500 dark:text-gray-200 hover:color[gold] dark:hover:text-gray-400`,
+              ]}
               aria-label="toggle menu"
             >
               <svg
                 viewBox="0 0 24 24"
                 css={[
                   tw`w-6 h-6 fill-current`,
+
                   css`
                     &:hover path {
-                      fill: #971666;
+                      ${tw`dark:fill[gold] fill[#9b77df]`}
+                    }
+                    & path {
+                      ${tw`dark:fill[#cfaad3] fill[#0c5e85]`}
                     }
                   `,
                 ]}
@@ -296,6 +302,17 @@ const Nav: FC = () => {
                 })
               }
               css={[
+                css`
+                  & svg {
+                    transform: scale(1.2);
+
+                    ${tw`dark:stroke[gold] stroke[#0c5e85]`}
+                  }
+                  &:hover svg {
+                    ${tw`dark:stroke[#c55797] stroke[#9b77df]`}
+                  }
+                `,
+
                 cartIsEmpty ? tw`hidden` : tw`visible`,
 
                 tw`relative text-gray-700 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300`,
@@ -309,7 +326,7 @@ const Nav: FC = () => {
               >
                 <path
                   d="M3 3H5L5.4 5M7 13H17L21 5H5.4M7 13L5.4 5M7 13L4.70711 15.2929C4.07714 15.9229 4.52331 17 5.41421 17H17M17 17C15.8954 17 15 17.8954 15 19C15 20.1046 15.8954 21 17 21C18.1046 21 19 20.1046 19 19C19 17.8954 18.1046 17 17 17ZM9 19C9 20.1046 8.10457 21 7 21C5.89543 21 5 20.1046 5 19C5 17.8954 5.89543 17 7 17C8.10457 17 9 17.8954 9 19Z"
-                  stroke="currentColor"
+                  // stroke="currentColor"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
