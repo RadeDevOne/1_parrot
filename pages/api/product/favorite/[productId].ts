@@ -15,6 +15,11 @@ const handler = nc<NextApiRequest, NextApiResponse>();
 // AUTHENTICATION MIDDLEWARE
 handler.use(verifyUserMiddleware);
 
+// JUST TO KNOW (THIS SHOULD BE POST BECAUSE WE ARE TRYING TO CREATE NEW RECORD)
+// IN THE TERMS OF GETTING RECORD :
+// (WE ARE GOING TO GET RECORD IN GET SERVER SIDE PROPS)
+// AGAIN, ONLY SIGNED IN USER SHOULD SEE THE HEART BUTTON
+
 handler.get(async (req, res) => {
   // IF EVERYTHING WENT WELL WITH AUTHENTICATION PROFILE SHOUD BE ON REQUEST
   // @ts-ignore
@@ -63,23 +68,6 @@ handler.get(async (req, res) => {
   });
 
   res.status(200).json({ favorite });
-
-  // console.log({ favorite });
-
-  /* const cookies = req.cookies;
-
-  console.log({ cookies });
-
-  const cartAndKeys = parseCartFromCookie(cookies);
-
-  console.log({ cartAndKeys });
-
-  if (cartAndKeys) {
-    const { cart, keys } = cartAndKeys;
-    console.log(cart[keys[0]].id);
-  }
-
-  return res.status(200).send("hello 666"); */
 });
 
 export default handler;

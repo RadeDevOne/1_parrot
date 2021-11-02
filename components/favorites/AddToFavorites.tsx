@@ -30,7 +30,7 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
         }
 
         & svg {
-          stroke: #ad3549;
+          stroke: #e24f68;
         }
 
         & button {
