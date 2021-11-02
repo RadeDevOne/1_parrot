@@ -7,6 +7,8 @@ import Products from "../products/Products";
 
 import SeeMoreProducts from "../navigation/SeeMoreProducts";
 
+import AddedToCart from "../notification/AddedToCart";
+
 const Layout: FC<PropsI> = ({
   products,
   topRatedProducts,
@@ -22,6 +24,7 @@ const Layout: FC<PropsI> = ({
       />
 
       <SeeMoreProducts />
+      <AddedToCart />
     </main>
   );
 };
