@@ -11,7 +11,9 @@ import Alert from "../alerts/Alert";
 const AddedToCart: FC = () => {
   const [{ value, context }] = useActor(cartService);
 
-  console.log({ value, context });
+  // console.log({ value, context });
+
+  console.log({ ...context.lastAddedProduct });
 
   return (
     //<section css={[tw`bg-gray-200`, tw`hover:text-indigo-600`]}>

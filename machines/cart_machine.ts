@@ -58,6 +58,7 @@ export interface MachineContextGenericI {
   // cartIsEmpty: true;
   cart: CartType;
   totalPrice: number;
+  lastAddedProduct: CartItemI | null;
 }
 
 export type machineEventsGenericType =
@@ -136,6 +137,7 @@ const cartMachine = createMachine<
       // cartIsEmpty: true,
       cart: {},
       totalPrice: 0,
+      lastAddedProduct: null,
     },
     // ---- EVENTS RECEVIED WHEN CURRENT FINITE STATE DOESN'T MATTER -----
     on: {
@@ -160,6 +162,11 @@ const cartMachine = createMachine<
               assign({
                 cart: (_, e) => {
                   return crt.add(e.payload.item);
+                },
+              }),
+              assign({
+                lastAddedProduct: (ctx, e) => {
+                  return e.payload.item;
                 },
               }),
             ],
