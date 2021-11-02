@@ -30,7 +30,7 @@ const AddedToCart: FC = () => {
       {context.lastAddedProduct && (
         <Alert
           onAnimationComplete={() => {
-            console.log("animation completed");
+            // console.log("animation completed");
 
             setTimeout(() => {
               dispatch({ type: EE.WIPE_LAST_ADED_FROM_HISTORY });
