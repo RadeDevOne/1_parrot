@@ -1,7 +1,7 @@
 import type { Middleware } from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { getSession } from "next-auth/react";
+import { getSession, getCsrfToken } from "next-auth/react";
 
 import prisma from "@/lib/prisma";
 
@@ -15,6 +15,11 @@ const verifyUser: Middleware<NextApiRequest, NextApiResponse> = async (
   console.log({ COOKIES: req.cookies });
 
   const session = await getSession({ req });
+
+  // const token = await getCsrfToken({ req });
+
+  // console.log({ session });
+  // console.log({ token });
 
   if (!session) {
     return res
