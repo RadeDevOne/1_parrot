@@ -94,7 +94,6 @@ const ProductView: FC<PropsI> = ({ product }) => {
                 setImageErrored(true);
               }}
             />
-            <AddToFavorites favorite productId={product.id} />
           </div>
         </div>
         <div tw="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
@@ -114,6 +113,9 @@ const ProductView: FC<PropsI> = ({ product }) => {
               /* productIsNotInTheCart ? tw`h-32` : tw`h-14` ,*/ tw`mt-4 h-32`,
             ]}
           >
+            <div tw="my-3">
+              <AddToFavorites favorite productId={product.id} />
+            </div>
             {!productIsNotInTheCart ? (
               <div tw="mt-8 mx-2">
                 <Info boldText="Product added to the cart" variant="blue">

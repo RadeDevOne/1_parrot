@@ -12,31 +12,39 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
     <div
       css={css`
         /* background-color: ${theme`colors.electric`}; */
-        position: absolute;
+        /* position: absolute; */
 
-        border: pink solid 1px;
+        /* border: crimson solid 1px; */
         padding: 2px;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        z-index: 4000;
-        bottom: 8px;
-        left: 8px;
+        /* z-index: 1; */
+        /* bottom: 8px; */
+        /* right: 8px; */
+
+        & button:hover {
+          transform: scale(1.19);
+        }
 
         & svg {
           stroke: #ad3549;
         }
 
         & button {
-          border: crimson solid 1px;
+          /* border: crimson solid 1px; */
         }
       `}
     >
-      <button>
+      <button
+        onClick={() => {
+          console.log("add to favs");
+        }}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          tw="h-6 w-6"
+          tw="h-8 w-8"
           fill="none"
           viewBox="0 0 24 24"
           // stroke="currentColor"
