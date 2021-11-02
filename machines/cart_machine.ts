@@ -1,4 +1,4 @@
-import { createMachine, assign, interpret } from "xstate";
+import { createMachine, assign, interpret, send } from "xstate";
 
 // ---- TODO ----
 // WE WILL ONLY PUT CART IN THE DATABASE WHEN
@@ -50,6 +50,9 @@ export enum EE {
   DOWN_COUNT = "DOWN_COUNT",
   ERASE = "ERASE",
   CHECK = "CHECK",
+  //
+  //
+  WIPE_LAST_ADED_FROM_HISTORY = "WIPE_LAST_ADED_FROM_HISTORY",
 }
 
 // TO BE USED AS GENERIC TYPES INSIDE STATE MACHINE DEFINISTION
@@ -91,6 +94,9 @@ export type machineEventsGenericType =
     }
   | {
       type: EE.CHECK;
+    }
+  | {
+      type: EE.WIPE_LAST_ADED_FROM_HISTORY;
     };
 
 export type machineFiniteStatesGenericType =
@@ -141,13 +147,13 @@ const cartMachine = createMachine<
     },
     // ---- EVENTS RECEVIED WHEN CURRENT FINITE STATE DOESN'T MATTER -----
     on: {
-      /* [EE.]: {
-      actions: [
-        assign((ctx, event) => {
-          // 
-        }),
-      ],
-    }, */
+      [EE.WIPE_LAST_ADED_FROM_HISTORY]: {
+        actions: [
+          assign({
+            lastAddedProduct: (_, __) => null,
+          }),
+        ],
+      },
     },
     // -------------------------------------------------------------------
     states: {
@@ -169,6 +175,10 @@ const cartMachine = createMachine<
                   return e.payload.item;
                 },
               }),
+              /* send(
+                { type: EE.WIPE_LAST_ADED_FROM_HISTORY },
+                { delay: (_, __) => 200 }
+              ), */
             ],
           },
           [EE.REMOVE]: {

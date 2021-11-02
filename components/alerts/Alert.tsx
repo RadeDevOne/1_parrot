@@ -11,9 +11,16 @@ interface PropsI {
   header: string;
   text: string;
   visible: boolean;
+  onAnimationComplete?: () => void;
 }
 
-const Alert: FC<PropsI> = ({ header, text, variant, visible }) => {
+const Alert: FC<PropsI> = ({
+  header,
+  text,
+  variant,
+  visible,
+  onAnimationComplete,
+}) => {
   const styles = {
     success: {
       wrapper: tw`border-green-500`,
@@ -59,6 +66,10 @@ const Alert: FC<PropsI> = ({ header, text, variant, visible }) => {
             setTimeout(() => {
               setVis(false);
             }, 4000);
+
+            if (onAnimationComplete) {
+              onAnimationComplete();
+            }
           }}
           tw="w-full fixed bottom-0.5 left-0 z-50"
         >
