@@ -17,14 +17,11 @@ import {
 } from "@/machines/header_n_cart_machine";
 
 import OutOfStockInfo from "./OutOfStockInfo";
-
 import Rating from "../products/Rating";
-
 import Alert from "../alerts/Alert";
-
 import Info from "../info/Info";
-
 import Button from "../buttons/Button";
+import AddToFavorites from "../favorites/AddToFavorites";
 
 import { FALLBACK_PHOTO } from "@/constants/index";
 
@@ -88,7 +85,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
     <Fragment>
       <div tw="w-full md:flex md:items-center mt-8 md:px-5">
         <div tw="w-full h-72 md:w-1/2 lg:h-96">
-          <div tw="h-full mx-1.5">
+          <div tw="h-full mx-1.5 relative">
             <img
               tw="h-full w-full rounded-md object-cover max-w-lg mx-auto"
               src={!imageErrored ? image : FALLBACK_PHOTO}
@@ -97,6 +94,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
                 setImageErrored(true);
               }}
             />
+            <AddToFavorites favorite productId={product.id} />
           </div>
         </div>
         <div tw="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
