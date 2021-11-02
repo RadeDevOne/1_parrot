@@ -54,6 +54,9 @@ const verifyUser: Middleware<NextApiRequest, NextApiResponse> = async (
   }
 
   // WE CAN CALL next HERE SINCE EVERYTHING SEEMS OK IN HERE
+  // BUT LETS INSERT PROFILE OBJECT ON THE REQUEST
+  // @ts-ignore
+  req.profile = session.profile;
 
   next();
 };
