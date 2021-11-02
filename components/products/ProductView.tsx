@@ -113,7 +113,7 @@ const ProductView: FC<PropsI> = ({ product }) => {
               /* productIsNotInTheCart ? tw`h-32` : tw`h-14` ,*/ tw`mt-4 h-32`,
             ]}
           >
-            <div tw="my-3">
+            <div tw="my-3 absolute margin-left[22px]">
               <AddToFavorites favorite productId={product.id} />
             </div>
             {!productIsNotInTheCart ? (

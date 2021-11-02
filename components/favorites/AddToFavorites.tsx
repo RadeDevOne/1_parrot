@@ -16,9 +16,10 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
 
         /* border: crimson solid 1px; */
         padding: 2px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        /* padding-left: 12%; */
+        /* display: flex; */
+        /* justify-content: center; */
+        /* align-items: center; */
 
         /* z-index: 1; */
         /* bottom: 8px; */
