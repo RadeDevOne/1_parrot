@@ -95,7 +95,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
                 });
               }}
               css={[
-                tw`absolute bottom-7 -right-2 p-2 rounded-full bg-blue-600 light:background[#043b68] text-white mx-5 -mb-4 hover:bg-blue-500 focus:outline-none focus:bg-blue-500`,
+                tw`absolute bottom-7 -right-2 p-2 rounded-full bg-blue-600 light:background[#043b68] text-white mx-5 -mb-4 hover:opacity-90 focus:outline-none focus:opacity-90`,
                 css`
                   width: 46px;
                   height: 46px;
@@ -120,8 +120,12 @@ const Product: FC<ProductPropsI> = ({ product }) => {
                     transform: scale(1.1);
                   }
                   &:focus {
-                    transform: scale(1.1);
-                    border: #c7dfd6 solid 3px;
+                    transform: scale(1.2);
+                    /* border: #c7dfd6 solid 3px; */
+
+                    & svg {
+                      stroke: #ad4258;
+                    }
                   }
                 `,
               ]}
