@@ -10,7 +10,7 @@ import { cartService, EE } from "@/machines/cart_machine";
 import Alert from "../alerts/Alert";
 
 const AddedToCart: FC = () => {
-  const [{ value, context }, dispatch] = useActor(cartService);
+  const [{ /* value, */ context }, dispatch] = useActor(cartService);
 
   // console.log({ value, context });
   //
@@ -22,7 +22,7 @@ const AddedToCart: FC = () => {
     setHistoryProductId(context.lastAddedProduct?.id);
   }, [setHistoryProductId, context]);
  */
-  console.log({ ...context.lastAddedProduct });
+  // console.log({ ...context.lastAddedProduct });
 
   return (
     //<section css={[tw`bg-gray-200`, tw`hover:text-indigo-600`]}>
@@ -34,7 +34,7 @@ const AddedToCart: FC = () => {
 
             setTimeout(() => {
               dispatch({ type: EE.WIPE_LAST_ADED_FROM_HISTORY });
-            }, 1000);
+            }, 1266);
           }}
           header="Added Product"
           text={context.lastAddedProduct?.name || ""}
