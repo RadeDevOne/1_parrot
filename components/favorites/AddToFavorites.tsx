@@ -2,12 +2,26 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import type { Favorite } from "@prisma/client";
+
+import { useSession } from "next-auth/react";
+
 interface PropsI {
-  favorite: boolean;
   productId: string;
+  favorite: Favorite | null;
 }
 
 const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
+  const { data, status } = useSession();
+
+  console.log({ favorite });
+
+  if (!data) {
+    return null;
+  }
+
+  const heartColor = "#e24f68";
+
   return (
     <div
       css={css`
@@ -30,11 +44,13 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
         }
 
         & svg {
-          stroke: #e24f68;
+          stroke: ${heartColor};
         }
 
         & button {
           /* border: crimson solid 1px; */
+          display: flex;
+          align-items: center;
         }
       `}
     >
@@ -46,9 +62,10 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           tw="h-8 w-8"
-          fill="none"
+          // fill="none"
           viewBox="0 0 24 24"
           // stroke="currentColor"
+          css={[favorite && favorite.id ? tw`fill[#e24f68]` : tw`fill[none]`]}
         >
           <path
             strokeLinecap="round"

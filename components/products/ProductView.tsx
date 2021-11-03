@@ -27,9 +27,10 @@ import { FALLBACK_PHOTO } from "@/constants/index";
 
 interface PropsI {
   product: ProductPropsI["product"];
+  favorite: ProductPropsI["favorite"];
 }
 
-const ProductView: FC<PropsI> = ({ product }) => {
+const ProductView: FC<PropsI> = ({ product, favorite }) => {
   const [cartState, dispatch] = useActor(cartService);
 
   const [__, disp] = useActor(headerNCartService);
@@ -108,14 +109,15 @@ const ProductView: FC<PropsI> = ({ product }) => {
             {description}
           </p>
           <hr tw="my-3 w-11/12 mx-auto" />
+          <div tw="margin-left[22px] flex align-items[center]">
+            <AddToFavorites favorite={favorite} productId={product.id} />
+          </div>
+          <hr tw="my-3 w-11/12 mx-auto" />
           <div
             css={[
               /* productIsNotInTheCart ? tw`h-32` : tw`h-14` ,*/ tw`mt-4 h-32`,
             ]}
           >
-            <div tw="my-3 absolute margin-left[22px]">
-              <AddToFavorites favorite productId={product.id} />
-            </div>
             {!productIsNotInTheCart ? (
               <div tw="mt-8 mx-2">
                 <Info boldText="Product added to the cart" variant="blue">

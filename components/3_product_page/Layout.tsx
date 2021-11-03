@@ -8,10 +8,10 @@ import ProductView from "../products/ProductView";
 import Reviews from "../reviews/Reviews";
 import Alert from "../alerts/Alert";
 
-const Layout: FC<PropsI> = ({ children, product }) => {
+const Layout: FC<PropsI> = ({ children, product, favorite }) => {
   return (
     <main>
-      <ProductView product={product} />
+      <ProductView product={product} favorite={favorite} />
       <Reviews reviews={product.reviews} />
       {children}
       {/* <Alert

@@ -4,11 +4,11 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 
 import { useEffect } from "react";
 //
-import axios from "axios";
-import { useSession } from "next-auth/react";
+// import axios from "axios";
+import { getSession } from "next-auth/react";
 //
 
-import { Product, Review } from "@prisma/client";
+import { Product, Review, Favorite } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
 
@@ -26,6 +26,7 @@ export interface PropsI {
       };
     })[];
   };
+  favorite: Favorite | null;
 }
 
 type paramsType = {
@@ -75,21 +76,40 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
+  // OK NOW WE NEED TO GET FAVORITE RECORD
+  // THAT IS RELATED TO PRODUCT AND CURRENT SIGNED IN USER
+  // SO WE NEED session AND product TO GET favorite RECORD
+  // SO WE WILL PASS favorite PROP (IT WILL HAVE INFO ABOUT PRODUCT AND PROFILE (BECAUSE WE ARE GOING TO DEFINE SENDING DELETION REQUEST WHICH WE WILL SEND FROM FRONTEND))
+
+  // LETS GET USER (PROFILE) FROM SESSION OFCOURSE
+  const session = await getSession({ req: ctx.req });
+  // LETS GET PROFILE
+
+  const favorite = await prisma.favorite.findFirst({
+    where: {
+      product: {
+        id: product.id,
+      },
+      profile: {
+        id: session?.profile?.id,
+      },
+    },
+  });
+
   return {
     props: {
       product: product,
+      favorite,
     },
   };
 };
 
 const Page: NP<PropsI> = (props) => {
-  const { data, status } = useSession();
-
-  useEffect(() => {
+  /* useEffect(() => {
     if (!data) return;
 
     axios.get(`/api/product/favorite/${data.profile?.id || 1}`);
-  }, [data]);
+  }, [data]); */
 
   return (
     <Layout {...props}>

@@ -19,8 +19,7 @@ handler.use(verifyUserMiddleware);
 // IN THE TERMS OF GETTING RECORD :
 // (WE ARE GOING TO GET RECORD IN GET SERVER SIDE PROPS)
 // AGAIN, ONLY SIGNED IN USER SHOULD SEE THE HEART BUTTON
-
-handler.get(async (req, res) => {
+handler.post(async (req, res) => {
   // IF EVERYTHING WENT WELL WITH AUTHENTICATION PROFILE SHOUD BE ON REQUEST
   // @ts-ignore
   const profile = req.profile as ProfileInsert;
@@ -67,7 +66,53 @@ handler.get(async (req, res) => {
     },
   });
 
-  res.status(200).json({ favorite });
+  return res.status(200).json({ favorite });
+});
+
+handler.delete(async (req, res) => {
+  const { productId } = req.query;
+  // profile SHOULD BE ON REQUEST BECAUSE WE INSERTED IT WITH
+  // MIDDLEWARE
+  // @ts-ignore
+  const profile = req.profile as ProfileInsert;
+  //
+
+  if (typeof productId === "object") {
+    return res
+      .status(500)
+      .send(
+        "product id is in wrong format (possibly you have unnecessary `/` in product id )"
+      );
+  }
+
+  // WE CAN FIRST LOOK IF FAVORITE OBJECT EXISTS
+  const posibleFavorite = await prisma.favorite.findFirst({
+    where: {
+      product: {
+        id: productId,
+      },
+      profile: {
+        id: profile.id,
+      },
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!posibleFavorite) {
+    return res.status(400).send("favorite record missing");
+  }
+
+  // WE CAN DELETE NOW
+
+  await prisma.favorite.delete({
+    where: {
+      id: posibleFavorite.id,
+    },
+  });
+
+  return res.status(200).send({ deleted: true });
 });
 
 export default handler;
