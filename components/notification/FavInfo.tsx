@@ -20,7 +20,7 @@ const FavInfo: FC<{
         onAnimationComplete={() => {
           //
         }}
-        header="Wishlist:"
+        header="Product Added To Favorites"
         text={productName}
         variant="info"
         visible

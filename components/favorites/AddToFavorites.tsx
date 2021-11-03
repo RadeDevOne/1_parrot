@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import isSSR from "@/util/isSSR";
@@ -26,10 +26,33 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId, productName }) => {
 
   const [fav, setFav] = useState(favorite);
 
+  const [showNotif, setShowNotif] = useState<boolean>(false);
+  const [firstStep, setFirstStep] = useState(true);
+
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
   // console.log({ favorite });
 
-  console.log({ productId }, `/api/product/favorite/${productId}`);
+  /*  useEffect(() => {
+    if (firstStep) {
+      setFirstStep(false);
+      return;
+    }
+  }, [firstStep, setFirstStep]); */
+
+  useEffect(() => {
+    if (firstStep) {
+      return;
+    }
+
+    if (fav) {
+      setShowNotif(true);
+      return;
+    }
+
+    setShowNotif(false);
+  }, [firstStep, setShowNotif, fav]);
+
+  // console.log({ productId }, `/api/product/favorite/${productId}`);
 
   // ----------------------------------------
   const addOrRemoveFavorite = async (method: "post" | "delete") => {
@@ -54,6 +77,7 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId, productName }) => {
 
         setFav(data.favorite);
         setReqStatus("idle");
+        setFirstStep(false);
         return;
       }
     } catch (err) {
@@ -135,7 +159,7 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId, productName }) => {
           </svg>
         </button>
       </div>
-      {fav && (
+      {showNotif && !firstStep && (
         <div tw="fixed bottom-0 right-0 left-0 z-30 flex justify-center">
           <FavInfo productName={productName} />
         </div>
