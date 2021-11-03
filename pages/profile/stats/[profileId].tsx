@@ -73,6 +73,9 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
       },
     });
 
+    // TODO LATER:
+    // QUERYING FOR ORDERS
+
     return {
       props: {
         favorites,
@@ -83,7 +86,7 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 const ProfileStatsPage: NP<PropsI> = (props) => {
   //
 
-  console.log({ props });
+  // console.log({ props });
 
   return (
     <main>

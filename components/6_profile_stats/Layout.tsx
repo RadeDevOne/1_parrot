@@ -6,7 +6,9 @@ import type { PropsI } from "@/pages/profile/stats/[profileId]";
 
 import Lorem from "@/components/dev-helpers/Lorem";
 
-const Layout: FC<PropsI> = () => {
+const Layout: FC<PropsI> = ({ favorites }) => {
+  console.log({ favorites });
+
   return (
     <main css={[tw``, tw``]}>
       {/* eslint-disable-next-line */}
