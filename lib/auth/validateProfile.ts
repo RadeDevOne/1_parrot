@@ -25,15 +25,21 @@ const validateProfile = async (
   const session = await getSession({ req: ctx.req });
 
   if (!session) {
+    // console.log("11111111111111111111111111111111111");
+
     return "unauthenticated";
   }
   if (!session.profile) {
+    // console.log("2222222222222222222222222222");
+
     return "unauthorized";
   }
 
   const { id } = session.profile;
 
   if (!id) {
+    // console.log("33333333333333333333333333333");
+
     return "unauthorized";
   }
 
@@ -42,16 +48,22 @@ const validateProfile = async (
   // const {profileId} = ctx.params;
 
   if (!ctx.params) {
+    // console.log("444444444444444444444444444");
+
     return "unauthenticated";
   }
 
   if (ctx.params && !ctx.params.profileId) {
+    // console.log("5555555555555555555555555555555555");
+
     return "unauthorized";
   }
 
   if (id === ctx.params.profileId) {
     return "authorized";
   }
+  // console.log({ id }, { profileId: ctx.params.profileId });
+  // console.log("666666666666666666666666666666666");
 
   return "unauthenticated";
 };

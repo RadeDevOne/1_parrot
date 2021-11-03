@@ -2,10 +2,23 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-import Lorem from "@/components/dev-helpers/Lorem";
+import prisma from "@/lib/prisma";
 
-interface PropsI {
-  placeholder: boolean;
+import { getSession } from "next-auth/react";
+
+import type { Favorite, Product } from "@prisma/client";
+
+import type { SessStuff } from "../../../session";
+
+import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
+import validateProfille from "@/lib/auth/validateProfile";
+
+import Layout from "@/components/6_profile_stats/Layout";
+
+export interface PropsI {
+  favorites: (Favorite & {
+    product: Product;
+  })[];
 }
 
 type paramsType = {
@@ -14,13 +27,57 @@ type paramsType = {
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
-    const { params } = ctx;
+    // const { params } = ctx;
+    // params?.profileId; //
 
-    params?.profileId; //
+    const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
+
+    if (redirectOptions.status === "unauthenticated") {
+      return {
+        props: {
+          nothing: true,
+        },
+        redirect: redirectOptions.redirect,
+      };
+    }
+
+    const validaationResult = await validateProfille(ctx);
+    if (
+      validaationResult === "unauthorized" ||
+      validaationResult === "unauthenticated"
+    ) {
+      // console.log("22222222222222222222222222222222222");
+
+      return {
+        props: {
+          nothing: true,
+        },
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+
+    // HERE WE CAN TAKE PROFILE FROM SESSION
+    // AND QUERY FOR FAVORITES (BUT WE NEE PRODUCTS SO WE ARE DOING JOIN)
+    // SESSION IS NOT null HERE
+    const session = (await getSession({ req: ctx.req })) as SessStuff;
+
+    const favorites = await prisma.favorite.findMany({
+      where: {
+        profile: {
+          id: session.profile?.id,
+        },
+      },
+      include: {
+        product: true,
+      },
+    });
 
     return {
       props: {
-        placeholder: true,
+        favorites,
       },
     };
   };
@@ -32,17 +89,7 @@ const ProfileStatsPage: NP<PropsI> = (props) => {
 
   return (
     <main>
-      {/* eslint-disable-next-line */}
-      <h1>🦉 Profile Stats</h1>
-      Helo world
-      <h2 style={{ color: "blanchedalmond" }} id="favorites">
-        Favorites
-      </h2>
-      <Lorem />
-      <h2 style={{ color: "blanchedalmond" }} id="purchases">
-        Past Purchases
-      </h2>
-      <Lorem />
+      <Layout {...props} />
     </main>
   );
 };

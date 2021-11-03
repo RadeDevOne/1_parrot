@@ -39,16 +39,16 @@ const buildUnAuthHistoryPathCookie = (ctx: GetServerSidePropsContext) => {
     path = resolvedUrl;
   }
 
-  // console.log({ path });
+  console.log({ path });
 
   // WE WILL BULD httpOnly COOKIE
   // ON UNAUTHORIZED PAGE
   // BUT ON signin PAGE WE ARE GOING TO TAKE THAT COOKIE
   // AND PASS IT AS SERVER SIDE PROP
 
-  // const cookies = ctx.req.cookies;
+  const cookies = ctx.req.cookies;
 
-  // console.log({ cookies });
+  console.log({ cookies });
 
   // LETS BUILD ABSOLUTE PATH SINCE WE NEED ABSOLUTE PATH
   // FOR THE callbackUrl FOR THE signIn METHOD OF next-auth

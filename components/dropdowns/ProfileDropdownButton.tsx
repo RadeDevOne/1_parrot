@@ -87,17 +87,21 @@ const ProfileDropdownButton: FC = () => {
       new Promise((res, rej) => {
         setTimeout(() => {
           res("");
-        }, 66);
+        }, 74);
       })
         .then(() => {
-          return "";
+          return new Promise((res, rej) => {
+            setTimeout(() => {
+              res("");
+            }, 12);
+          });
         })
         .then(() => {
           setTimeout(() => {
             dispatch({
               type: EE.CLOSE,
             });
-          }, 66);
+          }, 74);
         });
     };
     // @ts-ignore

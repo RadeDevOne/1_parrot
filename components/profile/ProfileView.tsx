@@ -209,9 +209,7 @@ const ProfileView: FC<PropsI> = ({ profile, fulfilledOrdersCount }) => {
                     )
                     // </Link>
                   }
-                  <Link
-                    href={`/profile/stats/${"bitcoinether"}${"#favorites"}`}
-                  >
+                  <Link href={`/profile/stats/${id}${"#favorites"}`}>
                     <a>
                       <div tw="mr-4 p-3 text-center">
                         <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">

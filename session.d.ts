@@ -6,7 +6,7 @@ import type { Session as Ses } from "next-auth";
 // import type { Profile } from "@prisma/client";
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
-interface SessStuff {
+export interface SessStuff {
   expires?: Ses["expires"];
   user?: Ses["user"];
   profile?: ProfileInsert;
