@@ -19,6 +19,8 @@ interface PropsI {
   favorite: Favorite | null;
 }
 
+export const heartColor = "#e24f68";
+
 const AddToFavorites: FC<PropsI> = ({ favorite, productId, productName }) => {
   const { data, status } = useSession();
 
@@ -93,8 +95,6 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId, productName }) => {
   if (!data) {
     return null;
   }
-
-  const heartColor = "#e24f68";
 
   return (
     <Fragment>
