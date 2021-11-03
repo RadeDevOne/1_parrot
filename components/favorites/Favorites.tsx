@@ -5,7 +5,9 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import type { PropsI as PIn } from "@/pages/profile/stats/[profileId]";
 
-import Stringif from "@/components/dev-helpers/Stringified";
+// import Stringif from "@/components/dev-helpers/Stringified";
+
+import formatPrice from "@/util/formatPrice";
 
 interface PropsI {
   favorites: PIn["favorites"];
@@ -19,7 +21,7 @@ const Favorites: FC<PropsI> = ({ favorites }) => {
       </section> */}
       <div tw="flex flex-col justify-center">
         <div tw="relative m-3 flex flex-wrap mx-auto justify-center">
-          {favorites.map(({ id }, i) => {
+          {favorites.map(({ id, product: { name, image, price } }, i) => {
             return (
               <div
                 key={`${id}-${i}`}
@@ -28,8 +30,9 @@ const Favorites: FC<PropsI> = ({ favorites }) => {
                 <div tw="overflow-x-hidden rounded-2xl relative">
                   <img
                     tw="h-40 rounded-2xl w-full object-cover"
-                    alt="some"
-                    src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
+                    alt={name}
+                    // src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
+                    src={image}
                   />
                   <p tw="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer">
                     <svg
@@ -51,9 +54,11 @@ const Favorites: FC<PropsI> = ({ favorites }) => {
                 <div tw="mt-4 pl-2 mb-2 flex justify-between ">
                   <div>
                     <p tw="text-lg font-semibold text-gray-900 dark:text-gray-300 mb-0">
-                      Product Name
+                      {name}
                     </p>
-                    <p tw="text-gray-800 dark:text-gray-400 mt-0">$340</p>
+                    <p tw="text-gray-800 dark:text-gray-400 mt-0">
+                      {formatPrice(price, "EUR")}
+                    </p>
                   </div>
                   <div tw="flex flex-col-reverse mb-1 mr-4 cursor-pointer">
                     <svg
