@@ -46,8 +46,6 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
       validaationResult === "unauthorized" ||
       validaationResult === "unauthenticated"
     ) {
-      // console.log("22222222222222222222222222222222222");
-
       return {
         props: {
           nothing: true,

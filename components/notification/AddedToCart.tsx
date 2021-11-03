@@ -36,7 +36,7 @@ const AddedToCart: FC = () => {
               dispatch({ type: EE.WIPE_LAST_ADED_FROM_HISTORY });
             }, 1266);
           }}
-          header="Added Product"
+          header="Product Added To Cart"
           text={context.lastAddedProduct?.name || ""}
           variant="success"
           visible

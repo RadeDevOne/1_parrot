@@ -114,7 +114,11 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
           </p>
           <hr tw="my-3 w-11/12 mx-auto" />
           <div tw="margin-left[22px] flex align-items[center]">
-            <AddToFavorites favorite={favorite} productId={product.id} />
+            <AddToFavorites
+              favorite={favorite}
+              productId={product.id}
+              productName={name}
+            />
           </div>
           {data && <hr tw="my-3 w-11/12 mx-auto" />}
           <div
