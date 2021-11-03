@@ -5,6 +5,8 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import { useActor } from "@xstate/react";
 
+import { useSession } from "next-auth/react";
+
 import type { PropsI as ProductPropsI } from "@/pages/product/[productId]";
 
 import { cartService, fse, EE } from "@/machines/cart_machine";
@@ -32,6 +34,8 @@ interface PropsI {
 
 const ProductView: FC<PropsI> = ({ product, favorite }) => {
   const [cartState, dispatch] = useActor(cartService);
+
+  const { data } = useSession();
 
   const [__, disp] = useActor(headerNCartService);
 
@@ -112,7 +116,7 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
           <div tw="margin-left[22px] flex align-items[center]">
             <AddToFavorites favorite={favorite} productId={product.id} />
           </div>
-          <hr tw="my-3 w-11/12 mx-auto" />
+          {data && <hr tw="my-3 w-11/12 mx-auto" />}
           <div
             css={[
               /* productIsNotInTheCart ? tw`h-32` : tw`h-14` ,*/ tw`mt-4 h-32`,
