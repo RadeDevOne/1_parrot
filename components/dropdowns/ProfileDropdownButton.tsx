@@ -84,24 +84,29 @@ const ProfileDropdownButton: FC = () => {
         return;
       }
 
+      let timeoutId: NodeJS.Timeout;
+
       new Promise((res, rej) => {
         setTimeout(() => {
           res("");
-        }, 74);
+        }, 96);
       })
         .then(() => {
           return new Promise((res, rej) => {
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
               res("");
-            }, 12);
+            }, 36);
           });
         })
         .then(() => {
-          setTimeout(() => {
+          const tId = setTimeout(() => {
             dispatch({
               type: EE.CLOSE,
             });
-          }, 74);
+
+            window.clearTimeout(timeoutId);
+            window.clearTimeout(tId);
+          }, 96);
         });
     };
     // @ts-ignore

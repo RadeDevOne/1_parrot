@@ -7,6 +7,8 @@ import type { PropsI as PIn } from "@/pages/profile/stats/[profileId]";
 
 import axios from "axios";
 
+import type { FavoritesDataTypeWhenDeleting } from "@/pages/api/product/favorite/[productId]";
+
 // import Stringif from "@/components/dev-helpers/Stringified";
 
 import formatPrice from "@/util/formatPrice";
