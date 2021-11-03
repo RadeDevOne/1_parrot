@@ -30,7 +30,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
     <Link href={`${basePath}${product.id}`}>
       <a
         css={[
-          tw`dark:bg-gray-800 light:bg-l`,
+          tw`dark:bg-gray-700 light:bg-pink-100`,
           tw`hover:cursor-pointer w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden`,
           css`
             & * {
