@@ -112,7 +112,7 @@ handler.delete(async (req, res) => {
     },
   });
 
-  return res.status(200).send({ deleted: true });
+  return res.status(200).json({ favorite: "deleted" });
 });
 
 export default handler;

@@ -1,6 +1,11 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
+
+import isSSR from "@/util/isSSR";
+
+import axios from "axios";
 
 import type { Favorite } from "@prisma/client";
 
@@ -14,7 +19,49 @@ interface PropsI {
 const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
   const { data, status } = useSession();
 
-  console.log({ favorite });
+  type favType = { favorite: "deleted" } | { favorite: Favorite };
+
+  const [fav, setFav] = useState(favorite);
+
+  const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+  // console.log({ favorite });
+
+  console.log({ productId }, `/api/product/favorite/${productId}`);
+
+  // ----------------------------------------
+  const addOrRemoveFavorite = async (method: "post" | "delete") => {
+    //
+
+    try {
+      //
+      setReqStatus("pending");
+
+      const { data: d } = await axios[method](
+        `/api/product/favorite/${productId}`
+      );
+
+      const data = d as favType;
+
+      if (data) {
+        if (data.favorite === "deleted") {
+          setFav(null);
+          setReqStatus("idle");
+          return;
+        }
+
+        setFav(data.favorite);
+        setReqStatus("idle");
+        return;
+      }
+    } catch (err) {
+      if (!isSSR()) {
+        window.alert(err);
+        setReqStatus("idle");
+      }
+    }
+  };
+
+  // --------------------------------------
 
   if (!data) {
     return null;
@@ -55,7 +102,15 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
       `}
     >
       <button
+        disabled={reqStatus === "pending"}
         onClick={() => {
+          if (fav) {
+            addOrRemoveFavorite("delete");
+            return;
+          }
+
+          addOrRemoveFavorite("post");
+
           console.log("add to favs");
         }}
       >
@@ -65,7 +120,7 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId }) => {
           // fill="none"
           viewBox="0 0 24 24"
           // stroke="currentColor"
-          css={[favorite && favorite.id ? tw`fill[#e24f68]` : tw`fill[none]`]}
+          css={[fav && fav.id ? tw`fill[#e24f68]` : tw`fill[none]`]}
         >
           <path
             strokeLinecap="round"
