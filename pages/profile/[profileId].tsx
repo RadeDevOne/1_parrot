@@ -15,6 +15,7 @@ import Layout from "@/components/5_profile_page/Layout";
 export interface PropsI {
   profile: Profile;
   fulfilledOrdersCount: number;
+  favoritesCount: number;
 }
 
 export type paramsType = {
@@ -93,12 +94,20 @@ export const getServerSideProps: GetServerSideProps<
     },
   });
 
-  //
+  // COUNTING FAVORITES
+  const favoritesCount = await prisma.favorite.count({
+    where: {
+      profile: {
+        id: profile.id,
+      },
+    },
+  });
 
   return {
     props: {
       profile,
       fulfilledOrdersCount,
+      favoritesCount,
     },
   };
 };

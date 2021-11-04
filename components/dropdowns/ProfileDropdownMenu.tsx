@@ -75,6 +75,10 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
     if (!isSSR()) {
       document.body.addEventListener("mousedown", handleMd);
     }
+
+    return () => {
+      document.body.removeEventListener("mousedown", handleMd);
+    };
   }, []);
 
   console.log({ shiftPressed });

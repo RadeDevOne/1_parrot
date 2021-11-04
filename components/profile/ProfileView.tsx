@@ -22,7 +22,11 @@ interface UserDataI extends profType {
   email: string;
 }
 
-const ProfileView: FC<PropsI> = ({ profile, fulfilledOrdersCount }) => {
+const ProfileView: FC<PropsI> = ({
+  profile,
+  fulfilledOrdersCount,
+  favoritesCount,
+}) => {
   console.log({ profile });
 
   const sessionData = useProfData();
@@ -161,7 +165,7 @@ const ProfileView: FC<PropsI> = ({ profile, fulfilledOrdersCount }) => {
                       profile?.image ||
                       "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
                     }
-                    tw="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-width[110px]"
+                    tw="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16  max-width[110px]"
                   />
                 </div>
               </div>
@@ -209,18 +213,31 @@ const ProfileView: FC<PropsI> = ({ profile, fulfilledOrdersCount }) => {
                     )
                     // </Link>
                   }
-                  <Link href={`/profile/stats/${id}${"#favorites"}`}>
-                    <a>
+                  {favoritesCount ? (
+                    <Link href={`/profile/stats/${id}${"#favorites"}`}>
+                      <a>
+                        <div tw="mr-4 p-3 text-center">
+                          <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
+                            10
+                          </span>
+                          <span tw="text-sm text-gray-400 light:text-gray-600">
+                            Favorites
+                          </span>
+                        </div>
+                      </a>
+                    </Link>
+                  ) : (
+                    <span>
                       <div tw="mr-4 p-3 text-center">
                         <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
-                          10
+                          0
                         </span>
                         <span tw="text-sm text-gray-400 light:text-gray-600">
                           Favorites
                         </span>
                       </div>
-                    </a>
-                  </Link>
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
