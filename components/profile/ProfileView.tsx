@@ -173,9 +173,14 @@ const ProfileView: FC<PropsI> = ({
                 css={[
                   css`
                     & a {
+                      user-select: none;
+
                       & span:hover {
                         color: #bd768e;
                       }
+                    }
+                    & span {
+                      user-select: none;
                     }
                   `,
                   tw`w-full px-4 text-center mt-20`,
