@@ -93,7 +93,7 @@
     "unique-names-generator": "^4.6.0",
     "unsplash-js": "^7.0.15",
     "xstate": "^4.25.0",
-    "yup": "^0.32.9"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.3.0",
