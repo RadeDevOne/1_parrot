@@ -25,13 +25,27 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
 
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
 
-  const removeFavorite = async () => {
+  const removeFavorite = async (favId: string) => {
+    if (favorites.length === 0) {
+      return;
+    }
+
     try {
       setReqStatus("pending");
+      // HITTING DELETION ENDPOINT
+      const { data: d } = await axios.delete(`/api/product/favorite/${favId}`);
+
+      const data = d as FavoritesDataTypeWhenDeleting;
+
+      setFavorites((prev) => data.favorites);
+
+      setReqStatus("idle");
     } catch (err) {
       // @ts-ignore
       console.log(err.message);
       console.error(err);
+
+      setReqStatus("idle");
     }
   };
 
@@ -83,6 +97,9 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
                       </p>
                     </div>
                     <button
+                      onClick={() => {
+                        removeFavorite(id);
+                      }}
                       css={[
                         css`
                           &:hover {
