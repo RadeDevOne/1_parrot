@@ -218,12 +218,12 @@ const ProfileView: FC<PropsI> = ({
                     )
                     // </Link>
                   }
-                  {favoritesCount ? (
+                  {favoritesCount > 0 ? (
                     <Link href={`/profile/stats/${id}${"#favorites"}`}>
                       <a>
                         <div tw="mr-4 p-3 text-center">
                           <span tw="text-xl font-bold block uppercase tracking-wide text-gray-900 dark:text-gray-100">
-                            10
+                            {favoritesCount}
                           </span>
                           <span tw="text-sm text-gray-400 light:text-gray-600">
                             Favorites
