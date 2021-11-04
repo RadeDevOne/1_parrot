@@ -36,9 +36,26 @@ const ProfileDropdownButton: FC = () => {
 
   const handleClick = () => {
     if (stateVal === fse.opened) {
-      dispatch({
-        type: EE.CLOSE,
+      let tid: NodeJS.Timeout;
+
+      new Promise((res, rej) => {
+        tid = setTimeout(() => {
+          res("");
+        }, 226);
+      }).then(() => {
+        const tId = setTimeout(() => {
+          dispatch({
+            type: EE.CLOSE,
+          });
+
+          window.clearTimeout(tId);
+          window.clearTimeout(tid);
+        }, 96);
       });
+
+      /* dispatch({
+        type: EE.CLOSE,
+      }); */
     } else {
       dispatch({
         type: EE.OPEN,
