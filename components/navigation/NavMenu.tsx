@@ -35,6 +35,11 @@ const Nav: FC = () => {
   if (asPath.includes("/profile")) {
     isProfileOrAdminPage = true;
   }
+
+  if (asPath.includes("/profile/stats")) {
+    isProfileOrAdminPage = false;
+  }
+
   if (asPath.includes("/admin")) {
     isProfileOrAdminPage = true;
   }
