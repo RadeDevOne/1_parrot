@@ -67,7 +67,7 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
         tabIndex={-1}
         tw="ml-4 mt-10 light:text-gray-700 dark:text-gray-200 text-2xl font-medium"
       >
-        My Favorite Products
+        {favorites.length !== 0 && "My Favorite Products"}
       </h3>
 
       {/* <section css={[tw``]}>
@@ -143,7 +143,8 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
                         </div>
                         <button
                           disabled={reqStatus === "pending"}
-                          onClick={() => {
+                          onClick={(e) => {
+                            e.preventDefault();
                             removeFavorite(productId);
                           }}
                           css={[
