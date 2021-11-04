@@ -7,6 +7,9 @@ import type { PropsI as PIn } from "@/pages/profile/stats/[profileId]";
 
 import axios from "axios";
 
+import { useActor } from "@xstate/react";
+import { EE, cartService } from "@/machines/cart_machine";
+
 import type { FavoritesDataTypeWhenDeleting } from "@/pages/api/product/favorite/[productId]";
 
 // import Stringif from "@/components/dev-helpers/Stringified";
@@ -22,6 +25,10 @@ interface PropsI {
 const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
   const [favorites, setFavorites] =
     useState<typeof initialFavorites>(initialFavorites);
+
+  const [{ value, context }, dispatch] = useActor(cartService);
+
+  const { cart } = context;
 
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
 
@@ -55,6 +62,14 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
 
   return (
     <Fragment>
+      <h3
+        id="favorites"
+        tabIndex={-1}
+        tw="ml-4 mt-10 light:text-gray-700 dark:text-gray-200 text-2xl font-medium"
+      >
+        My Favorite Products
+      </h3>
+
       {/* <section css={[tw``]}>
         <Stringif data={favorites} />
       </section> */}
@@ -75,22 +90,24 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
                         // src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
                         src={image}
                       />
-                      <p tw="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          tw="h-6 w-6 group-hover:opacity-50 opacity-70"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="black"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="1.5"
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                          />
-                        </svg>
-                      </p>
+                      {!cart[productId] && (
+                        <button tw="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            tw="h-6 w-6 group-hover:opacity-50 opacity-70"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="black"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="1.5"
+                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                            />
+                          </svg>
+                        </button>
+                      )}
                     </div>
                     <div tw="mt-4 pl-2 mb-2 flex justify-between ">
                       <div>

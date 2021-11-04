@@ -14,11 +14,12 @@ const Layout: FC<PropsI> = ({ favorites }) => {
   return (
     <main css={[tw``, tw``]}>
       {/* eslint-disable-next-line */}
-      <h1>🦉 Profile Stats</h1>
+      {/*  <h1>🦉 Profile Stats</h1>
       Helo World
       <h2 style={{ color: "blanchedalmond" }} id="favorites">
         Favorites
-      </h2>
+      </h2> */}
+      <Lorem />
       <Favorites favorites={favorites} />
       <h2 style={{ color: "blanchedalmond" }} id="purchases">
         Past Purchases
