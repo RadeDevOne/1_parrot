@@ -3,12 +3,12 @@ import type { FC } from "react";
 import { Fragment, useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import type { PropsI as PIn } from "@/pages/profile/stats/[profileId]";
-
+import Link from "next/link";
 import axios from "axios";
 
 import { useActor } from "@xstate/react";
 import { EE, cartService } from "@/machines/cart_machine";
+import type { PropsI as PIn } from "@/pages/profile/stats/[profileId]";
 
 import type { FavoritesDataTypeWhenDeleting } from "@/pages/api/product/favorite/[productId]";
 
@@ -77,105 +77,129 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
         <div tw="flex flex-col justify-center">
           <div tw="relative m-3 flex flex-wrap mx-auto justify-center">
             {favorites.map(
-              ({ id, product: { name, image, price, id: productId } }, i) => {
+              (
+                {
+                  id,
+                  product: { name, image, price, id: productId, countInStock },
+                },
+                i
+              ) => {
                 return (
-                  <div
-                    key={`${id}-${i}`}
-                    tw="dark:bg-gray-700 bg-pink-200 relative max-w-sm min-w-[340px] shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer"
-                  >
-                    <div tw="overflow-x-hidden rounded-2xl relative">
-                      <img
-                        tw="h-40 rounded-2xl w-full object-cover"
-                        alt={name}
-                        // src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
-                        src={image}
-                      />
-                      {!cart[productId] && (
-                        <button tw="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            tw="h-6 w-6 group-hover:opacity-50 opacity-70"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="black"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="1.5"
-                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                            />
-                          </svg>
-                        </button>
-                      )}
-                    </div>
-                    <div tw="mt-4 pl-2 mb-2 flex justify-between ">
-                      <div>
-                        <p tw="text-lg font-semibold text-gray-900 dark:text-gray-300 mb-0">
-                          {name}
-                        </p>
-                        <p tw="text-gray-800 dark:text-gray-400 mt-0">
-                          {formatPrice(price, "EUR")}
-                        </p>
-                      </div>
-                      <button
-                        disabled={reqStatus === "pending"}
-                        onClick={() => {
-                          removeFavorite(productId);
-                        }}
-                        css={[
-                          css`
-                            &:hover {
-                              & div svg:nth-of-type(1) {
-                                ${tw`light:stroke[#935cd1] stroke[#8a1f51]`}
-                              }
+                  <Link key={`${id}-${i}`} href={`/product/${productId}`}>
+                    <a tw="dark:bg-gray-700 bg-pink-200 relative max-w-sm min-w-[340px] shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
+                      <div tw="overflow-x-hidden rounded-2xl relative">
+                        <img
+                          tw="h-40 rounded-2xl w-full object-cover"
+                          alt={name}
+                          // src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg"
+                          src={image}
+                        />
+                        {!cart[productId] && (
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
 
-                              /* & > svg {
+                              dispatch({
+                                type: EE.ADD,
+                                payload: {
+                                  item: {
+                                    id: productId,
+                                    count: 1,
+                                    countInStock,
+                                    image,
+                                    name,
+                                    price: parseFloat(price),
+                                  },
+                                },
+                              });
+                            }}
+                            tw="absolute right-2 top-2 bg-white rounded-full p-2 cursor-pointer"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              tw="h-6 w-6 group-hover:opacity-50 opacity-70"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="black"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="1.5"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                              />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                      <div tw="mt-4 pl-2 mb-2 flex justify-between ">
+                        <div>
+                          <p tw="text-lg font-semibold text-gray-900 dark:text-gray-300 mb-0">
+                            {name}
+                          </p>
+                          <p tw="text-gray-800 dark:text-gray-400 mt-0">
+                            {formatPrice(price, "EUR")}
+                          </p>
+                        </div>
+                        <button
+                          disabled={reqStatus === "pending"}
+                          onClick={() => {
+                            removeFavorite(productId);
+                          }}
+                          css={[
+                            css`
+                              &:hover {
+                                & div svg:nth-of-type(1) {
+                                  ${tw`light:stroke[#935cd1] stroke[#8a1f51]`}
+                                }
+
+                                /* & > svg {
                             fill: #e68ec1;
                             stroke: #852b5f;
                           } */
-                            }
-                          `,
-                          tw`flex relative flex-col-reverse mb-1 mr-4 cursor-pointer`,
-                        ]}
-                      >
-                        <div
-                          css={[
-                            tw`absolute top[30px] width[fit-content]  border-__hazard_outline_focus`,
+                              }
+                            `,
+                            tw`flex relative flex-col-reverse mb-1 mr-4 cursor-pointer`,
                           ]}
                         >
+                          <div
+                            css={[
+                              tw`absolute top[30px] width[fit-content]  border-__hazard_outline_focus`,
+                            ]}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              tw="h-4 w-4 dark:stroke[white] stroke[black]"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              // stroke="red"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                              />
+                            </svg>
+                          </div>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            tw="h-4 w-4 dark:stroke[white] stroke[black]"
-                            fill="none"
+                            tw="h-6 w-6 group-hover:opacity-70"
+                            fill={heartColor}
                             viewBox="0 0 24 24"
-                            // stroke="red"
+                            stroke={heartColor}
                           >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                              strokeWidth="2"
+                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                             />
                           </svg>
-                        </div>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          tw="h-6 w-6 group-hover:opacity-70"
-                          fill={heartColor}
-                          viewBox="0 0 24 24"
-                          stroke={heartColor}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
+                        </button>
+                      </div>
+                    </a>
+                  </Link>
                 );
               }
             )}
