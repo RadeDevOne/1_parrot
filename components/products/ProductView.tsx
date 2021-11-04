@@ -89,7 +89,7 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
   return (
     <Fragment>
       <div tw="w-full md:flex md:items-center mt-14 md:px-5">
-        <div tw="align-self[flex-start]  w-full h-72 md:w-1/2 lg:h-96">
+        <div tw="align-self[flex-start] mt-8 w-full h-72 md:w-1/2 lg:h-96">
           <div tw="h-full mx-1.5">
             <img
               tw="h-full w-full rounded-md object-cover max-w-lg mx-auto"
