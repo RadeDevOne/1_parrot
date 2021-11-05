@@ -30,6 +30,10 @@ const Product: FC<ProductPropsI> = ({ product }) => {
     <Link href={`${basePath}${product.id}`}>
       <a
         css={[
+          css`
+            transition-property: background-color;
+            transition-duration: 600ms;
+          `,
           tw`dark:bg-gray-700 light:bg-pink-100`,
           tw`hover:cursor-pointer w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden`,
           css`
@@ -103,8 +107,14 @@ const Product: FC<ProductPropsI> = ({ product }) => {
                   display: flex;
                   justify-content: center;
                   align-items: center;
+                  transition-property: background-color;
+                  transition-duration: 600ms;
+
                   & svg {
                     transform: scale(1.2);
+
+                    transition-property: stroke;
+                    transition-duration: 600ms;
 
                     /* fill: blanchedalmond; */
                     ${tw`dark:stroke[gold] stroke[#e6a9e2]`}

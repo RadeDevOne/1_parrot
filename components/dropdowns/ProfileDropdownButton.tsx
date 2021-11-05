@@ -147,13 +147,25 @@ const ProfileDropdownButton: FC = () => {
       {profileData.id && (
         <div
           id="prof-drop-b"
-          tw="relative margin-top[-5px] inline-block light:bg-l"
+          css={[
+            css`
+              transition-property: background-color;
+              transition-duration: 600ms;
+            `,
+            tw`relative margin-top[-5px] inline-block light:bg-l bg-gray-800`,
+          ]}
         >
           {/* <!-- Dropdown toggle button --> */}
           <button
             ref={dropdownButtonRef}
             onClick={handleClick}
-            tw="relative z-index[5] flex items-center px-1 py-1 text-sm text-gray-600 bg-l border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none"
+            css={[
+              css`
+                transition-property: background-color;
+                transition-duration: 600ms;
+              `,
+              tw`relative z-index[5] flex items-center px-1 py-1 text-sm text-gray-600 bg-l border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:text-white dark:bg-gray-800 focus:outline-none`,
+            ]}
           >
             <span tw="mx-1">{profileData.name}</span>
             <motion.span

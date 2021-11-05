@@ -115,6 +115,10 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
                 /* outline-offset: 9.6px; */
               }
             `,
+            css`
+              transition-property: background-color;
+              transition-duration: 600ms;
+            `,
             tw`absolute right-0 z-20 w-56 py-2 mt-2 overflow-hidden bg-gray-300 rounded-md shadow-xl dark:bg-gray-800`,
           ]}
         >

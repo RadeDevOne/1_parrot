@@ -36,7 +36,15 @@ const Header: FC = ({ children }) => {
 
   return (
     <Fragment>
-      <header tw="overflow-hidden md:overflow-visible z-10 sticky top-0 dark:bg-gray-800 light:bg-l">
+      <header
+        css={[
+          css`
+            transition-property: background-color;
+            transition-duration: 600ms;
+          `,
+          tw`overflow-hidden md:overflow-visible z-10 sticky top-0 dark:bg-gray-800 light:bg-l`,
+        ]}
+      >
         <PageLoadingIndiccator />
         <NavMenu />
         <ShoppingCart />

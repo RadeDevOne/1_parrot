@@ -112,7 +112,15 @@ const ProfileView: FC<PropsI> = ({
   return (
     <div tw="pt-16">
       <div tw="w-full lg:w-4/12 px-4 mx-auto">
-        <div tw="relative flex flex-col min-w-0 break-words bg-gray-800 light:bg-l w-full mb-6 shadow-xl rounded-lg mt-16">
+        <div
+          css={[
+            css`
+              transition-property: background-color;
+              transition-duration: 600ms;
+            `,
+            tw`relative flex flex-col min-w-0 break-words bg-gray-800 light:bg-l w-full mb-6 shadow-xl rounded-lg mt-16`,
+          ]}
+        >
           <div tw="px-6">
             <div tw="flex flex-wrap justify-center">
               <div
@@ -331,6 +339,10 @@ const ProfileView: FC<PropsI> = ({
                     transition: background-color 5000s ease-in-out 0s;
                   } */
                 }
+              `,
+              css`
+                transition-property: background-color;
+                transition-duration: 600ms;
               `,
               tw`rounded bg-l dark:bg-gray-800`,
             ]}

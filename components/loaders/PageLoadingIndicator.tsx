@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import { css } from "twin.macro";
+import tw, { css } from "twin.macro";
 import type { FC } from "react";
 
 import { motion } from "framer-motion";
@@ -14,7 +14,14 @@ const PageLoadingIndiccator: FC = () => {
   return (
     <section
       // mt="10px"
-      tw="mb-0 p-0 self-start w-full dark:bg-gray-800 light:bg-l"
+
+      css={[
+        css`
+          transition-property: background-color;
+          transition-duration: 600ms;
+        `,
+        tw`mb-0 p-0 self-start w-full dark:bg-gray-800 light:bg-l`,
+      ]}
     >
       <motion.div
         tw="dark:bg-l light:bg-good"
