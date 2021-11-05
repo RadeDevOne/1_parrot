@@ -6,6 +6,9 @@ import profileSchema from "@/lib/validations/profileSchema";
 
 // import prisma from "@/lib/prisma";
 
+// THIS IS MAYBE TOO MUCH (THIS SHOULD BE ONLY FUNCTION IF WE WANT TO PAST
+// SOMETHING, LIKE SCHEMA, BUT SINCE I HAVE ONLY ONE SCHEMA, WE SHOULD ONLY CREATE MIDDLEWARE AND EXPORT IT
+// BUT NEVER MIND, LET THIS BE ANA A REMINDER ON OTHER WAYS YOU CAN USE THIS)
 const validateProfileBody: () => Middleware<NextApiRequest, NextApiResponse> =
   () => async (req, res, next) => {
     //
@@ -24,7 +27,9 @@ const validateProfileBody: () => Middleware<NextApiRequest, NextApiResponse> =
       if (!profileSchema.fields[key]) {
         return res
           .status(400)
-          .send(`${key} is redundant field (shouldn't be on the body)`);
+          .send(
+            `${key} is redundant field (shouldn't be on the body when updating profile record)`
+          );
       }
     }
 
