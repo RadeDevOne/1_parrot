@@ -13,11 +13,15 @@ import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 
 import validateProfileBody from "@/middlewares/validateProfileBody";
 
+import validateProfileId from "@/middlewares/validateProfileId";
+
 import type { ProfileDataType } from "@/lib/validations/profileSchema";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
-export type ResData = Profile;
+export interface ResData {
+  updatedProfile: Profile;
+}
 
 // -------- WE SPECIFY FOR WHAT ROUTE AND FOR WHAT METHOD WE ARE GOING TO
 // ALLOW THIS MIDDLEWARE
@@ -28,13 +32,13 @@ const profileBodyValidation = nc<NextApiRequest, NextApiResponse>().put(
 // ------------------
 
 // MIDDLEWARES
-// AUTHENTICATION MIDDLEWARE
+handler.use(validateProfileId);
 handler.use(verifyUserMiddleware);
 
 // THIS MIDDLEWARE IS ONLY GOING TO WORK FOR THIS ROUTE
 handler.use(profileBodyValidation).put(async (req, res) => {
   // @ts-ignore
-  const profile = req.profile as ProfileInsert;
+  // const profile = req.profile as ProfileInsert;
 
   // console.log({ profile });
 
