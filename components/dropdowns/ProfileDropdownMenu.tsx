@@ -129,7 +129,7 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
             onClick={() => {
               handleClick(`/profile/${id}`);
             }}
-            tw="overflow-ellipsis flex flex-wrap items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+            tw="w-full overflow-ellipsis flex flex-wrap items-center p-3 -mt-2 text-sm text-gray-600 transition-colors duration-200 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
           >
             <img
               tw="flex-shrink-0 object-cover mx-1 rounded-full w-9 h-9"
