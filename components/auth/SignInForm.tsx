@@ -3,6 +3,8 @@ import tw, { css, styled, theme } from "twin.macro";
 import type { FC, ChangeEventHandler, FormEvent } from "react";
 import { useState, useCallback, useEffect } from "react";
 
+import * as Yup from "yup";
+
 import type { LiteralUnion } from "next-auth/react";
 import type { BuiltInProviderType } from "next-auth/providers/index";
 
@@ -24,6 +26,14 @@ import Spinner from "@/components/common/Spinner";
 import { ClipLoader as Loader } from "react-spinners";
 
 import type { PropsI as SigninPagePropsI } from "@/pages/signin";
+
+const schema = Yup.object().shape({
+  email: Yup.string().required().min(10).max(28).email("Invalid email"),
+});
+
+const validateEmail = (email: string) => schema.isValidSync({ email });
+
+// schema.isValid({ email: "aaa" }).then((val) => console.log(val));
 
 const SignInText: FC<{ pending: boolean }> = ({ pending, children }) => {
   return (
@@ -102,6 +112,20 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     email: "",
   });
 
+  const [emailValidity, setEmailValidity] = useState<
+    "idle" | "valid" | "invalid"
+  >("idle");
+
+  const checkEmailValidity = () => {
+    const val = validateEmail(email);
+
+    if (!val) return setEmailValidity("invalid");
+
+    return setEmailValidity("valid");
+  };
+  // -------------------------------------------------------
+  // -------------------------------------------------------
+
   // console.log({ email });
 
   const [emailReqStatus, setEmailReqStatus] = useState<"idle" | "pending">(
@@ -125,35 +149,6 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-
-  // EMAIL SUMBIT
-  const handleEmailSigninSubmit = useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      if (email === "") {
-        return;
-      }
-
-      console.log("submit");
-
-      setEmailReqStatus("pending");
-      // return;
-      try {
-        //
-        // TRY SIGNING IN
-        const resp = await handleSignin("email", { email });
-        handleHamburgerClose();
-        console.log({ resp });
-      } catch (err) {
-        setEmailReqStatus("idle");
-        //
-
-        console.error(err);
-      }
-    },
-    [email, setEmailReqStatus]
-  );
 
   // GITHUB SIGNIN
   const signinWithGithub = async () => {
@@ -213,6 +208,39 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
 
   const buttonDisabled = ghbd || goobd || fabd || embd;
 
+  // EMAIL SUMBIT
+  const handleEmailSigninSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
+      if (buttonDisabled || emailValidity === "invalid") {
+        return;
+      }
+
+      if (email === "") {
+        return;
+      }
+
+      console.log("submit");
+
+      setEmailReqStatus("pending");
+      // return;
+      try {
+        //
+        // TRY SIGNING IN
+        const resp = await handleSignin("email", { email });
+        handleHamburgerClose();
+        console.log({ resp });
+      } catch (err) {
+        setEmailReqStatus("idle");
+        //
+
+        console.error(err);
+      }
+    },
+    [email, setEmailReqStatus, buttonDisabled, emailValidity]
+  );
+
   return (
     <>
       {isMounted && (
@@ -233,10 +261,12 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
           ]}
         >
           <div tw="w-full lg:w-4/12 px-4 mx-auto pt-6 mt-12">
-            <div tw="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
+            <div tw="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg dark:bg-gray-700 bg-gray-300 border-0">
               <div tw="rounded-t mb-0 px-6 py-6">
                 <div tw="text-center mb-3">
-                  <h6 tw="text-gray-500 text-sm font-bold">Sign in with</h6>
+                  <h6 tw="text-gray-500 dark:text-gray-300 text-sm font-bold">
+                    Sign in with
+                  </h6>
                 </div>
                 <div tw="text-center">
                   <button
@@ -304,14 +334,22 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                 <form onSubmit={handleEmailSigninSubmit}>
                   <div tw="relative w-full mb-3">
                     <label
-                      tw="block uppercase text-gray-600 text-xs font-bold mb-2"
+                      tw="block uppercase text-gray-600 dark:text-gray-100 text-xs font-bold mb-2"
                       htmlFor="e-thing"
                     >
                       Email
+                      {emailValidity === "invalid" && (
+                        <span tw="inline-block ml-8 lowercase font-light text-__hazard">
+                          Invalid email!
+                        </span>
+                      )}
                     </label>
                     <input
                       // value={email}
                       onChange={handleChange}
+                      onBlur={() => {
+                        checkEmailValidity();
+                      }}
                       id="e-thing"
                       type="email"
                       name="email"
@@ -346,9 +384,29 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                   </div>
                   <div tw="text-center mt-6">
                     <button
-                      disabled={buttonDisabled}
+                      onMouseEnter={() => {
+                        checkEmailValidity();
+                      }}
+                      onMouseMove={() => {
+                        checkEmailValidity();
+                      }}
+                      onMouseOver={() => {
+                        checkEmailValidity();
+                      }}
+                      onMouseLeave={() => {
+                        checkEmailValidity();
+                      }}
+                      onFocus={() => {
+                        checkEmailValidity();
+                      }}
+                      // disabled={buttonDisabled || emailValidity === "invalid"}
                       type="submit"
-                      tw="bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      css={[
+                        buttonDisabled || emailValidity === "invalid"
+                          ? tw`opacity-60 cursor-default`
+                          : tw``,
+                        tw`bg-gray-800 text-white active:bg-gray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150`,
+                      ]}
                     >
                       {" "}
                       Sign In{" "}

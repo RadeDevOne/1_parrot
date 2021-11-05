@@ -77,6 +77,7 @@ const ProfileView: FC<PropsI> = ({
     postalCode: "",
     streetAddress: "",
     regionOrState: "",
+    city: "",
   });
 
   const [bodyDataChanged, setBodyDataChanged] = useState<boolean>(false);
@@ -143,6 +144,8 @@ const ProfileView: FC<PropsI> = ({
     setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
   };
 
+  console.log({ bodyData });
+
   return (
     <Fragment>
       <div tw="pt-16 mb-32">
@@ -182,6 +185,10 @@ const ProfileView: FC<PropsI> = ({
                         &:hover {
                           transform: scale(1.2);
                         }
+
+                        & img {
+                          transform: scale(1.4);
+                        }
                       `,
                       tw`relative flex justify-center`,
                     ]}
@@ -208,7 +215,7 @@ const ProfileView: FC<PropsI> = ({
                         profile?.image ||
                         "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
                       }
-                      tw="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16  max-width[110px]"
+                      tw="shadow-xl rounded-full w-auto align-middle border-none absolute -m-16  max-width[110px]"
                     />
                   </div>
                 </div>
@@ -395,7 +402,14 @@ const ProfileView: FC<PropsI> = ({
                     defaultValue={
                       sanitizedProfileData.nick || sessionData.name || ""
                     }
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      const {
+                        target: { value: va },
+                      } = e;
+
+                      handleInputChange(e);
+                      handleBodyDataChange("name", va);
+                    }}
                     tw="background-clip[content-box] focus:outline-none px-3"
                     name="nick"
                     placeholder="Try Odinsson"
@@ -406,7 +420,14 @@ const ProfileView: FC<PropsI> = ({
                   <span tw="dark:text-gray-300 text-right px-2">Email</span>
                   <input
                     defaultValue={sanitizedProfileData.email || ""}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      const {
+                        target: { value: va },
+                      } = e;
+
+                      handleInputChange(e);
+                      handleBodyDataChange("email", va);
+                    }}
                     tw="background-clip[content-box] focus:outline-none px-3"
                     name="email"
                     type="email"
@@ -418,7 +439,14 @@ const ProfileView: FC<PropsI> = ({
                   <span tw="dark:text-gray-300 text-right px-2">Address</span>
                   <input
                     // value={sanitizedProfileData.streetAddress || ""}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      const {
+                        target: { value: va },
+                      } = e;
+
+                      handleInputChange(e);
+                      handleBodyDataChange("streetAddress", va);
+                    }}
                     tw="background-clip[content-box] focus:outline-none px-3"
                     name="streetAddress"
                     placeholder="10 Street XYZ 654"
@@ -428,7 +456,14 @@ const ProfileView: FC<PropsI> = ({
                   <span tw="dark:text-gray-300 text-right px-2">City</span>
                   <input
                     defaultValue={sanitizedProfileData.city || ""}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      const {
+                        target: { value: va },
+                      } = e;
+
+                      handleInputChange(e);
+                      handleBodyDataChange("city", va);
+                    }}
                     tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                     name="city"
                     placeholder="San Francisco"
@@ -449,7 +484,14 @@ const ProfileView: FC<PropsI> = ({
                   </span>
                   <input
                     defaultValue={sanitizedProfileData.postalCode || undefined}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      const {
+                        target: { value: va },
+                      } = e;
+
+                      handleInputChange(e);
+                      handleBodyDataChange("postalCode", va);
+                    }}
                     tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                     name="postalCode"
                     placeholder="98603"
@@ -463,8 +505,22 @@ const ProfileView: FC<PropsI> = ({
                   >
                     <select
                       defaultValue={sanitizedProfileData.country || "KR"}
-                      onChange={handleSelectChange}
-                      onBlur={handleSelectChange}
+                      onChange={(e) => {
+                        const {
+                          target: { value: va },
+                        } = e;
+
+                        handleInputChange(e);
+                        handleBodyDataChange("country", va);
+                      }}
+                      onBlur={(e) => {
+                        const {
+                          target: { value: va },
+                        } = e;
+
+                        handleInputChange(e);
+                        handleBodyDataChange("country", va);
+                      }}
                       // defaultValue={"KR"}
                       name="country"
                       tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
@@ -508,8 +564,22 @@ const ProfileView: FC<PropsI> = ({
                         defaultValue={
                           sanitizedProfileData.regionOrState || "CO"
                         }
-                        onChange={handleSelectChange}
-                        onBlur={handleSelectChange}
+                        onChange={(e) => {
+                          const {
+                            target: { value: va },
+                          } = e;
+
+                          handleInputChange(e);
+                          handleBodyDataChange("regionOrState", va);
+                        }}
+                        onBlur={(e) => {
+                          const {
+                            target: { value: va },
+                          } = e;
+
+                          handleInputChange(e);
+                          handleBodyDataChange("regionOrState", va);
+                        }}
                         name="regionOrState"
                         // defaultValue={"CO"}
                         tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
@@ -539,6 +609,7 @@ const ProfileView: FC<PropsI> = ({
                       right: 6px;
                       margin-right: 16px;
                       margin-top: 6px;
+                      width: 100px;
                     }
                   `,
                 ]}
@@ -547,11 +618,12 @@ const ProfileView: FC<PropsI> = ({
                   onClick={() => {
                     console.log("clicked");
                   }}
-                  disabled
+                  disabled={!bodyDataChanged || reqStatus === "pending"}
                   size="small"
                   variant="secondary"
                 >
                   {"Save"}
+                  {reqStatus === "pending"}
                 </Button>
               </div>
             </section>

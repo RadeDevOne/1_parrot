@@ -31,11 +31,17 @@ const SignInButton: FC<{
   return (
     <Fragment>
       {status === "unauthenticated" && asPath !== "/signin" && (
-        <div tw="my-2.5 mr-0.5 md:-my-1 md:mr-1 md:ml-1.5">
+        <div css={[tw`my-2.5 mr-0.5 md:-my-1 md:mr-1 md:ml-1.5`]}>
           <button
             tabIndex={tabIndex}
             disabled={reqStatus === "pending" || disable}
-            tw="dark:text-white bg-__primary width[88.91px] px-3 py-0.5 rounded"
+            css={[
+              reqStatus === "pending" || disable
+                ? tw`opacity-30 cursor-default`
+                : tw``,
+
+              tw`dark:text-white bg-__primary width[88.91px] px-3 py-0.5 rounded`,
+            ]}
             onMouseDown={() => {
               setReqStatus("pending");
               push("/signin").then(() => {

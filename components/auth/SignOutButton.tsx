@@ -32,7 +32,12 @@ const SignOutButton: FC<{
           <button
             tabIndex={tabIndex}
             disabled={reqStatus === "pending" || disable}
-            tw="dark:text-white bg-__primary width[88.91px] px-3 py-0.5 rounded"
+            css={[
+              reqStatus === "pending" || disable
+                ? tw`opacity-50 cursor-default`
+                : tw``,
+              tw`dark:text-white bg-__primary width[88.91px] px-3 py-0.5 rounded`,
+            ]}
             onClick={() => {
               setReqStatus("pending");
               signOut({ callbackUrl: process.env.NEXTAUTH_URL }).then(() => {
