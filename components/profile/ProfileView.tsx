@@ -153,7 +153,7 @@ const ProfileView: FC<PropsI> = ({
                 transition-property: background-color;
                 transition-duration: 600ms;
               `,
-              tw`relative flex flex-col min-w-0 break-words bg-gray-800 light:bg-l w-full mb-6 shadow-xl rounded-lg mt-16`,
+              tw`relative flex flex-col min-w-0 break-words bg-gray-700 light:bg-gray-300 w-full mb-6 shadow-xl rounded-lg mt-16`,
             ]}
           >
             <div tw="px-6">
@@ -382,7 +382,7 @@ const ProfileView: FC<PropsI> = ({
                   transition-property: background-color;
                   transition-duration: 600ms;
                 `,
-                tw`rounded bg-l dark:bg-gray-800`,
+                tw`rounded bg-l  bg-gray-700 light:bg-gray-300`,
               ]}
             >
               <h2 tw="dark:text-gray-600 ml-4 mt-2 uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
@@ -529,14 +529,16 @@ const ProfileView: FC<PropsI> = ({
                   </motion.label>
                 )}
               </fieldset>
+              <hr tw="margin-top[-12px]" />
               <div
                 css={[
-                  tw`my-4  h-10 relative border-pink-600`,
+                  tw`my-4 h-10 relative border-pink-600`,
                   css`
                     & button {
                       position: absolute;
                       right: 6px;
                       margin-right: 16px;
+                      margin-top: 6px;
                     }
                   `,
                 ]}
@@ -545,7 +547,7 @@ const ProfileView: FC<PropsI> = ({
                   onClick={() => {
                     console.log("clicked");
                   }}
-                  // disabled
+                  disabled
                   size="small"
                   variant="secondary"
                 >

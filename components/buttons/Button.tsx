@@ -78,6 +78,8 @@ const Button: FC<PropsI> = ({
             textSize,
             colors[variant],
             tw`p-2 pl-5 pr-5 text-gray-100 rounded-lg focus:border-0 border-blue-300`,
+
+            disabled ? tw`opacity-50 cursor-default` : tw``,
           ]}
         >
           {children}
