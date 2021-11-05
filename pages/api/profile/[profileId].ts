@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // import type { Product, Favorite } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
+import type { Profile } from "@prisma/client";
 // import { getSession } from "next-auth/react";
 
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
@@ -15,6 +16,8 @@ import validateProfileBody from "@/middlewares/validateProfileBody";
 import type { ProfileDataType } from "@/lib/validations/profileSchema";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
+
+export type ResData = Profile;
 
 // -------- WE SPECIFY FOR WHAT ROUTE AND FOR WHAT METHOD WE ARE GOING TO
 // ALLOW THIS MIDDLEWARE
@@ -56,14 +59,14 @@ handler.use(profileBodyValidation).put(async (req, res) => {
   }
 
   // HERE WE CAN UPDATE PROFILE
-  /* const updatedProfile = await prisma.profile.update({
+  const updatedProfile = await prisma.profile.update({
     where: {
-      id: profileId
+      id: profileId,
     },
-    data
-  }) */
+    data,
+  });
 
-  return res.status(200).json({ data });
+  return res.status(200).json({ updatedProfile });
 });
 
 /* handler.get(async (req, res) => {
