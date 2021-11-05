@@ -23,6 +23,8 @@ export interface ResData {
   updatedProfile: Profile;
 }
 
+export type BodyDataTypeI = ProfileDataType;
+
 // -------- WE SPECIFY FOR WHAT ROUTE AND FOR WHAT METHOD WE ARE GOING TO
 // ALLOW THIS MIDDLEWARE
 const profileBodyValidation = nc<NextApiRequest, NextApiResponse>().put(

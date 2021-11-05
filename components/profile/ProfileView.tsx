@@ -18,6 +18,8 @@ import states from "../../countries_n_states/2_states.json";
 
 import InvalidDataAlert from "../alerts/Alert";
 
+import type {ResData as ResponseDataType, BodyDataTypeI} from '@/pages/api/profile/[profileId]'
+
 type profType = PropsI["profile"];
 
 interface UserDataI extends profType {
@@ -61,6 +63,17 @@ const ProfileView: FC<PropsI> = ({
       image: prev.image || sessionData?.image || "",
     }));
   }, [sessionData, setSanitizedProfileData]); */
+
+  // ----------------------             ----------------------
+  const [bodyData, setBodyData] = useState<BodyDataTypeI>({
+    country: "",
+    email: "",
+    name: "",
+    postalCode: "",
+    streetAddress: "",
+    regionOrState: ""
+  })
+  // ----------------------------------------------------------
 
   if (!sessionData) {
     return null;
