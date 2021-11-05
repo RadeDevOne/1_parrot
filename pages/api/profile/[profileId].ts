@@ -55,8 +55,6 @@ handler.use(profileBodyValidation).put(async (req, res) => {
     return res.status(400).send("Body has no data on it");
   }
 
-  // WE SHOULD HERE VALIDATE BODY DATA
-
   // HERE WE CAN UPDATE PROFILE
   /* const updatedProfile = await prisma.profile.update({
     where: {
@@ -65,7 +63,7 @@ handler.use(profileBodyValidation).put(async (req, res) => {
     data
   }) */
 
-  return res.status(200).json({ profileId, data });
+  return res.status(200).json({ data });
 });
 
 /* handler.get(async (req, res) => {
