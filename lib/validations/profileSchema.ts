@@ -1,6 +1,6 @@
 import { object, string, TypeOf } from "yup";
 
-const profileSchema = object({
+const profileSchema = object().shape({
   name: string()
     .optional()
     .min(2, "name must contain at least 2 characters")

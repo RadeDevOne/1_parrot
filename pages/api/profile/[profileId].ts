@@ -10,29 +10,32 @@ import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 
-export interface BodyDataI {
-  name?: string;
-  email?: string;
-  streetAddress: string;
-  city: string;
-  postalCode?: string;
-  country?: string;
-  regionOrState?: string;
-}
+import validateProfileBody from "@/middlewares/validateProfileBody";
+
+import type { ProfileDataType } from "@/lib/validations/profileSchema";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
+
+// -------- WE SPECIFY FOR WHAT ROUTE AND FOR WHAT METHOD WE ARE GOING TO
+// ALLOW THIS MIDDLEWARE
+const profileBodyValidation = nc<NextApiRequest, NextApiResponse>().put(
+  "/api/profile/:profileId",
+  validateProfileBody()
+);
+// ------------------
 
 // MIDDLEWARES
 // AUTHENTICATION MIDDLEWARE
 handler.use(verifyUserMiddleware);
 
-handler.put(async (req, res) => {
+// THIS MIDDLEWARE IS ONLY GOING TO WORK FOR THIS ROUTE
+handler.use(profileBodyValidation).put(async (req, res) => {
   // @ts-ignore
   const profile = req.profile as ProfileInsert;
 
   // console.log({ profile });
 
-  const data = req.body as BodyDataI;
+  const data = req.body as ProfileDataType;
 
   const { profileId } = req.query;
 
@@ -64,5 +67,9 @@ handler.put(async (req, res) => {
 
   return res.status(200).json({ profileId, data });
 });
+
+/* handler.get(async (req, res) => {
+  return res.status(200).send("hello world");
+}); */
 
 export default handler;
