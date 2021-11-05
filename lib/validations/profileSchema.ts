@@ -1,6 +1,11 @@
 import { object, string, TypeOf } from "yup";
 
-const profileSchema = object().shape({
+// const profileSchema = object()
+const profileSchema = object({
+  // I DON'T NEED PROFIE ID HERE BUT I'M SETTING
+  // THIS JUST TO HAVE SOMETHING THAT IS REQUIRED (JUST TO TRY IT OUT)
+  // profileId: string().required(),
+
   name: string()
     .optional()
     .min(2, "name must contain at least 2 characters")
@@ -24,6 +29,7 @@ const profileSchema = object().shape({
     .min(4, "state must be at leasr 4 characters long")
     .max(18, "state can't be more than 18 characters long"),
 });
+// .required();
 
 export type ProfileDataType = TypeOf<typeof profileSchema>;
 

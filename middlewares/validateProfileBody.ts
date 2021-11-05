@@ -2,9 +2,9 @@ import type { Middleware } from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 import profileSchema from "@/lib/validations/profileSchema";
 
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
 
-import prisma from "@/lib/prisma";
+// import prisma from "@/lib/prisma";
 
 const validateProfileBody: () => Middleware<NextApiRequest, NextApiResponse> =
   () => async (req, res, next) => {
@@ -15,6 +15,17 @@ const validateProfileBody: () => Middleware<NextApiRequest, NextApiResponse> =
 
     if (Object.keys(req.body).length === 0) {
       return res.status(400).send("You must provide at least one field");
+    }
+
+    // const keys = Object.keys(req.body)
+
+    for (const key in req.body) {
+      // @ts-ignore
+      if (!profileSchema.fields[key]) {
+        return res
+          .status(400)
+          .send(`${key} is redundant field (shouldn't be on the body)`);
+      }
     }
 
     try {
