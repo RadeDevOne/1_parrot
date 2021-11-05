@@ -35,7 +35,7 @@ const Button: FC<PropsI> = ({
 }) => {
   const colors = {
     primary: tw`bg-__primary border-__primary`,
-    secondary: tw`bg-__secondary border-__secondary`,
+    secondary: tw`bg-__secondary dark:bg-__secondary_dark border-__secondary dark:text-gray-900`,
     warning: tw`bg-__warning border-__warning`,
     hazard: tw`bg-__hazard border-__hazard`,
     success: tw`bg-__success border-__success`,
