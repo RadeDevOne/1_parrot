@@ -164,11 +164,7 @@ const ProfileView: FC<PropsI> = ({
 
       const resData = d as ResponseDataType & { error: true; message: string };
 
-      // console.log({ resData });
-
-      if (resData?.error) {
-        console.log({ resData });
-
+      if (resData.error) {
         setErrorMessage(resData.message);
 
         setTimeout(() => {
@@ -177,6 +173,9 @@ const ProfileView: FC<PropsI> = ({
         }, 3000);
 
         return;
+      }
+
+      if (resData.updatedProfile) {
       }
 
       // setReqStatus("idle");
@@ -493,7 +492,7 @@ const ProfileView: FC<PropsI> = ({
                 <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
                   <span tw="dark:text-gray-300 text-right px-2">Address</span>
                   <input
-                    // value={sanitizedProfileData.streetAddress || ""}
+                    defaultValue={sanitizedProfileData.streetAddress || ""}
                     onChange={(e) => {
                       const {
                         target: { value: va },
