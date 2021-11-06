@@ -443,7 +443,10 @@ const ProfileView: FC<PropsI> = ({
                         line-height: inherit; */
 
                         & option {
-                          ${tw`dark:bg-gray-800 bg-l border border-b-2 dark:border-l border-gray-800`}
+                          ${tw`dark:bg-gray-800 bg-l  dark:border-l border-gray-800`}
+                          /* border: crimson solid 1px; */
+                          font-size: 16px;
+                          border-top: crimson solid 1px;
                         }
                       }
 
