@@ -63,6 +63,7 @@ handler.use(profileBodyValidation).put(async (req, res) => {
   if (Object.keys(data).length === 0) {
     return res.status(400).send("Body has no data on it");
   }
+  console.log(data);
 
   // HERE WE CAN UPDATE PROFILE
   /* const updatedProfile = await prisma.profile.update({
@@ -72,8 +73,10 @@ handler.use(profileBodyValidation).put(async (req, res) => {
     data,
   });
 
+
+
   return res.status(200).json({ updatedProfile }); */
-  return res.status(200).json({ updatedProfile: "hello world" });
+  return res.status(200).json(data);
 });
 
 /* handler.get(async (req, res) => {
