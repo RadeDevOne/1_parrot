@@ -5,6 +5,8 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import Link from "next/link";
 
+import axios from "axios";
+
 import { motion } from "framer-motion";
 
 import { ClipLoader as Loader } from "react-spinners";
@@ -95,7 +97,9 @@ const ProfileView: FC<PropsI> = ({
 
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
 
-  const [invalidFieldNames, setInvalidFieldNames] = useState<fieldType[]>([]);
+  // const [invalidFieldNames, setInvalidFieldNames] = useState<fieldType[]>([]);
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   // ----------------------------------------------------------
 
@@ -146,6 +150,26 @@ const ProfileView: FC<PropsI> = ({
     } = e;
 
     setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
+  };
+
+  const handleRequest = async () => {
+    try {
+      setReqStatus("pending");
+
+      // SENDING REQUEST
+
+      const { data: d } = await axios.put(`/api/profile/${profile.id}`, {
+        ...bodyData,
+      });
+
+      const data = d as ResponseDataType;
+
+      console.log({ data });
+
+      setReqStatus("idle");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   console.log({ bodyData });
@@ -327,6 +351,10 @@ const ProfileView: FC<PropsI> = ({
             // action=""
             onSubmit={(e) => {
               e.preventDefault();
+
+              handleRequest().then(() => {
+                console.log("something");
+              });
             }}
             css={[
               css`
@@ -515,7 +543,7 @@ const ProfileView: FC<PropsI> = ({
                           target: { value: va },
                         } = e;
 
-                        handleInputChange(e);
+                        handleSelectChange(e);
                         handleBodyDataChange("country", va);
                       }}
                       onBlur={(e) => {
@@ -523,7 +551,7 @@ const ProfileView: FC<PropsI> = ({
                           target: { value: va },
                         } = e;
 
-                        handleInputChange(e);
+                        handleSelectChange(e);
                         handleBodyDataChange("country", va);
                       }}
                       // defaultValue={"KR"}
@@ -628,7 +656,7 @@ const ProfileView: FC<PropsI> = ({
                   variant="secondary"
                 >
                   {"Save"}
-                  {reqStatus === "idle" && (
+                  {reqStatus === "pending" && (
                     <span tw="inline-block ml-2 relative top[3px]">
                       <Loader size={14} color="#357575" />
                     </span>
@@ -639,12 +667,14 @@ const ProfileView: FC<PropsI> = ({
           </form>
         </section>
       </div>
-      <InvalidDataAlert
-        visible
-        header="Wrong!"
-        text="Something is wrong"
-        variant="error"
-      />
+      {errorMessage && (
+        <InvalidDataAlert
+          visible
+          header="Wrong!"
+          text="Something is wrong"
+          variant="error"
+        />
+      )}
     </Fragment>
   );
 };

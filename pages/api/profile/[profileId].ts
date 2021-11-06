@@ -65,14 +65,15 @@ handler.use(profileBodyValidation).put(async (req, res) => {
   }
 
   // HERE WE CAN UPDATE PROFILE
-  const updatedProfile = await prisma.profile.update({
+  /* const updatedProfile = await prisma.profile.update({
     where: {
       id: profileId,
     },
     data,
   });
 
-  return res.status(200).json({ updatedProfile });
+  return res.status(200).json({ updatedProfile }); */
+  return res.status(200).json({ updatedProfile: "hello world" });
 });
 
 /* handler.get(async (req, res) => {
