@@ -5,8 +5,7 @@ const profileSchema = object({
   // I DON'T NEED PROFIE ID HERE BUT I'M SETTING
   // THIS JUST TO HAVE SOMETHING THAT IS REQUIRED (JUST TO TRY IT OUT)
   // profileId: string().required(),
-
-  name: string()
+  nick: string()
     .optional()
     .trim()
     .min(2, "name must contain at least 2 characters")

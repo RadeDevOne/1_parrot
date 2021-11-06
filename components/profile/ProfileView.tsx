@@ -49,7 +49,7 @@ const ProfileView: FC<PropsI> = ({
     email: (sessionData ? sessionData?.email : "") || "",
   }); */
 
-  const [sanitizedProfileData, setSanitizedProfileData] = useState<UserDataI>({
+  /* const [sanitizedProfileData, setSanitizedProfileData] = useState<UserDataI>({
     //
     ...profile,
     // WE DEFINED THIS AS nick (BUT THIS SHOULD BE FULL NAME
@@ -62,7 +62,7 @@ const ProfileView: FC<PropsI> = ({
     postalCode: profile.postalCode || "",
     streetAddress: profile.streetAddress || "",
   });
-
+ */
   // console.log(sessionData?.image, profile?.image);
 
   /* useEffect(() => {
@@ -76,32 +76,22 @@ const ProfileView: FC<PropsI> = ({
   }, [sessionData, setSanitizedProfileData]); */
 
   // ----------------------             ----------------------
+
+  const [profImage, setProfImage] = useState<string>(
+    sessionData?.image || profile?.image || ""
+  );
+
   const [bodyData, setBodyData] = useState<BodyDataTypeI>({
-    country: "",
-    email: "",
-    name: "",
-    postalCode: "",
-    streetAddress: "",
-    regionOrState: "",
-    city: "",
+    email: profile?.email || sessionData?.email || "",
+    nick: profile?.nick || sessionData?.name || "",
+    city: profile.city || "",
+    country: profile.country || "KR" || "",
+    postalCode: profile.postalCode || "",
+    streetAddress: profile.streetAddress || "",
+    regionOrState: profile.regionOrState || "",
   });
 
-  console.log({ sessionData, sanitizedProfileData });
-
-  useEffect(() => {
-    setBodyData((prev) => ({
-      ...prev,
-      ...{
-        country: sanitizedProfileData.country || "",
-        email: sanitizedProfileData.email || "",
-        name: sanitizedProfileData.nick || "",
-        postalCode: sanitizedProfileData.postalCode || "",
-        streetAddress: sanitizedProfileData.streetAddress || "",
-        regionOrState: sanitizedProfileData.regionOrState || "",
-        city: sanitizedProfileData.city || "",
-      },
-    }));
-  }, [sanitizedProfileData, setBodyData]);
+  console.log({ sessionData });
 
   console.log({ bodyData });
 
@@ -110,20 +100,7 @@ const ProfileView: FC<PropsI> = ({
   type fieldType = keyof typeof bodyData;
 
   const handleBodyDataChange = (fieldName: fieldType, val: string) => {
-    // setBodyData((prev) => ({ ...prev, [fieldName]: val }));
-
-    setBodyData((prev) => ({
-      ...prev,
-      ...{
-        country: sanitizedProfileData.country || "",
-        email: sanitizedProfileData.email || "",
-        name: sanitizedProfileData.nick || "",
-        postalCode: sanitizedProfileData.postalCode || "",
-        streetAddress: sanitizedProfileData.streetAddress || "",
-        regionOrState: sanitizedProfileData.regionOrState || "",
-        city: sanitizedProfileData.city || "",
-      },
-    }));
+    setBodyData((prev) => ({ ...prev, [fieldName]: val }));
 
     setBodyDataChanged(true);
   };
@@ -157,8 +134,10 @@ const ProfileView: FC<PropsI> = ({
   // console.log({ states });
   // console.log({ sessionData });
 
-  const {
-    /* city,
+  const id = profile.id;
+
+  // const {
+  /* city,
     country,
     email,
     image,
@@ -166,23 +145,23 @@ const ProfileView: FC<PropsI> = ({
     streetAddress,
     postalCode,
     regionOrState, */
-    id,
-  } = sanitizedProfileData;
+  // id,
+  // } = sanitizedProfileData;
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const {
       target: { name: inputName, value: inputValue },
     } = e;
-
-    setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
+    // @ts-ignore
+    handleBodyDataChange(inputName, inputValue);
   };
 
   const handleSelectChange: ChangeEventHandler<HTMLSelectElement> = (e) => {
     const {
-      target: { name: inputName, value: inputValue },
+      target: { name: selName, value: selValue },
     } = e;
-
-    setSanitizedProfileData((prev) => ({ ...prev, [inputName]: inputValue }));
+    // @ts-ignore
+    handleBodyDataChange(selName, selValue);
   };
 
   const handleRequest = async () => {
@@ -209,15 +188,7 @@ const ProfileView: FC<PropsI> = ({
       }
 
       if (resData.updatedProfile) {
-        // @ts-ignore
-        setSanitizedProfileData({
-          ...resData.updatedProfile,
-          nick: resData.updatedProfile.name,
-        });
-
-        // @ts-ignore
         setBodyData({ ...resData.updatedProfile });
-
         setReqStatus("idle");
       }
 
@@ -304,8 +275,8 @@ const ProfileView: FC<PropsI> = ({
                       alt="..."
                       // src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
                       src={
-                        sessionData?.image ||
                         profile?.image ||
+                        sessionData?.image ||
                         "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
                       }
                       tw="shadow-xl rounded-full w-auto align-middle border-none absolute -m-16  max-width[110px]"
@@ -451,9 +422,28 @@ const ProfileView: FC<PropsI> = ({
                         ${tw`dark:text-gray-50 dark:placeholder-gray-600 light:text-gray-800 font-family["FiraMono"] overflow-ellipsis`}
 
                         &:-webkit-autofill,
-                    &:-webkit-autofill:hover {
+                        &:-webkit-autofill:hover {
                           ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
                           ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+                        }
+                      }
+
+                      & select {
+                        ${tw`dark:text-gray-50 dark:placeholder-gray-600 light:text-gray-800 font-family["FiraMono"]`}
+
+                        /*  appearance: none;
+                        // Additional resets for further consistency
+                        background-color: transparent;
+                        border: none;
+                        padding: 0 1em 0 0;
+                        margin: 0;
+                        width: 100%;
+                        font-size: inherit;
+                        cursor: inherit;
+                        line-height: inherit; */
+
+                        & option {
+                          ${tw`dark:bg-gray-800 bg-l border border-b-2 dark:border-l border-gray-800`}
                         }
                       }
 
@@ -498,16 +488,13 @@ const ProfileView: FC<PropsI> = ({
                     <span tw="dark:text-gray-300 text-right px-2">Name</span>
                     <input
                       disabled={reqStatus === "pending"}
-                      defaultValue={
-                        sanitizedProfileData.nick || sessionData.name || ""
-                      }
+                      value={bodyData.nick}
                       onChange={(e) => {
                         const {
                           target: { value: va },
                         } = e;
 
                         handleInputChange(e);
-                        handleBodyDataChange("name", va);
                       }}
                       tw="background-clip[content-box] focus:outline-none px-3"
                       name="nick"
@@ -519,14 +506,13 @@ const ProfileView: FC<PropsI> = ({
                     <span tw="dark:text-gray-300 text-right px-2">Email</span>
                     <input
                       disabled={reqStatus === "pending"}
-                      defaultValue={sanitizedProfileData.email || ""}
+                      value={bodyData.email}
                       onChange={(e) => {
                         const {
                           target: { value: va },
                         } = e;
 
                         handleInputChange(e);
-                        handleBodyDataChange("email", va);
                       }}
                       tw="background-clip[content-box] focus:outline-none px-3"
                       name="email"
@@ -539,14 +525,13 @@ const ProfileView: FC<PropsI> = ({
                     <span tw="dark:text-gray-300 text-right px-2">Address</span>
                     <input
                       disabled={reqStatus === "pending"}
-                      defaultValue={sanitizedProfileData.streetAddress || ""}
+                      value={bodyData.streetAddress}
                       onChange={(e) => {
                         const {
                           target: { value: va },
                         } = e;
 
                         handleInputChange(e);
-                        handleBodyDataChange("streetAddress", va);
                       }}
                       tw="background-clip[content-box] focus:outline-none px-3"
                       name="streetAddress"
@@ -557,14 +542,13 @@ const ProfileView: FC<PropsI> = ({
                     <span tw="dark:text-gray-300 text-right px-2">City</span>
                     <input
                       disabled={reqStatus === "pending"}
-                      defaultValue={sanitizedProfileData.city || ""}
+                      value={bodyData.city}
                       onChange={(e) => {
                         const {
                           target: { value: va },
                         } = e;
 
                         handleInputChange(e);
-                        handleBodyDataChange("city", va);
                       }}
                       tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                       name="city"
@@ -586,16 +570,13 @@ const ProfileView: FC<PropsI> = ({
                     </span>
                     <input
                       disabled={reqStatus === "pending"}
-                      defaultValue={
-                        sanitizedProfileData.postalCode || undefined
-                      }
+                      value={bodyData.postalCode}
                       onChange={(e) => {
                         const {
                           target: { value: va },
                         } = e;
 
                         handleInputChange(e);
-                        handleBodyDataChange("postalCode", va);
                       }}
                       tw="-webkit-text-fill-color[inherit] background-clip[content-box] focus:outline-none px-3"
                       name="postalCode"
@@ -610,14 +591,13 @@ const ProfileView: FC<PropsI> = ({
                     >
                       <select
                         disabled={reqStatus === "pending"}
-                        defaultValue={sanitizedProfileData.country || "KR"}
+                        value={bodyData.country || "KR"}
                         onChange={(e) => {
                           const {
                             target: { value: va },
                           } = e;
 
                           handleSelectChange(e);
-                          handleBodyDataChange("country", va);
                         }}
                         onBlur={(e) => {
                           const {
@@ -625,7 +605,6 @@ const ProfileView: FC<PropsI> = ({
                           } = e;
 
                           handleSelectChange(e);
-                          handleBodyDataChange("country", va);
                         }}
                         // defaultValue={"KR"}
                         name="country"
@@ -641,7 +620,7 @@ const ProfileView: FC<PropsI> = ({
                       </select>
                     </div>
                   </label>
-                  {sanitizedProfileData.country === "US" && (
+                  {bodyData.country === "US" && (
                     <motion.label
                       css={[
                         css`
@@ -668,16 +647,13 @@ const ProfileView: FC<PropsI> = ({
                       >
                         <select
                           disabled={reqStatus === "pending"}
-                          defaultValue={
-                            sanitizedProfileData.regionOrState || "CO"
-                          }
+                          value={bodyData.regionOrState || "CO"}
                           onChange={(e) => {
                             const {
                               target: { value: va },
                             } = e;
 
                             handleSelectChange(e);
-                            handleBodyDataChange("regionOrState", va);
                           }}
                           onBlur={(e) => {
                             const {
@@ -685,7 +661,6 @@ const ProfileView: FC<PropsI> = ({
                             } = e;
 
                             handleSelectChange(e);
-                            handleBodyDataChange("regionOrState", va);
                           }}
                           name="regionOrState"
                           // defaultValue={"CO"}
