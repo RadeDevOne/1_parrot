@@ -384,7 +384,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                   </div>
                   <div tw="text-center mt-6">
                     <button
-                      onMouseEnter={() => {
+                      /* onMouseEnter={() => {
                         checkEmailValidity();
                       }}
                       onMouseMove={() => {
@@ -398,7 +398,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                       }}
                       onFocus={() => {
                         checkEmailValidity();
-                      }}
+                      }} */
                       // disabled={buttonDisabled || emailValidity === "invalid"}
                       type="submit"
                       css={[

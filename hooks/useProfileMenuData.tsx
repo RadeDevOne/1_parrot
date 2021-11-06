@@ -59,7 +59,7 @@ const useProfileMenuData = () => {
   const image =
     user?.image ||
     profile?.image ||
-    "https://source.unsplash.com/800x600/?person";
+    "https://source.unsplash.com/600x600/?avatar";
 
   if (nameDerivedFromEmail && !name) {
     name = nameDerivedFromEmail;

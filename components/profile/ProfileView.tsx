@@ -3,9 +3,11 @@ import type { FC, ChangeEventHandler, SyntheticEvent } from "react";
 import { useState, useEffect, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import Link from "next/link";
+
 import { motion } from "framer-motion";
 
-import Link from "next/link";
+import { ClipLoader as Loader } from "react-spinners";
 
 import useProfData from "@/hooks/useProfileMenuData";
 
@@ -58,6 +60,8 @@ const ProfileView: FC<PropsI> = ({
     postalCode: profile.postalCode || "",
     streetAddress: profile.streetAddress || "",
   });
+
+  console.log(sessionData?.image, profile?.image);
 
   /* useEffect(() => {
     setSanitizedProfileData((prev) => ({
@@ -117,14 +121,14 @@ const ProfileView: FC<PropsI> = ({
   // console.log({ sessionData });
 
   const {
-    city,
+    /* city,
     country,
     email,
     image,
     nick: name,
     streetAddress,
     postalCode,
-    regionOrState,
+    regionOrState, */
     id,
   } = sanitizedProfileData;
 
@@ -187,10 +191,10 @@ const ProfileView: FC<PropsI> = ({
                         }
 
                         & img {
-                          transform: scale(1.4);
+                          /* transform: scale(1.2); */
                         }
                       `,
-                      tw`relative flex justify-center`,
+                      tw`relative top-4 flex justify-center`,
                     ]}
                   >
                     <svg
@@ -199,6 +203,7 @@ const ProfileView: FC<PropsI> = ({
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
+                      tw="hidden"
                     >
                       <path
                         strokeLinecap="round"
@@ -569,7 +574,7 @@ const ProfileView: FC<PropsI> = ({
                             target: { value: va },
                           } = e;
 
-                          handleInputChange(e);
+                          handleSelectChange(e);
                           handleBodyDataChange("regionOrState", va);
                         }}
                         onBlur={(e) => {
@@ -577,7 +582,7 @@ const ProfileView: FC<PropsI> = ({
                             target: { value: va },
                           } = e;
 
-                          handleInputChange(e);
+                          handleSelectChange(e);
                           handleBodyDataChange("regionOrState", va);
                         }}
                         name="regionOrState"
@@ -623,7 +628,11 @@ const ProfileView: FC<PropsI> = ({
                   variant="secondary"
                 >
                   {"Save"}
-                  {reqStatus === "pending"}
+                  {reqStatus === "idle" && (
+                    <span tw="inline-block ml-2 relative top[3px]">
+                      <Loader size={14} color="#357575" />
+                    </span>
+                  )}
                 </Button>
               </div>
             </section>
