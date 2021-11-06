@@ -38,10 +38,14 @@ const validateProfileBody: () => Middleware<NextApiRequest, NextApiResponse> =
 
       return next();
     } catch (err) {
-      console.error(err);
-
       // @ts-ignore
-      return res.status(500).send(err.message);
+      console.log(err.errors);
+
+      return res.status(200).send({
+        error: true,
+        // @ts-ignore
+        message: err.errors[0],
+      });
     }
   };
 

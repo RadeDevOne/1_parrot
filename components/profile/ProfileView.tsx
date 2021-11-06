@@ -40,7 +40,7 @@ const ProfileView: FC<PropsI> = ({
   fulfilledOrdersCount,
   favoritesCount,
 }) => {
-  console.log({ profile });
+  // console.log({ profile });
 
   const sessionData = useProfData();
 
@@ -63,7 +63,7 @@ const ProfileView: FC<PropsI> = ({
     streetAddress: profile.streetAddress || "",
   });
 
-  console.log(sessionData?.image, profile?.image);
+  // console.log(sessionData?.image, profile?.image);
 
   /* useEffect(() => {
     setSanitizedProfileData((prev) => ({
@@ -162,17 +162,39 @@ const ProfileView: FC<PropsI> = ({
         ...bodyData,
       });
 
-      const data = d as ResponseDataType;
+      const resData = d as ResponseDataType & { error: true; message: string };
 
-      console.log({ data });
+      // console.log({ resData });
 
-      setReqStatus("idle");
+      if (resData?.error) {
+        console.log({ resData });
+
+        setErrorMessage(resData.message);
+
+        setTimeout(() => {
+          setErrorMessage(null);
+          setReqStatus("idle");
+        }, 3000);
+
+        return;
+      }
+
+      // setReqStatus("idle");
     } catch (err) {
       console.error(err);
+      //
+      console.log({
+        // @ts-ignore
+        message: err.message,
+      });
+
+      setTimeout(() => {
+        setReqStatus("idle");
+      }, 3000);
     }
   };
 
-  console.log({ bodyData });
+  // console.log({ bodyData });
 
   return (
     <Fragment>
@@ -648,9 +670,9 @@ const ProfileView: FC<PropsI> = ({
                 ]}
               >
                 <Button
-                  onClick={() => {
+                  /* onClick={() => {
                     console.log("clicked");
-                  }}
+                  }} */
                   disabled={!bodyDataChanged || reqStatus === "pending"}
                   size="small"
                   variant="secondary"
@@ -670,8 +692,8 @@ const ProfileView: FC<PropsI> = ({
       {errorMessage && (
         <InvalidDataAlert
           visible
-          header="Wrong!"
-          text="Something is wrong"
+          header="Error!"
+          text={errorMessage}
           variant="error"
         />
       )}
