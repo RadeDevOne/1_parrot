@@ -12,7 +12,7 @@ const verifyUser: Middleware<NextApiRequest, NextApiResponse> = async (
 ) => {
   // CHECKING IF WE HAVE SESSION
 
-  console.log({ COOKIES: req.cookies });
+  // console.log({ COOKIES: req.cookies });
 
   const session = await getSession({ req });
 
