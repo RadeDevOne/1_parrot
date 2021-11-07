@@ -2,7 +2,7 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-const TestComponent: FC = () => {
+const Dropzone: FC = () => {
   return (
     <section css={[tw``]}>
       <div></div>
@@ -11,4 +11,4 @@ const TestComponent: FC = () => {
   );
 };
 
-export default TestComponent;
+export default Dropzone;
