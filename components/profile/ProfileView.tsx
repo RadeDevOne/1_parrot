@@ -235,6 +235,9 @@ const ProfileView: FC<PropsI> = ({
             <div tw="px-6">
               <div tw="flex flex-wrap justify-center">
                 <button
+                  onClick={() => {
+                    console.log("image upload");
+                  }}
                   css={[
                     css`
                       & #upl {
@@ -317,7 +320,7 @@ const ProfileView: FC<PropsI> = ({
                         tw="h-7 w-7"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke="#2c34a0"
+                        stroke="#264da1"
                       >
                         <path
                           strokeLinecap="round"
