@@ -405,6 +405,7 @@ const ProfileView: FC<PropsI> = ({
               <section
                 className="info-fieldz"
                 css={[
+                  reqStatus === "pending" ? tw`opacity-50` : tw``,
                   css`
                     &.info-fieldz.info-fieldz.info-fieldz.info-fieldz {
                       border: crimson solid 0px;
