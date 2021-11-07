@@ -237,6 +237,17 @@ const ProfileView: FC<PropsI> = ({
                 <button
                   css={[
                     css`
+                      & #upl {
+                        svg {
+                          visibility: hidden;
+                        }
+                      }
+                      &:hover #upl {
+                        svg {
+                          visibility: visible;
+                        }
+                      }
+
                       background-image: linear-gradient(
                         103.3deg,
                         #484257 12%,
@@ -297,13 +308,16 @@ const ProfileView: FC<PropsI> = ({
                       tw="shadow-xl rounded-full w-auto align-middle border-none absolute -m-16  max-width[110px]"
                     />
                     {/* <div tw="absolute top-20 z-40 w-20 border border-__hazard"> */}
-                    <div tw="z-index[6] h-6 w-6 absolute top[4px] right[-20px]">
+                    <div
+                      id="upl"
+                      tw="z-index[6] h-6 w-6 absolute top[-3px] right[-28px]"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
+                        tw="h-7 w-7"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke="#3e25ac"
+                        stroke="#2c34a0"
                       >
                         <path
                           strokeLinecap="round"
