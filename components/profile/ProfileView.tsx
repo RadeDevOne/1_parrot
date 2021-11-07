@@ -24,6 +24,8 @@ import InvalidDataAlert from "../alerts/Alert";
 
 import Button from "../buttons/Button";
 
+import Dropzone from "../image_upload/Dropzone";
+
 import type {
   ResData as ResponseDataType,
   BodyDataTypeI,
@@ -224,7 +226,7 @@ const ProfileView: FC<PropsI> = ({
           >
             <div tw="px-6">
               <div tw="flex flex-wrap justify-center">
-                <div
+                <button
                   css={[
                     css`
                       background-image: linear-gradient(
@@ -281,8 +283,27 @@ const ProfileView: FC<PropsI> = ({
                       }
                       tw="shadow-xl rounded-full w-auto align-middle border-none absolute -m-16  max-width[110px]"
                     />
+                    {/* <div tw="absolute top-20 z-40 w-20 border border-__hazard"> */}
+                    <div tw="z-index[6] h-6 w-6 absolute top[4px] right[-20px]">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#3e25ac"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        />
+                      </svg>
+                    </div>
+                    {/* </div> */}
                   </div>
-                </div>
+                  <Dropzone />
+                </button>
                 <div
                   css={[
                     css`
