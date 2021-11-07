@@ -39,7 +39,7 @@ const useProfileMenuData = () => {
   let name =
     (user?.name || profile?.nick || "Profile ").slice(
       0,
-      (user?.name || profile?.nick || "Profile ").indexOf(" ")
+      (user?.name || profile?.nick || "Profile ").indexOf(" ") + 1
     ) ||
     user?.name ||
     profile?.nick ||
