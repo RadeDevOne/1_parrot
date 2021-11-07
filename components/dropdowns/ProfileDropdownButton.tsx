@@ -41,7 +41,7 @@ const ProfileDropdownButton: FC = () => {
       new Promise((res, rej) => {
         tid = setTimeout(() => {
           res("");
-        }, 226);
+        }, 236);
       }).then(() => {
         const tId = setTimeout(() => {
           dispatch({
@@ -50,7 +50,7 @@ const ProfileDropdownButton: FC = () => {
 
           window.clearTimeout(tId);
           window.clearTimeout(tid);
-        }, 96);
+        }, 196);
       });
 
       /* dispatch({
@@ -106,7 +106,7 @@ const ProfileDropdownButton: FC = () => {
       new Promise((res, rej) => {
         setTimeout(() => {
           res("");
-        }, 96);
+        }, 196);
       })
         .then(() => {
           return new Promise((res, rej) => {
@@ -123,7 +123,7 @@ const ProfileDropdownButton: FC = () => {
 
             window.clearTimeout(timeoutId);
             window.clearTimeout(tId);
-          }, 96);
+          }, 196);
         });
     };
     // @ts-ignore

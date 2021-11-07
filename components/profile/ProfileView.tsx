@@ -190,7 +190,15 @@ const ProfileView: FC<PropsI> = ({
       }
 
       if (resData.updatedProfile) {
-        setBodyData({ ...resData.updatedProfile });
+        setBodyData({
+          nick: resData.updatedProfile.nick as string,
+          city: resData.updatedProfile.city as string,
+          country: resData.updatedProfile.country as string,
+          postalCode: resData.updatedProfile.postalCode as string,
+          streetAddress: resData.updatedProfile.streetAddress as string,
+          regionOrState: resData.updatedProfile.regionOrState as string,
+          email: resData.updatedProfile.email as string,
+        });
         setReqStatus("idle");
       }
 
@@ -278,7 +286,12 @@ const ProfileView: FC<PropsI> = ({
                       // src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
                       src={
                         profile?.image ||
-                        sessionData?.image ||
+                        (sessionData?.image &&
+                          (!sessionData?.image.includes(
+                            "platform-lookaside.fbsbx.com"
+                          )
+                            ? sessionData?.image
+                            : "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg")) ||
                         "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
                       }
                       tw="shadow-xl rounded-full w-auto align-middle border-none absolute -m-16  max-width[110px]"
