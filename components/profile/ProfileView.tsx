@@ -3,6 +3,7 @@ import type { FC, ChangeEventHandler, SyntheticEvent } from "react";
 import { useState, useEffect, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { useActor } from "@xstate/react";
 import Link from "next/link";
 
 import axios from "axios";
@@ -26,6 +27,8 @@ import Button from "../buttons/Button";
 
 import Dropzone from "../image_upload/Dropzone";
 
+import { dropboxToggService, EE } from "@/machines/dropbox_togg_machine";
+
 import type {
   ResData as ResponseDataType,
   BodyDataTypeI,
@@ -45,6 +48,15 @@ const ProfileView: FC<PropsI> = ({
   // console.log({ profile });
 
   const sessionData = useProfData();
+
+  //
+
+  const [
+    {
+      context: { visible },
+    },
+    dispatch,
+  ] = useActor(dropboxToggService);
 
   /*  const [profileData, setProfileData] = useState<UserDataI>({
     ...profile,
@@ -236,7 +248,7 @@ const ProfileView: FC<PropsI> = ({
               <div tw="flex flex-wrap justify-center">
                 <button
                   onClick={() => {
-                    console.log("image upload");
+                    dispatch({ type: EE.TOGGLE });
                   }}
                   css={[
                     css`
@@ -332,8 +344,8 @@ const ProfileView: FC<PropsI> = ({
                     </div>
                     {/* </div> */}
                   </div>
-                  <Dropzone />
                 </button>
+                <Dropzone />
                 <div
                   css={[
                     css`

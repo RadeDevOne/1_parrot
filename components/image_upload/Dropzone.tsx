@@ -3,13 +3,21 @@ import type { FC } from "react";
 import { useState, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { useActor } from "@xstate/react";
+import { dropboxToggService, EE } from "@/machines/dropbox_togg_machine";
+
 const Dropzone: FC = () => {
-  const [open, seetOpen] = useState<boolean>(false);
+  const [
+    {
+      context: { visible },
+    },
+    dispatch,
+  ] = useActor(dropboxToggService);
 
   return (
     // <section css={[tw``]}>
     <Fragment>
-      {open && (
+      {visible && (
         <div tw="fixed z-10 left-0 top-0 w-full h-full flex bg-black bg-opacity-60">
           <div tw=" p-4 w-max bg-gray-400  m-auto rounded-lg">
             <div
@@ -44,9 +52,12 @@ const Dropzone: FC = () => {
 
                 <div tw=" text-indigo-500 uppercase">or drop files here</div>
               </div>
-              <div tw=" absolute -top-10 -right-10 bg-white p-4 cursor-pointer hover:bg-gray-100 py-2 text-gray-600 rounded-full">
+              <button
+                onClick={() => dispatch({ type: EE.TOGGLE })}
+                tw=" absolute -top-10 -right-10 bg-white p-4 cursor-pointer hover:bg-gray-100 py-2 text-gray-600 rounded-full"
+              >
                 X
-              </div>
+              </button>
             </div>
           </div>
         </div>

@@ -48,7 +48,7 @@ const profileDropdownMachine = createMachine<
   machineEventsGenericType,
   machineFiniteStatesGenericType
 >({
-  id: "main_machine",
+  id: "p_drop_machine",
   initial: fse.closed,
   context: {
     // NO OP

@@ -137,7 +137,7 @@ const cartMachine = createMachine<
   machineFiniteStatesGenericType
 >(
   {
-    id: "main_machine",
+    id: "cart_machine",
     initial: fse.idle,
     context: {
       // cartIsEmpty: true,

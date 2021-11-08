@@ -12,6 +12,8 @@ import validateProfille from "@/lib/auth/validateProfile";
 
 import Layout from "@/components/5_profile_page/Layout";
 
+import useDropToggMachine from "@/hooks/useDropboxToggMachine";
+
 export interface PropsI {
   profile: Profile;
   fulfilledOrdersCount: number;
@@ -113,6 +115,8 @@ export const getServerSideProps: GetServerSideProps<
 };
 
 const ProfilePage: NP<PropsI> = (props) => {
+  useDropToggMachine();
+
   //
 
   // console.log(props);

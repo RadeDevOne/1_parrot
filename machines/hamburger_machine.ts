@@ -48,7 +48,7 @@ const hamburgerMachine = createMachine<
   machineEventsGenericType,
   machineFiniteStatesGenericType
 >({
-  id: "main_machine",
+  id: "hamb_machine",
   initial: fse.closed,
   context: {
     hamburgerOpened: false,

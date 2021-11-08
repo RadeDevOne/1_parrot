@@ -23,9 +23,6 @@ export interface MachineContextGenericI {
 
 export type machineEventsGenericType = {
   type: EE.TOGGLE;
-  payload: {
-    isDark: boolean;
-  };
 };
 
 export type machineFiniteStatesGenericType =
@@ -45,7 +42,7 @@ const dropboxToggMachine = createMachine<
   machineEventsGenericType,
   machineFiniteStatesGenericType
 >({
-  id: "main_machine",
+  id: "drop-tog-mach",
   initial: fse.closed,
   context: {
     visible: false,

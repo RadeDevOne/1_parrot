@@ -55,7 +55,7 @@ const headerNcartMachine = createMachine<
   machineEventsGenericType,
   machineFiniteStatesGenericType
 >({
-  id: "main_machine",
+  id: "h_n-c_machine",
   initial: fse.header_visible,
   context: {
     random: 666,
