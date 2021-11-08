@@ -21,6 +21,23 @@ const Dropzone: FC = () => {
         <div tw="fixed z-10 left-0 top-0 w-full h-full flex bg-black bg-opacity-60">
           <div tw=" p-4 w-max bg-gray-400  m-auto rounded-lg">
             <div
+              onDrop={(e) => {
+                e.preventDefault();
+                // console.log({ e });
+
+                // console.log(e.target);
+
+                // @ts-ignore
+                const file = event.dataTransfer.files[0] as File;
+
+                //
+
+                console.log(file);
+              }}
+              onDragOver={(e) => {
+                e.preventDefault();
+                // console.log({ e });
+              }}
               tw="p-5 relative width[279px] md:width[496px] border-4 border-dotted border-gray-300 rounded-lg"
               // style={{ minWidth: "278px", maxWidth: "60vw" }}
             >
@@ -41,9 +58,17 @@ const Dropzone: FC = () => {
               <div tw=" flex flex-col w-max mx-auto text-center">
                 <label>
                   <input
+                    /* onSelect={(e) => {
+                      console.log({ e });
+                    }} */
+                    onChange={(e) => {
+                      // console.log({ e });
+
+                      console.log(e.target.files);
+                    }}
                     tw="text-sm cursor-pointer w-36 hidden"
                     type="file"
-                    multiple
+                    // multiple
                   />
                   <div tw=" bg-indigo-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-indigo-500">
                     Select
