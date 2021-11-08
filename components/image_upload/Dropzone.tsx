@@ -2,15 +2,19 @@
 import type { FC } from "react";
 import { useState, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
-
+import axios from "axios";
 import { useTheme } from "next-themes";
-
 import { PacmanLoader as Loader } from "react-spinners";
-
 import { useActor } from "@xstate/react";
 import { dropboxToggService, EE } from "@/machines/dropbox_togg_machine";
 
-const Dropzone: FC = () => {
+interface PropsI {
+  profileId: string;
+}
+
+const Dropzone: FC<PropsI> = ({ profileId }) => {
+  console.log({ profileId });
+
   const [
     {
       context: { visible },
@@ -20,13 +24,77 @@ const Dropzone: FC = () => {
 
   const [file, setFile] = useState<File | null>(null);
 
+  const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+
   const { theme } = useTheme();
 
   const isDark = theme === "dark";
 
-  console.log({ isDark });
+  const handleReq = async (fi: File) => {
+    console.log({ file: fi });
 
-  console.log(file);
+    const allowedFormats = ["jpg", "jpeg", "png"];
+
+    let allowed = false;
+
+    for (let i = 0; i < allowedFormats.length; i++) {
+      if (fi.type.includes(allowedFormats[i])) {
+        allowed = true;
+      }
+    }
+
+    if (!allowed) {
+      throw new Error("format not allowed");
+    }
+
+    const formData: FormData = new FormData();
+
+    formData.append("image", fi);
+
+    try {
+      setReqStatus("pending");
+
+      const { data } = await axios.post(
+        `/api/profile/image/${profileId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log({ data });
+
+      /* dispatch({
+        type: EE.SET_UPLOAD_IMAGE_URL,
+        payload: {
+          url: ""
+        }
+      }) */
+
+      setFile(null);
+
+      setReqStatus("idle");
+
+      dispatch({
+        type: EE.TOGGLE,
+      });
+
+      //
+    } catch (err) {
+      console.error(err);
+      //
+
+      setFile(null);
+
+      setReqStatus("idle");
+    }
+  };
+
+  // console.log({ isDark });
+
+  // console.log({ file });
 
   return (
     // <section css={[tw``]}>
@@ -47,9 +115,13 @@ const Dropzone: FC = () => {
 
                   // console.log({ one: file });
 
-                  if (file) {
-                    setFile(file);
+                  if (!file) {
+                    return;
                   }
+
+                  setFile(file);
+
+                  handleReq(file);
 
                   //
 
@@ -79,6 +151,8 @@ const Dropzone: FC = () => {
                 <div tw=" flex flex-col w-max mx-auto text-center">
                   <label>
                     <input
+                      accept=".jpg, .png, .jpeg"
+                      disabled={reqStatus === "pending"}
                       /* onSelect={(e) => {
                       console.log({ e });
                     }} */
@@ -91,9 +165,12 @@ const Dropzone: FC = () => {
 
                         // console.log({ two: file });
 
-                        if (file) {
-                          setFile(file);
+                        if (!file) {
+                          return;
                         }
+                        setFile(file);
+
+                        handleReq(file);
                       }}
                       tw="text-sm cursor-pointer w-36 hidden"
                       type="file"
@@ -109,6 +186,7 @@ const Dropzone: FC = () => {
                   </div>
                 </div>
                 <button
+                  disabled={reqStatus === "pending"}
                   onClick={() => dispatch({ type: EE.TOGGLE })}
                   css={[
                     tw`absolute -top-10 -right-10 bg-white p-4 cursor-pointer hover:bg-gray-100 py-2 text-gray-600 rounded-full`,

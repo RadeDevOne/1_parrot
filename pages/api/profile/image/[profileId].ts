@@ -49,6 +49,8 @@ handler.post(async (req, res) => {
 
   const { profileId } = req.query;
 
+  console.log({ profileId, body });
+
   if (typeof profileId === "object") {
     return res
       .status(500)

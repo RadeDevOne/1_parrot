@@ -345,7 +345,7 @@ const ProfileView: FC<PropsI> = ({
                     {/* </div> */}
                   </div>
                 </button>
-                <Dropzone />
+                <Dropzone profileId={id} />
                 <div
                   css={[
                     css`
