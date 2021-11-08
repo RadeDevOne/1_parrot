@@ -3,6 +3,8 @@ import type { FC } from "react";
 import { useState, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { useTheme } from "next-themes";
+
 import { PacmanLoader as Loader } from "react-spinners";
 
 import { useActor } from "@xstate/react";
@@ -18,6 +20,12 @@ const Dropzone: FC = () => {
 
   const [file, setFile] = useState<File | null>(null);
 
+  const { theme } = useTheme();
+
+  const isDark = theme === "dark";
+
+  console.log({ isDark });
+
   console.log(file);
 
   return (
@@ -25,7 +33,7 @@ const Dropzone: FC = () => {
     <Fragment>
       {visible && (
         <div tw="fixed z-10 left-0 top-0 w-full h-full flex bg-black bg-opacity-60">
-          <div tw=" p-4 w-max bg-gray-400  m-auto rounded-lg">
+          <div tw=" p-4 w-max dark:bg-gray-800 bg-gray-300  m-auto rounded-lg">
             {!file ? (
               <div
                 onDrop={(e) => {
@@ -51,7 +59,7 @@ const Dropzone: FC = () => {
                   e.preventDefault();
                   // console.log({ e });
                 }}
-                tw="p-5 relative width[279px] md:width[496px] border-4 border-dotted border-gray-300 rounded-lg"
+                tw="p-5 relative width[279px] md:width[496px] border-4 border-dotted dark:border-gray-300 border-gray-800 rounded-lg"
                 // style={{ minWidth: "278px", maxWidth: "60vw" }}
               >
                 <svg
@@ -96,7 +104,9 @@ const Dropzone: FC = () => {
                     </div>
                   </label>
 
-                  <div tw=" text-indigo-500 uppercase">or drop files here</div>
+                  <div tw=" text-indigo-500 uppercase">
+                    or drop file in here
+                  </div>
                 </div>
                 <button
                   onClick={() => dispatch({ type: EE.TOGGLE })}
@@ -116,13 +126,22 @@ const Dropzone: FC = () => {
                       position: relative !important;
                       top: -12px !important;
                       left: -19px !important;
+
+                      /* & * {
+                      } */
                     }
+
+                    /* & span > span {
+                      color: crimson !important;
+                      fill: yellow !important;
+                      stroke: blue !important;
+                    } */
                   `,
 
                   tw`flex h-52 justify-center align-items[center]  p-5 relative width[279px] md:width[496px] border-4 rounded-lg`,
                 ]}
               >
-                <Loader size={18} color="crimson" />
+                <Loader color={isDark ? "#89b1c9" : "#3d3bb6"} size={18} />
               </div>
             )}
           </div>
