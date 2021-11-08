@@ -14,6 +14,10 @@ const Dropzone: FC = () => {
     dispatch,
   ] = useActor(dropboxToggService);
 
+  const [file, setFile] = useState<File | null>(null);
+
+  console.log(file);
+
   return (
     // <section css={[tw``]}>
     <Fragment>
@@ -28,11 +32,17 @@ const Dropzone: FC = () => {
                 // console.log(e.target);
 
                 // @ts-ignore
-                const file = event.dataTransfer.files[0] as File;
+                const file = e.dataTransfer.files[0] as File;
+
+                // console.log({ one: file });
+
+                if (file) {
+                  setFile(file);
+                }
 
                 //
 
-                console.log(file);
+                // console.log(file);
               }}
               onDragOver={(e) => {
                 e.preventDefault();
@@ -64,7 +74,15 @@ const Dropzone: FC = () => {
                     onChange={(e) => {
                       // console.log({ e });
 
-                      console.log(e.target.files);
+                      // console.log(e.target.files[0]);
+                      // @ts-ignore
+                      const file = e.target.files[0] as File;
+
+                      // console.log({ two: file });
+
+                      if (file) {
+                        setFile(file);
+                      }
                     }}
                     tw="text-sm cursor-pointer w-36 hidden"
                     type="file"
