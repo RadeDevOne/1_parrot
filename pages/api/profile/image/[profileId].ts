@@ -177,8 +177,19 @@ handler.use(imageFileValidation).post(async (req, res) => {
   }
 
   // LET'S UPDATE image FIELD ON THE PROFILE
+  const updatedProfile = await prisma.profile.update({
+    where: {
+      id: profileId,
+    },
+    data: {
+      image: result.secure_url,
+    },
+    select: {
+      image: true,
+    },
+  });
 
-  return res.status(200).json({ url: result.secure_url });
+  return res.status(200).json({ url: updatedProfile.image });
 });
 
 export const config = {
