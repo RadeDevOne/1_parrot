@@ -22,10 +22,10 @@ import DataUriParser from "datauri/parser";
 
 import multer from "multer";
 
-import type { Profile } from "@prisma/client";
+// import type { Profile } from "@prisma/client";
 // import { getSession } from "next-auth/react";
 
-import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
+// import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 
@@ -173,7 +173,9 @@ handler.use(imageFileValidation).post(async (req, res) => {
   const result = await cloudinaryUpload(b64.content);
 
   if (!result) {
-    return res.status(500).send({ message: "" });
+    return res
+      .status(500)
+      .send({ message: "Something is wrong with upload to cloudinary!" });
   }
 
   // LET'S UPDATE image FIELD ON THE PROFILE

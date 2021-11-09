@@ -257,6 +257,22 @@ const ProfileView: FC<PropsI> = ({
           >
             <div tw="px-6">
               <div tw="flex flex-wrap justify-center">
+                <div
+                  css={[
+                    tw`w-full h-3 rounded-b-2xl`,
+
+                    css`
+                      background-image: linear-gradient(
+                        103.3deg,
+                        #484257 12%,
+                        rgba(252, 225, 208, 1) 30%,
+                        rgba(255, 173, 214, 1) 52.7%,
+                        rgba(162, 186, 245, 1) 71.8%,
+                        #353e53 92.8%
+                      );
+                    `,
+                  ]}
+                ></div>
                 <button
                   onClick={() => {
                     dispatch({ type: EE.TOGGLE });
@@ -274,16 +290,9 @@ const ProfileView: FC<PropsI> = ({
                         }
                       }
 
-                      background-image: linear-gradient(
-                        103.3deg,
-                        #484257 12%,
-                        rgba(252, 225, 208, 1) 30%,
-                        rgba(255, 173, 214, 1) 52.7%,
-                        rgba(162, 186, 245, 1) 71.8%,
-                        #353e53 92.8%
-                      );
+                      /* border: crimson solid 1px; */
                     `,
-                    tw`w-full h-2 px-4 flex justify-center rounded-b-2xl`,
+                    tw`width[150px] h-0 px-4 flex justify-center relative top[-14px]`,
                   ]}
                 >
                   <div
@@ -299,9 +308,13 @@ const ProfileView: FC<PropsI> = ({
                         & img {
                           /* transform: scale(1.2); */
 
+                          /* & + svg {
+                            visibility: hidden;
+                          }
+
                           &:hover + svg {
                             visibility: visible;
-                          }
+                          } */
                         }
                       `,
                       tw`relative -top-12 flex justify-center overflow-hidden width[110px] height[110px] border-radius[58px]`,
@@ -331,7 +344,7 @@ const ProfileView: FC<PropsI> = ({
                           transform: scale(1.1);
                         `,
 
-                        tw`shadow-xl  width[150px] align-middle border-none absolute`,
+                        tw`shadow-xl width[150px] align-middle border-none absolute`,
                       ]}
                     />
                     {/* <div tw="absolute top-20 z-40 w-20 border border-__hazard"> */}
