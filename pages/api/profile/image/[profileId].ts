@@ -176,6 +176,8 @@ handler.use(imageFileValidation).post(async (req, res) => {
     return res.status(500).send({ message: "" });
   }
 
+  // LET'S UPDATE image FIELD ON THE PROFILE
+
   return res.status(200).json({ url: result.secure_url });
 });
 
