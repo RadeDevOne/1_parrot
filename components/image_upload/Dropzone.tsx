@@ -54,7 +54,7 @@ const Dropzone: FC<PropsI> = ({ profileId }) => {
     try {
       setReqStatus("pending");
 
-      const { data } = await axios.post(
+      const { data: d } = await axios.post(
         `/api/profile/image/${profileId}`,
         formData,
         {
@@ -64,7 +64,7 @@ const Dropzone: FC<PropsI> = ({ profileId }) => {
         }
       );
 
-      console.log({ data });
+      const data = d as { url: string };
 
       /* dispatch({
         type: EE.SET_UPLOAD_IMAGE_URL,
@@ -72,6 +72,8 @@ const Dropzone: FC<PropsI> = ({ profileId }) => {
           url: ""
         }
       }) */
+
+      console.log({ url: data.url });
 
       setFile(null);
 

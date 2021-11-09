@@ -9,7 +9,7 @@
 // --------------------
 // --------------------
 // --------------------
-
+import path from "path";
 import nc from "next-connect";
 import type { Middleware } from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -17,6 +17,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 // import type { Product, Favorite } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
+
+import DataUriParser from "datauri/parser";
 
 import multer from "multer";
 
@@ -27,19 +29,13 @@ import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 
-// import validateProfileBody from "@/middlewares/validateProfileBody";
-
 import validateProfileId from "@/middlewares/validateProfileId";
 
-import type { ProfileDataType } from "@/lib/validations/profileSchema";
+import cloudinaryUpload from "@/lib/cloudinary";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
-export interface ResData {
-  updatedProfile: Profile;
-}
-
-export type BodyDataTypeI = ProfileDataType;
+// --------- MULTER STUFF ----------------------------------------
 
 const ALLOWED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
 
@@ -79,10 +75,17 @@ const singleUploadMiddleware: Middleware<NextApiRequest, NextApiResponse> = (
   });
 };
 
-//
+// ------------------------------------------------------------------
+// PARSING BUFFER STUFF (TRANSFERING FROM BUFFER TO BASE64 STRING)
+const parser = new DataUriParser();
+
+const fromBuffToBase64 = (file: FileI) => {
+  return parser.format(path.extname(file.originalname).toString(), file.buffer);
+};
+
 //
 
-interface FileI {
+export interface FileI {
   fieldname: "image";
   originalname: string;
   encoding: string;
@@ -109,32 +112,28 @@ handler.use(verifyUserMiddleware);
 
 // THIS MIDDLEWARE IS ONLY GOING TO WORK FOR THIS ROUTE
 handler.use(imageFileValidation).post(async (req, res) => {
-  // @ts-ignore
-  const profile = req.profile as ProfileInsert;
-
-  console.log({ profile });
-
+  // SOME OF MY TRYOUTS----------------------
+  // const profile = req.profile as ProfileInsert;
+  // console.log({ profile });
   // BECAUSE OF MIDDLEWARE WE SHOUD HAVE req.file
   // IT IS INSERTED THERE
-  // @ts-ignore
-  const file = req.file as FileI;
-  console.log({ file });
-  //
-  //
 
+  // const file = req.file as FileI;
+  // console.log({ file });
+  //
+  //
   //
   // NOW body is empty object
-  const body = req.body as FormData;
+  // const body = req.body as FormData;
   //
-  console.log(body); // {}
-  //
-  //
+  // console.log(body); // {}
+  // ----------------------------------------
 
   const { profileId } = req.query;
 
-  console.log({ profileId, body });
+  // console.log({ profileId, body });
 
-  console.log(Object.keys(body));
+  // console.log(Object.keys(body));
 
   if (typeof profileId === "object") {
     return res
@@ -144,7 +143,40 @@ handler.use(imageFileValidation).post(async (req, res) => {
       );
   }
 
-  return res.status(200).json({ data: "my boy fandiolo" });
+  // LETS CHECK IF FILE IS ACTUALLY HERE
+  // @ts-ignore
+  if (!req.file) {
+    return res
+      .status(400)
+      .json({ message: "File is missing, something is wrong!" });
+  }
+
+  // @ts-ignore
+  const file = req.file as FileI;
+
+  //
+  const b64 = fromBuffToBase64(file);
+
+  if (!b64) {
+    return res.status(500).send({ message: "Something is wrong with base64" });
+  }
+  if (!b64.content) {
+    return res
+      .status(500)
+      .send({ message: "Something is wrong with base64 content" });
+  }
+
+  // console.log({ b64 });
+
+  // WE CAN NOW TRY UPLOADING FILE TO CLOUDINARY
+
+  const result = await cloudinaryUpload(b64.content);
+
+  if (!result) {
+    return res.status(500).send({ message: "" });
+  }
+
+  return res.status(200).json({ url: result.secure_url });
 });
 
 export const config = {
