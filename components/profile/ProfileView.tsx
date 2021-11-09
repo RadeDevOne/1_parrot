@@ -465,6 +465,7 @@ const ProfileView: FC<PropsI> = ({
 
                 handleRequest().then(() => {
                   console.log("something");
+                  setBodyDataChanged(false);
                 });
               }}
               css={[
