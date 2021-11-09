@@ -304,7 +304,7 @@ const ProfileView: FC<PropsI> = ({
                           }
                         }
                       `,
-                      tw`relative -top-12 flex justify-center overflow-hidden width[110px] height[110px] border-radius[55px]`,
+                      tw`relative -top-12 flex justify-center overflow-hidden width[110px] height[110px] border-radius[58px]`,
                     ]}
                   >
                     {/* <svg
@@ -326,7 +326,13 @@ const ProfileView: FC<PropsI> = ({
                       alt="..."
                       // src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
                       src={profImage}
-                      tw="shadow-xl  w-full align-middle border-none absolute"
+                      css={[
+                        css`
+                          transform: scale(1.1);
+                        `,
+
+                        tw`shadow-xl  width[150px] align-middle border-none absolute`,
+                      ]}
                     />
                     {/* <div tw="absolute top-20 z-40 w-20 border border-__hazard"> */}
                     <div

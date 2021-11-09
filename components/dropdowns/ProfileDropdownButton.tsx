@@ -5,7 +5,7 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import { motion } from "framer-motion";
 
-// import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import { useActor } from "@xstate/react";
 
@@ -22,6 +22,8 @@ import isSSR from "@/util/isSSR";
 import useProfileMenuData from "@/hooks/useProfileMenuData";
 
 const ProfileDropdownButton: FC = () => {
+  const { data } = useSession();
+
   const profileData = useProfileMenuData();
 
   const dropdownButtonRef = createRef<HTMLButtonElement>();
@@ -192,7 +194,11 @@ const ProfileDropdownButton: FC = () => {
           {/* {dropdownVisible && ( */}
           <ProfileDropdownMenu
             id={profileData.id}
-            image={profileData.image}
+            image={
+              data?.profile?.image && data?.profile?.image !== ""
+                ? data?.profile?.image
+                : profileData.image
+            }
             name={profileData.name}
             email={profileData.email}
             role={profileData.role}
