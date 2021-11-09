@@ -94,7 +94,7 @@ const Dropzone: FC<PropsI> = ({ profileId }) => {
 
   // console.log({ isDark });
 
-  // console.log({ file });
+  console.log({ file });
 
   return (
     // <section css={[tw``]}>

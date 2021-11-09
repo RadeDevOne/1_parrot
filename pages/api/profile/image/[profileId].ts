@@ -1,3 +1,15 @@
+// IMPORTANT IMPORTANT IMPORTANT IMPORTAND
+// DON'T FORGEET TO DISABLE BODY PARSERS ON NEXT API
+// BY WRITING THIS
+/* export const config = {
+  api: {
+    bodyParser: false,
+  },
+}; */
+// --------------------
+// --------------------
+// --------------------
+
 import nc from "next-connect";
 import type { Middleware } from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -68,6 +80,16 @@ const singleUploadMiddleware: Middleware<NextApiRequest, NextApiResponse> = (
 };
 
 //
+//
+
+interface FileI {
+  fieldname: "image";
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  buffer: Buffer;
+  size: number;
+}
 
 // --------
 /* const profileBodyValidation = nc<NextApiRequest, NextApiResponse>().put(
@@ -77,7 +99,8 @@ const singleUploadMiddleware: Middleware<NextApiRequest, NextApiResponse> = (
 // ------------------
 
 const imageFileValidation = nc<NextApiRequest, NextApiResponse>().post(
-  "/api/profile/image/:profileId"
+  "/api/profile/image/:profileId",
+  singleUploadMiddleware
 );
 
 // MIDDLEWARES
@@ -87,23 +110,31 @@ handler.use(verifyUserMiddleware);
 // THIS MIDDLEWARE IS ONLY GOING TO WORK FOR THIS ROUTE
 handler.use(imageFileValidation).post(async (req, res) => {
   // @ts-ignore
-  // const profile = req.profile as ProfileInsert;
+  const profile = req.profile as ProfileInsert;
 
-  // console.log({ profile });
+  console.log({ profile });
 
   // BECAUSE OF MIDDLEWARE WE SHOUD HAVE req.file
-
-  const file = req.file as File;
-
+  // IT IS INSERTED THERE
+  // @ts-ignore
+  const file = req.file as FileI;
   console.log({ file });
+  //
+  //
 
-  const body = req.body;
-
-  const data = req.body as ProfileDataType;
+  //
+  // NOW body is empty object
+  const body = req.body as FormData;
+  //
+  console.log(body); // {}
+  //
+  //
 
   const { profileId } = req.query;
 
   console.log({ profileId, body });
+
+  console.log(Object.keys(body));
 
   if (typeof profileId === "object") {
     return res
@@ -113,7 +144,13 @@ handler.use(imageFileValidation).post(async (req, res) => {
       );
   }
 
-  return res.status(200).json({ data: "my boy fandiolo", body });
+  return res.status(200).json({ data: "my boy fandiolo" });
 });
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 export default handler;
