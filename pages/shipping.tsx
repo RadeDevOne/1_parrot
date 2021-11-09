@@ -2,7 +2,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-interface PropsI {
+export interface PropsI {
   placeholder: boolean;
 }
 
