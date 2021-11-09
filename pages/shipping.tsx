@@ -12,9 +12,9 @@ type paramsType = {
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
-    const { params } = ctx;
+    // const { params } = ctx;
 
-    params?.siteId; //
+    // params?.siteId; //
 
     return {
       props: {
