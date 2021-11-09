@@ -73,7 +73,14 @@ const Dropzone: FC<PropsI> = ({ profileId }) => {
         }
       }) */
 
-      console.log({ url: data.url });
+      // console.log({ url: data.url });
+
+      dispatch({
+        type: EE.SET_UPLOAD_IMAGE_URL,
+        payload: {
+          url: data.url,
+        },
+      });
 
       setFile(null);
 

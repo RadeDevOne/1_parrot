@@ -53,7 +53,7 @@ const ProfileView: FC<PropsI> = ({
 
   const [
     {
-      context: { visible },
+      context: { visible, imageUrl },
     },
     dispatch,
   ] = useActor(dropboxToggService);
@@ -92,8 +92,19 @@ const ProfileView: FC<PropsI> = ({
   // ----------------------             ----------------------
 
   const [profImage, setProfImage] = useState<string>(
-    sessionData?.image || profile?.image || ""
+    profile?.image ||
+      (sessionData?.image &&
+        (!sessionData?.image.includes("platform-lookaside.fbsbx.com")
+          ? sessionData?.image
+          : "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg")) ||
+      "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
   );
+
+  useEffect(() => {
+    if (imageUrl) {
+      setProfImage(imageUrl);
+    }
+  }, [setProfImage, imageUrl]);
 
   const [bodyData, setBodyData] = useState<BodyDataTypeI>({
     email: profile?.email || sessionData?.email || "",
@@ -289,10 +300,10 @@ const ProfileView: FC<PropsI> = ({
                           /* transform: scale(1.2); */
                         }
                       `,
-                      tw`relative top-4 flex justify-center`,
+                      tw`relative -top-12 flex justify-center overflow-hidden width[110px] height[110px] border-radius[55px]`,
                     ]}
                   >
-                    <svg
+                    {/* <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
                       fill="none"
@@ -306,21 +317,12 @@ const ProfileView: FC<PropsI> = ({
                         strokeWidth={2}
                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                       />
-                    </svg>
+                    </svg> */}
                     <img
                       alt="..."
                       // src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
-                      src={
-                        profile?.image ||
-                        (sessionData?.image &&
-                          (!sessionData?.image.includes(
-                            "platform-lookaside.fbsbx.com"
-                          )
-                            ? sessionData?.image
-                            : "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg")) ||
-                        "https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
-                      }
-                      tw="shadow-xl rounded-full w-auto align-middle border-none absolute -m-16  max-width[110px]"
+                      src={profImage}
+                      tw="shadow-xl  w-full align-middle border-none absolute"
                     />
                     {/* <div tw="absolute top-20 z-40 w-20 border border-__hazard"> */}
                     <div
