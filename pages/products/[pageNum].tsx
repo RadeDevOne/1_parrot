@@ -114,8 +114,8 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-const Page: NP<PropsI> = (props) => {
+const ProductsPage: NP<PropsI> = (props) => {
   return <Layout {...props} />;
 };
 
-export default Page;
+export default ProductsPage;

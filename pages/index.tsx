@@ -113,7 +113,7 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   };
 };
 
-const Page: NP<PropsI> = (props) => {
+const IndexPage: NP<PropsI> = (props) => {
   //-----------------------------------------------
   //-----------------------------------------------
   //-----------------------------------------------
@@ -146,4 +146,4 @@ const Page: NP<PropsI> = (props) => {
   );
 };
 
-export default Page;
+export default IndexPage;

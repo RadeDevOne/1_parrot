@@ -104,7 +104,7 @@ export const getServerSideProps: GetServerSideProps<
   };
 };
 
-const Page: NP<PropsI> = (props) => {
+const ProductPage: NP<PropsI> = (props) => {
   /* useEffect(() => {
     if (!data) return;
 
@@ -118,4 +118,4 @@ const Page: NP<PropsI> = (props) => {
   );
 };
 
-export default Page;
+export default ProductPage;
