@@ -298,6 +298,10 @@ const ProfileView: FC<PropsI> = ({
 
                         & img {
                           /* transform: scale(1.2); */
+
+                          &:hover + svg {
+                            visibility: visible;
+                          }
                         }
                       `,
                       tw`relative -top-12 flex justify-center overflow-hidden width[110px] height[110px] border-radius[55px]`,
@@ -327,11 +331,11 @@ const ProfileView: FC<PropsI> = ({
                     {/* <div tw="absolute top-20 z-40 w-20 border border-__hazard"> */}
                     <div
                       id="upl"
-                      tw="z-index[6] h-6 w-6 absolute top[-3px] right[-28px]"
+                      tw="z-index[280] h-6 w-6 absolute bottom-5 right-5"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        tw="h-7 w-7"
+                        tw="h-8 w-8"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="#264da1"
