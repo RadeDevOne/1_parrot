@@ -114,7 +114,7 @@ const LayProducts: FC = () => {
             type="button"
             tw="px-6 py-2 border rounded-md dark:bg-gray-400 dark:text-gray-900 dark:border-gray-400"
           >
-            <span tw="sr-only sm:not-sr-only">Continue to</span>Checkout
+            <span tw="sr-only sm:not-sr-only">Continue to </span>Checkout
           </button>
         </div>
       </div>
