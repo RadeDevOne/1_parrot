@@ -6,22 +6,14 @@ import type { PropsI } from "@/pages/shipping";
 
 import Lorem from "@/components/dev-helpers/Lorem";
 
+import ShipPayOrdBreadcrumbs from "@/components/breadcrumbs/ShipPayOrdBreadcrumbs";
+
 const Layout: FC<PropsI> = ({ children }) => {
   // console.log({ favorites });
 
   return (
     <main css={[tw``, tw``]}>
-      {/* eslint-disable-next-line */}
-      {/*  <h1>🦉 Profile Stats</h1>
-      Helo World
-      <h2 style={{ color: "blanchedalmond" }} id="favorites">
-        Favorites
-      </h2> */}
-      <Lorem />
-
-      <h2 style={{ color: "blanchedalmond" }} id="purchases">
-        Past Purchases
-      </h2>
+      <ShipPayOrdBreadcrumbs />
     </main>
   );
 };
