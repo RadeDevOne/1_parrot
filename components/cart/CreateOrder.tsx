@@ -5,6 +5,9 @@ import tw, { css, styled, theme } from "twin.macro";
 const CreateOrder: FC<{ disabled: boolean }> = ({ disabled }) => {
   return (
     <button
+      onClick={() => {
+        console.log("hello world");
+      }}
       disabled={disabled}
       type="button"
       tw="px-6 py-2 border rounded-md dark:bg-gray-400 dark:text-gray-900 dark:border-gray-400"
