@@ -2,9 +2,9 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-import Layout from "@/components/7_shipping_page/Layout";
+import Layout from "@/components/8_payment_page/Layout";
 
-export interface PropsI {
+interface PropsI {
   placeholder: boolean;
 }
 
@@ -14,9 +14,9 @@ type paramsType = {
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
-    // const { params } = ctx;
+    const { params } = ctx;
 
-    // params?.siteId; //
+    params?.siteId; //
 
     return {
       props: {
@@ -25,11 +25,11 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
     };
   };
 
-const ShippingPage: NP<PropsI> = (props) => {
+const PaymentPage: NP<PropsI> = (props) => {
   //
 
   console.log(props);
-  // eslint-disable-next-line
+
   return (
     <div>
       <Layout placeholder />
@@ -37,4 +37,4 @@ const ShippingPage: NP<PropsI> = (props) => {
   );
 };
 
-export default ShippingPage;
+export default PaymentPage;
