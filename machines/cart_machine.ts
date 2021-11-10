@@ -254,6 +254,9 @@ const cartMachine = createMachine<
         entry: ["calculateTotalPrice"],
       },
       [fse.erasing]: {
+        always: {
+          target: fse.idle,
+        },
         entry: [
           assign({
             cart: (_, e) => {

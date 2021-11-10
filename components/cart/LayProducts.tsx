@@ -118,7 +118,7 @@ const LayProducts: FC = () => {
           >
             <span tw="sr-only sm:not-sr-only">Continue to </span>Checkout
           </button> */}
-          <CreateOrder disabled={value === fse.header_visible} />
+          <CreateOrder />
         </div>
       </div>
     </section>
