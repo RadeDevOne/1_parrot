@@ -5,6 +5,8 @@ import prisma from "@/lib/prisma";
 import type { Order } from "@prisma/client";
 // import { getSession } from "next-auth/react";
 
+import type { CartType } from "@/lib/storage";
+
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
@@ -38,7 +40,7 @@ handler /* .use(profileBodyValidation) */
     // const profile = req.profile as ProfileInsert; // verifyUserMiddleware INSERS THIS
     // console.log({ profile });
 
-    const data = req.body;
+    const data = req.body as CartType;
 
     const { orderId } = req.query;
 
