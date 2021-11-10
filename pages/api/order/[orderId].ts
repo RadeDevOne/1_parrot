@@ -11,8 +11,6 @@ import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 
-import validateProfileId from "@/middlewares/validateProfileId";
-
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 export interface ResData {
@@ -30,12 +28,11 @@ export interface ResData {
 // ------------------
 
 // MIDDLEWARES
-handler.use(validateProfileId);
 handler.use(verifyUserMiddleware);
 
 // THIS MIDDLEWARE IS ONLY GOING TO WORK FOR THIS ROUTE
 handler /* .use(profileBodyValidation) */
-  .put(async (req, res) => {
+  .post(async (req, res) => {
     // @ts-ignore
     // const profile = req.profile as ProfileInsert; // verifyUserMiddleware INSERS THIS
     // console.log({ profile });
@@ -65,7 +62,7 @@ handler /* .use(profileBodyValidation) */
 
     // HERE WE CAN CREATE ORDER ELEMENTS
 
-    return res.status(200).json({ some: "something" });
+    return res.status(200).json({ data, orderId });
     // return res.status(200).json(data);
   });
 
