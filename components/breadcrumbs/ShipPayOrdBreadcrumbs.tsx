@@ -1,7 +1,9 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ShipmentPaymentOrderBreadcrumbs: FC = () => {
   const links = [
@@ -64,6 +66,27 @@ const ShipmentPaymentOrderBreadcrumbs: FC = () => {
       ),
     },
   ];
+
+  const { asPath } = useRouter();
+
+  const paintIndexes: number[] = [];
+  let pass = false;
+
+  links.forEach((item, i) => {
+    if (pass) return;
+
+    if (asPath === item.path) {
+      pass = true;
+
+      paintIndexes.push(i);
+
+      return;
+    }
+
+    paintIndexes.push(i);
+  });
+
+  console.log({ paintIndexes });
 
   return (
     <section
