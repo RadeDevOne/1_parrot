@@ -17,8 +17,9 @@ export interface ResData {
   something: "something";
 }
 
-// todo
+// todo (DONE: CartType IMPORTED)
 // export type OrderDataType = someType
+//
 
 // --------
 /* const profileBodyValidation = nc<NextApiRequest, NextApiResponse>().put(
@@ -30,7 +31,6 @@ export interface ResData {
 // MIDDLEWARES
 handler.use(verifyUserMiddleware);
 
-// THIS MIDDLEWARE IS ONLY GOING TO WORK FOR THIS ROUTE
 handler /* .use(profileBodyValidation) */
   .post(async (req, res) => {
     // @ts-ignore
