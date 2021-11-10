@@ -4,19 +4,33 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 
 import Layout from "@/components/7_shipping_page/Layout";
 
+import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
+
+// TODO (USE THIS)
+import validateOrder from "@/lib/auth/validateOrder";
+
 export interface PropsI {
   placeholder: boolean;
 }
 
-type paramsType = {
-  siteId: string;
+export type paramsType = {
+  orderId: string;
 };
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
-    // const { params } = ctx;
+    const { params } = ctx;
 
-    // params?.siteId; //
+    const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
+
+    if (redirectOptions.status === "unauthenticated") {
+      return {
+        props: {
+          nothing: true,
+        },
+        redirect: redirectOptions.redirect,
+      };
+    }
 
     return {
       props: {

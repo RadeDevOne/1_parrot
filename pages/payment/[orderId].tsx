@@ -2,6 +2,11 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
+import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
+
+// TODO (USE THIS)
+import validateOrder from "@/lib/auth/validateOrder";
+
 import Layout from "@/components/8_payment_page/Layout";
 
 interface PropsI {
@@ -9,14 +14,23 @@ interface PropsI {
 }
 
 type paramsType = {
-  siteId: string;
+  orderId: string;
 };
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
     const { params } = ctx;
 
-    params?.siteId; //
+    const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
+
+    if (redirectOptions.status === "unauthenticated") {
+      return {
+        props: {
+          nothing: true,
+        },
+        redirect: redirectOptions.redirect,
+      };
+    }
 
     return {
       props: {
