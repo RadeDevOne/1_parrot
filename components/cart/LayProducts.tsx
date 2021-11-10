@@ -15,6 +15,8 @@ import formatPrice from "@/util/formatPrice";
 
 import CartItem from "./CartItem";
 
+import CreateOrder from "./CreateOrder";
+
 function makeArrayFromCart(cart: CartType) {
   const cartArray = [];
 
@@ -109,13 +111,14 @@ const LayProducts: FC = () => {
             Back
             <span tw="sr-only sm:not-sr-only"> to shop</span>
           </button>
-          <button
+          {/* <button
             disabled={value === fse.header_visible}
             type="button"
             tw="px-6 py-2 border rounded-md dark:bg-gray-400 dark:text-gray-900 dark:border-gray-400"
           >
             <span tw="sr-only sm:not-sr-only">Continue to </span>Checkout
-          </button>
+          </button> */}
+          <CreateOrder disabled={value === fse.header_visible} />
         </div>
       </div>
     </section>
