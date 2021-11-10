@@ -2,7 +2,7 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import type { PropsI } from "@/pages/shipping";
+import type { PropsI } from "@/pages/shipping/[orderId]";
 
 import Lorem from "@/components/dev-helpers/Lorem";
 
@@ -13,7 +13,7 @@ const Layout: FC<PropsI> = ({ children }) => {
 
   return (
     <main css={[tw``, tw``]}>
-      <ShipPayOrdBreadcrumbs />
+      <ShipPayOrdBreadcrumbs orderId={"placeholder"} />
     </main>
   );
 };

@@ -5,10 +5,14 @@ import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const ShipmentPaymentOrderBreadcrumbs: FC = () => {
+interface PropsI {
+  orderId: string;
+}
+
+const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
   const links = [
     {
-      path: "/shipping",
+      path: `/shipping/${orderId}`,
       name: "Shipping",
       Icon: () => (
         <svg
@@ -29,7 +33,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC = () => {
       ),
     },
     {
-      path: "/payment",
+      path: `/payment/${orderId}`,
       name: "Payment",
       Icon: () => (
         <svg
@@ -48,7 +52,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC = () => {
       ),
     },
     {
-      path: "/place-order",
+      path: `/place-order/${orderId}`,
       name: "Place Order",
       Icon: () => (
         <svg
@@ -96,7 +100,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC = () => {
           text-align: center;
 
           & a {
-            ${tw`text-xs sm:text-sm  md:text-lg`}
+            ${tw`text-xs sm:text-sm cursor-pointer user-select[none]`}
           }
 
           & li {
