@@ -42,7 +42,7 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
   const [imageErrored, setImageErrored] = useState<boolean>(false);
 
   const {
-    context: { cart },
+    context: { cart, modify_disabled },
   } = cartState;
 
   const productIsNotInTheCart = cart[product.id] === undefined;
@@ -157,6 +157,7 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
                       <div tw="flex justify-center">
                         <div tw="flex items-center mt-1">
                           <button
+                            disabled={modify_disabled}
                             onMouseDown={() => {
                               handleCountUp();
                             }}
@@ -178,6 +179,7 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
                             {productCount}
                           </span>
                           <button
+                            disabled={modify_disabled}
                             onMouseDown={() => {
                               handleCountDown();
                             }}
@@ -200,6 +202,7 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
                     </div>
                     <div tw="flex items-center mt-6 justify-center sm:justify-center  md:justify-center">
                       <button
+                        disabled={modify_disabled}
                         onClick={() => {
                           dispatch({
                             type: EE.ADD,

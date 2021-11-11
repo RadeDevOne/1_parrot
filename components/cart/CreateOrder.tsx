@@ -1,10 +1,15 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useCallback, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
+
+import axios from "axios";
 
 import { useRouter } from "next/router";
 
 import { useActor } from "@xstate/react";
+
+import { useSession } from "next-auth/react";
 
 import { EE, fse, cartService } from "@/machines/cart_machine";
 import {
@@ -14,21 +19,100 @@ import {
 } from "@/machines/header_n_cart_machine";
 
 const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
+  const { data: sessData, status } = useSession();
+
+  const { push: rouPush } = useRouter();
+
+  const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+
   const [{ value, context }, dispatch] = useActor(cartService);
   const [{ value: val }, disp] = useActor(headerNCartService);
+
+  const handleOrderCreation = useCallback(async () => {
+    const { cart } = context;
+
+    if (!sessData) {
+      return;
+    }
+    if (status !== "authenticated") {
+      return;
+    }
+    if (!cart) {
+      return;
+    }
+    if (Object.keys(cart).length === 0) {
+      return;
+    }
+
+    const { profile } = sessData;
+
+    if (!profile?.id) {
+      return;
+    }
+
+    try {
+      // WE SHOULD DISABLE ADDING AND REMOVING TO THE CART
+      //
+
+      dispatch({
+        type: EE.DISABLE_MODIFY,
+      });
+
+      //
+      //
+
+      setReqStatus("pending");
+
+      // YES THIS IS THE PROFILE ID BECAUSE WE ARE CREATING
+      // ORDER (WE DON;T HAVE ORDER ID YET)
+      // BUT IT IS CONVINIENT FOR ME TO PASS PROFILE ID LIKE THIS BECAUSE I
+      // WANT TO USE SOME PROFILE RELATED MIDDLEWARES I CREATED ON THE BACKEND
+      const { data: orderId } = await axios.post(
+        `/api/order/create/${profile.id}`
+      );
+      //
+      // WE ARE EXPECTING ORDER ID IN RETURN
+
+      // WE CAN DESTROY CART
+      dispatch({
+        type: EE.ERASE,
+      });
+
+      // WE CAN NAVIGATE TO SHIPPING PAGE
+      rouPush(`/shipping/${orderId}`);
+
+      // NOW WE CAN CLOSE CART
+      disp({
+        type: EEE.TOGGLE,
+      });
+
+      dispatch({
+        type: EE.ENABLE_MODIFY,
+      });
+
+      //
+    } catch (err) {
+      //
+      console.error(err);
+
+      dispatch({
+        type: EE.ENABLE_MODIFY,
+      });
+    }
+    //
+  }, [context, setReqStatus, sessData, status, disp, dispatch, rouPush]);
 
   return (
     <button
       onClick={() => {
         // console.log("hello world");
-        dispatch({
-          type: EE.ERASE,
-        });
-        disp({
-          type: EEE.TOGGLE,
-        });
+        handleOrderCreation();
       }}
-      disabled={val === fsee.header_visible}
+      disabled={
+        val === fsee.header_visible ||
+        reqStatus === "pending" ||
+        context.modify_disabled
+      }
       type="button"
       tw="px-6 py-2 border rounded-md dark:bg-gray-400 dark:text-gray-900 dark:border-gray-400"
     >

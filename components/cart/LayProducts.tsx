@@ -33,7 +33,7 @@ const LayProducts: FC = () => {
 
   const { context: cartContext } = cartState;
 
-  const { cart, totalPrice } = cartContext;
+  const { cart, totalPrice, modify_disabled } = cartContext;
 
   // const shouldCloseCart = totalPrice === 0;
   // console.log({ shouldCloseCart, totalPrice });
@@ -99,7 +99,7 @@ const LayProducts: FC = () => {
         </div>
         <div tw="flex justify-end space-x-4">
           <button
-            disabled={value === fse.header_visible}
+            disabled={value === fse.header_visible || modify_disabled}
             onClick={() => {
               dispatch({
                 type: EE.TOGGLE,

@@ -26,6 +26,8 @@ const Product: FC<ProductPropsI> = ({ product }) => {
 
   const productIsInCart = cartState.context.cart[product.id] !== undefined;
 
+  const { modify_disabled } = cartState.context;
+
   return (
     <Link href={`${basePath}${product.id}`}>
       <a
@@ -79,6 +81,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
           ></div>
           {!productIsInCart && product.countInStock > 0 && (
             <button
+              disabled={modify_disabled}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();

@@ -53,6 +53,13 @@ export enum EE {
   //
   //
   WIPE_LAST_ADED_FROM_HISTORY = "WIPE_LAST_ADED_FROM_HISTORY",
+
+  // JUST FOR PUTTING A MARK THAT YOU SHOULDN'T ADD THINGS TO THE CART
+  // MODIFYING CART WON'T BE PREVENTED,
+  // BUT I AM GOING TO USE THIS FOR EXAMPLE TO EXPRESS THAT
+  // YOU SHOULDN'T ADD ANYTHING TO THE CART
+  DISABLE_MODIFY = "DISABLE_MODIFY",
+  ENABLE_MODIFY = "ENABLE_MODIFY",
 }
 
 // TO BE USED AS GENERIC TYPES INSIDE STATE MACHINE DEFINISTION
@@ -62,6 +69,10 @@ export interface MachineContextGenericI {
   cart: CartType;
   totalPrice: number;
   lastAddedProduct: CartItemI | null;
+
+  //
+  //
+  modify_disabled: boolean;
 }
 
 export type machineEventsGenericType =
@@ -97,6 +108,12 @@ export type machineEventsGenericType =
     }
   | {
       type: EE.WIPE_LAST_ADED_FROM_HISTORY;
+    }
+  | {
+      type: EE.DISABLE_MODIFY;
+    }
+  | {
+      type: EE.ENABLE_MODIFY;
     };
 
 export type machineFiniteStatesGenericType =
@@ -144,6 +161,7 @@ const cartMachine = createMachine<
       cart: {},
       totalPrice: 0,
       lastAddedProduct: null,
+      modify_disabled: false,
     },
     // ---- EVENTS RECEVIED WHEN CURRENT FINITE STATE DOESN'T MATTER -----
     on: {
@@ -151,6 +169,22 @@ const cartMachine = createMachine<
         actions: [
           assign({
             lastAddedProduct: (_, __) => null,
+          }),
+        ],
+      },
+      [EE.DISABLE_MODIFY]: {
+        //
+        actions: [
+          assign({
+            modify_disabled: (_, __) => true,
+          }),
+        ],
+      },
+      [EE.ENABLE_MODIFY]: {
+        //
+        actions: [
+          assign({
+            modify_disabled: (_, __) => false,
           }),
         ],
       },

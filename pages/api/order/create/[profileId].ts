@@ -10,6 +10,7 @@ import type { CartType } from "@/lib/storage";
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
+import validateProfileId from "@/middlewares/validateProfileId";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -30,6 +31,9 @@ export interface ResData {
 
 // MIDDLEWARES
 handler.use(verifyUserMiddleware);
+handler.use(validateProfileId);
+
+// CREATING ORDER
 
 handler /* .use(profileBodyValidation) */
   .post(async (req, res) => {
@@ -39,13 +43,13 @@ handler /* .use(profileBodyValidation) */
 
     const data = req.body as CartType;
 
-    const { orderId } = req.query;
+    const { profileId } = req.query;
 
-    if (typeof orderId === "object") {
+    if (typeof profileId === "object") {
       return res
         .status(500)
         .send(
-          "order id is in wrong format (possibly you have unnecessary `/` in order id )"
+          "profileId is in wrong format (possibly you have unnecessary `/` in profile id )"
         );
     }
 
@@ -62,7 +66,7 @@ handler /* .use(profileBodyValidation) */
 
     // HERE WE CAN CREATE ORDER ELEMENTS
 
-    return res.status(200).json({ data, orderId });
+    return res.status(200).json({ data, profileId });
     // return res.status(200).json(data);
   });
 
