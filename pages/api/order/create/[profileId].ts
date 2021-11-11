@@ -41,6 +41,18 @@ handler /* .use(profileBodyValidation) */
     const profile = req.profile as ProfileInsert; // verifyUserMiddleware INSERS THIS
     // console.log({ profile });
 
+    // REDIRECT TO SIGNIN IF THERE IS NO PROFILE
+    if (!profile) {
+      res.writeHead(302, {
+        Location: "/signin",
+      });
+
+      return res.status(500).end();
+    }
+    //
+    //
+    // -----------------------------------
+
     const cart = req.body as CartType;
 
     const { profileId } = req.query;

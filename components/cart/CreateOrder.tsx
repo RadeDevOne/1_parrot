@@ -34,9 +34,17 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
     const { cart } = context;
 
     if (!sessData) {
+      rouPush("/signin");
+      disp({
+        type: EEE.TOGGLE,
+      });
       return;
     }
     if (status !== "authenticated") {
+      rouPush("/signin");
+      disp({
+        type: EEE.TOGGLE,
+      });
       return;
     }
     if (!cart) {

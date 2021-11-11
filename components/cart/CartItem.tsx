@@ -36,6 +36,14 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
 
   const itemData = cart[itemId];
 
+  if (!itemData) {
+    return null;
+  }
+
+  if (itemData.name) {
+    return null;
+  }
+
   const { name, price, image, count, countInStock } = itemData;
 
   // console.log({ countInStock, count });
