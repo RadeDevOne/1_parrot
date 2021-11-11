@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps<
   PropsI | { nothing: true },
   paramsType
 > = async (ctx) => {
-  const { params } = ctx;
+  // const { params } = ctx;
 
   const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
 
@@ -40,21 +40,15 @@ export const getServerSideProps: GetServerSideProps<
 
   // WE WILL CHECK IF ORDER EXISTS
   // IF NOT WE ARE GOING TO REDIRRECT TO THE MAIN PAGE
-
-  const order = await prisma.order.findUnique({
-    where: {
-      id: params?.orderId,
-    },
-  });
-
-  if (!order) {
+  const order = await validateOrder(ctx);
+  if (order === "unauthorized" || order === "unauthenticated") {
     return {
       props: {
         nothing: true,
       },
       redirect: {
         destination: "/",
-        statusCode: 302,
+        permanent: false,
       },
     };
   }

@@ -1,12 +1,14 @@
 import type { GetServerSidePropsContext } from "next";
 
+import type { Order } from "@prisma/client";
+
 import prisma from "@/lib/prisma";
 
 import { getSession } from "next-auth/react";
 
 import type { paramsType } from "@/pages/shipping/[orderId]";
 
-type ReturnType = "authorized" | "unauthenticated" | "unauthorized";
+type ReturnType = Order | "unauthenticated" | "unauthorized";
 
 /**
  *
@@ -49,8 +51,8 @@ const validateProfile = async (
     return "unauthorized";
   }
 
-  if (id === ctx.params.orderId) {
-    return "authorized";
+  if (id !== ctx.params.orderId) {
+    return "unauthorized";
   }
   // WE SHOULD NOW GET AN ORDER
   // AND CHEC IF ORDER ACTUALLYY BELONGS TO THE CURRENT PROFILE
@@ -63,7 +65,7 @@ const validateProfile = async (
   });
 
   if (order) {
-    return "authorized";
+    return order;
   }
 
   return "unauthenticated";
