@@ -52,7 +52,10 @@ export const getServerSideProps: GetServerSideProps<
       props: {
         nothing: true,
       },
-      redirect: "/",
+      redirect: {
+        destination: "/",
+        statusCode: 302,
+      },
     };
   }
 
