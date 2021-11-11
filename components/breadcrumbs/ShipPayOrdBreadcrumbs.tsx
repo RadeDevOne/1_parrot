@@ -109,7 +109,8 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
           }
 
           & nav {
-            background-color: #130e11b3;
+            ${tw`dark:background-color[#131414dc] background-color[#f1e7e7e1]`};
+
             padding: 18px;
             border-radius: 18px;
           }
