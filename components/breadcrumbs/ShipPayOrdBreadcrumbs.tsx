@@ -95,9 +95,9 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
   return (
     <section
       css={[
+        tw`fixed top[4.25rem] mx-auto w-full flex justify-center`,
         css`
-          /* border: crimson solid 1px; */
-          text-align: center;
+          border: crimson solid 1px;
           margin-bottom: 66px;
 
           & a {
@@ -106,6 +106,12 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
 
           & li {
             ${tw`dark:text-gray-50 text-gray-900`}
+          }
+
+          & nav {
+            background-color: #130e11b3;
+            padding: 18px;
+            border-radius: 18px;
           }
         `,
       ]}

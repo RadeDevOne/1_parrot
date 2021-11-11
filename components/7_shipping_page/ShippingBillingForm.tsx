@@ -56,10 +56,12 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
 
   //
   return (
-    <div tw="leading-loose flex justify-center">
+    <div tw="leading-loose flex justify-center mt-28">
       <form
         css={[
-          css``,
+          css`
+            /*  */
+          `,
 
           tw`dark:bg-gray-800 bg-l max-w-xl m-4 p-10 rounded shadow-xl`,
         ]}
