@@ -13,7 +13,7 @@ import validateOrder from "@/lib/auth/validateOrder";
 
 import Layout from "@/components/9_place_order_page/Layout";
 
-interface PropsI {
+export interface PropsI {
   order: Order;
 }
 

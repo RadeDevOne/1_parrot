@@ -10,13 +10,13 @@ import ShipPayOrdBreadcrumbs from "@/components/breadcrumbs/ShipPayOrdBreadcrumb
 
 import ShipBillForm from "./ShippingBillingForm";
 
-const Layout: FC<PropsI> = ({ order }) => {
+const Layout: FC<PropsI> = ({ order, profile }) => {
   // console.log({ favorites });
 
   return (
     <main css={[tw``, tw``]}>
       <ShipPayOrdBreadcrumbs orderId={order.id} />
-      <ShipBillForm />
+      <ShipBillForm initialProfilleInfo={profile} />
     </main>
   );
 };

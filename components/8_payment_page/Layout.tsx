@@ -2,7 +2,7 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import type { PropsI } from "@/pages/shipping/[orderId]";
+import type { PropsI } from "@/pages/payment/[orderId]";
 
 import Lorem from "@/components/dev-helpers/Lorem";
 

@@ -2,9 +2,11 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-import type { Order } from "@prisma/client";
+import type { Order, Profile } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
+
+import { getSession } from "next-auth/react";
 
 import Layout from "@/components/7_shipping_page/Layout";
 
@@ -15,6 +17,7 @@ import validateOrder from "@/lib/auth/validateOrder";
 
 export interface PropsI {
   order: Order;
+  profile: Profile;
 }
 
 export type paramsType = {
@@ -47,7 +50,41 @@ export const getServerSideProps: GetServerSideProps<
         nothing: true,
       },
       redirect: {
-        destination: "/",
+        destination: "/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  const session = await getSession({
+    req: ctx.req,
+  });
+
+  if (!session) {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: {
+        destination: "/signin",
+        permanent: false,
+      },
+    };
+  }
+
+  const profile = await prisma.profile.findUnique({
+    where: {
+      id: session.profile?.id,
+    },
+  });
+
+  if (!profile) {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: {
+        destination: "/signin",
         permanent: false,
       },
     };
@@ -56,6 +93,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       order,
+      profile,
     },
   };
 };
@@ -67,7 +105,7 @@ const ShippingPage: NP<PropsI> = (props) => {
   // eslint-disable-next-line
   return (
     <div>
-      <Layout order={props.order} />
+      <Layout {...props} />
     </div>
   );
 };

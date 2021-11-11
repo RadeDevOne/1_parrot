@@ -96,8 +96,9 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
     <section
       css={[
         css`
-          border: crimson solid 1px;
+          /* border: crimson solid 1px; */
           text-align: center;
+          margin-bottom: 66px;
 
           & a {
             ${tw`text-xs sm:text-sm cursor-pointer user-select[none]`}

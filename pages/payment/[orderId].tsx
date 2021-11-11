@@ -13,7 +13,7 @@ import validateOrder from "@/lib/auth/validateOrder";
 
 import Layout from "@/components/8_payment_page/Layout";
 
-interface PropsI {
+export interface PropsI {
   order: Order;
 }
 
