@@ -21,6 +21,8 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
 
   const { id, nick, role } = data.profile;
 
+  console.log({ initialProfilleInfo });
+
   //
   return (
     <div tw="leading-loose flex justify-center">
