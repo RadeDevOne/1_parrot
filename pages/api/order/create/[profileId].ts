@@ -99,6 +99,8 @@ handler /* .use(profileBodyValidation) */
       orderId: order.id,
     };
 
+    console.log({ orderId: order.id });
+
     // WE WILL SEND ORDER ID
     return res.status(200).json(data);
   });
