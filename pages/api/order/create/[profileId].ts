@@ -15,7 +15,7 @@ import validateProfileId from "@/middlewares/validateProfileId";
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 export interface ResData {
-  something: "something";
+  orderId: string;
 }
 
 // todo (DONE: CartType IMPORTED)
@@ -38,10 +38,10 @@ handler.use(validateProfileId);
 handler /* .use(profileBodyValidation) */
   .post(async (req, res) => {
     // @ts-ignore
-    // const profile = req.profile as ProfileInsert; // verifyUserMiddleware INSERS THIS
+    const profile = req.profile as ProfileInsert; // verifyUserMiddleware INSERS THIS
     // console.log({ profile });
 
-    const data = req.body as CartType;
+    const cart = req.body as CartType;
 
     const { profileId } = req.query;
 
@@ -53,21 +53,54 @@ handler /* .use(profileBodyValidation) */
         );
     }
 
-    if (!data) {
+    if (!cart) {
       return res.status(400).send("Body is missing");
     }
 
-    if (Object.keys(data).length === 0) {
-      return res.status(400).send("Body has no data on it");
+    if (Object.keys(cart).length === 0) {
+      return res.status(400).send("Body has no cart on it");
     }
-    console.log(data);
+    //
+    console.log({ cart });
 
     // HERE WE CAN CREATE ORDER
+    const order = await prisma.order.create({
+      data: {
+        buyer: {
+          connect: { id: profile.id },
+        },
+      },
+    });
 
-    // HERE WE CAN CREATE ORDER ELEMENTS
+    // LETS NOW CREATE ORDER ELEMENTS
+    // ALSO WE WILL CONNECT ORDER ELEMENTS
+    // TO THE UPPER ORDER
+    for (const key in cart) {
+      const item = cart[key];
 
-    return res.status(200).json({ data, profileId });
-    // return res.status(200).json(data);
+      await prisma.orderElement.create({
+        data: {
+          order: {
+            connect: {
+              id: order.id,
+            },
+          },
+          product: {
+            connect: {
+              id: item.id,
+            },
+          },
+          quantity: item.count,
+        },
+      });
+    }
+
+    const data: ResData = {
+      orderId: order.id,
+    };
+
+    // WE WILL SEND ORDER ID
+    return res.status(200).json(data);
   });
 
 export default handler;

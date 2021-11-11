@@ -18,6 +18,8 @@ import {
   fse as fsee,
 } from "@/machines/header_n_cart_machine";
 
+import type { ResData } from "@/pages/api/order/create/[profileId]";
+
 const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
   const { data: sessData, status } = useSession();
 
@@ -67,10 +69,13 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
       // ORDER (WE DON;T HAVE ORDER ID YET)
       // BUT IT IS CONVINIENT FOR ME TO PASS PROFILE ID LIKE THIS BECAUSE I
       // WANT TO USE SOME PROFILE RELATED MIDDLEWARES I CREATED ON THE BACKEND
-      const { data: orderId } = await axios.post(
+      const { data: d } = await axios.post(
         `/api/order/create/${profile.id}`,
         cart
       );
+
+      const data = d as ResData;
+
       //
       // WE ARE EXPECTING ORDER ID IN RETURN
 
@@ -80,7 +85,7 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
       });
 
       // WE CAN NAVIGATE TO SHIPPING PAGE
-      rouPush(`/shipping/${orderId}`);
+      rouPush(`/shipping/${data.orderId}`);
 
       // NOW WE CAN CLOSE CART
       disp({
