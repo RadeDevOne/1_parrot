@@ -61,12 +61,60 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
         css={[
           css`
             /*  */
+
+            & input {
+              /* ${tw`border dark:border-gray-200 border-gray-800`}; */
+
+              ${tw`dark:text-gray-700 dark:placeholder-gray-600 light:text-gray-800 font-family["FiraMono"] overflow-ellipsis`}
+
+              &:-webkit-autofill,
+                        &:-webkit-autofill:hover {
+                ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
+                ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+              }
+            }
+
+            & select {
+              ${tw`dark:text-gray-50 dark:placeholder-gray-600 light:text-gray-800 font-family["FiraMono"] light:bg-gray-400 bg-gray-500`}
+
+              /*  appearance: none;
+                        // Additional resets for further consistency
+                        background-color: transparent;
+                        border: none;
+                        padding: 0 1em 0 0;
+                        margin: 0;
+                        width: 100%;
+                        font-size: inherit;
+                        cursor: inherit;
+                        line-height: inherit; */
+
+                        & option {
+                ${tw`dark:bg-gray-800 bg-l  dark:border-l border-gray-800`}
+                /* border: crimson solid 1px; */
+                          font-size: 16px;
+                border-top: crimson solid 1px;
+              }
+            }
+
+            & textarea:-webkit-autofill,
+            & textarea:-webkit-autofill:hover,
+            & textarea:-webkit-autofill:focus,
+            & select:-webkit-autofill,
+            & select:-webkit-autofill:hover,
+            & select:-webkit-autofill:focus {
+              ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
+              ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+            }
+
+            & label {
+              ${tw`dark:text-gray-50`}
+            }
           `,
 
-          tw`dark:bg-gray-800 bg-l max-w-xl m-4 p-10 rounded shadow-xl`,
+          tw`dark:bg-gray-700 bg-l max-w-xl m-4 p-10 rounded shadow-xl`,
         ]}
       >
-        <p tw="text-gray-800 font-medium">Customer information</p>
+        <p tw="dark:text-gray-400 font-medium">Customer information</p>
         <div tw="">
           <label tw="block text-sm" htmlFor="nick">
             Name

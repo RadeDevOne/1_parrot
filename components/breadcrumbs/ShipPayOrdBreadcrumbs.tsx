@@ -97,7 +97,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
       css={[
         tw`fixed top[4.25rem] mx-auto w-full flex justify-center`,
         css`
-          border: crimson solid 1px;
+          /* border: crimson solid 1px; */
           margin-bottom: 66px;
 
           & a {
