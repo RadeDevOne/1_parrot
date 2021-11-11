@@ -51,9 +51,6 @@ const validateProfile = async (
     return "unauthorized";
   }
 
-  if (id !== ctx.params.orderId) {
-    return "unauthorized";
-  }
   // WE SHOULD NOW GET AN ORDER
   // AND CHEC IF ORDER ACTUALLYY BELONGS TO THE CURRENT PROFILE
 
@@ -64,11 +61,29 @@ const validateProfile = async (
     },
   });
 
-  if (order) {
-    return order;
+  if (!order) {
+    return "unauthenticated";
   }
 
-  return "unauthenticated";
+  // CHECK IF ORDER IS CONNECTED TO CURRENT PROFILE
+
+  const prof = await prisma.profile.findFirst({
+    where: {
+      id: session.profile.id,
+      ordersHistory: {
+        some: {
+          buyerId: session.profile.id,
+          id: order.id,
+        },
+      },
+    },
+  });
+
+  if (!prof) {
+    return "unauthenticated";
+  }
+
+  return order;
 };
 
 export default validateProfile;

@@ -38,22 +38,6 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
-  const validaationResult = await validateOrder(ctx);
-  if (
-    validaationResult === "unauthorized" ||
-    validaationResult === "unauthenticated"
-  ) {
-    return {
-      props: {
-        nothing: true,
-      },
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
   // WE WILL CHECK IF ORDER EXISTS
   // IF NOT WE ARE GOING TO REDIRRECT TO THE MAIN PAGE
 
