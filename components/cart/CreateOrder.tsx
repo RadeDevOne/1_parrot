@@ -68,7 +68,8 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
       // BUT IT IS CONVINIENT FOR ME TO PASS PROFILE ID LIKE THIS BECAUSE I
       // WANT TO USE SOME PROFILE RELATED MIDDLEWARES I CREATED ON THE BACKEND
       const { data: orderId } = await axios.post(
-        `/api/order/create/${profile.id}`
+        `/api/order/create/${profile.id}`,
+        cart
       );
       //
       // WE ARE EXPECTING ORDER ID IN RETURN
