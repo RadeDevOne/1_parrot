@@ -16,8 +16,23 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
   const { data, status } = useSession();
   // console.log({ initialProfilleInfo });
 
-  const [bodyData, setBodyData] =
-    useState<typeof initialProfilleInfo>(initialProfilleInfo);
+  const [bodyData, setBodyData] = useState<{
+    nick: string;
+    email: string;
+    streetAddress: string;
+    city: string;
+    country: string;
+    postalCode: string;
+    regionOrState: string;
+  }>({
+    nick: initialProfilleInfo.nick || "",
+    email: initialProfilleInfo.email || "",
+    city: initialProfilleInfo.city || "",
+    country: initialProfilleInfo.country || "",
+    postalCode: initialProfilleInfo.postalCode || "",
+    regionOrState: initialProfilleInfo.regionOrState || "",
+    streetAddress: initialProfilleInfo.streetAddress || "",
+  });
 
   if (!data) {
     return null;
@@ -38,11 +53,14 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
 
   console.log({ bodyData });
 
+  const handleBodyDataChange = (name: string, value: string) =>
+    setBodyData((prev) => ({ ...prev, [name]: value }));
+
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const {
       target: { name: inputName, value: inputValue },
     } = e;
-    // @ts-ignore
+
     handleBodyDataChange(inputName, inputValue);
   };
 
@@ -50,7 +68,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
     const {
       target: { name: selName, value: selValue },
     } = e;
-    // @ts-ignore
+
     handleBodyDataChange(selName, selValue);
   };
 
@@ -71,6 +89,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
                         &:-webkit-autofill:hover {
                 ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
                 ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+                border-radius: 0px;
               }
             }
 
@@ -104,6 +123,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             & select:-webkit-autofill:focus {
               ${tw`dark:-webkit-text-fill-color[#b3bed8] -webkit-text-fill-color[#32343f]`};
               ${tw`dark:-webkit-box-shadow[0 0 0px 1000px #2f314b inset] -webkit-box-shadow[0 0 0px 1000px #c7d5df inset]`};
+              border-radius: 0px;
             }
 
             & label {
@@ -120,6 +140,8 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             Name
           </label>
           <input
+            onChange={handleInputChange}
+            value={bodyData.nick}
             tw="w-full px-5 py-2 rounded"
             id="nick"
             name="nick"
@@ -134,10 +156,12 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             Email
           </label>
           <input
+            onChange={handleInputChange}
+            value={bodyData.email}
             tw="w-full px-5  py-2 rounded"
             id="email"
             name="email"
-            type="text"
+            type="email"
             required
             placeholder="Your Email"
             aria-label="Email"
@@ -148,6 +172,8 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             Address
           </label>
           <input
+            onChange={handleInputChange}
+            value={bodyData.streetAddress}
             tw="w-full px-2 py-2 rounded"
             id="streetAddress"
             name="streetAddress"
@@ -162,6 +188,8 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             City
           </label>
           <input
+            onChange={handleInputChange}
+            value={bodyData.city}
             tw="w-full px-2 py-2 rounded"
             id="city"
             name="city"
@@ -176,6 +204,9 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             Country
           </label>
           <select
+            onChange={handleSelectChange}
+            onBlur={handleSelectChange}
+            value={bodyData.country}
             tw="w-full px-2 py-3 rounded"
             id="country"
             name="country"
@@ -197,6 +228,8 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             Zip
           </label>
           <input
+            onChange={handleInputChange}
+            value={bodyData.postalCode}
             tw="w-full px-2 py-2 rounded"
             id="postalCode"
             name="postalCode"
@@ -211,6 +244,9 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             State
           </label>
           <select
+            onChange={handleSelectChange}
+            onBlur={handleSelectChange}
+            value={bodyData.regionOrState}
             tw="w-full px-2 py-3 rounded"
             id="state"
             name="state"
