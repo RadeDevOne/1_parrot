@@ -8,12 +8,12 @@ import Lorem from "@/components/dev-helpers/Lorem";
 
 import ShipPayOrdBreadcrumbs from "@/components/breadcrumbs/ShipPayOrdBreadcrumbs";
 
-const Layout: FC<PropsI> = ({ children }) => {
+const Layout: FC<PropsI> = ({ order }) => {
   // console.log({ favorites });
 
   return (
     <main css={[tw``, tw``]}>
-      <ShipPayOrdBreadcrumbs orderId={"placeholder"} />
+      <ShipPayOrdBreadcrumbs orderId={order.id} />
     </main>
   );
 };
