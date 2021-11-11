@@ -26,14 +26,16 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
   //
   return (
     <div tw="leading-loose flex justify-center">
-      <form tw="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+      <form
+        css={[tw`dark:bg-gray-800 bg-l max-w-xl m-4 p-10 rounded shadow-xl`]}
+      >
         <p tw="text-gray-800 font-medium">Customer information</p>
         <div tw="">
-          <label tw="block text-sm text-gray-50" htmlFor="cus_name">
+          <label tw="block text-sm text-gray-600" htmlFor="cus_name">
             Name
           </label>
           <input
-            tw="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded"
+            tw="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded"
             id="cus_name"
             name="cus_name"
             type="text"
@@ -47,7 +49,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             Email
           </label>
           <input
-            tw="w-full px-5  py-4 text-gray-700 bg-gray-200 rounded"
+            tw="w-full px-5  py-2 text-gray-700 bg-gray-200 rounded"
             id="cus_email"
             name="cus_email"
             type="text"
@@ -112,6 +114,20 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             aria-label="Email"
           />
         </div>
+        <div tw="mt-2">
+          <label tw="hidden block text-sm text-gray-600" htmlFor="cus_state">
+            State
+          </label>
+          <input
+            tw="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded"
+            id="stat"
+            name="cus_state"
+            type="text"
+            required
+            placeholder="State"
+            aria-label="State"
+          />
+        </div>
         {/* <p tw="mt-4 text-gray-800 font-medium">Payment information</p> */}
         {/* <div tw="">
           <label tw="block text-sm text-gray-600" htmlFor="cus_name">
@@ -132,7 +148,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
             tw="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
             type="submit"
           >
-            $3.00
+            Save
           </button>
         </div>
       </form>
