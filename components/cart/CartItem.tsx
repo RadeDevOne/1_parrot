@@ -40,7 +40,7 @@ const CartItem: FC<PropsI> = ({ itemId }) => {
     return null;
   }
 
-  if (itemData.name) {
+  if (!itemData.name) {
     return null;
   }
 
