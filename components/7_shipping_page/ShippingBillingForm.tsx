@@ -60,9 +60,9 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
     nick: initialProfilleInfo.nick || "",
     email: initialProfilleInfo.email || "",
     city: initialProfilleInfo.city || "",
-    country: initialProfilleInfo.country || "",
+    country: initialProfilleInfo.country || "KR",
     postalCode: initialProfilleInfo.postalCode || "",
-    regionOrState: initialProfilleInfo.regionOrState || "",
+    regionOrState: initialProfilleInfo.regionOrState || "CO",
     streetAddress: initialProfilleInfo.streetAddress || "",
   });
 
@@ -139,6 +139,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
     } catch (err) {
       console.log(err);
 
+      // @ts-ignore
       handleError("Error!", err.message as string);
 
       setReqStatus("idle");
@@ -186,7 +187,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
   //
   return (
     <Fragment>
-      <div tw="leading-loose flex justify-center mt-28">
+      <div tw="leading-loose flex justify-center mt-20">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -372,34 +373,36 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
               aria-label="Zip"
             />
           </div>
-          <div tw="mt-2">
-            <label tw="hidden block text-sm" htmlFor="state">
-              State
-            </label>
-            <select
-              disabled={reqStatus === "pending"}
-              onChange={handleSelectChange}
-              onBlur={handleSelectChange}
-              value={bodyData.regionOrState}
-              tw="w-full px-2 py-3 rounded"
-              id="state"
-              name="state"
-              required
-              placeholder="State"
-              aria-label="State"
-            >
-              {states.map((item, i) => {
-                return (
-                  <option
-                    key={`${i + item.state_code}`}
-                    value={item.state_code}
-                  >
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+          {bodyData.country === "US" && (
+            <div tw="mt-2">
+              <label tw="hidden block text-sm" htmlFor="state">
+                State
+              </label>
+              <select
+                disabled={reqStatus === "pending"}
+                onChange={handleSelectChange}
+                onBlur={handleSelectChange}
+                value={bodyData.regionOrState}
+                tw="w-full px-2 py-3 rounded"
+                id="state"
+                name="regionOrState"
+                required
+                placeholder="State"
+                aria-label="State"
+              >
+                {states.map((item, i) => {
+                  return (
+                    <option
+                      key={`${i + item.state_code}`}
+                      value={item.state_code}
+                    >
+                      {item.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          )}
           {/* <p tw="mt-4 text-gray-800 font-medium">Payment information</p> */}
           {/* <div tw="">
           <label tw="block text-sm text-gray-600" htmlFor="cus_name">

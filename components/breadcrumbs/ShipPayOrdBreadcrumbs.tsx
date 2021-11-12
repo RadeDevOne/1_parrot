@@ -101,7 +101,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
           margin-bottom: 66px;
 
           & a {
-            ${tw`text-xs sm:text-sm cursor-pointer user-select[none]`}
+            ${tw`text-xs sm:text-sm cursor-pointer user-select[none]`};
           }
 
           & li {
@@ -114,10 +114,14 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
             padding: 18px;
             border-radius: 18px;
           }
+
+          & span.unpainted {
+            ${tw`text-xs sm:text-sm cursor-pointer user-select[none]`};
+          }
         `,
       ]}
     >
-      <nav tw="text-black font-bold my-8" aria-label="Breadcrumb">
+      <nav tw="text-black font-bold mb-8 mt-4" aria-label="Breadcrumb">
         <ol tw="list-none p-0 inline-flex">
           {links.map(({ Icon, name, path }, i) => {
             let paint = false;
@@ -166,6 +170,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
                   </Link>
                 ) : (
                   <span
+                    className="unpainted"
                     css={[
                       paint ? tw`text-__success` : tw``,
                       tw`flex align-items[center] user-select[none]`,
