@@ -21,7 +21,9 @@ import states from "../../countries_n_states/2_states.json";
 const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
   initialProfilleInfo,
 }) => {
-  const { push } = useRouter();
+  const { push, query } = useRouter();
+
+  console.log({ query });
 
   const { data, status } = useSession();
   // console.log({ initialProfilleInfo });
@@ -102,27 +104,27 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
         bodyData
       );
 
-      const profileData = updatedProfileData.data as Profile;
+      const updatedProfile = updatedProfileData.data.updatedProfile as Profile;
 
       if (
-        profileData.nick &&
-        profileData.nick.length !== 0 &&
-        profileData.city &&
-        profileData.city.length !== 0 &&
-        profileData.country &&
-        profileData.country.length !== 0 &&
-        profileData.email &&
-        profileData.email.length !== 0 &&
-        profileData.postalCode &&
-        profileData.postalCode.length !== 0 &&
-        profileData.regionOrState &&
-        profileData.regionOrState.length &&
-        profileData.streetAddress &&
-        profileData.streetAddress.length !== 0
+        updatedProfile.nick &&
+        updatedProfile.nick.length !== 0 &&
+        updatedProfile.city &&
+        updatedProfile.city.length !== 0 &&
+        updatedProfile.country &&
+        updatedProfile.country.length !== 0 &&
+        updatedProfile.email &&
+        updatedProfile.email.length !== 0 &&
+        updatedProfile.postalCode &&
+        updatedProfile.postalCode.length !== 0 &&
+        updatedProfile.regionOrState &&
+        updatedProfile.regionOrState.length &&
+        updatedProfile.streetAddress &&
+        updatedProfile.streetAddress.length !== 0
       ) {
         //
         //
-        push(`/payment/${data.profile.id}`);
+        push(`/payment/${query.orderId}`);
         //
         //
         return;

@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<
         nothing: true,
       },
       redirect: {
-        destination: "/",
+        destination: "/signin",
         permanent: false,
       },
     };
