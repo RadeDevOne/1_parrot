@@ -41,6 +41,8 @@ const IntentCart: FC = () => {
 
     const { profile } = sessData;
 
+    if (!profile) return;
+
     if (!profile.id) return;
 
     const intent = localStorage.getItem(CHECKOUT_INTENT_ORDER);
@@ -80,6 +82,7 @@ const IntentCart: FC = () => {
       routerPush(`/shipping/${data.orderId}`);
     } catch (err) {
       console.error(err);
+      // localStorage.removeItem(CHECKOUT_INTENT_ORDER);
     }
   }, [sessData, cart, dispatch, routerPush, disp]);
 
