@@ -84,7 +84,7 @@ const IntentCart: FC = () => {
   }, [sessData, cart, dispatch, routerPush, disp]);
 
   useEffect(() => {
-    // console.log({ asPath });
+    console.log({ asPath });
 
     // if(asPath !== "/signin"){
     handleOrder();
