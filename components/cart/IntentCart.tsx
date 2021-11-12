@@ -2,7 +2,7 @@
 import type { FC } from "react";
 import { useEffect, useCallback } from "react";
 import tw, { css, styled, theme } from "twin.macro";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useActor } from "@xstate/react";
 
 import { useSession } from "next-auth/react";
