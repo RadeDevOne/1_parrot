@@ -173,10 +173,10 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
                     className="unpainted"
                     css={[
                       paint ? tw`text-__success` : tw``,
-                      tw`flex align-items[center] user-select[none]`,
+                      tw`pointer-events-none flex align-items[center] cursor-default user-select[none]`,
                     ]}
                   >
-                    <span tw="mr-0.5">{name}</span>
+                    <span tw="mr-0.5 cursor-default">{name}</span>
                     <span>
                       <Icon />
                     </span>
