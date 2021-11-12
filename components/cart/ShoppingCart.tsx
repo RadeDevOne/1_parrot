@@ -10,6 +10,8 @@ import { headerNCartService, fse } from "@/machines/header_n_cart_machine";
 
 import CartWrapper from "./CartWrapper";
 
+import IntentCart from "./IntentCart";
+
 import useIsMounted from "@/hooks/useIsMounted";
 
 const ShoppingCart: FC = () => {
@@ -91,6 +93,7 @@ const ShoppingCart: FC = () => {
           </section>
         </>
       )}
+      <IntentCart />
     </>
   );
 };

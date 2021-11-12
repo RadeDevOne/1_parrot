@@ -20,6 +20,8 @@ import {
 
 import type { ResData } from "@/pages/api/order/create/[profileId]";
 
+import { CHECKOUT_INTENT_ORDER } from "./IntentCart";
+
 const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
   const { data: sessData, status } = useSession();
 
@@ -34,6 +36,8 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
     const { cart } = context;
 
     if (!sessData) {
+      localStorage.setItem(CHECKOUT_INTENT_ORDER, "setted");
+
       rouPush("/signin");
       disp({
         type: EEE.TOGGLE,
@@ -41,6 +45,8 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
       return;
     }
     if (status !== "authenticated") {
+      localStorage.setItem(CHECKOUT_INTENT_ORDER, "setted");
+
       rouPush("/signin");
       disp({
         type: EEE.TOGGLE,
