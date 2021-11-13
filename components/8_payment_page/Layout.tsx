@@ -8,12 +8,15 @@ import Lorem from "@/components/dev-helpers/Lorem";
 
 import ShipPayOrdBreadcrumbs from "@/components/breadcrumbs/ShipPayOrdBreadcrumbs";
 
+import PickPayment from "./PickPayment";
+
 const Layout: FC<PropsI> = ({ order }) => {
   // console.log({ favorites });
 
   return (
     <main css={[tw``, tw``]}>
       <ShipPayOrdBreadcrumbs orderId={order.id} />
+      <PickPayment />
     </main>
   );
 };
