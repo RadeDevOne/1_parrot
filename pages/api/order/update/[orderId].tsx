@@ -10,7 +10,6 @@ import type { CartType } from "@/lib/storage";
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
-import validateProfileId from "@/middlewares/validateProfileId";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -41,7 +40,7 @@ export interface ResData {
 
 // MIDDLEWARES
 handler.use(verifyUserMiddleware);
-handler.use(validateProfileId);
+// handler.use(validateProfileId);
 
 // CREATING ORDER
 
@@ -74,6 +73,22 @@ handler /* .use(profileBodyValidation) */
         );
     }
 
+    // WE SHOULD VALIDATE THAT ORDER BELONGS TO THE USER
+    // WE CAN BUILD MIDDLEWAREE BUT I DON'T HAVE TIME
+
+    const posibleOrder = await prisma.order.findFirst({
+      where: {
+        id: orderId,
+        buyerId: profile.id,
+      },
+    });
+
+    if (!posibleOrder) {
+      return res
+        .status(401)
+        .send("Unauthorized! Order that doesn't belong to the current profile");
+    }
+
     //
     // WE CAN PARSE BODY AND UPDATE ORDER
 
@@ -87,19 +102,28 @@ handler /* .use(profileBodyValidation) */
       return res.status(400).send("Body has no properties on it");
     }
     //
-    console.log({ body });
+    // console.log({ body });
 
     // HERE WE CAN UPDATE ORDER
-    /* const order = await prisma.order.create({
-      data: {
-        buyer: {
-          connect: { id: profile.id },
-        },
-      },
-    }); */
+    const data = {};
 
-    // WE WILL SEND ORDER ID
-    return res.status(200).json(body);
+    for (const key in body) {
+      // @ts-ignore
+      if (body[key]) {
+        // @ts-ignore
+        data[key] = body[key];
+      }
+    }
+
+    const updatedOrder = await prisma.order.update({
+      where: {
+        id: posibleOrder.id,
+      },
+      data,
+    });
+
+    // WE WILL SEND ENTIRE ORDER BACK
+    return res.status(200).json({ order: updatedOrder });
   });
 
 export default handler;

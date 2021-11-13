@@ -114,7 +114,7 @@ handler /* .use(profileBodyValidation) */
     console.log({ orderId: order.id });
 
     // WE WILL SEND ORDER ID
-    return res.status(200).json(data);
+    return res.status(201).json(data);
   });
 
 export default handler;

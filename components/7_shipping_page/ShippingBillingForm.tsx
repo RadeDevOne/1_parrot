@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 import axios from "axios";
 
-import type { Profile } from "@prisma/client";
+import type { Profile, OrderStatus } from "@prisma/client";
 
 import { useSession } from "next-auth/react";
 
@@ -108,11 +108,16 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
 
       const updatedProfile = updatedProfileData.data.updatedProfile as Profile;
 
-      // OK, LETS NOW UPDATE STATUS OF AN ORDER
+      // LETS UPDATE ORDER
 
-      // const {data: updatedOrder} = await axios.put(``)
+      const orderStatus: OrderStatus = "AWAITING_PAYMENT";
 
-      //
+      const { data: order } = await axios.put(
+        `/api/order/update/${query.orderId}`,
+        { status: orderStatus }
+      );
+
+      console.log({ updatedOrder: order });
 
       if (
         updatedProfile.nick &&
@@ -160,7 +165,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
     data,
     /* setBodyData, */ push,
     handleError,
-    query.orderId,
+    query,
   ]);
 
   if (!data) {
