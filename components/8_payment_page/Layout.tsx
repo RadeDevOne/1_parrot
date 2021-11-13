@@ -16,7 +16,7 @@ const Layout: FC<PropsI> = ({ order }) => {
   return (
     <main css={[tw``, tw``]}>
       <ShipPayOrdBreadcrumbs orderId={order.id} />
-      <PickPayment />
+      <PickPayment order={order} />
     </main>
   );
 };

@@ -53,6 +53,22 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
+  // WE NEED TO CHECK IF ORDER ISN'T IN PENDING STATE
+  // IF ORDER IS IN PENDING STATE, WE SHOULD REDIRECT
+  // TO /shipping/<orderId>
+
+  if (order.status === "PENDING") {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: {
+        destination: `/shipping/${order.id}`,
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       order,
