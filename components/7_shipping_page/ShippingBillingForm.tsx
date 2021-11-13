@@ -99,12 +99,20 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
     try {
       setReqStatus("pending");
 
+      // DON'T FORGET TO ALSO UPDATE STATUS OF AN ORDER
+
       const updatedProfileData = await axios.put(
         `/api/profile/${data.profile.id}`,
         bodyData
       );
 
       const updatedProfile = updatedProfileData.data.updatedProfile as Profile;
+
+      // OK, LETS NOW UPDATE STATUS OF AN ORDER
+
+      // const {data: updatedOrder} = await axios.put(``)
+
+      //
 
       if (
         updatedProfile.nick &&
@@ -146,7 +154,14 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
 
       setReqStatus("idle");
     }
-  }, [setReqStatus, bodyData, data, /* setBodyData, */ push, handleError]);
+  }, [
+    setReqStatus,
+    bodyData,
+    data,
+    /* setBodyData, */ push,
+    handleError,
+    query.orderId,
+  ]);
 
   if (!data) {
     return null;
