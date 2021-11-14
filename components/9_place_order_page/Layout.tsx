@@ -11,6 +11,10 @@ import ShipPayOrdBreadcrumbs from "@/components/breadcrumbs/ShipPayOrdBreadcrumb
 const Layout: FC<PropsI> = ({ order }) => {
   // console.log({ favorites });
 
+  console.log("Place Order Page")
+  console.log({order})
+
+
   return (
     <main css={[tw``, tw``]}>
       <ShipPayOrdBreadcrumbs orderId={order.id} />
