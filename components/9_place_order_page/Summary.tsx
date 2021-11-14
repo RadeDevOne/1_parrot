@@ -4,6 +4,12 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import type { ExpectedDataProps as PropsI } from "@/pages/place-order/[orderId]";
 
+import calculateOrderPrice from "@/lib/order/calculateOrderPrice";
+
+import countries from "../../countries_n_states/3_countries_by_key.json";
+import states from "../../countries_n_states/3_countries_by_key.json";
+//
+
 const Summary: FC<PropsI> = ({ order }) => {
   if (!order) {
     return null;
@@ -11,10 +17,26 @@ const Summary: FC<PropsI> = ({ order }) => {
 
   //
   //
-  const { buyer, items } = order;
+  const totalPrice = calculateOrderPrice(order);
 
-  const { email, city, country, streetAddress, postalCode, nick: name } = buyer;
-
+  const buyerKeys = [
+    "nick",
+    "email",
+    "country",
+    "regionOrState",
+    "city",
+    "streetAddress",
+    "postalCode",
+  ];
+  const lables = {
+    nick: "Name",
+    email: "Email",
+    country: "Country",
+    regionOrState: "State",
+    city: "City",
+    streetAddress: "Address",
+    postalCode: "ZIP",
+  };
   //
   //
   return (
@@ -95,97 +117,33 @@ const Summary: FC<PropsI> = ({ order }) => {
               <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
                 Shipping & Billing Information
               </h2>
-              <fieldset tw="mb-3 shadow-lg rounded text-gray-600">
-                <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                  <span tw="text-right px-2">Name</span>
-                  <input
-                    name="name"
-                    tw="focus:outline-none px-3"
-                    placeholder="Try Odinsson"
-                    required={true}
-                  />
-                </label>
-                <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                  <span tw="text-right px-2">Email</span>
-                  <input
-                    name="email"
-                    type="email"
-                    tw="focus:outline-none px-3"
-                    placeholder="try@example.com"
-                    required={true}
-                  />
-                </label>
-                <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                  <span tw="text-right px-2">Address</span>
-                  <input
-                    name="address"
-                    tw="focus:outline-none px-3"
-                    placeholder="10 Street XYZ 654"
-                  />
-                </label>
-                <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
-                  <span tw="text-right px-2">City</span>
-                  <input
-                    name="city"
-                    tw="focus:outline-none px-3"
-                    placeholder="San Francisco"
-                  />
-                </label>
-                <label tw="inline-flex w-2/4 border-gray-200 py-3">
-                  <span tw="text-right px-2">State</span>
-                  <input
-                    name="state"
-                    tw="focus:outline-none px-3"
-                    placeholder="CA"
-                  />
-                </label>
-                <label tw="xl:w-1/4 xl:inline-flex py-3 items-center flex xl:border-none border-t border-gray-200 py-3">
-                  <span tw="text-right px-2 xl:px-0 ">ZIP</span>
-                  <input
-                    name="postal_code"
-                    tw="focus:outline-none px-3"
-                    placeholder="98603"
-                  />
-                </label>
-                <label tw="flex border-t border-gray-200 h-12 py-3 items-center relative">
-                  <span tw="text-right px-2">Country</span>
-                  <div
-                    id="country"
-                    tw="focus:outline-none px-3 w-full flex items-center"
-                  >
-                    <select
-                      name="country"
-                      tw="border-none bg-transparent flex-1 cursor-pointer appearance-none focus:outline-none"
+              <div tw="mb-3 shadow-lg rounded text-gray-600">
+                {buyerKeys.map((key) => {
+                  // @ts-ignore
+                  const v: string = order.buyer[key];
+                  // @ts-ignore
+                  const l: string = lables[key];
+                  // @ts-ignore
+                  let value = l === "Country" ? countries[v]["name"] : v;
+                  // @ts-ignore
+                  value =
+                    v === "US" && l === "State" ? states[v]["name"] : value;
+
+                  if (v !== "US" && l === "State") {
+                    return null;
+                  }
+
+                  return (
+                    <span
+                      key={key}
+                      tw="flex border-b border-gray-200 h-12 py-3 items-center"
                     >
-                      <option value="AU">Australia</option>
-                      <option value="BE">Belgium</option>
-                      <option value="BR">Brazil</option>
-                      <option value="CA">Canada</option>
-                      <option value="CN">China</option>
-                      <option value="DK">Denmark</option>
-                      <option value="FI">Finland</option>
-                      <option value="FR">France</option>
-                      <option value="DE">Germany</option>
-                      <option value="HK">Hong Kong</option>
-                      <option value="IE">Ireland</option>
-                      <option value="IT">Italy</option>
-                      <option value="JP">Japan</option>
-                      <option value="LU">Luxembourg</option>
-                      <option value="MX">Mexico</option>
-                      <option value="NL">Netherlands</option>
-                      <option value="PL">Poland</option>
-                      <option value="PT">Portugal</option>
-                      <option value="SG">Singapore</option>
-                      <option value="ES">Spain</option>
-                      <option value="TN">Tunisia</option>
-                      <option value="GB">United Kingdom</option>
-                      <option value="US" selected={true}>
-                        United States
-                      </option>
-                    </select>
-                  </div>
-                </label>
-              </fieldset>
+                      <span>{l}</span>
+                      <span tw="ml-auto">{value}</span>
+                    </span>
+                  );
+                })}
+              </div>
             </section>
           </div>
           <div tw="rounded-md lg:mx-2 mx-4">
