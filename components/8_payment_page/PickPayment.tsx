@@ -1,16 +1,35 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useCallback } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import type { Order, PaymentProvider } from "@prisma/client";
+
+import { useRouter } from "next/router";
+
+import axios from "axios";
 
 import CreditCardIcon from "@/svgs/inline/CreditCard.svg";
 
 const PickPayment: FC<{ order: Order }> = ({ order }) => {
+  const { push: routerPush } = useRouter();
+
   const [paymentProvider, setPaymentProvider] =
     useState<PaymentProvider | null>(null);
 
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+
+  const handlePaymentUpdate = useCallback(async () => {
+    if (!paymentProvider) return;
+
+    try {
+      //
+      //
+    } catch (err) {
+      console.error(err);
+      //
+      //
+    }
+  }, [paymentProvider]);
 
   const paymentMethod: {
     value: PaymentProvider;
