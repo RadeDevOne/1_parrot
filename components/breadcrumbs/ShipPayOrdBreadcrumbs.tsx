@@ -152,6 +152,8 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
                         !paint
                           ? tw``
                           : css`
+                              ${tw`light:fill[#117761]`}
+
                               fill: ${theme`colors.__success`};
                             `,
                       ]}
@@ -163,7 +165,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
                   <Link href={path}>
                     <a
                       css={[
-                        paint ? tw`text-__success` : tw``,
+                        paint ? tw`text-__success light:color[#117761]` : tw``,
                         tw`flex align-items[center]`,
                       ]}
                     >
@@ -177,7 +179,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
                   <span
                     className="unpainted"
                     css={[
-                      paint ? tw`text-__success` : tw``,
+                      paint ? tw`text-__success light:color[#0c5848]` : tw``,
                       tw`pointer-events-none flex align-items[center] cursor-default user-select[none]`,
                     ]}
                   >

@@ -49,7 +49,7 @@ const Summary: FC<PropsI> = ({ order }) => {
   return (
     <section css={[tw`mt-24`]}>
       <div tw="grid grid-cols-3">
-        <div tw="rounded-t-md dark:bg-gray-700 bg-l pb-6 col-span-3 lg:col-span-1 lg:mx-2 mx-4">
+        <div tw="rounded-t-md dark:bg-gray-700 bg-__secondary_dark pb-6 col-span-3 lg:col-span-1 lg:mx-2 mx-4">
           <h1 tw=" py-6 border-b-2 text-xl text-gray-600 px-8">
             Order Summary
           </h1>
