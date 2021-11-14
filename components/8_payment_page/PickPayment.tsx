@@ -2,7 +2,7 @@
 import type { FC } from "react";
 import { Fragment, useState, useCallback } from "react";
 import tw, { css, styled, theme } from "twin.macro";
-import type { Order, PaymentProvider } from "@prisma/client";
+import type { Order, PaymentProvider, OrderStatus } from "@prisma/client";
 
 import { useRouter } from "next/router";
 
@@ -19,17 +19,41 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
 
   const handlePaymentUpdate = useCallback(async () => {
+    if (!order.id) return;
+
     if (!paymentProvider) return;
 
     try {
+      setReqStatus("pending");
+
+      // TODO
+      // SEND REQUEST TO UPDATE STATUS OF AN ORDER
+      // STATUS IS GOING TO BE
+      const orderStatus: OrderStatus = "AWAITING_ORDER_PLACEMENT";
+
+      const body: { status: OrderStatus; paymentMethod: PaymentProvider } = {
+        status: orderStatus,
+        paymentMethod: "PayPal",
+      };
+
+      const { data: d } = await axios.put(`/api/order/update/${order.id}`);
+
+      const data = d as Order;
       //
+      //
+      // TODO
+      // NAVIGATE TO PLACE ORDER PAGE
+
+      routerPush(`/place-order/${order.id}`);
+
       //
     } catch (err) {
       console.error(err);
       //
       //
+      setReqStatus("idle");
     }
-  }, [paymentProvider]);
+  }, [paymentProvider, routerPush, order, setReqStatus]);
 
   const paymentMethod: {
     value: PaymentProvider;

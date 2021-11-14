@@ -56,6 +56,18 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
+  if (order.status === "PENDING" || order.status === "AWAITING_PAYMENT") {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: {
+        destination: `/shipping/${order.id}`,
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
       order,

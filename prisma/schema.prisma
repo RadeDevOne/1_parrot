@@ -35,6 +35,8 @@ enum OrderStatus {
   // ORDER BUT STILL DIDN'T PAY FOR IT
   AWAITING_PAYMENT
   //
+  AWAITING_ORDER_PLACEMENT // THIS IS TIED ON ORDER PLACING PAGE (WHERE ACTUALL PAYMENT WITH PAYPAL IS INITIALIZED)
+  //
   //
   REJECTED // MEANS SOMETHING WENT WRONG (MAYBE PAYMENT IS REJECTED)
   FULFILLED // MENAS PAYED
@@ -298,20 +300,20 @@ model OrderElement {
 // ------------   ORDER ----------------------
 
 model Order {
-  id              String         @id @default(cuid())
-  buyer           Profile        @relation(fields: [buyerId], references: [id])
+  id              String           @id @default(cuid())
+  buyer           Profile          @relation(fields: [buyerId], references: [id])
   buyerId         String
   items           OrderElement[]
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   // WE WILL UPDATE THIS
   // WHEN WE FIND OUT STATUS FROM paymentResult
   // OR MAYBE WE WILL REMOVE THIS IN THE FUTURE
-  status          OrderStatus    @default(PENDING)
+  status          OrderStatus      @default(PENDING)
   // WE DON'T NEED THIS BECAUSE WE ALREADY HAVE    deliveredAt    ROW
   // isDelivered     Boolean        @default(false)
   // THIS IS GOING TO BE IN PERCENTS (I GUESS GOOD DEFAULT IS 14.6%)
-  taxPrice        Float?         @default(14.6)
+  taxPrice        Float?           @default(14.6)
   // I THINK THIS IS ANTI PATTERN ALSO
   // TOTAL PRICE SHOULD BE CALCULATED FROM items FIELD
   // BECAUSE THERE YOU HAVE ALL THE ITEMS AND THEIR COUNTS
@@ -322,11 +324,11 @@ model Order {
   // WE CAN PUT DEFAULT HERE ALSO
   // THIS IS NOT IN PERCENTS (THESE ARE DOLLARS AND I'LL USE STRING
   // FOR THIS VALUE)
-  shippingPrice   String         @default("5.6")
-  paymentMethod   String?
+  shippingPrice   String           @default("5.6")
+  paymentMethod   PaymentProvider?
   // PAYPAL RELATED (MYBE ALSO STRIPE OR SOME OTHER PROVIDER (FOR NOW IT IS ONLY PAYPAL
   // SINCE WE ARE NOT PLANING ON USING STRIPE))
-  paymentResult   PaymentResult? @relation(fields: [paymentResultId], references: [id])
+  paymentResult   PaymentResult?   @relation(fields: [paymentResultId], references: [id])
   //
   paymentResultId String?
   payedAt         DateTime?
