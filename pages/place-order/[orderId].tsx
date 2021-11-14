@@ -2,7 +2,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-import type { Order } from "@prisma/client";
+import type { Order, OrderElement, Product, Profile } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
 
@@ -14,7 +14,45 @@ import validateOrder from "@/lib/auth/validateOrder";
 import Layout from "@/components/9_place_order_page/Layout";
 
 export interface PropsI {
-  order: Order;
+  order: Order & {
+    items: (OrderElement & {
+      product: {
+        image: string;
+        name: string;
+        price: string;
+      };
+    })[];
+    buyer: {
+      city: string | null;
+      country: string | null;
+      postalCode: string | null;
+      nick: string | null;
+      email: string | null;
+      regionOrState: string | null;
+      streetAddress: string | null;
+    };
+  };
+}
+
+export interface ExpectedDataProps {
+  order: Order & {
+    items: (OrderElement & {
+      product: {
+        image: string;
+        name: string;
+        price: string;
+      };
+    })[];
+    buyer: {
+      city: string;
+      country: string;
+      postalCode: string;
+      nick: string;
+      email: string;
+      regionOrState: string;
+      streetAddress: string;
+    };
+  };
 }
 
 type paramsType = {
@@ -68,9 +106,56 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
+  // WE NEED TO GET ORDER AND MAKE BUNCH OF JOINS
+  // BECAUSE WE WANT ALL DATA RELATED TO ORDER
+  // WE NEED PRODUCT INFO BECAUSE ON THIS PAGE WE RE GOING
+  // TO PRESENT SUMMARY TO THE USER
+
+  const ord = await prisma.order.findUnique({
+    where: {
+      id: order.id,
+    },
+    include: {
+      items: {
+        include: {
+          product: {
+            select: {
+              image: true,
+              name: true,
+              price: true,
+            },
+          },
+        },
+      },
+      buyer: {
+        select: {
+          city: true,
+          country: true,
+          postalCode: true,
+          nick: true,
+          email: true,
+          regionOrState: true,
+          streetAddress: true,
+        },
+      },
+    },
+  });
+
+  if (!ord) {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: {
+        destination: `/`,
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: {
-      order,
+      order: ord,
     },
   };
 };
@@ -82,7 +167,7 @@ const PlaceOrderPage: NP<PropsI> = (props) => {
 
   return (
     <div>
-      <Layout order={props.order} />
+      <Layout order={props.order as ExpectedDataProps["order"]} />
     </div>
   );
 };

@@ -2,7 +2,7 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import type { PropsI } from "@/pages/place-order/[orderId]";
+import type { ExpectedDataProps as PropsI } from "@/pages/place-order/[orderId]";
 
 import Lorem from "@/components/dev-helpers/Lorem";
 
@@ -18,7 +18,7 @@ const Layout: FC<PropsI> = ({ order }) => {
   return (
     <main css={[tw``, tw``]}>
       <ShipPayOrdBreadcrumbs orderId={order.id} />
-      <Summary />
+      <Summary order={order} />
     </main>
   );
 };

@@ -2,7 +2,21 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-const Summary: FC = () => {
+import type { ExpectedDataProps as PropsI } from "@/pages/place-order/[orderId]";
+
+const Summary: FC<PropsI> = ({ order }) => {
+  if (!order) {
+    return null;
+  }
+
+  //
+  //
+  const { buyer, items } = order;
+
+  const { email, city, country, streetAddress, postalCode, nick: name } = buyer;
+
+  //
+  //
   return (
     <section css={[tw`mt-24`]}>
       <div tw="grid grid-cols-3">
@@ -175,12 +189,12 @@ const Summary: FC = () => {
             </section>
           </div>
           <div tw="rounded-md lg:mx-2 mx-4">
-            <section tw="rounded-md dark:bg-gray-700 bg-__secondary_dark">
+            <section tw="p-6 rounded-md dark:bg-gray-700 bg-__secondary_dark">
               <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
                 Payment Information
               </h2>
               <fieldset tw=" dark:bg-gray-700 bg-__secondary_dark  mb-3 shadow-lg rounded text-gray-600">
-                <label tw="flex border-b border-gray-200 h-12 py-3 items-center">
+                <label tw="flex border-gray-200 h-12 py-3 items-center">
                   <span tw="text-right px-2">Card</span>
                   <input
                     name="card"
@@ -192,7 +206,7 @@ const Summary: FC = () => {
               </fieldset>
             </section>
           </div>
-          <button tw="px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+          <button tw="px-4 width[220px] mx-auto py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none text-xl font-semibold transition-colors">
             Pay €846.98
           </button>
         </div>
