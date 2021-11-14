@@ -97,6 +97,9 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
       css={[
         tw`fixed top[4.25rem] mx-auto w-full flex justify-center`,
         css`
+          transition-property: background-color;
+          transition-duration: 1s;
+
           /* border: crimson solid 1px; */
           margin-bottom: 66px;
 
@@ -109,7 +112,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
           }
 
           & nav {
-            ${tw`dark:background-color[#131414dc] background-color[#f1e7e7e1]`};
+            ${tw`dark:background-color[#1e1f25dc] background-color[#e8e5ecdf]`};
 
             padding: 18px;
             border-radius: 18px;

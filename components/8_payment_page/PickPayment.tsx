@@ -59,7 +59,10 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
               border-radius: 50%;
               transform: scale(0);
               transition: 120ms transform ease-in-out;
-              box-shadow: inset 1em 1em var(--form-control-color);
+
+              ${tw`dark:box-shadow[inset 1em 1em #2baf99]`};
+
+              box-shadow: inset 1em 1em #153a69;
               /* Windows High Contrast Mode */
               background-color: CanvasText;
             }
@@ -69,7 +72,9 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
             }
 
             & input[type="radio"]:focus {
-              outline: max(2px, 0.15em) solid rebeccapurple;
+              ${tw`dark:outline[max(2px, 0.15em) solid #2baf99]`};
+
+              outline: max(2px, 0.15em) solid #153a69;
               outline-offset: max(2px, 0.15em);
             }
           }
