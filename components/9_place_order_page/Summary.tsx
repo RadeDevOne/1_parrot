@@ -6,7 +6,7 @@ const Summary: FC = () => {
   return (
     <section css={[tw`mt-24`]}>
       <div tw="grid grid-cols-3">
-        <div tw="dark:bg-gray-700 bg-l pb-6 col-span-3 lg:col-span-1 lg:mx-2 mx-4">
+        <div tw="rounded-t-md dark:bg-gray-700 bg-l pb-6 col-span-3 lg:col-span-1 lg:mx-2 mx-4">
           <h1 tw=" py-6 border-b-2 text-xl text-gray-600 px-8">
             Order Summary
           </h1>
@@ -76,8 +76,8 @@ const Summary: FC = () => {
           </div>
         </div>
         <div tw="pb-8 lg:col-span-2 col-span-3 space-y-8 lg:px-12 overflow-x-hidden">
-          <div tw="rounded-md">
-            <section tw=" dark:bg-gray-700 bg-__secondary_dark">
+          <div tw="rounded-2xl lg:mx-2 mx-4 mt-8">
+            <section tw="rounded-md dark:bg-gray-700 bg-__secondary_dark p-6">
               <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
                 Shipping & Billing Information
               </h2>
@@ -174,8 +174,8 @@ const Summary: FC = () => {
               </fieldset>
             </section>
           </div>
-          <div tw="rounded-md">
-            <section tw=" dark:bg-gray-700 bg-__secondary_dark">
+          <div tw="rounded-md lg:mx-2 mx-4">
+            <section tw="rounded-md dark:bg-gray-700 bg-__secondary_dark">
               <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">
                 Payment Information
               </h2>
