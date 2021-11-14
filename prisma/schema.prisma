@@ -46,6 +46,7 @@ enum OrderStatus {
 enum PaymentProvider {
   PayPal
   Stripe
+  TwoCheckout
 }
 
 //                    NEXT-AUTH RELATED STUFF

@@ -10,17 +10,30 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
   const [paymentProvider, setPaymentProvider] =
     useState<PaymentProvider | null>(null);
 
-  const paymentMethod: { value: PaymentProvider; available: boolean }[] = [
-    { value: "PayPal", available: true },
-    { value: "Stripe", available: false },
+  const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
+
+  const paymentMethod: {
+    value: PaymentProvider;
+    available: boolean;
+    display: string;
+  }[] = [
+    { value: "PayPal", display: "PayPal", available: true },
+    { value: "Stripe", display: "Stripe", available: false },
+    { value: "TwoCheckout", display: "2Checkout", available: false },
   ];
 
-  const nonAvailable: { value: PaymentProvider; available: boolean }[] = [];
+  const nonAvailable: {
+    value: PaymentProvider;
+    available: boolean;
+    display: string;
+  }[] = [];
+
+  console.log({ paymentProvider });
 
   return (
     <div
       css={[
-        tw`rounded-sm shadow-lg mx-auto p-16 dark:bg-gray-700 bg-gray-300 md:width[460px] width[80vw]`,
+        tw`rounded-sm shadow-lg mx-auto p-12 dark:bg-gray-700 bg-gray-300 md:width[460px] width[80vw]`,
         css`
           & {
             transition-property: background-color;
@@ -83,8 +96,8 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
         tw`mt-28 border-__primary`,
       ]}
     >
-      <h2 tw="dark:text-gray-400 font-medium text-center text-xl">
-        Select Your Payment Method:
+      <h2 tw="mb-6 dark:text-gray-400 font-medium text-center text-xl">
+        Select Payment Method:
       </h2>
       <div
         css={[
@@ -98,21 +111,22 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
             /* border: pink solid 2px; */
             width: fit-content;
             margin: 0 auto;
+            margin-bottom: -18px;
+            z-index: 0;
+
+            & svg {
+              z-index: -1;
+            }
           `,
         ]}
       >
         <CreditCardIcon />
       </div>
-      {paymentMethod.map(({ available, value }, i) => {
+      {paymentMethod.map(({ available, value, display }, i) => {
         //
-        //
-        //
-        //
-
         if (!available) {
-          nonAvailable.push({ available, value });
+          nonAvailable.push({ available, value, display });
         }
-
         return (
           <Fragment key={i + value}>
             {available && (
@@ -125,16 +139,17 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
                       value={value}
                       name={value}
                       onChange={(e) => {
-                        console.log({ e });
+                        // console.log({ e });
                         e.target.checked = true;
+                        setPaymentProvider(value);
                       }}
-                      onBlur={(e) => {
+                      /* onBlur={(e) => {
                         console.log({ e });
                         e.target.checked = false;
-                      }}
+                      }} */
                     />
                     <span tw="ml-5 margin-bottom[4px] dark:text-gray-200">
-                      {value}
+                      {display}
                     </span>
                   </label>
                 </div>
@@ -143,14 +158,14 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
           </Fragment>
         );
       })}
-      <h2 tw="dark:text-gray-300  font-normal text-align[center] mb-6 mt-12">
+      <h2 tw="dark:text-gray-300 opacity[0.4]  font-normal text-align[center] mb-6 mt-12">
         Soon To Be Available:
       </h2>
-      {nonAvailable.map(({ available, value }, i) => {
+      {nonAvailable.map(({ available, value, display }, i) => {
         return (
           <div
             key={i + value + available}
-            tw="mt-6 flex flex-col items-center justify-center"
+            tw="opacity[0.3] mt-2 flex flex-col items-center justify-center"
           >
             <div tw="width[120px]  border-__primary_outline_focus">
               <label tw="flex align-items[center] mt-3">
@@ -170,13 +185,28 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
                   }}
                 />
                 <span tw="ml-5 margin-bottom[4px] dark:text-gray-200">
-                  {value}
+                  {display}
                 </span>
               </label>
             </div>
           </div>
         );
       })}
+      <div tw="flex mt-4 border-__primary_outline_focus">
+        <button
+          onClick={() => [console.log("click")]}
+          disabled={reqStatus === "pending" || paymentProvider === null}
+          css={[
+            reqStatus === "pending" || paymentProvider === null
+              ? tw`opacity[0.3] cursor-default`
+              : tw``,
+            tw`ml-auto mt-8 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded`,
+          ]}
+          type="submit"
+        >
+          Continue
+        </button>
+      </div>
     </div>
   );
 };
