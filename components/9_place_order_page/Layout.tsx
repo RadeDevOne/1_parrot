@@ -7,17 +7,18 @@ import type { PropsI } from "@/pages/place-order/[orderId]";
 import Lorem from "@/components/dev-helpers/Lorem";
 
 import ShipPayOrdBreadcrumbs from "@/components/breadcrumbs/ShipPayOrdBreadcrumbs";
+import Summary from "./Summary";
 
 const Layout: FC<PropsI> = ({ order }) => {
   // console.log({ favorites });
 
-  console.log("Place Order Page")
-  console.log({order})
-
+  console.log("Place Order Page");
+  console.log({ order });
 
   return (
     <main css={[tw``, tw``]}>
       <ShipPayOrdBreadcrumbs orderId={order.id} />
+      <Summary />
     </main>
   );
 };
