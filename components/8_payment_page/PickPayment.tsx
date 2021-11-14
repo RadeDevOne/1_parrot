@@ -242,7 +242,9 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
       })}
       <div tw="flex mt-4 border-__primary_outline_focus">
         <button
-          onClick={() => [console.log("click")]}
+          onClick={() => {
+            handlePaymentUpdate();
+          }}
           disabled={reqStatus === "pending" || paymentProvider === null}
           css={[
             reqStatus === "pending" || paymentProvider === null

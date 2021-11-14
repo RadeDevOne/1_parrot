@@ -150,7 +150,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
         return;
       }
 
-      setReqStatus("idle");
+      // setReqStatus("idle");
     } catch (err) {
       console.log(err);
 
@@ -443,7 +443,10 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
           <div tw="mt-4">
             <button
               disabled={reqStatus === "pending"}
-              tw="mt-8 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded"
+              css={[
+                reqStatus === "pending" ? tw`cursor-default` : tw``,
+                tw`mt-8 px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded`,
+              ]}
               type="submit"
             >
               Continue
