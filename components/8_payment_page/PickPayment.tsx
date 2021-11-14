@@ -2,8 +2,9 @@
 import type { FC } from "react";
 import { Fragment, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
-
 import type { Order, PaymentProvider } from "@prisma/client";
+
+import CreditCardIcon from "@/svgs/inline/CreditCard.svg";
 
 const PickPayment: FC<{ order: Order }> = ({ order }) => {
   const [paymentProvider, setPaymentProvider] =
@@ -14,12 +15,18 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
     { value: "Stripe", available: false },
   ];
 
+  const nonAvailable: { value: PaymentProvider; available: boolean }[] = [];
+
   return (
     <div
       css={[
+        tw`rounded-sm shadow-lg mx-auto p-16 dark:bg-gray-700 bg-gray-300 md:width[460px] width[80vw]`,
         css`
           & {
-            --form-control-color: rebeccapurple;
+            transition-property: background-color;
+            transition-duration: 1s;
+
+            --form-control-color: #2d4b5f;
 
             & input[type="radio"] {
               /* Add if not using autoprefixer */
@@ -27,7 +34,7 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
               /* Remove most all native input styles */
               appearance: none;
               /* For iOS < 15 */
-              /* background-color: var(--); */
+              /* background-color: var(--form-control-color); */
               /* Not removed via appearance */
               margin: 0;
 
@@ -35,7 +42,9 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
               color: currentColor;
               width: 1.15em;
               height: 1.15em;
-              border: 0.15em solid currentColor;
+              border-width: 0.15em;
+              border-style: solid;
+              ${tw`dark:border-color[yellow] border-color[#4036cc]`};
               border-radius: 50%;
               transform: translateY(-0.075em);
 
@@ -50,7 +59,7 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
               border-radius: 50%;
               transform: scale(0);
               transition: 120ms transform ease-in-out;
-              box-shadow: inset 1em 1em purple;
+              box-shadow: inset 1em 1em var(--form-control-color);
               /* Windows High Contrast Mode */
               background-color: CanvasText;
             }
@@ -60,45 +69,109 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
             }
 
             & input[type="radio"]:focus {
-              outline: max(2px, 0.15em) solid currentColor;
+              outline: max(2px, 0.15em) solid rebeccapurple;
               outline-offset: max(2px, 0.15em);
             }
           }
         `,
 
-        tw`mt-28 border border-__primary`,
+        tw`mt-28 border-__primary`,
       ]}
     >
-      <h2 tw="dark:text-gray-400 font-medium text-xl ml-10 mb-20">
-        Select Your Payment Method
+      <h2 tw="dark:text-gray-400 font-medium text-center text-xl">
+        Select Your Payment Method:
       </h2>
-      {paymentMethod.map(({ available, value }, i) => (
-        <div
-          key={i + value}
-          tw="border border-__hazard mt-6 flex flex-col items-center justify-center"
-        >
-          <div tw="width[120px] border border-__primary_outline_focus">
-            <label tw="flex align-items[center] mt-3">
-              <input
-                type="radio"
-                tw="h-5 w-5"
-                value={value}
-                onChange={(e) => {
-                  console.log({ e });
-                  e.target.checked = true;
-                }}
-                onBlur={(e) => {
-                  console.log({ e });
-                  e.target.checked = false;
-                }}
-              />
-              <span tw="ml-5 margin-bottom[4px] dark:text-gray-200">
-                {value}
-              </span>
-            </label>
+      <div
+        css={[
+          css`
+            ${tw`-left-5 md:left-0`}
+
+            position: relative;
+            top: -26.9px;
+            height: 180px;
+            padding: 0;
+            /* border: pink solid 2px; */
+            width: fit-content;
+            margin: 0 auto;
+          `,
+        ]}
+      >
+        <CreditCardIcon />
+      </div>
+      {paymentMethod.map(({ available, value }, i) => {
+        //
+        //
+        //
+        //
+
+        if (!available) {
+          nonAvailable.push({ available, value });
+        }
+
+        return (
+          <Fragment key={i + value}>
+            {available && (
+              <div tw="mt-6 flex flex-col items-center justify-center">
+                <div tw="width[120px]  border-__primary_outline_focus">
+                  <label tw="flex align-items[center] mt-3">
+                    <input
+                      type="radio"
+                      tw="h-5 w-5"
+                      value={value}
+                      name={value}
+                      onChange={(e) => {
+                        console.log({ e });
+                        e.target.checked = true;
+                      }}
+                      onBlur={(e) => {
+                        console.log({ e });
+                        e.target.checked = false;
+                      }}
+                    />
+                    <span tw="ml-5 margin-bottom[4px] dark:text-gray-200">
+                      {value}
+                    </span>
+                  </label>
+                </div>
+              </div>
+            )}
+          </Fragment>
+        );
+      })}
+      <h2 tw="dark:text-gray-300  font-normal text-align[center] mb-6 mt-12">
+        Soon To Be Available:
+      </h2>
+      {nonAvailable.map(({ available, value }, i) => {
+        return (
+          <div
+            key={i + value + available}
+            tw="mt-6 flex flex-col items-center justify-center"
+          >
+            <div tw="width[120px]  border-__primary_outline_focus">
+              <label tw="flex align-items[center] mt-3">
+                <input
+                  disabled={true}
+                  type="radio"
+                  tw="h-5 w-5"
+                  name={value}
+                  value={value}
+                  onChange={(e) => {
+                    console.log({ e });
+                    e.target.checked = true;
+                  }}
+                  onBlur={(e) => {
+                    console.log({ e });
+                    e.target.checked = false;
+                  }}
+                />
+                <span tw="ml-5 margin-bottom[4px] dark:text-gray-200">
+                  {value}
+                </span>
+              </label>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
