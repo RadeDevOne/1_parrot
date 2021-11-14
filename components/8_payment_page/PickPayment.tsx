@@ -36,9 +36,14 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
         paymentMethod: "PayPal",
       };
 
-      const { data: d } = await axios.put(`/api/order/update/${order.id}`);
+      const { data: d } = await axios.put(
+        `/api/order/update/${order.id}`,
+        body
+      );
 
-      const data = d as Order;
+      const updatedOrder = d as Order;
+      console.log({ updatedOrder });
+
       //
       //
       // TODO
