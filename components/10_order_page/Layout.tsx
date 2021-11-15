@@ -7,7 +7,13 @@ import Stringified from "@/components/dev-helpers/Stringified";
 
 import type { PropsI } from "@/pages/order/[orderId]";
 
-const Layout: FC<PropsI> = ({ order }) => {
+const Layout: FC<PropsI> = ({ order, sumasAndPrices }) => {
+  const status = order.status;
+
+  const notPayed = status === "AWAITING_PAYMENT_RESOLVEMENT";
+  const payed = status === "FULFILLED";
+  const orderIsPayed = notPayed === false && payed === true;
+
   // console.log({ favorites });
 
   // console.log("Place Order Page");
@@ -16,7 +22,8 @@ const Layout: FC<PropsI> = ({ order }) => {
   return (
     <main css={[tw`border-electric border`, tw``]}>
       {/*  */}
-      <Stringified data={order} />
+
+      {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />}
     </main>
   );
 };
