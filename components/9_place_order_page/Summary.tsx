@@ -1,5 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useCallback, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import type { ExpectedDataProps as PropsI } from "@/pages/place-order/[orderId]";
@@ -16,6 +17,19 @@ import states from "../../countries_n_states/3_countries_by_key.json";
 //
 
 const Summary: FC<PropsI> = ({ order }) => {
+  const [reqStatus, setReqStatus] = useState<"pending" | "idle">("idle");
+
+  const handlePlacingAnOrder = useCallback(async () => {
+    try {
+      // TODO
+      //
+    } catch (err) {
+      console.error(err);
+      //
+      //
+    }
+  }, [setReqStatus]);
+
   if (!order) {
     return null;
   }
