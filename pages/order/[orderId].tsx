@@ -4,6 +4,7 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 
 interface PropsI {
   placeholder: boolean;
+  orderId?: string;
 }
 
 type paramsType = {
@@ -19,6 +20,7 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
     return {
       props: {
         placeholder: true,
+        orderId: params?.orderId,
       },
     };
   };
@@ -28,7 +30,7 @@ const Page: NP<PropsI> = (props) => {
 
   console.log(props);
 
-  return <div>Order</div>;
+  return <div>Order {props.orderId}</div>;
 };
 
 export default Page;
