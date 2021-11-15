@@ -19,6 +19,8 @@ import states from "../../countries_n_states/3_countries_by_key.json";
 const Summary: FC<PropsI> = ({ order }) => {
   const [reqStatus, setReqStatus] = useState<"pending" | "idle">("idle");
 
+  console.log({ order });
+
   const handlePlacingAnOrder = useCallback(async () => {
     try {
       // TODO
