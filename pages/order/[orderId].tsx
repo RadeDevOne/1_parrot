@@ -16,6 +16,8 @@ import formatPrice from "@/util/formatPrice";
 
 import type { ExpectedDataProps } from "../place-order/[orderId]";
 
+import Layout from "@/components/10_order_page/Layout";
+
 export interface PropsI {
   sumasAndPrices: {
     totalPrice: number;
@@ -187,9 +189,9 @@ export const getServerSideProps: GetServerSideProps<
 const Page: NP<PropsI> = (props) => {
   //
 
-  console.log({ props });
+  // console.log({ props });
 
-  return <div>Order {props.order.id}</div>;
+  return <Layout {...props} />;
 };
 
 export default Page;

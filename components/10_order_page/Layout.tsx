@@ -2,12 +2,10 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-import type { ExpectedDataProps as PropsI } from "@/pages/place-order/[orderId]";
-
 import Lorem from "@/components/dev-helpers/Lorem";
+import Stringified from "@/components/dev-helpers/Stringified";
 
-import ShipPayOrdBreadcrumbs from "@/components/breadcrumbs/ShipPayOrdBreadcrumbs";
-import Summary from "./Summary";
+import type { PropsI } from "@/pages/order/[orderId]";
 
 const Layout: FC<PropsI> = ({ order }) => {
   // console.log({ favorites });
@@ -16,9 +14,9 @@ const Layout: FC<PropsI> = ({ order }) => {
   // console.log({ order });
 
   return (
-    <main css={[tw``, tw``]}>
-      <ShipPayOrdBreadcrumbs orderId={order.id} />
-      <Summary order={order} />
+    <main css={[tw`border-electric border`, tw``]}>
+      {/*  */}
+      <Stringified data={order} />
     </main>
   );
 };
