@@ -3,6 +3,12 @@ import type { FC } from "react";
 import { useCallback, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { useRouter } from "next/router";
+
+import axios from "axios";
+
+import type { OrderStatus } from "@prisma/client";
+
 import type { ExpectedDataProps as PropsI } from "@/pages/place-order/[orderId]";
 
 import {
@@ -19,20 +25,36 @@ import states from "../../countries_n_states/3_countries_by_key.json";
 const Summary: FC<PropsI> = ({ order }) => {
   const [reqStatus, setReqStatus] = useState<"pending" | "idle">("idle");
 
+  const { push: routerPush } = useRouter();
+
   console.log({ order });
 
   const handlePlacingAnOrder = useCallback(async () => {
+    if (!order) return;
+
+    setReqStatus("pending");
+
+    const status: OrderStatus = "AWAITING_PAYMENT_RESOLVEMENT";
+
     try {
       // TODO
       // UPDATING ORDER TO HAVE STATUS
       //  `AWAITING_PAYMENT_RESOLVEMENT`
       // NAVIGATING TO THE ORDER PAGE
+
+      const { data } = await axios.put(`/api/order/update/${order.id}`, {
+        status,
+      });
+
+      routerPush(`/order/${order.id}`);
     } catch (err) {
       console.error(err);
+
+      setReqStatus("idle");
       //
       //
     }
-  }, [setReqStatus]);
+  }, [setReqStatus, order, routerPush]);
 
   if (!order) {
     return null;
@@ -184,7 +206,17 @@ const Summary: FC<PropsI> = ({ order }) => {
             </section>
           </div>
           <div tw="flex justify-center">
-            <button tw="px-4 width[220px] mx-auto py-3 rounded-full bg-pink-500 text-white focus:ring focus:outline-none text-xl font-semibold transition-colors">
+            <button
+              onClick={() => {
+                handlePlacingAnOrder();
+              }}
+              disabled={reqStatus === "pending"}
+              css={[
+                reqStatus === "pending" ? tw`opacity-20 cursor-default` : tw``,
+
+                tw`px-4 width[220px] mx-auto py-3 rounded-full bg-pink-500 text-white focus:ring focus:outline-none text-xl font-semibold transition-colors`,
+              ]}
+            >
               Place An Order
             </button>
           </div>
