@@ -2,14 +2,33 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
-import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
+import prisma from "@/lib/prisma";
 
+import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
 // TODO (USE THIS)
 import validateOrder from "@/lib/auth/validateOrder";
 
-interface PropsI {
-  placeholder: boolean;
-  orderId?: string;
+import {
+  calculateTotalPrice,
+  calculatePriceWithoutShipping,
+} from "@/lib/order/calculateOrderPrice";
+import formatPrice from "@/util/formatPrice";
+
+import type { ExpectedDataProps } from "../place-order/[orderId]";
+
+export interface PropsI {
+  sumasAndPrices: {
+    totalPrice: number;
+    subtotalPrice: number;
+    taxPricePercentage: number;
+    shippingPrice: number;
+    formated: {
+      totalPrice: string;
+      subtotalPrice: string;
+      shippingPrice: string;
+    };
+  };
+  order: ExpectedDataProps["order"];
 }
 
 type paramsType = {
@@ -81,22 +100,96 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
+  // WE SHOUL DO BUNCH OF JOINS HERE BECAUSE WE WANT TO CALCULATE ALL PRICES
+
+  const orderWithMoreData = await prisma.order.findUnique({
+    where: {
+      id: order.id,
+    },
+    include: {
+      items: {
+        include: {
+          product: {
+            select: {
+              image: true,
+              name: true,
+              price: true,
+            },
+          },
+        },
+      },
+      buyer: {
+        select: {
+          city: true,
+          country: true,
+          postalCode: true,
+          nick: true,
+          email: true,
+          regionOrState: true,
+          streetAddress: true,
+        },
+      },
+    },
+  });
+
+  if (!orderWithMoreData) {
+    return {
+      props: {
+        nothing: true,
+      },
+      redirect: {
+        destination: `/`,
+        permanent: false,
+      },
+    };
+  }
+
+  const sumasAndPrices = {
+    totalPrice: calculateTotalPrice(
+      orderWithMoreData as ExpectedDataProps["order"]
+    ),
+    subtotalPrice: calculatePriceWithoutShipping(
+      orderWithMoreData as ExpectedDataProps["order"]
+    ),
+    taxPricePercentage: orderWithMoreData.taxPrice as number,
+    shippingPrice: parseFloat(orderWithMoreData.shippingPrice),
+    formated: {
+      totalPrice: "",
+      subtotalPrice: "",
+      shippingPrice: "",
+    },
+  };
+
+  sumasAndPrices["formated"].totalPrice = formatPrice(
+    sumasAndPrices.totalPrice,
+    "EUR"
+  ) as string;
+  sumasAndPrices["formated"].subtotalPrice = formatPrice(
+    sumasAndPrices.subtotalPrice,
+    "EUR"
+  ) as string;
+  sumasAndPrices["formated"].shippingPrice = formatPrice(
+    sumasAndPrices.shippingPrice,
+    "EUR"
+  ) as string;
   //
 
+  const props = {
+    sumasAndPrices,
+    order: orderWithMoreData as ExpectedDataProps["order"],
+  };
+
   return {
-    props: {
-      placeholder: true,
-      orderId: params?.orderId,
-    },
+    props,
   };
 };
 
 const Page: NP<PropsI> = (props) => {
   //
 
-  console.log(props);
+  console.log({ props });
 
-  return <div>Order {props.orderId}</div>;
+  return <div>Order {props.order.id}</div>;
 };
 
 export default Page;
