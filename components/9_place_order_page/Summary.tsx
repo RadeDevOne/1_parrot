@@ -24,7 +24,9 @@ const Summary: FC<PropsI> = ({ order }) => {
   const handlePlacingAnOrder = useCallback(async () => {
     try {
       // TODO
-      //
+      // UPDATING ORDER TO HAVE STATUS
+      //  `AWAITING_PAYMENT_RESOLVEMENT`
+      // NAVIGATING TO THE ORDER PAGE
     } catch (err) {
       console.error(err);
       //
@@ -64,8 +66,8 @@ const Summary: FC<PropsI> = ({ order }) => {
   //
   return (
     <section css={[tw`mt-24`]}>
-      <div tw="grid grid-cols-3">
-        <div tw="transition-property[background-color] duration-1000 rounded-t-md dark:bg-gray-700 bg-__secondary_dark pb-6 col-span-3 lg:col-span-1 lg:mx-2 mx-4">
+      <div tw="grid grid-cols-5">
+        <div tw="transition-property[background-color] duration-1000 rounded-t-md dark:bg-gray-700 bg-__secondary_dark pb-6 col-span-5 lg:col-span-2 lg:mx-2 mx-2">
           <h1 tw=" py-6 border-b-2 dark:border-gray-500 text-xl text-gray-600 dark:text-gray-400 px-8">
             Order Summary
           </h1>
@@ -130,7 +132,7 @@ const Summary: FC<PropsI> = ({ order }) => {
             </span>
           </div>
         </div>
-        <div tw="pb-8 lg:col-span-2 col-span-3 space-y-8 lg:px-12 overflow-x-hidden">
+        <div tw="pb-8 lg:col-span-3 col-span-5 space-y-8 lg:px-12 overflow-x-hidden">
           <div tw="rounded-2xl lg:mx-2 mx-4 mt-8">
             <section tw="transition-property[background-color] duration-1000 rounded-md dark:bg-gray-700 bg-__secondary_dark p-6">
               <h2 tw="uppercase tracking-wide text-lg font-semibold text-gray-700 dark:text-gray-400 my-2">
