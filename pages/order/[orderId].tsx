@@ -17,6 +17,17 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 
     params?.orderId; //
 
+    // TODO
+    // CHECKING AUTHENTICATION/AUTHORIZATION
+    // REDIRECTING IF SOMETHING IS WRONG
+    // FETCHING ORDER
+    // MAKING CALCULATIONS
+    // PASSING TOTAL PRICE
+    // AND SUBTOTAL PRICE
+    // AND SHIPPING PRICE, AND MAYBE SOME OTHER THINGS
+    // NAME OF THE USER
+    // AND MAYBE ALSO A ID OF AN ORDER
+
     return {
       props: {
         placeholder: true,
