@@ -110,7 +110,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
 
       // LETS UPDATE ORDER
 
-      const orderStatus: OrderStatus = "AWAITING_PAYMENT";
+      const orderStatus: OrderStatus = "AWAITING_PAYMENT_METHOD";
 
       const { data: order } = await axios.put(
         `/api/order/update/${query.orderId}`,

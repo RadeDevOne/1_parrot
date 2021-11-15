@@ -94,7 +94,10 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
-  if (order.status === "PENDING" || order.status === "AWAITING_PAYMENT") {
+  if (
+    order.status === "PENDING" ||
+    order.status === "AWAITING_PAYMENT_METHOD"
+  ) {
     return {
       props: {
         nothing: true,

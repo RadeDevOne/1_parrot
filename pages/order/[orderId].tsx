@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<
 
   if (
     order.status === "PENDING" ||
-    order.status === "AWAITING_PAYMENT" ||
+    order.status === "AWAITING_PAYMENT_METHOD" ||
     order.status === "AWAITING_ORDER_PLACEMENT"
   ) {
     return {
