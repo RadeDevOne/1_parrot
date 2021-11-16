@@ -4,6 +4,7 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import Lorem from "@/components/dev-helpers/Lorem";
 import Stringified from "@/components/dev-helpers/Stringified";
+import PayPalThing from "./PayPalThing";
 
 import type { PropsI } from "@/pages/order/[orderId]";
 
@@ -22,8 +23,8 @@ const Layout: FC<PropsI> = ({ order, sumasAndPrices }) => {
   return (
     <main css={[tw`border-electric border`, tw``]}>
       {/*  */}
-
-      {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />}
+      {/* {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />} */}
+      <PayPalThing order={order} sumasAndPrices={sumasAndPrices} />
     </main>
   );
 };
