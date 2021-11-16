@@ -21,7 +21,7 @@ const Layout: FC<PropsI> = ({ order, sumasAndPrices }) => {
   // console.log({ order });
 
   return (
-    <main css={[tw`border-electric border h-screen`, tw``]}>
+    <main css={[tw``, tw``]}>
       {/*  */}
       {/* {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />} */}
       <PayPalThing order={order} sumasAndPrices={sumasAndPrices} />

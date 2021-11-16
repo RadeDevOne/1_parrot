@@ -57,7 +57,7 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
     return null;
   }
 
-  console.log({ orderIsPayed, isPending, paymentButtonsHidden });
+  // console.log({ orderIsPayed, isPending, paymentButtonsHidden });
 
   return (
     <Fragment>

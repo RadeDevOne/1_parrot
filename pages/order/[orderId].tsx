@@ -206,7 +206,7 @@ const Page: NP<PropsI> = (props) => {
       }}
       deferLoading
     >
-      <Layout {...props} />;
+      <Layout {...props} />
     </PayPalScriptProvider>
   );
 };
