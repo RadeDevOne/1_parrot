@@ -26,6 +26,8 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
 
   // const orderStatus = order.status;
 
+  const { push: routerPush } = useRouter();
+
   const orderIsPayed =
     order.status === "FULFILLED" || order.status === "DELIVERED";
 
@@ -50,10 +52,53 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
   }
 
   return (
-    <section css={[tw``]}>
-      {/*  */}
-      {/*  */}
-    </section>
+    <Fragment>
+      {!orderIsPayed && (
+        <div className="paypal-buttons">
+          {isPending ? (
+            <Loader size={52} color="#eed85a" />
+          ) : (
+            <PayPalButtons
+              // THIS IS PAYPAL ORDER CREATION
+              // LIKE YOU SEE THAT IS PAYPAL THING
+              // SINCE WE ARE NOT USING PRISMA
+              createOrder={async (__, actions) => {
+                const paypalOrderId = await actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        currency_code: "EUR",
+                        value: sumasAndPrices.totalPrice.toString(),
+                      },
+                    },
+                  ],
+                });
+
+                return paypalOrderId;
+              }}
+              // ON ERROR
+              onError={(err) => {
+                routerPush("/payment-error");
+              }}
+              // HERE WE CAN ANTICIPATE PAYPAL ORDER CREATION
+              // AND WE CAN SEND REQUEST CREATE PaymentResult
+              // RECORD IN OUR DATBASE AND WE CAN UPDATE OUR ORDER
+              // RECORD AND CONNECT PAYMENT RESULT TO IT
+              onApprove={async (data, actions) => {
+                //
+                try {
+                  //
+                  //
+                } catch (err) {
+                  //
+                  //
+                }
+              }}
+            />
+          )}
+        </div>
+      )}
+    </Fragment>
   );
 };
 

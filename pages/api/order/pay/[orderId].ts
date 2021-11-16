@@ -5,8 +5,6 @@ import prisma from "@/lib/prisma";
 import type { Order, OrderStatus } from "@prisma/client";
 // import { getSession } from "next-auth/react";
 
-import type { CartType } from "@/lib/storage";
-
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
@@ -14,13 +12,7 @@ import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 export interface BodyDataI {
-  status?: OrderStatus;
-  taxPrice?: string;
-  shippingPrice?: string;
-  paymentMethod?: string;
-  paymentResultId?: string;
-  payedAt?: Date;
-  deliveredAt?: Date;
+  placeholder: boolean;
 }
 
 export interface ResData {
@@ -42,7 +34,7 @@ export interface ResData {
 handler.use(verifyUserMiddleware);
 // handler.use(validateProfileId);
 
-// UPDATING ORDER
+// CREATING PAYMENT RESULT AND UPDATING ORDER
 
 handler /* .use(profileBodyValidation) */
   .put(async (req, res) => {
@@ -104,26 +96,10 @@ handler /* .use(profileBodyValidation) */
     //
     // console.log({ body });
 
-    // HERE WE CAN UPDATE ORDER
-    const data = {};
-
-    for (const key in body) {
-      // @ts-ignore
-      if (body[key]) {
-        // @ts-ignore
-        data[key] = body[key];
-      }
-    }
-
-    const updatedOrder = await prisma.order.update({
-      where: {
-        id: posibleOrder.id,
-      },
-      data,
-    });
+    console.log({ body });
 
     // WE WILL SEND ENTIRE ORDER BACK
-    return res.status(200).json({ order: updatedOrder });
+    return res.status(200).json("happened");
   });
 
 export default handler;
