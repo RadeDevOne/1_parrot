@@ -6,10 +6,13 @@ import Lorem from "@/components/dev-helpers/Lorem";
 import Stringified from "@/components/dev-helpers/Stringified";
 // import PayPalThing from "./PayPalThing";
 import PaymentButtons from "./PaymentButtons";
+import OrderDetails from "./OrderDetails";
 
 import type { PropsI } from "@/pages/order/[orderId]";
 
-const Layout: FC<PropsI> = ({ order, sumasAndPrices }) => {
+const Layout: FC<PropsI> = (props) => {
+  const { order, sumasAndPrices } = props;
+
   const status = order.status;
 
   const notPayed = status === "AWAITING_PAYMENT_RESOLVEMENT";
@@ -26,6 +29,7 @@ const Layout: FC<PropsI> = ({ order, sumasAndPrices }) => {
       {/*  */}
       {/* {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />} */}
       {/* <PayPalThing order={order} sumasAndPrices={sumasAndPrices} /> */}
+      <OrderDetails {...props} />
       <PaymentButtons order={order} sumasAndPrices={sumasAndPrices} />
     </main>
   );
