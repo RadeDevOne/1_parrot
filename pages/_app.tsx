@@ -41,14 +41,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         >
           {/* <PageLoadingIndiccator /> */}
           <Header />
-          <PayPalScriptProvider
+          {/* <PayPalScriptProvider
             options={{
               "client-id": "test",
             }}
             deferLoading
-          >
-            <Component {...pageProps} />
-          </PayPalScriptProvider>
+          > */}
+          <Component {...pageProps} />
+          {/* </PayPalScriptProvider> */}
         </DangerousThemeSettingProvider>
       </SessionProvider>
     </>

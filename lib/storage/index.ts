@@ -193,7 +193,10 @@ const eraseCart = () => {
     localStorage.setItem(CART, JSON.stringify({}));
   }
 
-  return JSON.parse(cartString);
+  // GET CART AGAIN
+  const emptyCart = localStorage.getItem(CART) as string;
+
+  return JSON.parse(emptyCart);
 };
 
 const increaseItemCount = (id: string) => {
