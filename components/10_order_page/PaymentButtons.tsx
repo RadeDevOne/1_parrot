@@ -2,15 +2,13 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
-const PaymentButtons: FC = () => {
+import type { PropsI } from "@/pages/order/[orderId]";
+import PayPalThing from "./PayPalThing";
+
+const PaymentButtons: FC<PropsI> = ({ order, sumasAndPrices }) => {
   return (
-    <section css={[tw`bg-gray-200`, tw`hover:text-indigo-600`]}>
-      <div
-        css={css`
-          background-color: ${theme`colors.electric`};
-        `}
-      ></div>
-      {/*  */}
+    <section css={[tw``, tw``]}>
+      <PayPalThing order={order} sumasAndPrices={sumasAndPrices} />
     </section>
   );
 };
