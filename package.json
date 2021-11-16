@@ -50,7 +50,7 @@
     "@emotion/styled": "^11.3.0",
     "@fontsource/inter": "^4.5.0",
     "@next-auth/prisma-adapter": "^0.5.2-next.15",
-    "@paypal/react-paypal-js": "^7.4.2",
+    "@paypal/react-paypal-js": "7.3.3",
     "@prisma/client": "^3.4.2",
     "@radedev/common": "^1.0.8",
     "@sendgrid/mail": "^7.4.7",

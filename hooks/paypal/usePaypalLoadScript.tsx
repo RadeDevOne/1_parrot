@@ -28,7 +28,7 @@ const useLoadPayPalScript = () => {
     dispatch({
       type: DISPATCH_ACTION.RESET_OPTIONS,
       value: {
-        ...options,
+        ...options.options,
         "client-id": paypalClientId,
         currency: "EUR",
       },

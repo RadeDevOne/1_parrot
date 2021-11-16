@@ -38,13 +38,12 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
   const [paymentButtonsHidden, setPaymentButtonHidden] =
     useState<boolean>(false);
 
-  console.log({ orderIsPayed, isPending, paymentButtonsHidden });
-
   useEffect(() => {
-    if (!orderIsPayed) return;
+    if (orderIsPayed) return;
 
     if (!canLoad) return;
 
+    console.log("script loaded");
     loadPayPalScript();
     setCanLoad(false);
   }, [orderIsPayed, loadPayPalScript, setCanLoad, canLoad]);
@@ -57,6 +56,8 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
   if (orderIsPayed) {
     return null;
   }
+
+  console.log({ orderIsPayed, isPending, paymentButtonsHidden });
 
   return (
     <Fragment>
