@@ -7,7 +7,7 @@ import PayPalThing from "./PayPalThing";
 
 const PaymentButtons: FC<PropsI> = ({ order, sumasAndPrices }) => {
   return (
-    <section css={[tw``, tw``]}>
+    <section css={[tw`border border-__warning mx-2.5 md:mx-auto   md:w-96`]}>
       <PayPalThing order={order} sumasAndPrices={sumasAndPrices} />
     </section>
   );
