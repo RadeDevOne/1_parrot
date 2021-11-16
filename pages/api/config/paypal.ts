@@ -15,7 +15,7 @@ handler.get(async (req, res) => {
       .send("Not authenticated!, Acessing to Pypal Client id not allowed!");
   }
 
-  console.log(process.env.PAYPAL_CLIENT_ID);
+  // console.log(process.env.PAYPAL_CLIENT_ID);
 
   return res.status(200).send(process.env.PAYPAL_CLIENT_ID);
 });
