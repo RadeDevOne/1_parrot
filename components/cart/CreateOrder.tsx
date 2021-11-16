@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import axios from "axios";
@@ -31,6 +31,12 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
 
   const [{ value, context }, dispatch] = useActor(cartService);
   const [{ value: val }, disp] = useActor(headerNCartService);
+
+  useEffect(() => {
+    dispatch({
+      type: EE.ENABLE_MODIFY,
+    });
+  }, [val]);
 
   const handleOrderCreation = useCallback(async () => {
     const { cart } = context;
@@ -73,6 +79,9 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
       dispatch({
         type: EE.DISABLE_MODIFY,
       });
+      disp({
+        type: EEE.TOGGLE,
+      });
 
       //
       //
@@ -98,14 +107,18 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
         type: EE.ERASE,
       });
 
-      // WE CAN NAVIGATE TO SHIPPING PAGE
-      rouPush(`/shipping/${data.orderId}`);
-
-      // NOW WE CAN CLOSE CART
-      disp({
-        type: EEE.TOGGLE,
+      dispatch({
+        type: EE.ENABLE_MODIFY,
       });
 
+      // WE CAN NAVIGATE TO SHIPPING PAGE
+      rouPush(`/shipping/${data.orderId}`);
+      setReqStatus("idle");
+
+      // NOW WE CAN CLOSE CART
+      /* disp({
+        type: EEE.TOGGLE,
+      }); */
       dispatch({
         type: EE.ENABLE_MODIFY,
       });
@@ -121,6 +134,12 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
     }
     //
   }, [context, setReqStatus, sessData, status, disp, dispatch, rouPush]);
+
+  console.log(
+    context.modify_disabled,
+    val === fsee.header_visible,
+    reqStatus === "pending"
+  );
 
   return (
     <button

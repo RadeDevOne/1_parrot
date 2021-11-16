@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC, ChangeEventHandler } from "react";
-import { useState, Fragment, useCallback } from "react";
+import { useState, Fragment, useCallback, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import { useRouter } from "next/router";
@@ -9,11 +9,15 @@ import axios from "axios";
 
 import type { Profile, OrderStatus } from "@prisma/client";
 
+import { useActor } from "@xstate/react";
+
 import { useSession } from "next-auth/react";
 
 import Alert from "../alerts/Alert";
 
 import isSSR from "@/util/isSSR";
+
+import { cartService, EE } from "@/machines/cart_machine";
 
 import countries from "../../countries_n_states/1_countries.json";
 import states from "../../countries_n_states/2_states.json";
@@ -23,7 +27,9 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
 }) => {
   const { push, query } = useRouter();
 
-  console.log({ query });
+  const [_, dispatch] = useActor(cartService);
+
+  // console.log({ query });
 
   const { data, status } = useSession();
   // console.log({ initialProfilleInfo });
@@ -49,6 +55,12 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
       setErrorHappened(false);
     }, 3066);
   };
+
+  useEffect(() => {
+    dispatch({
+      type: EE.ENABLE_MODIFY,
+    });
+  }, [dispatch]);
 
   const [bodyData, setBodyData] = useState<{
     nick: string;
