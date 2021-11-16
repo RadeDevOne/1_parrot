@@ -13,6 +13,8 @@ import useLoadPayPalScript from "@/hooks/paypal/usePaypalLoadScript";
 
 import type { PropsI } from "@/pages/order/[orderId]";
 
+import type { BodyDataI } from "@/pages/api/order/pay/[orderId]";
+
 type PayPalThingPropsType = PropsI;
 
 const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
@@ -32,6 +34,9 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
     order.status === "FULFILLED" || order.status === "DELIVERED";
 
   const [canLoad, setCanLoad] = useState<boolean>(true);
+
+  const [paymentButtonsHidden, setPaymentButtonHidden] =
+    useState<boolean>(false);
 
   useEffect(() => {
     if (!orderIsPayed) return;
@@ -53,50 +58,78 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
 
   return (
     <Fragment>
-      {!orderIsPayed && (
-        <div className="paypal-buttons">
-          {isPending ? (
-            <Loader size={52} color="#eed85a" />
-          ) : (
-            <PayPalButtons
-              // THIS IS PAYPAL ORDER CREATION
-              // LIKE YOU SEE THAT IS PAYPAL THING
-              // SINCE WE ARE NOT USING PRISMA
-              createOrder={async (__, actions) => {
-                const paypalOrderId = await actions.order.create({
-                  purchase_units: [
-                    {
-                      amount: {
-                        currency_code: "EUR",
-                        value: sumasAndPrices.totalPrice.toString(),
-                      },
-                    },
-                  ],
-                });
+      {paymentButtonsHidden && (
+        <Fragment>
+          {!orderIsPayed && (
+            <div className="paypal-buttons">
+              {isPending ? (
+                <Loader size={52} color="#eed85a" />
+              ) : (
+                <PayPalButtons
+                  // THIS IS PAYPAL ORDER CREATION
+                  // LIKE YOU SEE THAT IS PAYPAL THING
+                  // SINCE WE ARE NOT USING PRISMA
+                  createOrder={async (__, actions) => {
+                    const paypalOrderId = await actions.order.create({
+                      purchase_units: [
+                        {
+                          amount: {
+                            currency_code: "EUR",
+                            value: sumasAndPrices.totalPrice.toString(),
+                          },
+                        },
+                      ],
+                    });
 
-                return paypalOrderId;
-              }}
-              // ON ERROR
-              onError={(err) => {
-                routerPush("/payment-error");
-              }}
-              // HERE WE CAN ANTICIPATE PAYPAL ORDER CREATION
-              // AND WE CAN SEND REQUEST CREATE PaymentResult
-              // RECORD IN OUR DATBASE AND WE CAN UPDATE OUR ORDER
-              // RECORD AND CONNECT PAYMENT RESULT TO IT
-              onApprove={async (data, actions) => {
-                //
-                try {
-                  //
-                  //
-                } catch (err) {
-                  //
-                  //
-                }
-              }}
-            />
+                    return paypalOrderId;
+                  }}
+                  // ON ERROR
+                  onError={(err) => {
+                    routerPush("/payment-error");
+                  }}
+                  // HERE WE CAN ANTICIPATE PAYPAL ORDER CREATION
+                  // AND WE CAN SEND REQUEST CREATE PaymentResult
+                  // RECORD IN OUR DATBASE AND WE CAN UPDATE OUR ORDER
+                  // RECORD AND CONNECT PAYMENT RESULT TO IT
+                  onApprove={async (data, actions) => {
+                    //
+
+                    const details = await actions.order.capture();
+
+                    const {
+                      id: paymentId,
+                      status,
+                      update_time,
+                      payer: { email_address },
+                    } = details;
+
+                    try {
+                      const body: BodyDataI = {
+                        payment: {
+                          email_address,
+                          paymentId,
+                          status,
+                          update_time,
+                          totalPrice: sumasAndPrices.totalPrice.toFixed(2),
+                          paymentProvider: "PayPal",
+                        },
+                      };
+
+                      //
+                      await axios.post(`/api/order/pay/${order.id}`, body);
+                      //
+                      setPaymentButtonHidden(true);
+                      //
+                    } catch (err) {
+                      //
+                      //
+                    }
+                  }}
+                />
+              )}
+            </div>
           )}
-        </div>
+        </Fragment>
       )}
     </Fragment>
   );

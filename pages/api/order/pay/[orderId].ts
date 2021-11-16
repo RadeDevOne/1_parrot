@@ -2,8 +2,10 @@ import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import prisma from "@/lib/prisma";
-import type { Order, OrderStatus } from "@prisma/client";
+import type { Order, OrderStatus, PaymentProvider } from "@prisma/client";
 // import { getSession } from "next-auth/react";
+
+// import type {} from '@paypal/react-paypal-js'
 
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
@@ -12,7 +14,19 @@ import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 export interface BodyDataI {
-  placeholder: boolean;
+  payment: {
+    paymentId: string;
+    update_time: string;
+    status:
+      | "COMPLETED"
+      | "SAVED"
+      | "APPROVED"
+      | "VOIDED"
+      | "PAYER_ACTION_REQUIRED";
+    email_address: string;
+    totalPrice: string;
+    paymentProvider: PaymentProvider;
+  };
 }
 
 export interface ResData {
@@ -37,7 +51,7 @@ handler.use(verifyUserMiddleware);
 // CREATING PAYMENT RESULT AND UPDATING ORDER
 
 handler /* .use(profileBodyValidation) */
-  .put(async (req, res) => {
+  .post(async (req, res) => {
     // @ts-ignore
     const profile = req.profile as ProfileInsert; // verifyUserMiddleware INSERS THIS
     // console.log({ profile });
@@ -82,7 +96,7 @@ handler /* .use(profileBodyValidation) */
     }
 
     //
-    // WE CAN PARSE BODY AND UPDATE ORDER
+    // WE CAN PARSE BODY AND CREATE PAYMENT RSULT RECORD
 
     const body = req.body as BodyDataI;
 
@@ -93,10 +107,35 @@ handler /* .use(profileBodyValidation) */
     if (Object.keys(body).length === 0) {
       return res.status(400).send("Body has no properties on it");
     }
-    //
-    // console.log({ body });
 
-    console.log({ body });
+    const { payment } = body;
+
+    const paymentResult = await prisma.paymentResult.create({
+      data: {
+        paymentId: payment.paymentId,
+        paymentProvider: "PayPal",
+        totalPrice: payment.totalPrice,
+        email: payment.email_address,
+        status: payment.status,
+        update_time: payment.update_time,
+        orders: {
+          connect: {
+            id: posibleOrder.id,
+          },
+        },
+      },
+    });
+
+    // WE CAN NOW UPDATE ORDER RECORD (HIS STATUS)
+
+    const updatedOrder = await prisma.order.update({
+      where: {
+        id: posibleOrder.id,
+      },
+      data: {
+        status: "FULFILLED",
+      },
+    });
 
     // WE WILL SEND ENTIRE ORDER BACK
     return res.status(200).json("happened");
