@@ -13,7 +13,7 @@ import useLoadPayPalScript from "@/hooks/paypal/usePaypalLoadScript";
 
 import type { PropsI } from "@/pages/order/[orderId]";
 
-import type { BodyDataI } from "@/pages/api/order/pay/[orderId]";
+import type { BodyDataI, ResData } from "@/pages/api/order/pay/[orderId]";
 
 type PayPalThingPropsType = PropsI;
 
@@ -116,8 +116,16 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
                       };
 
                       //
-                      await axios.post(`/api/order/pay/${order.id}`, body);
+                      const { data: d } = await axios.post(
+                        `/api/order/pay/${order.id}`,
+                        body
+                      );
                       //
+                      const updatedData: ResData = d as ResData;
+                      //
+
+                      console.log({ updatedData });
+
                       setPaymentButtonHidden(true);
                       //
                     } catch (err) {

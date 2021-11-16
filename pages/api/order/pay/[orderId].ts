@@ -2,7 +2,12 @@ import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import prisma from "@/lib/prisma";
-import type { Order, OrderStatus, PaymentProvider } from "@prisma/client";
+import type {
+  Order,
+  OrderStatus,
+  PaymentProvider,
+  PaymentResult,
+} from "@prisma/client";
 // import { getSession } from "next-auth/react";
 
 // import type {} from '@paypal/react-paypal-js'
@@ -30,7 +35,8 @@ export interface BodyDataI {
 }
 
 export interface ResData {
-  orderId: string;
+  order: Order;
+  paymentResult: PaymentResult;
 }
 
 // todo (DONE: CartType IMPORTED)
@@ -137,8 +143,12 @@ handler /* .use(profileBodyValidation) */
       },
     });
 
-    // WE WILL SEND ENTIRE ORDER BACK
-    return res.status(200).json("happened");
+    // WE CAN SEN PAYMENTRESULT RECORD AND ORDER BACK
+
+    return res.status(200).json({
+      paymentResult,
+      order: updatedOrder,
+    });
   });
 
 export default handler;
