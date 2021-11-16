@@ -2,6 +2,12 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { GetServerSideProps, NextPage as NP } from "next";
 
+// WE ARE GOING TO USE PAYPAL PROVIDER JUST ON THIS
+// PAGE
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+//
+//
+
 import prisma from "@/lib/prisma";
 
 import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
@@ -191,7 +197,16 @@ const Page: NP<PropsI> = (props) => {
 
   // console.log({ props });
 
-  return <Layout {...props} />;
+  return (
+    <PayPalScriptProvider
+      options={{
+        "client-id": "test",
+      }}
+      deferLoading
+    >
+      <Layout {...props} />;
+    </PayPalScriptProvider>
+  );
 };
 
 export default Page;
