@@ -20,6 +20,20 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
   // CHECK IF ORDER IS ALREADY PAYED
   // (IN THAT CASE WE ARE NOT SHOWING ANY PAYPAL BUTTONS)
   //
+  console.log({ order, sumasAndPrices });
+
+  const { PayPalButtons, isPending, loadPayPalScript } = useLoadPayPalScript();
+
+  const orderStatus = order.status;
+
+  //
+  //
+  //
+  //
+
+  if (order.status === "FULFILLED" || order.status === "DELIVERED") {
+    return null;
+  }
 
   return (
     <section css={[tw``]}>
