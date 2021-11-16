@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import { ClipLoader as Loader } from "react-spinners";
 import { useRouter } from "next/router";
@@ -24,14 +24,28 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
 
   const { PayPalButtons, isPending, loadPayPalScript } = useLoadPayPalScript();
 
-  const orderStatus = order.status;
+  // const orderStatus = order.status;
+
+  const orderIsPayed =
+    order.status === "FULFILLED" || order.status === "DELIVERED";
+
+  const [canLoad, setCanLoad] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (!orderIsPayed) return;
+
+    if (!canLoad) return;
+
+    loadPayPalScript();
+    setCanLoad(false);
+  }, [orderIsPayed, loadPayPalScript, setCanLoad, canLoad]);
 
   //
   //
   //
   //
 
-  if (order.status === "FULFILLED" || order.status === "DELIVERED") {
+  if (orderIsPayed) {
     return null;
   }
 
