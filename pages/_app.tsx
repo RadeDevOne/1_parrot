@@ -6,6 +6,7 @@ import { ThemeProvider as DangerousThemeSettingProvider } from "next-themes";
 
 import { SessionProvider } from "next-auth/react";
 
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 // import type { Session } from "next-auth";
 
 import GlobalStyles from "@/styles/GlobalStyles";
@@ -40,7 +41,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         >
           {/* <PageLoadingIndiccator /> */}
           <Header />
+          {/* <PayPalScriptProvider
+            options={{
+              "client-id": "test",
+            }}
+            deferLoading
+          > */}
           <Component {...pageProps} />
+          {/* </PayPalScriptProvider> */}
         </DangerousThemeSettingProvider>
       </SessionProvider>
     </>

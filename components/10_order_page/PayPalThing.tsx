@@ -38,6 +38,8 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
   const [paymentButtonsHidden, setPaymentButtonHidden] =
     useState<boolean>(false);
 
+  console.log({ orderIsPayed, isPending, paymentButtonsHidden });
+
   useEffect(() => {
     if (!orderIsPayed) return;
 
@@ -58,7 +60,7 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
 
   return (
     <Fragment>
-      {paymentButtonsHidden && (
+      {!paymentButtonsHidden && (
         <Fragment>
           {!orderIsPayed && (
             <div className="paypal-buttons">
