@@ -7,6 +7,7 @@ import Stringified from "@/components/dev-helpers/Stringified";
 // import PayPalThing from "./PayPalThing";
 import PaymentButtons from "./PaymentButtons";
 import OrderDetails from "./OrderDetails";
+import PriceInfo from "./PriceInfo";
 
 import type { PropsI } from "@/pages/order/[orderId]";
 
@@ -29,8 +30,9 @@ const Layout: FC<PropsI> = (props) => {
       {/*  */}
       {/* {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />} */}
       {/* <PayPalThing order={order} sumasAndPrices={sumasAndPrices} /> */}
-      <OrderDetails {...props} />
+      <PriceInfo prices={sumasAndPrices} />
       <PaymentButtons order={order} sumasAndPrices={sumasAndPrices} />
+      <OrderDetails {...props} />
     </main>
   );
 };
