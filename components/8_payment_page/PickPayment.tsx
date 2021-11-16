@@ -65,7 +65,11 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
     available: boolean;
     display: string;
   }[] = [
-    { value: "PayPal", display: "PayPal", available: true },
+    {
+      value: "PayPal",
+      display: "PayPal (or Credit/Debit Card)",
+      available: true,
+    },
     { value: "Stripe", display: "Stripe", available: false },
     { value: "TwoCheckout", display: "2Checkout", available: false },
   ];
