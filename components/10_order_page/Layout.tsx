@@ -28,14 +28,14 @@ const Layout: FC<PropsI> = (props) => {
   return (
     <main
       css={[
-        tw`overflow-y-scroll flex flex-col fixed right-0 bottom-0 left-0 top-14 align-content[center] align-items[center] justify-center`,
+        tw`min-height[89.8vh]  flex flex-col align-content[center] align-items[center] justify-center`,
         tw``,
       ]}
     >
       {/*  */}
       {/* {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />} */}
       {/* <PayPalThing order={order} sumasAndPrices={sumasAndPrices} /> */}
-      <PriceInfo prices={sumasAndPrices} />
+      {/* <PriceInfo prices={sumasAndPrices} /> */}
       <PaymentButtons order={order} sumasAndPrices={sumasAndPrices} />
       {/* <OrderDetails {...props} /> */}
     </main>

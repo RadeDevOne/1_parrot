@@ -42,7 +42,7 @@ const Header: FC = ({ children }) => {
             transition-property: background-color;
             transition-duration: 600ms;
           `,
-          tw`overflow-hidden md:overflow-visible z-10 sticky top-0 dark:bg-gray-800 light:bg-l`,
+          tw`overflow-hidden md:overflow-visible z-index[2000] sticky top-0 dark:bg-gray-800 light:bg-l`,
         ]}
       >
         <PageLoadingIndiccator />
