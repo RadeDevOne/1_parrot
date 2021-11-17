@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import { ClipLoader as Loader } from "react-spinners";
 import { useRouter } from "next/router";
+import { useActor } from "@xstate/react";
 
 import axios from "axios";
 
@@ -15,6 +16,8 @@ import type { PropsI } from "@/pages/order/[orderId]";
 
 import type { BodyDataI, ResData } from "@/pages/api/order/pay/[orderId]";
 
+import { EE, orderService } from "@/machines/order_machine";
+
 type PayPalThingPropsType = PropsI;
 
 const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
@@ -22,7 +25,9 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
   // CHECK IF ORDER IS ALREADY PAYED
   // (IN THAT CASE WE ARE NOT SHOWING ANY PAYPAL BUTTONS)
   //
-  console.log({ order, sumasAndPrices });
+  // console.log({ order, sumasAndPrices });
+
+  const [_, dispatch] = useActor(orderService);
 
   const { PayPalButtons, isPending, loadPayPalScript } = useLoadPayPalScript();
 
@@ -132,12 +137,19 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
                       const updatedData: ResData = d as ResData;
                       //
 
-                      console.log({ updatedData });
+                      // console.log({ updatedData });
+                      dispatch({
+                        type: EE.GIVE_NEW_ORDER,
+                        // @ts-ignore
+                        payload: updatedData,
+                      });
 
                       setPaymentButtonHidden(true);
                       //
                     } catch (err) {
                       //
+                      console.error(err);
+
                       //
                     }
                   }}

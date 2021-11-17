@@ -2,11 +2,13 @@ import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 import prisma from "@/lib/prisma";
+
 import type {
   Order,
   OrderStatus,
   PaymentProvider,
   PaymentResult,
+  OrderElement,
 } from "@prisma/client";
 // import { getSession } from "next-auth/react";
 
@@ -15,6 +17,8 @@ import type {
 import type { ProfileInsert } from "@/pages/api/auth/[...nextauth]";
 
 import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
+
+import type { PropsI } from "@/pages/order/[orderId]";
 
 const handler = nc<NextApiRequest, NextApiResponse>();
 
@@ -34,10 +38,10 @@ export interface BodyDataI {
   };
 }
 
-export interface ResData {
-  order: Order;
-  paymentResult: PaymentResult;
-}
+export type ResData = Order & {
+  items: OrderElement[];
+  paymentResult: PaymentResult | null;
+};
 
 // todo (DONE: CartType IMPORTED)
 // export type OrderDataType = someType
@@ -116,7 +120,7 @@ handler /* .use(profileBodyValidation) */
 
     const { payment } = body;
 
-    const paymentResult = await prisma.paymentResult.create({
+    await prisma.paymentResult.create({
       data: {
         paymentId: payment.paymentId,
         paymentProvider: "PayPal",
@@ -141,12 +145,15 @@ handler /* .use(profileBodyValidation) */
       data: {
         status: "FULFILLED",
       },
+      include: {
+        paymentResult: true,
+        items: true,
+      },
     });
 
     // WE CAN SEN PAYMENTRESULT RECORD AND ORDER BACK
 
     return res.status(200).json({
-      paymentResult,
       order: updatedOrder,
     });
   });

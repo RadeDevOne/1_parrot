@@ -8,11 +8,17 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 //
 //
 
+import type { Order, OrderElement, PaymentResult } from "@prisma/client";
+
+import { useActor } from "@xstate/react";
+
 import prisma from "@/lib/prisma";
 
 import { redirectToSigninIfNoAuth } from "@/lib/intent_nav";
 // TODO (USE THIS)
 import validateOrder from "@/lib/auth/validateOrder";
+
+import useOrderService from "@/hooks/useOrderService";
 
 import {
   calculateTotalPrice,
@@ -36,7 +42,25 @@ export interface PropsI {
       shippingPrice: string;
     };
   };
-  order: ExpectedDataProps["order"];
+  order: Order & {
+    paymentResult: PaymentResult | null;
+    items: (OrderElement & {
+      product: {
+        image: string;
+        name: string;
+        price: string;
+      };
+    })[];
+    buyer: {
+      city: string;
+      country: string;
+      postalCode: string;
+      nick: string;
+      email: string;
+      regionOrState: string;
+      streetAddress: string;
+    };
+  };
 }
 
 type paramsType = {
@@ -137,6 +161,7 @@ export const getServerSideProps: GetServerSideProps<
           streetAddress: true,
         },
       },
+      paymentResult: true,
     },
   });
 
@@ -184,15 +209,17 @@ export const getServerSideProps: GetServerSideProps<
 
   const props = {
     sumasAndPrices,
-    order: orderWithMoreData as ExpectedDataProps["order"],
+    order: orderWithMoreData,
   };
 
   return {
-    props,
+    props: props as PropsI,
   };
 };
 
 const Page: NP<PropsI> = (props) => {
+  useOrderService();
+
   //
 
   // console.log({ props });
