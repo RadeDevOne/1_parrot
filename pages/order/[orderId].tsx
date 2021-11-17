@@ -197,7 +197,7 @@ const Page: NP<PropsI> = (props) => {
 
   // console.log({ props });
 
-  // return <Layout {...props} />;
+  return <Layout {...props} />;
 
   return (
     <PayPalScriptProvider

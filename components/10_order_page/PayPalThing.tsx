@@ -73,12 +73,14 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
                   // LIKE YOU SEE THAT IS PAYPAL THING
                   // SINCE WE ARE NOT USING PRISMA
                   createOrder={async (__, actions) => {
+                    console.log("CREATING ORDER");
+
                     const paypalOrderId = await actions.order.create({
                       purchase_units: [
                         {
                           amount: {
                             currency_code: "EUR",
-                            value: sumasAndPrices.totalPrice.toString(),
+                            value: sumasAndPrices.totalPrice.toFixed(2),
                           },
                         },
                       ],
@@ -98,6 +100,9 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
                     //
 
                     const details = await actions.order.capture();
+
+                    console.log("CAPTURED DETAILS");
+                    console.log({ details });
 
                     const {
                       id: paymentId,

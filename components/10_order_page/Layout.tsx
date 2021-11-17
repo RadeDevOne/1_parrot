@@ -28,7 +28,7 @@ const Layout: FC<PropsI> = (props) => {
   return (
     <main
       css={[
-        tw`flex flex-col fixed right-0 bottom-0 left-0 top-14 align-content[center] align-items[center] justify-center`,
+        tw`overflow-y-scroll flex flex-col fixed right-0 bottom-0 left-0 top-14 align-content[center] align-items[center] justify-center`,
         tw``,
       ]}
     >
