@@ -32,7 +32,8 @@ const PaymentButtons: FC<PropsI> = ({
 
   return (
     <>
-      {order.status === "FULFILLED" && <AfterPaymentView />}
+      {/* @ts-ignore */}
+      {order.status === "FULFILLED" && <AfterPaymentView order={order} />}
       {order.status !== "FULFILLED" && (
         <>
           <PriceInfo prices={sumasAndPrices} />
