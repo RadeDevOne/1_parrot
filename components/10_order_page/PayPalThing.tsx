@@ -141,7 +141,7 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
                       dispatch({
                         type: EE.GIVE_NEW_ORDER,
                         // @ts-ignore
-                        payload: updatedData,
+                        payload: updatedData.order,
                       });
 
                       setPaymentButtonHidden(true);

@@ -38,9 +38,11 @@ export interface BodyDataI {
   };
 }
 
-export type ResData = Order & {
-  items: OrderElement[];
-  paymentResult: PaymentResult | null;
+export type ResData = {
+  order: Order & {
+    items: OrderElement[];
+    paymentResult: PaymentResult | null;
+  };
 };
 
 // todo (DONE: CartType IMPORTED)

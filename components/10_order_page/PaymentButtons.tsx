@@ -19,10 +19,14 @@ const PaymentButtons: FC<PropsI> = ({
     },
   ] = useActor(orderService);
 
+  console.log({ refetchedOrderAndPaymentRecord });
+
   const order =
     refetchedOrderAndPaymentRecord !== null
       ? refetchedOrderAndPaymentRecord
       : null || initialOrder;
+
+  console.log({ order });
 
   return (
     <>
@@ -32,6 +36,7 @@ const PaymentButtons: FC<PropsI> = ({
           <section
             css={[tw`border-__warning mt-8 px-2.5 md:mx-auto w-full md:w-96`]}
           >
+            {/* @ts-ignore */}
             <PayPalThing order={order} sumasAndPrices={sumasAndPrices} />
           </section>
         </>
