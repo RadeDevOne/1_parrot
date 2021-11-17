@@ -71,7 +71,9 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
           {!orderIsPayed && (
             <div className="paypal-buttons">
               {isPending ? (
-                <Loader size={52} color="#eed85a" />
+                <div tw="flex justify-center">
+                  <Loader size={52} color="#eed85a" />
+                </div>
               ) : (
                 <PayPalButtons
                   // THIS IS PAYPAL ORDER CREATION

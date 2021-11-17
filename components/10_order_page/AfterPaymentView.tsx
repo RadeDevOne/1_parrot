@@ -5,10 +5,12 @@ import tw, { css, styled, theme } from "twin.macro";
 import type { PropsI } from "@/pages/order/[orderId]";
 import Stringified from "../dev-helpers/Stringified";
 
+import Summary from "./Summary";
+
 const AfterPaymentView: FC<{ order: PropsI["order"] }> = ({ order }) => {
   return (
     <section css={[tw``]}>
-      <div
+      {/* <div
         css={css`
           background-color: ${theme`colors.electric`};
           width: 100vw;
@@ -17,8 +19,9 @@ const AfterPaymentView: FC<{ order: PropsI["order"] }> = ({ order }) => {
         `}
       >
         <Stringified data={order} />
-      </div>
+      </div> */}
       {/*  */}
+      <Summary order={order} />
     </section>
   );
 };
