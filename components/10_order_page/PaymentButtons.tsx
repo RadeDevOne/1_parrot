@@ -19,14 +19,15 @@ const PaymentButtons: FC<PropsI> = ({
     },
   ] = useActor(orderService);
 
-  console.log({ refetchedOrderAndPaymentRecord });
+  // console.log({ refetchedOrderAndPaymentRecord });
 
   const order =
     refetchedOrderAndPaymentRecord !== null
       ? refetchedOrderAndPaymentRecord
       : null || initialOrder;
 
-  console.log({ order });
+  // console.log({ order });
+  // console.log({ initialOrder });
 
   return (
     <>
