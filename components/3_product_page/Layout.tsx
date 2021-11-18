@@ -7,11 +7,13 @@ import type { PropsI } from "@/pages/product/[productId]";
 import ProductView from "../products/ProductView";
 import Reviews from "../reviews/Reviews";
 import Alert from "../alerts/Alert";
+import LeaveAReview from "../reviews/LeaveAReview";
 
 const Layout: FC<PropsI> = ({ children, product, favorite }) => {
   return (
     <main>
       <ProductView product={product} favorite={favorite} />
+      <LeaveAReview />
       <Reviews reviews={product.reviews} />
       {children}
       {/* <Alert
