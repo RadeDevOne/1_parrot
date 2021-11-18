@@ -2,17 +2,35 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import { useActor } from "@xstate/react";
+
 import Lorem from "@/components/dev-helpers/Lorem";
 import Stringified from "@/components/dev-helpers/Stringified";
 // import PayPalThing from "./PayPalThing";
 import PaymentButtons from "./PaymentButtons";
 import OrderDetails from "./OrderDetails";
 import PriceInfo from "./PriceInfo";
+import AfterPaymentView from "./AfterPaymentView";
+
+import { orderService } from "@/machines/order_machine";
 
 import type { PropsI } from "@/pages/order/[orderId]";
 
 const Layout: FC<PropsI> = (props) => {
-  const { order, sumasAndPrices } = props;
+  const { order: initialOrder, sumasAndPrices } = props;
+
+  const [
+    {
+      context: { refetchedOrderAndPaymentRecord, updatedOrderRefetched },
+    },
+  ] = useActor(orderService);
+
+  // console.log({ refetchedOrderAndPaymentRecord });
+
+  const order =
+    refetchedOrderAndPaymentRecord !== null
+      ? refetchedOrderAndPaymentRecord
+      : null || initialOrder;
 
   const status = order.status;
 
@@ -32,6 +50,7 @@ const Layout: FC<PropsI> = (props) => {
         tw``,
       ]}
     >
+      {orderIsPayed && <AfterPaymentView order={order} />}
       {/*  */}
       {/* {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />} */}
       {/* <PayPalThing order={order} sumasAndPrices={sumasAndPrices} /> */}

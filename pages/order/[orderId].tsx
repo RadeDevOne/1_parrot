@@ -6,11 +6,14 @@ import type { GetServerSideProps, NextPage as NP } from "next";
 // PAGE
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 //
-//
 
-import type { Order, OrderElement, PaymentResult } from "@prisma/client";
-
-import { useActor } from "@xstate/react";
+import type {
+  Order,
+  OrderElement,
+  PaymentResult,
+  Profile,
+  Product,
+} from "@prisma/client";
 
 import prisma from "@/lib/prisma";
 
@@ -43,24 +46,11 @@ export interface PropsI {
     };
   };
   order: Order & {
+    buyer: Profile;
     paymentResult: PaymentResult | null;
     items: (OrderElement & {
-      product: {
-        id: string;
-        image: string;
-        name: string;
-        price: string;
-      };
+      product: Product;
     })[];
-    buyer: {
-      city: string;
-      country: string;
-      postalCode: string;
-      nick: string;
-      email: string;
-      regionOrState: string;
-      streetAddress: string;
-    };
   };
 }
 
@@ -133,7 +123,7 @@ export const getServerSideProps: GetServerSideProps<
     };
   }
 
-  // WE SHOUL DO BUNCH OF JOINS HERE BECAUSE WE WANT TO CALCULATE ALL PRICES
+  // WE SHOULD DO BUNCH OF JOINS HERE BECAUSE WE WANT TO CALCULATE ALL PRICES
 
   const orderWithMoreData = await prisma.order.findUnique({
     where: {
@@ -142,27 +132,10 @@ export const getServerSideProps: GetServerSideProps<
     include: {
       items: {
         include: {
-          product: {
-            select: {
-              id: true,
-              image: true,
-              name: true,
-              price: true,
-            },
-          },
+          product: true,
         },
       },
-      buyer: {
-        select: {
-          city: true,
-          country: true,
-          postalCode: true,
-          nick: true,
-          email: true,
-          regionOrState: true,
-          streetAddress: true,
-        },
-      },
+      buyer: true,
       paymentResult: true,
     },
   });

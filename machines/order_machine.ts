@@ -50,7 +50,7 @@ const orderMachine = createMachine<
   machineEventsGenericType,
   machineFiniteStatesGenericType
 >({
-  id: "main_machine",
+  id: "order_machine",
   initial: fse.idle,
   context: {
     updatedOrderRefetched: false,
@@ -83,8 +83,8 @@ const orderMachine = createMachine<
               },
             }),
             assign({
-              updatedOrderRefetched: (ctx, __) => {
-                return ctx.refetchedOrderAndPaymentRecord !== null;
+              updatedOrderRefetched: (ctx, e) => {
+                return true;
               },
             }),
           ],

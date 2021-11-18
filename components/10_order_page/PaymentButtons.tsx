@@ -6,7 +6,6 @@ import tw, { css, styled, theme } from "twin.macro";
 import type { PropsI } from "@/pages/order/[orderId]";
 import PayPalThing from "./PayPalThing";
 import PriceInfo from "./PriceInfo";
-import AfterPaymentView from "./AfterPaymentView";
 
 import { orderService } from "@/machines/order_machine";
 
@@ -32,8 +31,6 @@ const PaymentButtons: FC<PropsI> = ({
 
   return (
     <>
-      {/* @ts-ignore */}
-      {order.status === "FULFILLED" && <AfterPaymentView order={order} />}
       {order.status !== "FULFILLED" && (
         <>
           <PriceInfo prices={sumasAndPrices} />
