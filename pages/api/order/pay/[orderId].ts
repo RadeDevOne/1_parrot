@@ -146,6 +146,7 @@ handler /* .use(profileBodyValidation) */
       },
       data: {
         status: "FULFILLED",
+        payedAt: new Date(),
       },
       include: {
         paymentResult: true,

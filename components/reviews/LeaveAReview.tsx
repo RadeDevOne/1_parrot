@@ -1,8 +1,11 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
+import { useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 const LeaveAReview: FC = () => {
+  const [enableStarsHover, setEnableStarsHover] = useState<boolean>();
+
   return (
     // <section css={[tw`width[86vw] mx-auto md:width[420px] mt-8 mb-4`]}>
 
@@ -12,41 +15,25 @@ const LeaveAReview: FC = () => {
       </h2>
       <div tw="flex justify-center items-center">
         <div tw="flex items-center mt-6 mb-4">
-          <svg
-            tw="mx-1 w-6 h-6 fill-current text-yellow-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-          </svg>
-          <svg
-            tw="mx-1 w-6 h-6 fill-current text-yellow-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-          </svg>
-          <svg
-            tw="mx-1 w-6 h-6 fill-current text-yellow-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-          </svg>
-          <svg
-            tw="mx-1 w-6 h-6 fill-current text-yellow-500"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-          </svg>
-          <svg
+          {new Array(5).fill(66).map((i, j) => {
+            return (
+              <svg
+                key={`${j}-${i + 1}`}
+                tw="mx-1 w-6 h-6 fill-current text-yellow-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+              </svg>
+            );
+          })}
+          {/* <svg
             tw="mx-1 w-6 h-6 fill-current text-gray-400"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
             <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-          </svg>
+          </svg> */}
         </div>
       </div>
 
