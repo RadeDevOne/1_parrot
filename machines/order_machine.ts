@@ -1,5 +1,15 @@
 import { createMachine, assign, interpret } from "xstate";
 
+// TODO
+//
+//
+//
+// TRY CORRECTING TYPES AND DO ACORDING TO THAT
+//
+//
+//
+//
+
 import type { ResData } from "@/pages/api/order/pay/[orderId]";
 
 /**
