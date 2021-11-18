@@ -94,25 +94,27 @@ const Summary: FC<{ order: PropsI["order"] }> = ({ order }) => {
                     tw`relative -left-3.5    dark:border-gray-600 border-b-2 border-gray-200`,
                   ]}
                 >
-                  <Link href={`/product/${item.product.id}`}>
-                    <a css={[tw`flex w-full cursor-pointer`]}>
-                      <div tw="width[42%] flex flex-col">
-                        <span tw="text-gray-600 dark:text-gray-300 text-sm md:text-lg font-semibold">
-                          {item.product.name}
-                        </span>
+                  {item && item.product && item.product.id && (
+                    <Link href={`/product/${item.product.id}`}>
+                      <a css={[tw`flex w-full cursor-pointer`]}>
+                        <div tw="width[42%] flex flex-col">
+                          <span tw="text-gray-600 dark:text-gray-300 text-sm md:text-lg font-semibold">
+                            {item.product.name}
+                          </span>
 
-                        <span tw="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
-                          amount: {item.quantity}
-                        </span>
-                      </div>
+                          <span tw="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
+                            amount: {item.quantity}
+                          </span>
+                        </div>
 
-                      <img
-                        src={item.product.image}
-                        alt={"Product: " + item.product.name}
-                        tw="ml-auto rounded width[42%]"
-                      />
-                    </a>
-                  </Link>
+                        <img
+                          src={item.product.image}
+                          alt={"Product: " + item.product.name}
+                          tw="ml-auto rounded width[42%]"
+                        />
+                      </a>
+                    </Link>
+                  )}
                 </li>
               );
             })}

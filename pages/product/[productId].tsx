@@ -96,6 +96,33 @@ export const getServerSideProps: GetServerSideProps<
     },
   });
 
+  //
+  console.log(session?.profile?.id);
+  console.log(product.id);
+
+  //
+  //
+  //
+  //
+  // TODO
+  // WE SHOULD CHECK HERE IF USER EVER BOUGHT THE PRODUCT
+  const order = await prisma.order.findFirst({
+    where: {
+      buyer: {
+        id: session?.profile?.id,
+      },
+    },
+    include: {
+      items: {
+        where: {
+          productId: product.id,
+        },
+      },
+    },
+  });
+
+  console.log({ ORDER: order });
+
   return {
     props: {
       product: product,
