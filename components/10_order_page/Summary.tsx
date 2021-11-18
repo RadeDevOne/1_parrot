@@ -5,6 +5,8 @@ import tw, { css, styled, theme } from "twin.macro";
 
 import { useRouter } from "next/router";
 
+import Link from "next/link";
+
 import axios from "axios";
 
 import type { OrderStatus } from "@prisma/client";
@@ -71,30 +73,46 @@ const Summary: FC<{ order: PropsI["order"] }> = ({ order }) => {
               return (
                 <li
                   key={i + item.id}
-                  tw="relative -left-3.5   grid grid-cols-6 gap-2 dark:border-gray-600 border-b-2 border-gray-200"
+                  css={[
+                    css`
+                      /*  & a {
+                        
+                        border: pink solid 8px;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        left: 0;
+                        bottom: 0;
+                        height: 28px;
+
+                        &:hover {
+                          cursor: pointer;
+                        }
+                      } */
+                    `,
+
+                    tw`relative -left-3.5    dark:border-gray-600 border-b-2 border-gray-200`,
+                  ]}
                 >
-                  <div tw="col-span-1 self-center">
-                    <img
-                      src={item.product.image}
-                      alt={"Product: " + item.product.name}
-                      tw="rounded w-full"
-                    />
-                  </div>
-                  <div tw="flex flex-col col-span-3 pt-2">
-                    <span tw="text-gray-600 dark:text-gray-300 text-sm font-semibold">
-                      {item.product.name}
-                    </span>
-                    {/* <span tw="text-gray-400 text-sm inline-block pt-2">
-                  Red Headphone
-                </span> */}
-                  </div>
-                  <div tw="col-span-2 pt-3">
-                    <div tw="flex items-center space-x-2 text-sm justify-between">
-                      <span tw="text-gray-600 dark:text-gray-400">
-                        amount: {item.quantity}
-                      </span>
-                    </div>
-                  </div>
+                  <Link href={`/product/${item.product.id}`}>
+                    <a css={[tw`flex w-full cursor-pointer`]}>
+                      <div tw="width[42%] flex flex-col">
+                        <span tw="text-gray-600 dark:text-gray-300 text-sm md:text-lg font-semibold">
+                          {item.product.name}
+                        </span>
+
+                        <span tw="text-gray-600 dark:text-gray-400 text-xs md:text-sm">
+                          amount: {item.quantity}
+                        </span>
+                      </div>
+
+                      <img
+                        src={item.product.image}
+                        alt={"Product: " + item.product.name}
+                        tw="ml-auto rounded width[42%]"
+                      />
+                    </a>
+                  </Link>
                 </li>
               );
             })}

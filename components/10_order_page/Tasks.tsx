@@ -13,7 +13,7 @@ const Taks: FC<{ order: PropsI["order"] }> = ({ order }) => {
   ];
 
   return (
-    <div tw="mx-2.5 md:mx-auto md:width[60vw] shadow-lg rounded-2xl bg-__secondary_dark dark:bg-gray-700  mb-8">
+    <div tw="transition-property[background-color] duration-1000 mx-2.5 md:mx-auto md:width[60vw] shadow-lg rounded-2xl bg-__secondary_dark dark:bg-gray-700  mb-8">
       <p tw="font-bold text-sm p-4 text-black dark:text-white">
         Order ID
         <span tw="text-sm text-gray-500 dark:text-gray-300 dark:text-white ml-2">

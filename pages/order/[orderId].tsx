@@ -46,6 +46,7 @@ export interface PropsI {
     paymentResult: PaymentResult | null;
     items: (OrderElement & {
       product: {
+        id: string;
         image: string;
         name: string;
         price: string;
@@ -143,6 +144,7 @@ export const getServerSideProps: GetServerSideProps<
         include: {
           product: {
             select: {
+              id: true,
               image: true,
               name: true,
               price: true,
