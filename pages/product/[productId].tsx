@@ -27,6 +27,7 @@ export interface PropsI {
     })[];
   };
   favorite: Favorite | null;
+  boughtBefore: boolean;
 }
 
 type paramsType = {
@@ -111,22 +112,26 @@ export const getServerSideProps: GetServerSideProps<
       buyer: {
         id: session?.profile?.id,
       },
-    },
-    include: {
       items: {
-        where: {
-          productId: product.id,
+        some: {
+          product: {
+            id: product.id,
+          },
         },
       },
     },
   });
 
   console.log({ ORDER: order });
+  // NO NEED TO SEND ORDER, JUST EGNOLAGE THAT WE FOUND IT
+
+  const boughtBefore = order !== null;
 
   return {
     props: {
       product: product,
       favorite,
+      boughtBefore,
     },
   };
 };
