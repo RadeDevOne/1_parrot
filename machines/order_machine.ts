@@ -10,7 +10,7 @@ import { createMachine, assign, interpret } from "xstate";
 //
 //
 
-import type { ResData } from "@/pages/api/order/pay/[orderId]";
+import type { PropsI } from "@/pages/order/[orderId]";
 
 /**
  * @description finite states enum
@@ -30,12 +30,12 @@ export enum EE {
 
 export interface MachineContextGenericI {
   updatedOrderRefetched: boolean;
-  refetchedOrderAndPaymentRecord: ResData["order"] | null;
+  refetchedOrderAndPaymentRecord: PropsI["order"] | null;
 }
 
 export type machineEventsGenericType = {
   type: EE.GIVE_NEW_ORDER;
-  payload: ResData["order"];
+  payload: PropsI["order"];
 };
 /* | {
       type: EE.PLACEHOLDING_ONE;

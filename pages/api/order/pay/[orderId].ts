@@ -38,12 +38,7 @@ export interface BodyDataI {
   };
 }
 
-export type ResData = {
-  order: Order & {
-    items: OrderElement[];
-    paymentResult: PaymentResult | null;
-  };
-};
+export type ResData = PropsI;
 
 // todo (DONE: CartType IMPORTED)
 // export type OrderDataType = someType
@@ -150,15 +145,33 @@ handler /* .use(profileBodyValidation) */
       },
       include: {
         paymentResult: true,
-        items: true,
+        items: {
+          include: {
+            product: true,
+          },
+        },
+        buyer: true,
       },
     });
 
+    const resData: ResData = {
+      order: updatedOrder,
+      sumasAndPrices: {
+        formated: {
+          shippingPrice: "",
+          subtotalPrice: "",
+          totalPrice: "",
+        },
+        shippingPrice: 0,
+        subtotalPrice: 0,
+        taxPricePercentage: 0,
+        totalPrice: 0,
+      },
+    };
+
     // WE CAN SEN PAYMENTRESULT RECORD AND ORDER BACK
 
-    return res.status(200).json({
-      order: updatedOrder,
-    });
+    return res.status(200).json(resData);
   });
 
 export default handler;
