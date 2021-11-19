@@ -188,13 +188,13 @@ export const getServerSideProps: GetServerSideProps<
   };
 
   return {
-    props: props as PropsI,
+    props: props,
   };
 };
 
 const Page: NP<PropsI> = (props) => {
   useOrderService();
-
+  console.log({ props });
   //
 
   // console.log({ props });

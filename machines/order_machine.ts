@@ -30,12 +30,12 @@ export enum EE {
 
 export interface MachineContextGenericI {
   updatedOrderRefetched: boolean;
-  refetchedOrderAndPaymentRecord: PropsI["order"] | null;
+  refetchedOrderAndPaymentRecord: PropsI | null;
 }
 
 export type machineEventsGenericType = {
   type: EE.GIVE_NEW_ORDER;
-  payload: PropsI["order"];
+  payload: PropsI;
 };
 /* | {
       type: EE.PLACEHOLDING_ONE;

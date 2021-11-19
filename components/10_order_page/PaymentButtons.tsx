@@ -22,16 +22,16 @@ const PaymentButtons: FC<PropsI> = ({
   // console.log({ refetchedOrderAndPaymentRecord });
 
   const order =
-    refetchedOrderAndPaymentRecord !== null
-      ? refetchedOrderAndPaymentRecord
-      : null || initialOrder;
+    (refetchedOrderAndPaymentRecord !== null
+      ? refetchedOrderAndPaymentRecord["order"]
+      : null) || initialOrder;
 
-  // console.log({ order });
-  // console.log({ initialOrder });
+  console.log({ order });
+  console.log({ initialOrder });
 
   return (
     <>
-      {order.status !== "FULFILLED" && (
+      {order && order.status !== "FULFILLED" && (
         <>
           <PriceInfo prices={sumasAndPrices} />
           <section

@@ -28,9 +28,11 @@ const Layout: FC<PropsI> = (props) => {
   // console.log({ refetchedOrderAndPaymentRecord });
 
   const order =
-    refetchedOrderAndPaymentRecord !== null
-      ? refetchedOrderAndPaymentRecord
-      : null || initialOrder;
+    (refetchedOrderAndPaymentRecord !== null
+      ? refetchedOrderAndPaymentRecord["order"]
+      : null) || initialOrder;
+
+  console.log({ refetchedOrderAndPaymentRecord, initialOrder, order });
 
   const status = order.status;
 
@@ -55,7 +57,9 @@ const Layout: FC<PropsI> = (props) => {
       {/* {!orderIsPayed && <Stringified data={{ order, sumasAndPrices }} />} */}
       {/* <PayPalThing order={order} sumasAndPrices={sumasAndPrices} /> */}
       {/* <PriceInfo prices={sumasAndPrices} /> */}
-      <PaymentButtons order={order} sumasAndPrices={sumasAndPrices} />
+      {!orderIsPayed && (
+        <PaymentButtons order={order} sumasAndPrices={sumasAndPrices} />
+      )}
       {/* <OrderDetails {...props} /> */}
     </main>
   );
