@@ -25,11 +25,9 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
             <div
               css={[
                 css`
-                  /* border: pink solid 2px; */
                   height: 0px;
 
                   & path {
-                    /* fill: green; */
                     stroke: ${theme`colors.yellow.600`};
                     ${tw`dark:text-gray-200 text-gray-400`}
                     ${tw`fill-current`}
