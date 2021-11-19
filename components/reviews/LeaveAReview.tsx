@@ -1,11 +1,17 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
 import { Fragment } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
-  const [enableStarsHover, setEnableStarsHover] = useState<boolean>();
+  const [enableStarsHover, setEnableStarsHover] = useState<boolean>(true);
+  const [markColorIndex, setMarkColorIndex] = useState<number | null>(null);
+
+  const handleLeaveAReview = useCallback(async () => {
+    //
+    //
+  }, []);
 
   return (
     // <section css={[tw`width[86vw] mx-auto md:width[420px] mt-8 mb-4`]}>
@@ -16,12 +22,40 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
             Rate Our Product
           </h2>
           <div tw="flex justify-center items-center">
-            <div tw="flex items-center mt-6 mb-4">
+            <div
+              css={[
+                css`
+                  /* border: pink solid 2px; */
+                  height: 0px;
+
+                  & path {
+                    /* fill: green; */
+                    stroke: ${theme`colors.yellow.600`};
+                    ${tw`dark:text-gray-200 text-gray-400`}
+                    ${tw`fill-current`}
+                  }
+
+                  &:hover {
+                    & path {
+                      ${tw`text-yellow-500`}
+                    }
+
+                    & svg:hover ~ svg {
+                      & path {
+                        ${tw`dark:text-gray-200 text-gray-400`}
+                      }
+                    }
+                  }
+                `,
+
+                tw`flex items-center mt-6 mb-4`,
+              ]}
+            >
               {new Array(5).fill(66).map((i, j) => {
                 return (
                   <svg
                     key={`${j}-${i + 1}`}
-                    tw="mx-1 w-6 h-6 fill-current text-yellow-500"
+                    css={[css``, tw`mx-1 w-6 h-6 /* fill-current */`]}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
