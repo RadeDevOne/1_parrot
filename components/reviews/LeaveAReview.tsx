@@ -13,6 +13,8 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
     //
   }, []);
 
+  console.log({ markColorIndex });
+
   return (
     // <section css={[tw`width[86vw] mx-auto md:width[420px] mt-8 mb-4`]}>
     <Fragment>
@@ -25,15 +27,17 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
             <div
               css={[
                 css`
+                  /* border: pink solid 2px; */
                   height: 0px;
 
                   & path {
+                    /* fill: green; */
                     stroke: ${theme`colors.yellow.600`};
                     ${tw`dark:text-gray-200 text-gray-400`}
                     ${tw`fill-current`}
                   }
 
-                  &:hover {
+                  /* &:hover {
                     & path {
                       ${tw`text-yellow-500`}
                     }
@@ -43,15 +47,34 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
                         ${tw`dark:text-gray-200 text-gray-400`}
                       }
                     }
-                  }
+                  } */
                 `,
 
+                enableStarsHover
+                  ? css`
+                      &:hover {
+                        & path {
+                          ${tw`text-yellow-500`}
+                        }
+
+                        & svg:hover ~ svg {
+                          & path {
+                            ${tw`dark:text-gray-200 text-gray-400`}
+                          }
+                        }
+                      }
+                    `
+                  : css``,
                 tw`flex items-center mt-6 mb-4`,
               ]}
             >
               {new Array(5).fill(66).map((i, j) => {
                 return (
                   <svg
+                    onClick={(e) => {
+                      setMarkColorIndex(j);
+                      setEnableStarsHover(false);
+                    }}
                     key={`${j}-${i + 1}`}
                     css={[css``, tw`mx-1 w-6 h-6 /* fill-current */`]}
                     xmlns="http://www.w3.org/2000/svg"
