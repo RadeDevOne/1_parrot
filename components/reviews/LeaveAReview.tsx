@@ -6,6 +6,7 @@ import tw, { css, styled, theme } from "twin.macro";
 const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
   const [enableStarsHover, setEnableStarsHover] = useState<boolean>(true);
   const [markColorIndex, setMarkColorIndex] = useState<number | null>(null);
+  const [reviewText, setReviewText] = useState<string>("");
 
   const handleLeaveAReview = useCallback(async () => {
     //
@@ -16,6 +17,7 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
   }, []);
 
   console.log({ markColorIndex });
+  console.log({ reviewText });
 
   return (
     // <section css={[tw`width[86vw] mx-auto md:width[420px] mt-8 mb-4`]}>
@@ -117,9 +119,15 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
               </label>
 
               <textarea
+                value={reviewText}
+                onChange={(e) => {
+                  //
+
+                  setReviewText(e.target.value);
+                }}
                 id="comment"
                 name="comment"
-                tw="block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                tw="font-family[FiraMono] block w-full h-40 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
               ></textarea>
             </div>
 
