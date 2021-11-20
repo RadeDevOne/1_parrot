@@ -9,11 +9,21 @@ import Reviews from "../reviews/Reviews";
 import Alert from "../alerts/Alert";
 import LeaveAReview from "../reviews/LeaveAReview";
 
-const Layout: FC<PropsI> = ({ children, product, favorite, boughtBefore }) => {
+const Layout: FC<PropsI> = ({
+  children,
+  product,
+  favorite,
+  boughtBefore,
+  alreadyLeftAReview,
+}) => {
   return (
     <main>
       <ProductView product={product} favorite={favorite} />
-      <LeaveAReview boughtBefore={boughtBefore} productId={product.id} />
+      <LeaveAReview
+        boughtBefore={boughtBefore}
+        productId={product.id}
+        reviewExists={alreadyLeftAReview}
+      />
       <Reviews reviews={product.reviews} />
       {children}
       {/* <Alert

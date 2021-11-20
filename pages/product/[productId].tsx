@@ -28,6 +28,7 @@ export interface PropsI {
   };
   favorite: Favorite | null;
   boughtBefore: boolean;
+  alreadyLeftAReview: boolean;
 }
 
 type paramsType = {
@@ -127,11 +128,29 @@ export const getServerSideProps: GetServerSideProps<
 
   const boughtBefore = order !== null;
 
+  // WE CAN CHECK IF USER ALREADY LEFT AN A REVIEW
+  // WE RE NOT GOING TO ALLOW UPDATING OF A REVIEW
+  // BECAUSE WE WANT TO SAVE SOME TIME
+
+  const review = await prisma.review.findFirst({
+    where: {
+      product: {
+        id: product.id,
+      },
+      profile: {
+        id: session?.profile?.id,
+      },
+    },
+  });
+
+  const alreadyLeftAReview = review !== null;
+
   return {
     props: {
       product: product,
       favorite,
       boughtBefore,
+      alreadyLeftAReview,
     },
   };
 };
