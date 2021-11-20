@@ -7,8 +7,9 @@ import type { PropsI } from "@/pages/profile/stats/[profileId]";
 import Lorem from "@/components/dev-helpers/Lorem";
 
 import Favorites from "@/components/favorites/Favorites";
+import OrderList from "./OrderList";
 
-const Layout: FC<PropsI> = ({ favorites }) => {
+const Layout: FC<PropsI> = ({ favorites, payedOrders, pendingOrders }) => {
   // console.log({ favorites });
 
   return (
@@ -20,10 +21,11 @@ const Layout: FC<PropsI> = ({ favorites }) => {
         Favorites
       </h2> */}
       {/* <Lorem /> */}
+      <OrderList fulfiledOrders={payedOrders} pendingOrders={pendingOrders} />
       <Favorites favorites={favorites} />
-      <h2 style={{ color: "blanchedalmond" }} id="purchases">
+      {/* <h2 style={{ color: "blanchedalmond" }} id="purchases">
         Past Purchases
-      </h2>
+      </h2> */}
     </main>
   );
 };
