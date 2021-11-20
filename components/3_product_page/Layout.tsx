@@ -13,7 +13,7 @@ const Layout: FC<PropsI> = ({ children, product, favorite, boughtBefore }) => {
   return (
     <main>
       <ProductView product={product} favorite={favorite} />
-      <LeaveAReview boughtBefore={boughtBefore} />
+      <LeaveAReview boughtBefore={boughtBefore} productId={product.id} />
       <Reviews reviews={product.reviews} />
       {children}
       {/* <Alert

@@ -1,3 +1,8 @@
+// NOOP
+//
+//
+//
+
 import nc from "next-connect";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -14,10 +19,10 @@ import verifyUserMiddleware from "@/middlewares/verifyUserMiddleware";
 const handler = nc<NextApiRequest, NextApiResponse>();
 
 export interface ResData {
-  some: boolean;
+  updated: true;
 }
 
-export type BodyDataTypeI = { some: boolean };
+export type BodyDataTypeI = { rating: number; text: string };
 
 // --------
 /* const profileBodyValidation = nc<NextApiRequest, NextApiResponse>().put(
@@ -36,7 +41,7 @@ handler./* use(profileBodyValidation). */ post(async (req, res) => {
 
   // console.log({ profile });
 
-  const data = req.body; /* as  */
+  const data = req.body as BodyDataTypeI;
 
   const { productId } = req.query;
 
@@ -56,7 +61,59 @@ handler./* use(profileBodyValidation). */ post(async (req, res) => {
     return res.status(400).send("Body has no data on it");
   }
 
-  // return res.status(200).json({  });
+  // TODO
+  // CREATE REVIEW
+  // CALCULATE AVERAGE RATING
+  // UPDATE RATING ON THE PRODUCT
+
+  const review = await prisma.review.create({
+    data: {
+      comment: data.text,
+      rating: data.rating,
+      product: {
+        connect: {
+          id: productId,
+        },
+      },
+      profile: {
+        connect: {
+          id: profile.id,
+        },
+      },
+    },
+    include: {
+      product: true,
+    },
+  });
+
+  // GET THE PRODUCT
+  const product = await prisma.product.findUnique({
+    where: {
+      id: review.product.id,
+    },
+    select: {
+      averageRating: true,
+      id: true,
+    },
+  });
+
+  if (!product) {
+    return res.status(400).send("We couldn't find the product");
+  }
+
+  // UPDATE PRODUCT WITH NEW RATING
+  await prisma.product.update({
+    where: {
+      id: product.id,
+    },
+    data: {
+      averageRating: (product.averageRating + data.rating) / 2,
+    },
+  });
+
+  //
+
+  return res.status(200).json({ updated: true });
 });
 
 export default handler;
