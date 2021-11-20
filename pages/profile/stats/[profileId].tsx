@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 
 import { getSession } from "next-auth/react";
 
-import type { Favorite, Product } from "@prisma/client";
+import type { Favorite, Product, Order } from "@prisma/client";
 
 import type { SessStuff } from "../../../session";
 
@@ -19,6 +19,8 @@ export interface PropsI {
   favorites: (Favorite & {
     product: Product;
   })[];
+  payedOrders: Order[];
+  pendingOrders: Order[];
 }
 
 type paramsType = {

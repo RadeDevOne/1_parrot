@@ -19,7 +19,7 @@ const Layout: FC<PropsI> = ({ favorites }) => {
       <h2 style={{ color: "blanchedalmond" }} id="favorites">
         Favorites
       </h2> */}
-      <Lorem />
+      {/* <Lorem /> */}
       <Favorites favorites={favorites} />
       <h2 style={{ color: "blanchedalmond" }} id="purchases">
         Past Purchases
