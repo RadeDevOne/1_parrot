@@ -27,8 +27,8 @@ type paramsType = {
 
 export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
   async (ctx) => {
-    // const { params } = ctx;
-    // params?.profileId; //
+    const { params } = ctx;
+    params?.profileId;
 
     const redirectOptions = await redirectToSigninIfNoAuth(ctx, "/signin");
 
@@ -75,11 +75,35 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
 
     // TODO
     // QUERYING FOR ORDERS
-    //
+    //     payed ones
+    const payedOrders = await prisma.order.findMany({
+      where: {
+        buyerId: session.profile?.id,
+        OR: [{ status: "FULFILLED" }, { status: "DELIVERED" }],
+      },
+    });
+    //    unpayed ones
+    const pendingOrders = await prisma.order.findMany({
+      where: {
+        buyerId: session.profile?.id,
+        NOT: {
+          status: "FULFILLED",
+          AND: {
+            NOT: {
+              status: "DELIVERED",
+            },
+          },
+        },
+      },
+    });
+
+    console.log({ payedOrders, pendingOrders });
 
     return {
       props: {
         favorites,
+        payedOrders,
+        pendingOrders,
       },
     };
   };

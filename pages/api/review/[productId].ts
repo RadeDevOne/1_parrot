@@ -107,7 +107,7 @@ handler./* use(profileBodyValidation). */ post(async (req, res) => {
       id: product.id,
     },
     data: {
-      averageRating: (product.averageRating + data.rating) / 2,
+      averageRating: Math.round((product.averageRating + data.rating) / 2),
     },
   });
 
