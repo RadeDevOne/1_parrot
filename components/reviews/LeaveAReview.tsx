@@ -3,8 +3,11 @@ import type { FC } from "react";
 import { useState, useEffect, useCallback, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import axios from "axios";
+
 const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
   const [enableStarsHover, setEnableStarsHover] = useState<boolean>(true);
+  const [reqStatus, setReqStatus] = useState<"pending" | "idle" | "complete">();
   const [markColorIndex, setMarkColorIndex] = useState<number | null>(null);
   const [reviewText, setReviewText] = useState<string>("");
 
@@ -14,7 +17,25 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
     // HANDLE REQUEST FOR THE CREATING NEW REVIEW
     // DON FORGET THAT ON BACKEND YOU NEED TO
     // HANDLE CREATION
-  }, []);
+    //
+    //
+    //
+    try {
+      setReqStatus("pending");
+      const {
+        data: { review },
+      } = await axios.post("/api/review", {
+        rating: markColorIndex,
+        text: reviewText,
+      });
+
+      console.log({ review });
+      setReqStatus("complete");
+    } catch (err) {
+      console.error(err);
+      setReqStatus("idle");
+    }
+  }, [reviewText, markColorIndex, setReqStatus]);
 
   console.log({ markColorIndex });
   console.log({ reviewText });
