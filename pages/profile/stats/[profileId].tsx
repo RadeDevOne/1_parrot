@@ -73,8 +73,9 @@ export const getServerSideProps: GetServerSideProps<PropsI, paramsType> =
       },
     });
 
-    // TODO LATER:
+    // TODO
     // QUERYING FOR ORDERS
+    //
 
     return {
       props: {
