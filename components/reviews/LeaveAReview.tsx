@@ -1,7 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { Fragment } from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
@@ -10,7 +9,10 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
 
   const handleLeaveAReview = useCallback(async () => {
     //
-    //
+    // todo
+    // HANDLE REQUEST FOR THE CREATING NEW REVIEW
+    // DON FORGET THAT ON BACKEND YOU NEED TO
+    // HANDLE CREATION
   }, []);
 
   console.log({ markColorIndex });
@@ -71,16 +73,27 @@ const LeaveAReview: FC<{ boughtBefore: boolean }> = ({ boughtBefore }) => {
               {new Array(5).fill(66).map((i, j) => {
                 return (
                   <svg
-                    onClick={(e) => {
+                    onClick={() => {
                       setMarkColorIndex(j);
                       setEnableStarsHover(false);
+                    }}
+                    onMouseLeave={() => {
+                      setEnableStarsHover(true);
                     }}
                     key={`${j}-${i + 1}`}
                     css={[css``, tw`mx-1 w-6 h-6 /* fill-current */`]}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
-                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                    <path
+                      style={{
+                        fill:
+                          markColorIndex !== null && markColorIndex >= j
+                            ? theme`colors.yellow.500`
+                            : "currentColor",
+                      }}
+                      d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
+                    />
                   </svg>
                 );
               })}
