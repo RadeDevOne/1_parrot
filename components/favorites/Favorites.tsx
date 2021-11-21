@@ -65,7 +65,7 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
       <h3
         id="favorites"
         tabIndex={-1}
-        tw="ml-4 mt-10 light:text-gray-700 dark:text-gray-200 text-2xl font-medium"
+        tw="text-center ml-4 mt-10 light:text-gray-700 dark:text-gray-200 text-2xl font-medium"
       >
         {favorites.length !== 0 && "My Favorite Products"}
       </h3>

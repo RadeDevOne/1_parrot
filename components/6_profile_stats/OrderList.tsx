@@ -2,6 +2,8 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import Link from "next/link";
+
 import type { PropsI } from "@/pages/profile/stats/[profileId]";
 
 interface OrderListPropsI {
@@ -18,141 +20,80 @@ const OrderList: FC<OrderListPropsI> = ({ fulfiledOrders, pendingOrders }) => {
       <h3
         id="purchases"
         tabIndex={-1}
-        tw="ml-4 mt-10 light:text-gray-700 dark:text-gray-200 text-2xl font-medium"
+        tw=" mb-10 ml-4 mt-10 text-center light:text-gray-700 dark:text-gray-200 text-2xl font-medium"
       >
-        Your Orders
+        My Orders
       </h3>
+      <div tw="px-1.5  width[fit-content] flex flex-col mx-auto items-center justify-center">
+        <ul tw="flex flex-col mb-3">
+          <li tw="ml-4">
+            <h4 tw="mb-4 light:text-gray-500 dark:text-gray-400 align-self[flex-start]">
+              Fulfilled Orders
+            </h4>
+          </li>
 
-      <div tw="container flex flex-col mx-auto w-full items-center justify-center">
-        <ul tw="flex flex-col">
-          <li tw="border-gray-400 flex flex-row mb-2">
-            <div tw="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
-              <div tw="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                <a href="#" tw="block relative">
-                  <img
-                    alt="profil"
-                    src="/images/person/6.jpg"
-                    tw="mx-auto object-cover rounded-full h-10 w-10 "
-                  />
-                </a>
-              </div>
-              <div tw="flex-1 pl-1 md:mr-16">
-                <div tw="font-medium dark:text-white">Jean Marc</div>
-                <div tw="text-gray-600 dark:text-gray-200 text-sm">
-                  Developer
-                </div>
-              </div>
-              <div tw="text-gray-600 dark:text-gray-200 text-xs">6:00 AM</div>
-              <button tw="w-24 text-right flex justify-end">
-                <svg
-                  width="12"
-                  fill="currentColor"
-                  height="12"
-                  tw="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500"
-                  viewBox="0 0 1792 1792"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
-                </svg>
-              </button>
-            </div>
+          {fulfiledOrders.map(({ id }) => {
+            return (
+              <li key={id} tw="width[100%] border-gray-400 flex flex-row mb-2">
+                <Link href={`/order/${id}`}>
+                  <a tw="shadow border select-none cursor-pointer dark:bg-gray-700 bg-pink-200 rounded-md flex flex-1 items-center p-4">
+                    <div tw="flex-1 pl-1 md:mr-16">
+                      <div tw=" md:text-lg text-sm dark:text-white">{id}</div>
+                    </div>
+
+                    <button tabIndex={-1} tw="w-12 text-right flex justify-end">
+                      <svg
+                        width="12"
+                        fill="currentColor"
+                        height="12"
+                        tw="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500"
+                        viewBox="0 0 1792 1792"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
+                      </svg>
+                    </button>
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <ul tw="mb-3 flex flex-col">
+          <li tw="ml-4">
+            <h4 tw="mb-4 light:text-gray-500 dark:text-gray-400 align-self[flex-start]">
+              Pending Orders
+            </h4>
           </li>
-          <li tw="border-gray-400 flex flex-row mb-2">
-            <div tw="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
-              <div tw="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                <a href="#" tw="block relative">
-                  <img
-                    alt="profil"
-                    src="/images/person/10.jpg"
-                    tw="mx-auto object-cover rounded-full h-10 w-10 "
-                  />
-                </a>
-              </div>
-              <div tw="flex-1 pl-1 md:mr-16">
-                <div tw="font-medium dark:text-white">Designer</div>
-                <div tw="text-gray-600 dark:text-gray-200 text-sm">
-                  Charlie Moi
-                </div>
-              </div>
-              <div tw="text-gray-600 dark:text-gray-200 text-xs">6:00 AM</div>
-              <button tw="w-24 text-right flex justify-end">
-                <svg
-                  width="12"
-                  fill="currentColor"
-                  height="12"
-                  tw="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500"
-                  viewBox="0 0 1792 1792"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
-                </svg>
-              </button>
-            </div>
-          </li>
-          <li tw="border-gray-400 flex flex-row mb-2">
-            <div tw="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
-              <div tw="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                <a href="#" tw="block relative">
-                  <img
-                    alt="profil"
-                    src="/images/person/3.jpg"
-                    tw="mx-auto object-cover rounded-full h-10 w-10 "
-                  />
-                </a>
-              </div>
-              <div tw="flex-1 pl-1 md:mr-16">
-                <div tw="font-medium dark:text-white">CEO</div>
-                <div tw="text-gray-600 dark:text-gray-200 text-sm">
-                  Marine Jeanne
-                </div>
-              </div>
-              <div tw="text-gray-600 dark:text-gray-200 text-xs">6:00 AM</div>
-              <button tw="w-24 text-right flex justify-end">
-                <svg
-                  width="12"
-                  fill="currentColor"
-                  height="12"
-                  tw="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500"
-                  viewBox="0 0 1792 1792"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
-                </svg>
-              </button>
-            </div>
-          </li>
-          <li tw="border-gray-400 flex flex-row mb-2">
-            <div tw="shadow border select-none cursor-pointer bg-white dark:bg-gray-800 rounded-md flex flex-1 items-center p-4">
-              <div tw="flex flex-col w-10 h-10 justify-center items-center mr-4">
-                <a href="#" tw="block relative">
-                  <img
-                    alt="profil"
-                    src="/images/person/7.jpg"
-                    tw="mx-auto object-cover rounded-full h-10 w-10 "
-                  />
-                </a>
-              </div>
-              <div tw="flex-1 pl-1 md:mr-16">
-                <div tw="font-medium dark:text-white">CTO</div>
-                <div tw="text-gray-600 dark:text-gray-200 text-sm">
-                  Boby PArk
-                </div>
-              </div>
-              <div tw="text-gray-600 dark:text-gray-200 text-xs">6:00 AM</div>
-              <button tw="w-24 text-right flex justify-end">
-                <svg
-                  width="12"
-                  fill="currentColor"
-                  height="12"
-                  tw="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500"
-                  viewBox="0 0 1792 1792"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
-                </svg>
-              </button>
-            </div>
-          </li>
+
+          {pendingOrders.map(({ id }) => {
+            return (
+              <li key={id} tw="width[100%] border-gray-400 flex flex-row mb-2">
+                <Link href={`/order/${id}`}>
+                  <a tw="shadow border select-none cursor-pointer dark:bg-gray-700 bg-pink-200 rounded-md flex flex-1 items-center p-4">
+                    <div tw="flex-1 pl-1 md:mr-16">
+                      <div tw="text-sm md:text-lg font-medium dark:text-white">
+                        {id}
+                      </div>
+                    </div>
+
+                    <button tabIndex={-1} tw="w-12 text-right flex justify-end">
+                      <svg
+                        width="12"
+                        fill="currentColor"
+                        height="12"
+                        tw="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500"
+                        viewBox="0 0 1792 1792"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
+                      </svg>
+                    </button>
+                  </a>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
