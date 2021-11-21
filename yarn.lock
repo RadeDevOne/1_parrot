@@ -1034,6 +1034,18 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@splidejs/react-splide@^0.6.14":
+  version "0.6.14"
+  resolved "https://registry.yarnpkg.com/@splidejs/react-splide/-/react-splide-0.6.14.tgz#13923ace4a34daad0790535a63cc702b39ee9557"
+  integrity sha512-FSJ3uMDtNAolFsPvLVG1CaK3Crur3mNz5MPyOgdwSnCkddt8nK3AwWAZArczVRV8WEu3GA6Y0q7fMvoN9gzJ7Q==
+  dependencies:
+    "@splidejs/splide" "^3.5.8"
+
+"@splidejs/splide@^3.5.8":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@splidejs/splide/-/splide-3.6.0.tgz#3236b14dd64e20d5c05728af222c22fa51570781"
+  integrity sha512-zA4UZpV24GzcJmjgN2CcxF2w/GSspTbt+GR3HSzGhlbyzFvvCjP8VDC5B4G/lHOwiBsdnwGq9jZ/NZ+vJt6kyg==
+
 "@supabase/gotrue-js@^1.18.0":
   version "1.18.0"
   resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-1.18.0.tgz#1642c2605a24349b9bfbcd2ad83d19df3908371e"

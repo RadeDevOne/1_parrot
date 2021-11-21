@@ -58,7 +58,7 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
     }
   };
 
-  console.log(reqStatus);
+  // console.log(reqStatus);
 
   return (
     <Fragment>

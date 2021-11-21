@@ -13,7 +13,7 @@ interface OrderListPropsI {
 
 const OrderList: FC<OrderListPropsI> = ({ fulfiledOrders, pendingOrders }) => {
   //
-  console.log({ fulfiledOrders, pendingOrders });
+  // console.log({ fulfiledOrders, pendingOrders });
 
   return (
     <section css={[tw``]}>
