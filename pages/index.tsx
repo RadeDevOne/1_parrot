@@ -84,7 +84,7 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   });
 
   const topRatedProducts = await prisma.product.findMany({
-    take: 5,
+    take: 6,
     select: {
       id: true,
       name: true,
@@ -102,6 +102,14 @@ export const getServerSideProps: GetServerSideProps<PropsI> = async (ctx) => {
   const paginationData = calcPagi(0, 16, 4, totalProducts);
 
   // console.log({ totalProducts });
+  //
+  // TODO
+  // QUERY FOR 6 TOP RATED PRODUCTS (ALREADY DONE)
+  /* const topRatedProducts = await prisma.product.findMany({
+
+  }) */
+  //
+  //
 
   return {
     props: {

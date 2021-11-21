@@ -18,7 +18,7 @@ const Layout: FC<PropsI> = ({
 }) => {
   return (
     <main>
-      <Carousel />
+      <Carousel items={topRatedProducts} />
       <div tw="height[0rem]"></div>
       <Products
         products={products}

@@ -3,14 +3,46 @@ import type { FC } from "react";
 import { Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
+import Link from "next/link";
+
 import { Splide, SplideSlide } from "@splidejs/react-splide";
+
+import type { PropsI } from "@/pages/index";
 
 import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
 
-const Carousel: FC = () => {
+const ImageItems: FC<{
+  items: PropsI["topRatedProducts"];
+}> = ({ items }) => {
   return (
     <Fragment>
-      <section tw="overflow-hidden height[0px] md:height[30rem]">
+      {items.map(({ id, image }) => {
+        return (
+          <SplideSlide key={id}>
+            {/* <Link href={`/product/${id}`}> */}
+            {/* <a> */}
+            <img
+              /* onClick={() => {
+                console.log("click");
+              }} */
+              src={image}
+              // src="/images/placeholder.jpg"
+              alt="product"
+              tw="w-full"
+            />
+            {/* </a> */}
+            {/* </Link> */}
+          </SplideSlide>
+        );
+      })}
+    </Fragment>
+  );
+};
+
+const Carousel: FC<{ items: PropsI["topRatedProducts"] }> = ({ items }) => {
+  return (
+    <Fragment>
+      <section tw="overflow-hidden height[0px] md:height[35rem]">
         {/* Desktop */}
         <Splide
           options={{
@@ -20,18 +52,13 @@ const Carousel: FC = () => {
             pauseOnHover: false,
             resetProgress: false,
             arrows: "slider",
-            height: "26rem",
+            height: "32rem",
           }}
           hasSliderWrapper
           // hasAutoplayControls
           hasAutoplayProgress
         >
-          <SplideSlide>
-            <img src="/images/placeholder.jpg" alt="product" />
-          </SplideSlide>
-          <SplideSlide>
-            <img src="/images/placeholder.jpg" alt="product" />
-          </SplideSlide>
+          <ImageItems items={items} />
         </Splide>
       </section>
       <section tw="overflow-hidden height[18rem] md:height[0px]">
@@ -44,18 +71,16 @@ const Carousel: FC = () => {
             pauseOnHover: false,
             resetProgress: false,
             arrows: "slider",
-            height: "14rem",
+            height: "16rem",
           }}
           hasSliderWrapper
           // hasAutoplayControls
           hasAutoplayProgress
         >
-          <SplideSlide>
+          <ImageItems items={items} />
+          {/* <SplideSlide>
             <img src="/images/placeholder.jpg" alt="product" />
-          </SplideSlide>
-          <SplideSlide>
-            <img src="/images/placeholder.jpg" alt="product" />
-          </SplideSlide>
+          </SplideSlide> */}
         </Splide>
       </section>
     </Fragment>
