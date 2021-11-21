@@ -6,8 +6,9 @@ import type { PropsI } from "@/pages/index";
 import Products from "../products/Products";
 
 import SeeMoreProducts from "../navigation/SeeMoreProducts";
-
 import AddedToCart from "../notification/AddedToCart";
+
+import Carousel from "../Carousel";
 
 const Layout: FC<PropsI> = ({
   products,
@@ -17,6 +18,8 @@ const Layout: FC<PropsI> = ({
 }) => {
   return (
     <main>
+      <Carousel />
+      <div tw="height[2rem]"></div>
       <Products
         products={products}
         totalProducts={totalProducts}
