@@ -10,8 +10,8 @@ import "@splidejs/splide/dist/css/themes/splide-skyblue.min.css";
 const Carousel: FC = () => {
   return (
     <Fragment>
-      <section tw="display[none] md:display[block]">
-        Desktop
+      <section tw="overflow-hidden height[0px] md:height[30rem]">
+        {/* Desktop */}
         <Splide
           options={{
             type: "loop",
@@ -34,8 +34,8 @@ const Carousel: FC = () => {
           </SplideSlide>
         </Splide>
       </section>
-      <section tw="display[block] md:display[none]">
-        Mobile
+      <section tw="overflow-hidden height[18rem] md:height[0px]">
+        {/* Mobile */}
         <Splide
           options={{
             type: "loop",

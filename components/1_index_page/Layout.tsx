@@ -19,7 +19,7 @@ const Layout: FC<PropsI> = ({
   return (
     <main>
       <Carousel />
-      <div tw="height[2rem]"></div>
+      <div tw="height[0rem]"></div>
       <Products
         products={products}
         totalProducts={totalProducts}
