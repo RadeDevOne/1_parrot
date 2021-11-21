@@ -19,19 +19,19 @@ const ImageItems: FC<{
       {items.map(({ id, image }) => {
         return (
           <SplideSlide key={id}>
-            {/* <Link href={`/product/${id}`}> */}
-            {/* <a> */}
-            <img
-              /* onClick={() => {
+            <Link href={`/product/${id}`}>
+              <a>
+                <img
+                  /* onClick={() => {
                 console.log("click");
               }} */
-              src={image}
-              // src="/images/placeholder.jpg"
-              alt="product"
-              tw="w-full"
-            />
-            {/* </a> */}
-            {/* </Link> */}
+                  src={image}
+                  // src="/images/placeholder.jpg"
+                  alt="product"
+                  tw="w-full"
+                />
+              </a>
+            </Link>
           </SplideSlide>
         );
       })}
