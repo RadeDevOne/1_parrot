@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import Link from "next/link";
@@ -11,12 +11,15 @@ import { cartService, EE } from "@/machines/cart_machine";
 import formatPrice from "@/util/formatPrice";
 
 import { unsplashTemplate } from "@/lib/prisma/seed-helpers";
-import { FALLBACK_PHOTO } from "@/constants/index";
+// import { FALLBACK_PHOTO } from "@/constants/index";
+
 import type { PropsI } from "@/pages/index";
 
 interface ProductPropsI {
   product: PropsI["products"][0];
 }
+
+const FALLBACK_PHOTO = `/images/blured.svg`;
 
 const Product: FC<ProductPropsI> = ({ product }) => {
   const basePath = "/product/";
@@ -27,6 +30,19 @@ const Product: FC<ProductPropsI> = ({ product }) => {
   const productIsInCart = cartState.context.cart[product.id] !== undefined;
 
   const { modify_disabled } = cartState.context;
+
+  const [canBlurStop, setCanBlurStop] = useState<boolean>(false);
+
+  useEffect(() => {
+    setCanBlurStop(true);
+    console.log("unblured");
+
+    return () => {
+      setCanBlurStop(false);
+    };
+  }, [setCanBlurStop]);
+
+  console.log(canBlurStop);
 
   return (
     <Link href={`${basePath}${product.id}`}>
@@ -70,6 +86,8 @@ const Product: FC<ProductPropsI> = ({ product }) => {
           <div
             tw="hover:scale-150 duration-500 ease-in-out transform flex items-end justify-end h-56 w-full bg-cover "
             css={[
+              tw`blur-2xl`,
+
               css`
                 background-image: url(${product.image}),
                   /* url(${unsplashTemplate(product.name)})
@@ -78,6 +96,9 @@ const Product: FC<ProductPropsI> = ({ product }) => {
                   */ url(${FALLBACK_PHOTO});
               `,
             ]}
+            style={{
+              filter: canBlurStop ? "blur(0)" : "blur(40px)",
+            }}
           ></div>
           {!productIsInCart && product.countInStock > 0 && (
             <button
