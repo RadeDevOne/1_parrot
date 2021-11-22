@@ -21,22 +21,26 @@ const VerifyEmailInfoPage: NP = () => {
 
   return (
     <section
-      css={css`
-        padding-top: 10vh;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        align-content: center;
-        & div.email-field {
-          margin-top: 10vh;
+      css={[
+        tw`dark:text-gray-200 text-gray-800`,
+
+        css`
+          padding-top: 10vh;
+          width: 100%;
           display: flex;
-          justify-content: center;
-        }
-        & button {
-          margin-top: 8vh;
-        }
-      `}
+          flex-direction: column;
+          align-items: center;
+          align-content: center;
+          & div.email-field {
+            margin-top: 10vh;
+            display: flex;
+            justify-content: center;
+          }
+          & button {
+            margin-top: 8vh;
+          }
+        `,
+      ]}
     >
       <h2>Check your email.</h2>
       <h3>A sign in link has been sent to your email address.</h3>
