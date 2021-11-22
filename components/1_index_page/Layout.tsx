@@ -8,6 +8,8 @@ import Products from "../products/Products";
 import SeeMoreProducts from "../navigation/SeeMoreProducts";
 import AddedToCart from "../notification/AddedToCart";
 
+//
+//
 import Carousel from "../Carousel";
 
 const Layout: FC<PropsI> = ({
