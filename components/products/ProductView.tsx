@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 
 import { useActor } from "@xstate/react";
@@ -35,6 +35,8 @@ interface PropsI {
 const ProductView: FC<PropsI> = ({ product, favorite }) => {
   const [cartState, dispatch] = useActor(cartService);
 
+  const [canBlurStop, setCanBlurStop] = useState<boolean>(false);
+
   const { data } = useSession();
 
   const [__, disp] = useActor(headerNCartService);
@@ -52,6 +54,12 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
   const [productCount, setProductCount] = useState<number>(1);
 
   const [outOfBoundsUp, setOutOfBoundsUp] = useState<boolean>(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCanBlurStop(true);
+    }, 5);
+  }, [setCanBlurStop]);
 
   if (product === null) {
     return null;
@@ -90,7 +98,10 @@ const ProductView: FC<PropsI> = ({ product, favorite }) => {
     <Fragment>
       <div tw="w-full md:flex md:items-center mt-14 md:px-5">
         <div tw="align-self[flex-start] mt-8 w-full h-72 md:w-1/2 lg:h-96">
-          <div tw="h-full mx-1.5">
+          <div
+            tw="h-full mx-1.5 blur-2xl transition-all transition-duration[1s]"
+            style={{ filter: canBlurStop ? "blur(0)" : "blur(40px)" }}
+          >
             <img
               tw="h-full w-full rounded-md object-cover max-w-lg mx-auto"
               src={!imageErrored ? image : FALLBACK_PHOTO}

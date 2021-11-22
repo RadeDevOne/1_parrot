@@ -34,11 +34,15 @@ const Product: FC<ProductPropsI> = ({ product }) => {
   const [canBlurStop, setCanBlurStop] = useState<boolean>(false);
 
   useEffect(() => {
-    setCanBlurStop(true);
+    setTimeout(() => {
+      setCanBlurStop(true);
+    }, 50);
     console.log("unblured");
 
     return () => {
-      setCanBlurStop(false);
+      setTimeout(() => {
+        setCanBlurStop(false);
+      });
     };
   }, [setCanBlurStop]);
 
