@@ -15,6 +15,7 @@
     "dev": "next dev",
     "dd": "yarn postgres:dev && yarn redis:dev && yarn p:push:dev && yarn p:seed:dev && yarn dev",
     "d": "yarn postgres:dev && yarn p:push:dev && yarn p:seed:dev && yarn dev",
+    "p": "yarn p:push:prod && yarn p:seed:prod",
     "build": "next build && yarn test",
     "test": "jest --watchAll --no-cache --verbose",
     "start": "next start",
