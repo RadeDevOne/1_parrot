@@ -27,9 +27,11 @@ const OrderList: FC<OrderListPropsI> = ({ fulfiledOrders, pendingOrders }) => {
       <div tw="px-1.5  width[fit-content] flex flex-col mx-auto items-center justify-center">
         <ul tw="flex flex-col mb-3">
           <li tw="ml-4">
-            <h4 tw="mb-4 light:text-gray-500 dark:text-gray-400 align-self[flex-start]">
-              Fulfilled Orders
-            </h4>
+            {fulfiledOrders.length !== 0 && (
+              <h4 tw="mb-4 light:text-gray-500 dark:text-gray-400 align-self[flex-start]">
+                Fulfilled Orders
+              </h4>
+            )}
           </li>
 
           {fulfiledOrders.map(({ id }) => {
@@ -61,9 +63,11 @@ const OrderList: FC<OrderListPropsI> = ({ fulfiledOrders, pendingOrders }) => {
         </ul>
         <ul tw="mb-3 flex flex-col">
           <li tw="ml-4">
-            <h4 tw="mb-4 light:text-gray-500 dark:text-gray-400 align-self[flex-start]">
-              Pending Orders
-            </h4>
+            {pendingOrders.length !== 0 && (
+              <h4 tw="mb-4 light:text-gray-500 dark:text-gray-400 align-self[flex-start]">
+                Pending Orders
+              </h4>
+            )}
           </li>
 
           {pendingOrders.map(({ id }) => {
