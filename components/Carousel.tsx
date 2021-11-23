@@ -42,7 +42,7 @@ const ImageItems: FC<{
 const Carousel: FC<{ items: PropsI["topRatedProducts"] }> = ({ items }) => {
   return (
     <Fragment>
-      <section tw="overflow-hidden height[0px] md:height[29rem] ">
+      <section tw="overflow-hidden height[0px] md:height[32rem] ">
         {/* Desktop */}
         <Splide
           options={{
@@ -52,7 +52,7 @@ const Carousel: FC<{ items: PropsI["topRatedProducts"] }> = ({ items }) => {
             pauseOnHover: false,
             resetProgress: false,
             arrows: "slider",
-            height: "27rem",
+            height: "31rem",
           }}
           hasSliderWrapper
           // hasAutoplayControls
@@ -61,7 +61,7 @@ const Carousel: FC<{ items: PropsI["topRatedProducts"] }> = ({ items }) => {
           <ImageItems items={items} />
         </Splide>
       </section>
-      <section tw="overflow-hidden height[18rem] md:height[0px]">
+      <section tw="overflow-hidden height[14rem] md:height[0px]">
         {/* Mobile */}
         <Splide
           options={{
@@ -71,7 +71,7 @@ const Carousel: FC<{ items: PropsI["topRatedProducts"] }> = ({ items }) => {
             pauseOnHover: false,
             resetProgress: false,
             arrows: "slider",
-            height: "16rem",
+            height: "13rem",
           }}
           hasSliderWrapper
           // hasAutoplayControls
