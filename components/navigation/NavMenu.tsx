@@ -135,7 +135,8 @@ const Nav: FC = () => {
           <div>
             <Link href="/">
               <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
-                <span>🤖 </span>
+                {/* eslint-disable-next-line */}
+                <span>🤖</span>
                 <span tw=" text-sm   md:display[inline] display[none]">
                   FancyRobotShop
                 </span>
