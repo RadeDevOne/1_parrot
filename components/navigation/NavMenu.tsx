@@ -134,14 +134,15 @@ const Nav: FC = () => {
         <div tw="flex items-center justify-between">
           <div>
             <Link href="/">
-              <Fragment>
-                <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300 md:display[inline] display[none]">
-                  🤖 <span tw=" text-sm">FancyRobotShop</span>
-                </a>
-                <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300 md:display[none] display[inline]">
-                  🤖 <span tw=" text-sm">FRshop</span>
-                </a>
-              </Fragment>
+              <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
+                <span>🤖 </span>
+                <span tw=" text-sm   md:display[inline] display[none]">
+                  FancyRobotShop
+                </span>
+                <span tw=" text-sm md:display[none] display[inline]">
+                  FRshop
+                </span>
+              </a>
             </Link>
           </div>
           <SpinnerPageLoading />
