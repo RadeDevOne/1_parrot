@@ -6,6 +6,23 @@ function parseProductNamesandImages() {
   // @ts-ignore
   for (let i = 0; i < prodsImz.length; i++) {
     // @ts-ignore
+    if (!prodsImz[i]) {
+      continue;
+    }
+    // @ts-ignore
+    if (!prodsImz[i].images) {
+      continue;
+    }
+    // @ts-ignore
+    if (!prodsImz[i].images[0]) {
+      continue;
+    }
+    // @ts-ignore
+    if (!prodsImz[i].images[0].urls) {
+      continue;
+    }
+
+    // @ts-ignore
     const images = prodsImz[i].images;
     const imLength = images.length as number;
     const randomIndex = Math.round(Math.random() * (imLength - 6));
