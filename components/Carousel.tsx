@@ -42,7 +42,7 @@ const ImageItems: FC<{
 const Carousel: FC<{ items: PropsI["topRatedProducts"] }> = ({ items }) => {
   return (
     <Fragment>
-      <section tw="overflow-hidden height[0px] md:height[35rem]">
+      <section tw="overflow-hidden height[0px] md:height[29rem] ">
         {/* Desktop */}
         <Splide
           options={{
@@ -52,7 +52,7 @@ const Carousel: FC<{ items: PropsI["topRatedProducts"] }> = ({ items }) => {
             pauseOnHover: false,
             resetProgress: false,
             arrows: "slider",
-            height: "32rem",
+            height: "27rem",
           }}
           hasSliderWrapper
           // hasAutoplayControls
