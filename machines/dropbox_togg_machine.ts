@@ -108,5 +108,5 @@ export const dropboxToggService = interpret(dropboxToggMachine);
 dropboxToggService.onTransition((state, event) => {
   //
   // console.log({ ctx: state.context });
-  console.log("TRANSITION");
+  // console.log("TRANSITION");
 });

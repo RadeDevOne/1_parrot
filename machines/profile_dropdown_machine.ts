@@ -91,5 +91,5 @@ const profileDropdownMachine = createMachine<
 export const profileDropdownService = interpret(profileDropdownMachine);
 
 profileDropdownService.onTransition((state, event) => {
-  console.log("TRANSITION");
+  // console.log("TRANSITION");
 });
