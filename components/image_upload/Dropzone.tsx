@@ -13,7 +13,7 @@ interface PropsI {
 }
 
 const Dropzone: FC<PropsI> = ({ profileId }) => {
-  console.log({ profileId });
+  // console.log({ profileId });
 
   const [
     {
@@ -31,7 +31,7 @@ const Dropzone: FC<PropsI> = ({ profileId }) => {
   const isDark = theme === "dark";
 
   const handleReq = async (fi: File) => {
-    console.log({ file: fi });
+    // console.log({ file: fi });
 
     const allowedFormats = ["jpg", "jpeg", "png"];
 
@@ -103,7 +103,7 @@ const Dropzone: FC<PropsI> = ({ profileId }) => {
 
   // console.log({ isDark });
 
-  console.log({ file });
+  // console.log({ file });
 
   return (
     // <section css={[tw``]}>

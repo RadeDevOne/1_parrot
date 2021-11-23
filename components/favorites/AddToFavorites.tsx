@@ -139,7 +139,7 @@ const AddToFavorites: FC<PropsI> = ({ favorite, productId, productName }) => {
 
             addOrRemoveFavorite("post");
 
-            console.log("add to favs");
+            // console.log("add to favs");
           }}
         >
           <svg

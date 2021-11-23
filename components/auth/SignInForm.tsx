@@ -221,7 +221,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
         return;
       }
 
-      console.log("submit");
+      // console.log("submit");
 
       setEmailReqStatus("pending");
       // return;
@@ -230,7 +230,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
         // TRY SIGNING IN
         const resp = await handleSignin("email", { email });
         handleHamburgerClose();
-        console.log({ resp });
+        // console.log({ resp });
       } catch (err) {
         setEmailReqStatus("idle");
         //

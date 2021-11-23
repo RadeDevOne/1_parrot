@@ -31,7 +31,7 @@ const Summary: FC<{ order: PropsI["order"] }> = ({ order }) => {
 
   const { push: routerPush } = useRouter();
 
-  console.log({ order });
+  // console.log({ order });
 
   if (!order) {
     return null;

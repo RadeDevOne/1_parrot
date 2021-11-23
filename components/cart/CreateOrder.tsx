@@ -135,11 +135,11 @@ const CreateOrder: FC<{ foo?: "bar" }> = ({}) => {
     //
   }, [context, setReqStatus, sessData, status, disp, dispatch, rouPush]);
 
-  console.log(
+  /* console.log(
     context.modify_disabled,
     val === fsee.header_visible,
     reqStatus === "pending"
-  );
+  ); */
 
   return (
     <button

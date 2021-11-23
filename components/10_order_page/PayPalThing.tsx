@@ -48,7 +48,7 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
 
     if (!canLoad) return;
 
-    console.log("script loaded");
+    // console.log("script loaded");
     loadPayPalScript();
     setCanLoad(false);
   }, [orderIsPayed, loadPayPalScript, setCanLoad, canLoad]);
@@ -80,7 +80,7 @@ const PayPalThing: FC<PayPalThingPropsType> = ({ order, sumasAndPrices }) => {
                   // LIKE YOU SEE THAT IS PAYPAL THING
                   // SINCE WE ARE NOT USING PRISMA
                   createOrder={async (__, actions) => {
-                    console.log("CREATING PAYPAL ORDER");
+                    // console.log("CREATING PAYPAL ORDER");
 
                     const paypalOrderId = await actions.order.create({
                       purchase_units: [

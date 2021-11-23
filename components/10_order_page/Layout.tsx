@@ -32,7 +32,7 @@ const Layout: FC<PropsI> = (props) => {
       ? refetchedOrderAndPaymentRecord["order"]
       : null) || initialOrder;
 
-  console.log({ refetchedOrderAndPaymentRecord, initialOrder, order });
+  // console.log({ refetchedOrderAndPaymentRecord, initialOrder, order });
 
   const status = order.status;
 

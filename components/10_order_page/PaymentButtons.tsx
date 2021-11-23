@@ -26,8 +26,8 @@ const PaymentButtons: FC<PropsI> = ({
       ? refetchedOrderAndPaymentRecord["order"]
       : null) || initialOrder;
 
-  console.log({ order });
-  console.log({ initialOrder });
+  // console.log({ order });
+  // console.log({ initialOrder });
 
   return (
     <>

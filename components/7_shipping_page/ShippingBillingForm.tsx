@@ -129,7 +129,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
         { status: orderStatus }
       );
 
-      console.log({ updatedOrder: order });
+      // console.log({ updatedOrder: order });
 
       if (
         updatedProfile.nick &&
@@ -197,7 +197,7 @@ const ShippingBillingForm: FC<{ initialProfilleInfo: Profile }> = ({
     regionOrState,
   } = bodyData; */
 
-  console.log({ bodyData });
+  // console.log({ bodyData });
 
   const handleBodyDataChange = (name: string, value: string) =>
     setBodyData((prev) => ({ ...prev, [name]: value }));

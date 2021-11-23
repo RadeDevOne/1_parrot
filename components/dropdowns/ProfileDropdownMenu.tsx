@@ -81,7 +81,7 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
     };
   }, []);
 
-  console.log({ shiftPressed });
+  // console.log({ shiftPressed });
 
   return (
     <Fragment>
@@ -93,7 +93,7 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
           onKeyDown={(e) => {
             // console.log("esc");
 
-            console.log(e.key);
+            // console.log(e.key);
 
             if (e.key === "Escape") {
               dispatch({
@@ -224,7 +224,7 @@ const ProfileDropdownMenu: FC<PropsI> = ({ email, id, image, name, role }) => {
 
               // console.log({ e });
 
-              console.log({ shiftPressed });
+              // console.log({ shiftPressed });
 
               if (shiftPressed) return;
 

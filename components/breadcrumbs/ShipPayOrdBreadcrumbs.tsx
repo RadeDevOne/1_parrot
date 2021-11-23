@@ -90,7 +90,7 @@ const ShipmentPaymentOrderBreadcrumbs: FC<PropsI> = ({ orderId }) => {
     paintIndexes.push(i);
   });
 
-  console.log({ paintIndexes });
+  // console.log({ paintIndexes });
 
   return (
     <section

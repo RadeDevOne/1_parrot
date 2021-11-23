@@ -27,7 +27,7 @@ const Summary: FC<PropsI> = ({ order }) => {
 
   const { push: routerPush } = useRouter();
 
-  console.log({ order });
+  // console.log({ order });
 
   const handlePlacingAnOrder = useCallback(async () => {
     if (!order) return;

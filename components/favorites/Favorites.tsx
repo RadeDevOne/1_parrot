@@ -33,7 +33,7 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
   const [reqStatus, setReqStatus] = useState<"idle" | "pending">("idle");
 
   const removeFavorite = async (favId: string) => {
-    console.log(favorites.length);
+    // console.log(favorites.length);
 
     if (favorites.length === 0) {
       return;
@@ -51,7 +51,7 @@ const Favorites: FC<PropsI> = ({ favorites: initialFavorites }) => {
       setReqStatus("idle");
     } catch (err) {
       // @ts-ignore
-      console.log(err.message);
+      // console.log(err.message);
       console.error(err);
 
       setReqStatus("idle");

@@ -42,7 +42,7 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
       );
 
       const updatedOrder = d as Order;
-      console.log({ updatedOrder });
+      // console.log({ updatedOrder });
 
       //
       //
@@ -80,7 +80,7 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
     display: string;
   }[] = [];
 
-  console.log({ paymentProvider });
+  // console.log({ paymentProvider });
 
   return (
     <div
@@ -228,11 +228,11 @@ const PickPayment: FC<{ order: Order }> = ({ order }) => {
                   name={value}
                   value={value}
                   onChange={(e) => {
-                    console.log({ e });
+                    // console.log({ e });
                     e.target.checked = true;
                   }}
                   onBlur={(e) => {
-                    console.log({ e });
+                    // console.log({ e });
                     e.target.checked = false;
                   }}
                 />

@@ -62,7 +62,7 @@ const Alert: FC<PropsI> = ({
             opacity: vis ? 1 : 0,
           }}
           onAnimationComplete={() => {
-            console.log("ended");
+            // console.log("ended");
             setTimeout(() => {
               setVis(false);
             }, 4000);
