@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import Link from "next/link";
@@ -134,9 +134,14 @@ const Nav: FC = () => {
         <div tw="flex items-center justify-between">
           <div>
             <Link href="/">
-              <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300">
-                Brand
-              </a>
+              <Fragment>
+                <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300 md:display[inline] display[none]">
+                  🤖 <span tw=" text-sm">FancyRobotShop</span>
+                </a>
+                <a tw="ml-2 text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl hover:text-gray-700 dark:hover:text-gray-300 md:display[none] display[inline]">
+                  🤖 <span tw=" text-sm">FRshop</span>
+                </a>
+              </Fragment>
             </Link>
           </div>
           <SpinnerPageLoading />
