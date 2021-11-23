@@ -44,7 +44,7 @@ const LeaveAReview: FC<{
         data: { review },
       } = await axios.post(`/api/review/${productId}`, body);
 
-      console.log({ review });
+      // console.log({ review });
       setReqStatus("complete");
     } catch (err) {
       console.error(err);
@@ -52,9 +52,9 @@ const LeaveAReview: FC<{
     }
   }, [reviewText, markColorIndex, setReqStatus]);
 
-  console.log({ markColorIndex });
+  /* console.log({ markColorIndex });
   console.log({ reviewText });
-  console.log({ productId });
+  console.log({ productId }); */
 
   return (
     // <section css={[tw`width[86vw] mx-auto md:width[420px] mt-8 mb-4`]}>

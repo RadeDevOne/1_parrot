@@ -37,7 +37,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
     setTimeout(() => {
       setCanBlurStop(true);
     }, 50);
-    console.log("unblured");
+    // console.log("unblured");
 
     return () => {
       setTimeout(() => {
@@ -46,7 +46,7 @@ const Product: FC<ProductPropsI> = ({ product }) => {
     };
   }, [setCanBlurStop]);
 
-  console.log(canBlurStop);
+  // console.log(canBlurStop);
 
   return (
     <Link href={`${basePath}${product.id}`}>

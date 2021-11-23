@@ -116,9 +116,9 @@ const ProfileView: FC<PropsI> = ({
     regionOrState: profile.regionOrState || "",
   });
 
-  console.log({ sessionData });
+  // console.log({ sessionData });
 
-  console.log({ bodyData });
+  // console.log({ bodyData });
 
   const [bodyDataChanged, setBodyDataChanged] = useState<boolean>(false);
 
@@ -229,10 +229,10 @@ const ProfileView: FC<PropsI> = ({
     } catch (err) {
       console.error(err);
       //
-      console.log({
+      /* console.log({
         // @ts-ignore
         message: err.message,
-      });
+      }); */
 
       setTimeout(() => {
         setReqStatus("idle");
@@ -477,7 +477,7 @@ const ProfileView: FC<PropsI> = ({
                 e.preventDefault();
 
                 handleRequest().then(() => {
-                  console.log("something");
+                  // console.log("something");
                   setBodyDataChanged(false);
                 });
               }}
