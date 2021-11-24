@@ -70,7 +70,7 @@ const Search: FC = () => {
   return (
     <>
       <button
-        className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+        tw="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -78,53 +78,97 @@ const Search: FC = () => {
       </button>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+          <div tw="bg-opacity-40 dark:bg-gray-800 bg-gray-400 justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div tw="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+
+              <div tw="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">Modal Title</h3>
+                <div tw="flex items-start justify-between p-5 border-b border-solid border-blue-200 rounded-t">
+                  <h3 tw="text-3xl font-semibold">Search for product</h3>
+                  <div tw="absolute -right-9 -top-7 flex items-center justify-end p-6 rounded-b">
+                    <button
+                      tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                      onClick={() => setShowModal(false)}
+                    >
+                      x
+                    </button>
+                  </div>
                   <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                    <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
                     </span>
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They{"'"}re slowed down by their perception
-                    of themselves. If you{"'"}re taught you can’t do anything,
-                    you won’t do anything. I was taught I could do everything.
-                  </p>
-                </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                  <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Save Changes
-                  </button>
-                </div>
+                <section tw="relative w-full max-w-md px-5 py-4 mx-auto rounded-md">
+                  <div tw="relative">
+                    <span tw="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <svg
+                        tw="w-5 h-5 text-gray-400"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        ></path>
+                      </svg>
+                    </span>
+
+                    <input
+                      type="text"
+                      tw="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                      placeholder="Search"
+                    />
+                  </div>
+
+                  <div tw="absolute inset-x-0 px-6 py-3 mx-5 mt-4 overflow-y-auto bg-white border border-gray-300 rounded-md max-h-72 dark:bg-gray-800 dark:border-transparent">
+                    <a href="#" tw="block py-1">
+                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
+                        Software engineer
+                      </h3>
+                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        02/04/2020
+                      </p>
+                    </a>
+                    <a href="#" tw="block py-1">
+                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
+                        Software engineer
+                      </h3>
+                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        02/04/2020
+                      </p>
+                    </a>
+                    <a href="#" tw="block py-1">
+                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
+                        Software engineer
+                      </h3>
+                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        02/04/2020
+                      </p>
+                    </a>
+                    <a href="#" tw="block py-1">
+                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
+                        Software engineer
+                      </h3>
+                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        02/04/2020
+                      </p>
+                    </a>
+                  </div>
+                </section>
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          <div tw="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>

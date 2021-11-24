@@ -12,6 +12,7 @@ import { headerNCartService } from "@/machines/header_n_cart_machine";
 import PageLoadingIndiccator from "./loaders/PageLoadingIndicator";
 import NavMenu from "./navigation/NavMenu";
 import ShoppingCart from "./cart/ShoppingCart";
+import Search from "./Search";
 
 import { cartService, EE, fse } from "@/machines/cart_machine";
 
@@ -50,6 +51,7 @@ const Header: FC = ({ children }) => {
         <ShoppingCart />
         {children}
       </header>
+      <Search />
     </Fragment>
   );
 };
