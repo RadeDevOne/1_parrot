@@ -18,12 +18,14 @@ import usePageLoadingService from "@/hooks/usePageLoadiingService";
 import useCartService from "@/hooks/useCartService";
 import useHamburgerMachine from "@/hooks/useHamburgerMachine";
 import useProfileDropdownMachine from "@/hooks/useProfileDropdownService";
+import useSearchToggMachine from "@/hooks/useSearchToggMachine";
 
 function MyApp({ Component, pageProps }: AppProps) {
   usePageLoadingService();
   useHamburgerMachine();
   useProfileDropdownMachine();
   useCartService();
+  useSearchToggMachine();
 
   const { session } = pageProps;
 

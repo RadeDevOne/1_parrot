@@ -2,24 +2,34 @@
 import type { FC } from "react";
 import { useEffect, useState, useCallback, Fragment } from "react";
 import tw, { css, styled, theme } from "twin.macro";
-
 import { useRouter } from "next/router";
-
 import axios from "axios";
+import { useActor } from "@xstate/react";
+import { EE, searchToggService, fse } from "@/machines/search_togg_machine";
 
 const Search: FC = () => {
+  const [
+    {
+      context: { open },
+    },
+    dispatch,
+  ] = useActor(searchToggService);
   const { push: rPush } = useRouter();
 
   const [slugs, setSlugs] = useState<{ value: string; label: string }[]>([]);
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpen(true);
+    dispatch({
+      type: EE.TOGGLE,
+    });
   };
 
   const handleClose = () => {
-    setOpen(false);
+    dispatch({
+      type: EE.TOGGLE,
+    });
   };
 
   useEffect(() => {
@@ -28,7 +38,9 @@ const Search: FC = () => {
         if (e.ctrlKey) {
           if (e.key === "k" || e.key === "K") {
             e.preventDefault();
-            setOpen(true);
+            dispatch({
+              type: EE.TOGGLE,
+            });
           }
         }
       };
@@ -37,7 +49,7 @@ const Search: FC = () => {
     return () => {
       window.onkeydown = null;
     };
-  }, [setOpen]);
+  }, [dispatch]);
 
   const [searchReqStatus, setSearchReqStatus] = useState<
     "idle" | "pending" | "failed"
@@ -66,17 +78,17 @@ const Search: FC = () => {
     [setSearchReqStatus, setSlugs]
   );
 
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <button
+      {/* <button
         tw="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
         type="button"
         onClick={() => setShowModal(true)}
       >
         Open regular modal
-      </button>
-      {showModal ? (
+      </button> */}
+      {open ? (
         <>
           <div tw="bg-opacity-40 dark:bg-gray-800 bg-gray-400 justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div tw="relative w-auto my-6 mx-auto max-w-3xl">
@@ -90,7 +102,11 @@ const Search: FC = () => {
                     <button
                       tw="text-pink-400 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
-                      onClick={() => setShowModal(false)}
+                      onClick={() =>
+                        dispatch({
+                          type: EE.TOGGLE,
+                        })
+                      }
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +126,11 @@ const Search: FC = () => {
                   </div>
                   <button
                     tw="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
+                    onClick={() =>
+                      dispatch({
+                        type: EE.TOGGLE,
+                      })
+                    }
                   >
                     <span tw="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×

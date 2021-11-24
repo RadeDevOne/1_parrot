@@ -1,10 +1,20 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
+import { useActor } from "@xstate/react";
+import { EE, searchToggService, fse } from "@/machines/search_togg_machine";
 
 const SearchMobileToggle: FC = () => {
+  const [{}, dispatch] = useActor(searchToggService);
   return (
-    <button tw="absolute right-2 top[80px] dark:text-gray-100 text-green-900 md:right-12 sm:right-12">
+    <button
+      onClick={() => {
+        dispatch({
+          type: EE.TOGGLE,
+        });
+      }}
+      tw="absolute right-2 top[80px] dark:text-gray-100 text-green-900 md:right-12 sm:right-12"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         tw="h-8 w-8"

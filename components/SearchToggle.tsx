@@ -1,15 +1,23 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
+import { useActor } from "@xstate/react";
+import { EE, searchToggService, fse } from "@/machines/search_togg_machine";
 
 const SearchToggle: FC = () => {
+  const [{}, dispatch] = useActor(searchToggService);
+
   return (
     <section
       onClick={() => {
-        //
+        dispatch({
+          type: EE.TOGGLE,
+        });
       }}
       onKeyDown={() => {
-        //
+        dispatch({
+          type: EE.TOGGLE,
+        });
       }}
       aria-label="search button"
       // eslint-disable-next-line
