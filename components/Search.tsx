@@ -86,13 +86,26 @@ const Search: FC = () => {
                 {/*header*/}
                 <div tw="flex items-start justify-between p-5 border-b border-solid border-blue-200 rounded-t">
                   <h3 tw="text-3xl font-semibold">Search for product</h3>
-                  <div tw="absolute -right-9 -top-7 flex items-center justify-end p-6 rounded-b">
+                  <div tw="absolute -right-9 -top-6 flex items-center justify-end p-6 rounded-b">
                     <button
-                      tw="text-red-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      tw="text-pink-400 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
                       onClick={() => setShowModal(false)}
                     >
-                      x
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        tw="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
                     </button>
                   </div>
                   <button

@@ -24,6 +24,8 @@ import SignOutButton from "../auth/SignOutButton";
 import SignInButton from "../auth/SignInButton";
 import ProfileDropdownButton from "../dropdowns/ProfileDropdownButton";
 import MobileProfileButton from "../profile/MobileProfileButton";
+import SearchToggle from "../SearchToggle";
+import SearchMobileToggle from "../SearchMobileToggle";
 
 import { consistantNavList } from "@/constants/index";
 
@@ -245,6 +247,8 @@ const Nav: FC = () => {
                 <Switcher />
               </div>
               {/*  )} */}
+              <SearchMobileToggle />
+
               <SignOutButton /* disableFocus */
                 disable={hamburgerState.value === fse.closed}
               />
@@ -263,7 +267,7 @@ const Nav: FC = () => {
               })}
             </motion.div>
           )}
-
+          <SearchToggle />
           <div
             css={css`
               & .theme-switcher {
@@ -283,6 +287,7 @@ const Nav: FC = () => {
                 </Link>
               );
             })}
+
             {!isProfileOrAdminPage && <ProfileDropdownButton />}
             {isProfileOrAdminPage && <SignOutButton />}
             <SignInButton />
