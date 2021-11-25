@@ -2,6 +2,7 @@
 import type { FC } from "react";
 import { useEffect, useState, useCallback, Fragment, createRef } from "react";
 import tw, { css, styled, theme } from "twin.macro";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useActor } from "@xstate/react";
@@ -74,12 +75,17 @@ const Search: FC = () => {
     "idle" | "pending" | "failed"
   >("idle");
 
+  const [currText, setCurrText] = useState<string>("");
+  console.log(currText);
   const sendSearchReq = useCallback(
     async (text: string) => {
+      setCurrText(text);
+      if (text === "") return;
+
       try {
         setSearchReqStatus("pending");
 
-        const { data } = await axios.get(`/api/products/search/${text}`);
+        const { data } = await axios.get(`/api/product/search/${text}`);
 
         setSlugs(data);
 
@@ -94,7 +100,7 @@ const Search: FC = () => {
         }, 3000);
       }
     },
-    [setSearchReqStatus, setSlugs]
+    [setSearchReqStatus, setSlugs, setCurrText]
   );
 
   // const [showModal, setShowModal] = useState(false);
@@ -177,6 +183,11 @@ const Search: FC = () => {
                     </span>
 
                     <input
+                      onChange={(e) => {
+                        // if (e.target.value === "") return;
+
+                        sendSearchReq(e.target.value);
+                      }}
                       ref={inputRef}
                       type="text"
                       tw="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -184,39 +195,41 @@ const Search: FC = () => {
                     />
                   </div>
 
-                  <div tw="absolute inset-x-0 px-6 py-3 mx-5 mt-4 overflow-y-auto bg-white border border-gray-300 rounded-md max-h-72 dark:bg-gray-800 dark:border-transparent">
-                    <a href="#" tw="block py-1">
-                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
-                        Software engineer
-                      </h3>
-                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <div
+                    css={[
+                      currText === "" ? tw`visibility[hidden]` : tw``,
+                      tw`absolute inset-x-0 px-6 py-3 mx-5 mt-4 overflow-y-auto bg-white border border-gray-300 rounded-md max-h-72 dark:bg-gray-800 dark:border-transparent`,
+                    ]}
+                  >
+                    {slugs.map(({ label, value }, i) => {
+                      return (
+                        <button
+                          key={label + i}
+                          onClick={() => {
+                            rPush(`/product/${value}`);
+
+                            dispatch({ type: EE.TOGGLE });
+                          }}
+                          tw="block py-1 cursor-pointer user-select[none]"
+                        >
+                          {/* <Link key={label + i} href={`/product/${value}`}> */}
+                          {/* <a
+                            tw="block py-1 cursor-pointer user-select[none]"
+                            // eslint-disable-next-line
+                            tabIndex={0}
+                          > */}
+
+                          <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
+                            {label}
+                          </h3>
+                          {/* <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
                         02/04/2020
-                      </p>
-                    </a>
-                    <a href="#" tw="block py-1">
-                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
-                        Software engineer
-                      </h3>
-                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        02/04/2020
-                      </p>
-                    </a>
-                    <a href="#" tw="block py-1">
-                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
-                        Software engineer
-                      </h3>
-                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        02/04/2020
-                      </p>
-                    </a>
-                    <a href="#" tw="block py-1">
-                      <h3 tw="font-medium text-gray-700 dark:text-gray-100 hover:underline">
-                        Software engineer
-                      </h3>
-                      <p tw="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        02/04/2020
-                      </p>
-                    </a>
+                      </p> */}
+                          {/* </a> */}
+                          {/* </Link> */}
+                        </button>
+                      );
+                    })}
                   </div>
                 </section>
               </div>
