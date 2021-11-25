@@ -294,7 +294,7 @@ const Nav: FC = () => {
           </div>
           <div
             className="theme-switcher"
-            tw="display[none] md:display[block] mr-2"
+            tw="display[none] md:display[block] mr-2 ml-4"
           >
             <Switcher largeScreen />
           </div>

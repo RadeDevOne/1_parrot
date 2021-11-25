@@ -20,7 +20,7 @@ const SearchMobileToggle: FC = () => {
               type: EE.TOGGLE,
             });
           }}
-          tw="absolute right-2 top[80px] dark:text-gray-100 text-green-900 md:right-12 sm:right-12"
+          tw="absolute right-2 top[80px] dark:text-gray-100 text-gray-700 md:right-12 sm:right-12"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,7 @@ import { useActor } from "@xstate/react";
 import { EE, searchToggService, fse } from "@/machines/search_togg_machine";
 
 const Search: FC = () => {
-  const inputRef = createRef<HTMLInputElement>(null);
+  const inputRef = createRef<HTMLInputElement>();
 
   const [
     {
@@ -118,9 +118,9 @@ const Search: FC = () => {
                 {/*header*/}
                 <div tw="flex items-start justify-between p-5 border-b border-solid border-blue-200 rounded-t">
                   <h3 tw="text-3xl font-semibold">Search for product</h3>
-                  <div tw="absolute -right-9 -top-6 flex items-center justify-end p-6 rounded-b">
+                  <div tw="absolute -right-10 -top-5 flex items-center justify-end p-6 rounded-b">
                     <button
-                      tw="text-pink-400 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      tw="text-pink-500 bg-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                       type="button"
                       onClick={() =>
                         dispatch({
