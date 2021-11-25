@@ -27,7 +27,8 @@ handler.get(async (req, res) => {
     // console.log({ slugs, text });
     console.log({ text });
 
-    return res.status(200).json(slugs);
+    // return res.status(200).json(slugs);
+    return res.status(200).json({ text });
   } catch (err) {
     console.error(err);
 
