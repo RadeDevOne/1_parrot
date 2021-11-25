@@ -46,6 +46,7 @@ const Search: FC = () => {
 
   const [currText, setCurrText] = useState<string>("");
   // console.log(currText);
+  //
 
   useEffect(() => {
     if (stateVal === fse.closed) setCurrText("");
