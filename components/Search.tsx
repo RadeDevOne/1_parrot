@@ -34,8 +34,10 @@ const Search: FC = () => {
 
   useEffect(() => {
     if (window) {
+      if (window.onkeydown) return;
+
       window.onkeydown = (e) => {
-        if (e.ctrlKey) {
+        if (e.ctrlKey && !open) {
           if (e.key === "k" || e.key === "K") {
             e.preventDefault();
             dispatch({
@@ -43,13 +45,20 @@ const Search: FC = () => {
             });
           }
         }
+
+        if (e.key === "Escape" && open) {
+          e.preventDefault();
+          dispatch({
+            type: EE.TOGGLE,
+          });
+        }
       };
     }
 
     return () => {
       window.onkeydown = null;
     };
-  }, [dispatch]);
+  }, [dispatch, open]);
 
   const [searchReqStatus, setSearchReqStatus] = useState<
     "idle" | "pending" | "failed"
