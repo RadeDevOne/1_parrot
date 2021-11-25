@@ -14,6 +14,7 @@ const Search: FC = () => {
   const [
     {
       context: { open },
+      value: stateVal,
     },
     dispatch,
   ] = useActor(searchToggService);
@@ -23,7 +24,7 @@ const Search: FC = () => {
 
   // const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
+  /* const handleOpen = () => {
     dispatch({
       type: EE.TOGGLE,
     });
@@ -33,7 +34,7 @@ const Search: FC = () => {
     dispatch({
       type: EE.TOGGLE,
     });
-  };
+  }; */
 
   useEffect(() => {
     if (open && inputRef.current) {
@@ -42,6 +43,13 @@ const Search: FC = () => {
       inputRef.current.focus();
     }
   }, [open, inputRef]);
+
+  const [currText, setCurrText] = useState<string>("");
+  // console.log(currText);
+
+  useEffect(() => {
+    if (stateVal === fse.closed) setCurrText("");
+  }, [stateVal, setCurrText]);
 
   useEffect(() => {
     if (window) {
@@ -62,6 +70,7 @@ const Search: FC = () => {
           dispatch({
             type: EE.TOGGLE,
           });
+          setCurrText("");
         }
       };
     }
@@ -69,39 +78,45 @@ const Search: FC = () => {
     return () => {
       window.onkeydown = null;
     };
-  }, [dispatch, open]);
+  }, [dispatch, open, setCurrText]);
 
   const [searchReqStatus, setSearchReqStatus] = useState<
     "idle" | "pending" | "failed"
   >("idle");
 
-  const [currText, setCurrText] = useState<string>("");
-  console.log(currText);
-  const sendSearchReq = useCallback(
-    async (text: string) => {
-      setCurrText(text);
-      if (text === "") return;
+  const sendSearchReq = useCallback(async () => {
+    if (currText === "") return;
 
-      try {
-        setSearchReqStatus("pending");
+    try {
+      setSearchReqStatus("pending");
 
-        const { data } = await axios.get(`/api/product/search/${text}`);
+      const { data } = await axios.get(`/api/product/search/${currText}`);
 
-        setSlugs(data);
+      // setCurrText("");
 
+      setSlugs(data);
+
+      setSearchReqStatus("idle");
+    } catch (error) {
+      console.error(error);
+
+      setCurrText("");
+      setSearchReqStatus("failed");
+
+      setTimeout(() => {
         setSearchReqStatus("idle");
-      } catch (error) {
-        console.error(error);
+      }, 3000);
+    }
+  }, [setSearchReqStatus, setSlugs, setCurrText, currText]);
 
-        setSearchReqStatus("failed");
-
-        setTimeout(() => {
-          setSearchReqStatus("idle");
-        }, 3000);
-      }
-    },
-    [setSearchReqStatus, setSlugs, setCurrText]
-  );
+  // WE WILL SEND REQUEST WITH EFFECT
+  useEffect(() => {
+    //
+    //
+    sendSearchReq();
+    //
+    //
+  }, [sendSearchReq]);
 
   // const [showModal, setShowModal] = useState(false);
   return (
@@ -183,10 +198,10 @@ const Search: FC = () => {
                     </span>
 
                     <input
+                      value={currText}
                       onChange={(e) => {
-                        // if (e.target.value === "") return;
-
-                        sendSearchReq(e.target.value);
+                        if (e.target.value === "") return;
+                        setCurrText(e.target.value);
                       }}
                       ref={inputRef}
                       type="text"
@@ -208,6 +223,7 @@ const Search: FC = () => {
                           onClick={() => {
                             rPush(`/product/${value}`);
 
+                            setCurrText("");
                             dispatch({ type: EE.TOGGLE });
                           }}
                           tw="block py-1 cursor-pointer user-select[none]"
