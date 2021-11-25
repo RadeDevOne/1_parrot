@@ -24,7 +24,7 @@ handler.get(async (req, res) => {
       })
     ).map((prod) => ({ value: prod.id, label: prod.name }));
 
-    console.log({ slugs, text });
+    // console.log({ slugs, text });
     // console.log({ text });
 
     return res.status(200).json(slugs);
