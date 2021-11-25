@@ -9,7 +9,7 @@ handler.get(async (req, res) => {
   const text = req.query.text as string;
 
   try {
-    /* const slugs = (
+    const slugs = (
       await prisma.product.findMany({
         where: {
           name: {
@@ -19,16 +19,16 @@ handler.get(async (req, res) => {
         },
         select: {
           name: true,
-          id: true
+          id: true,
         },
       })
     ).map((prod) => ({ value: prod.id, label: prod.name }));
- */
-    // console.log({ slugs, text });
-    console.log({ text });
 
-    // return res.status(200).json(slugs);
-    return res.status(200).json({ text });
+    console.log({ slugs, text });
+    // console.log({ text });
+
+    return res.status(200).json(slugs);
+    // return res.status(200).json({ text });
   } catch (err) {
     console.error(err);
 
