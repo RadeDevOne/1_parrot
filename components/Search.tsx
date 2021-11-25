@@ -1,6 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 1 */
 import type { FC } from "react";
-import { useEffect, useState, useCallback, Fragment } from "react";
+import { useEffect, useState, useCallback, Fragment, createRef } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -8,6 +8,8 @@ import { useActor } from "@xstate/react";
 import { EE, searchToggService, fse } from "@/machines/search_togg_machine";
 
 const Search: FC = () => {
+  const inputRef = createRef<HTMLInputElement>(null);
+
   const [
     {
       context: { open },
@@ -31,6 +33,14 @@ const Search: FC = () => {
       type: EE.TOGGLE,
     });
   };
+
+  useEffect(() => {
+    if (open && inputRef.current) {
+      // FOCUS THE INPUT
+
+      inputRef.current.focus();
+    }
+  }, [open, inputRef]);
 
   useEffect(() => {
     if (window) {
@@ -97,6 +107,7 @@ const Search: FC = () => {
       >
         Open regular modal
       </button> */}
+
       {open ? (
         <>
           <div tw="bg-opacity-40 dark:bg-gray-800 bg-gray-400 justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -166,6 +177,7 @@ const Search: FC = () => {
                     </span>
 
                     <input
+                      ref={inputRef}
                       type="text"
                       tw="w-full py-3 pl-10 pr-4 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                       placeholder="Search"
