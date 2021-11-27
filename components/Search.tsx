@@ -18,7 +18,9 @@ const Search: FC = () => {
     },
     dispatch,
   ] = useActor(searchToggService);
-  const { push: rPush } = useRouter();
+  const { push: rPush, asPath } = useRouter();
+
+  const containsOrder = asPath.includes("/order");
 
   const [slugs, setSlugs] = useState<{ value: string; label: string }[]>([]);
 
@@ -120,6 +122,11 @@ const Search: FC = () => {
   }, [sendSearchReq]);
 
   // const [showModal, setShowModal] = useState(false);
+
+  if (containsOrder) {
+    return null;
+  }
+
   return (
     <>
       {/* <button
