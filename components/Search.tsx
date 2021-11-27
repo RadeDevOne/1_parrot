@@ -20,7 +20,7 @@ const Search: FC = () => {
   ] = useActor(searchToggService);
   const { push: rPush, asPath } = useRouter();
 
-  const containsOrder = asPath.includes("/order");
+  const containsOrder = asPath.includes("order/");
 
   const [slugs, setSlugs] = useState<{ value: string; label: string }[]>([]);
 

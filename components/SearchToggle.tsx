@@ -2,6 +2,7 @@
 import type { FC } from "react";
 import tw, { css, styled, theme } from "twin.macro";
 import { useActor } from "@xstate/react";
+import { useRouter } from "next/router";
 import { EE, searchToggService, fse } from "@/machines/search_togg_machine";
 
 const SearchToggle: FC = () => {
@@ -11,6 +12,10 @@ const SearchToggle: FC = () => {
     },
     dispatch,
   ] = useActor(searchToggService);
+  const { asPath } = useRouter();
+  const isOrder = asPath.includes("order/");
+
+  if (isOrder) return null;
 
   return (
     <>
