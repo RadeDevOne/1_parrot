@@ -3,7 +3,8 @@
 import type { NextPage as NP } from "next";
 
 const PageName: NP = () => {
-  return <div>🦉</div>;
+  // return <div>🦉</div>;
+  return null;
 };
 
 export default PageName;

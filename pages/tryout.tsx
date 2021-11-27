@@ -4,7 +4,8 @@ import type { NextPage as NP } from "next";
 
 const PageName: NP = () => {
   // eslint-disable-next-line
-  return <div>👾</div>;
+  // return <div>👾</div>;
+  return null;
 };
 
 export default PageName;
