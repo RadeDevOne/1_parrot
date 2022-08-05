@@ -137,9 +137,9 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
   const [googleReqStatus, setGoogleReqStatus] = useState<"idle" | "pending">(
     "idle"
   );
-  const [facebookReqStatus, setFacebookReqStatus] = useState<
-    "idle" | "pending"
-  >("idle");
+  // const [facebookReqStatus, setFacebookReqStatus] = useState<
+  //   "idle" | "pending"
+  // >("idle");
 
   const handleChange: ChangeEventHandler<
     // HTMLInputElement  | HTMLTextAreaElement
@@ -179,7 +179,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
     }
   };
   // FACEBOOK SIGNIN
-  const signinWithFacebook = async () => {
+  /* const signinWithFacebook = async () => {
     setFacebookReqStatus("pending");
     // return;
     try {
@@ -194,7 +194,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
       console.error(err);
     }
   };
-
+ */
   /* const 
 
   useEffect(() => {
@@ -204,9 +204,9 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
   const embd = emailReqStatus === "pending" ? true : false;
   const ghbd = githubReqStatus === "pending" ? true : false;
   const goobd = googleReqStatus === "pending" ? true : false;
-  const fabd = facebookReqStatus === "pending" ? true : false;
+  // const fabd = facebookReqStatus === "pending" ? true : false;
 
-  const buttonDisabled = ghbd || goobd || fabd || embd;
+  const buttonDisabled = ghbd || goobd /* || fabd */ || embd;
 
   // EMAIL SUMBIT
   const handleEmailSigninSubmit = useCallback(
@@ -306,7 +306,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                       Google{" "}
                     </SignInText>
                   </button>
-                  <button
+                  {/*  <button
                     disabled={buttonDisabled}
                     onClick={() => {
                       // console.log("button enabled");
@@ -323,7 +323,7 @@ const SignInForm: FC<PropsI> = ({ unauthPath }) => {
                     <SignInText pending={facebookReqStatus === "pending"}>
                       Facebook{" "}
                     </SignInText>
-                  </button>
+                  </button> */}
                 </div>
                 <hr tw="mt-6 border-b-2 border-gray-300" />
               </div>
